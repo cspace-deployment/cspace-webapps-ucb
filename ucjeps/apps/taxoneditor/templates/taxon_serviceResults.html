@@ -1,0 +1,64 @@
+{% spaceless %}
+{% load staticfiles %}
+<style>
+     .results.tr {padding: 2px 8px; }
+</style>
+<div class="results">
+
+    {% for taxon, taxon_prefix, results, itemcount in multipleresults %}
+        <hr/>
+        <h2>{{ itemcount }}. {{ taxon }}
+            {% if taxon_prefix != taxon %}<span class="error">searched for prefix: {{ taxon_prefix }}</span>{% endif %}
+        </h2>
+        <hr/>
+        <div id="service-results{{ itemcount }}">
+        <table style="padding: 2px 8px">
+            {% for source, result in results.items %}
+                {% if result|length > 0 %}
+                    <tr>
+                        <td colspan="3"><h4>{{ source }}</h4></td>
+                    </tr>
+                    <tr>
+                        {% for label in labels %}
+                            <th scope="row">{{ label }}</th>
+                        {% endfor %}
+                    </tr>
+                    {% for row in result %}
+                        <tr>
+                            {% if source == "CollectionSpace" %}
+                                <td>
+                                    <a target="cspace" href="{{ cspaceserver }}/collectionspace/ui/{{ institution }}/html/{{ csrecordtype }}.html?csid={{ row.7.1 }}">
+                                    <img src="{% static 'common/images/open_cspace.png' %}" class="cspaceLink"></a>
+                                </td>
+                            {% else %}
+                                <td>
+                                    <button id="taxon-item" data-item="{{ itemcount }}">X</button>
+                                </td>
+                            {% endif %}
+                            <!-- a target="cspace" href="{{ row.0 }}">{{ row.0 }}</a></td -->
+                            {% for cell in row %}
+                                <td class="{{ cell.0 }}">
+                                    {% if cell.1 == taxon %}
+                                        <span style="color:green">{{ cell.1 }}</span>
+                                    {% else %}
+                                        {{ cell.1 }}
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                {% elif source in sources %}
+                    <p style="color: red">No results found for {{ source }}</p>
+                {% endif %}
+            {% endfor %}
+        </table>
+        {% if fields %}
+            {% include "taxon_edit_form.html" with i=itemcount %}
+        {% endif %}
+        </div>
+        <div id="create-result{{ itemcount }}" data-item="{{ itemcount }}"></div>
+    {% endfor %}
+    <hr/>
+    <!-- input class="prettyBtn" type="submit" name="SaveAll" value="Save All Records to CSpace" -->
+</div>
+{% endspaceless %}

@@ -1,0 +1,51 @@
+{% extends "cspace_django_site/base_site.html" %}
+{% load i18n admin_static %}
+{% load staticfiles %}
+
+{% block extrascript %}
+<script type="text/javascript" src="{% static "taxoneditor/js/taxoneditor.js" %}"></script>
+{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static 'cspace_django_site/css/jquery-ui-1.8.22.custom.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    {% include "toggled.html" %}
+    {% if error %}
+        <p style="color: red;">Please submit a search term.</p>
+    {% endif %}
+    <form class="search-form" method="post">
+        <span style="vertical-align: top">Enter scientific name(s) to search for:</span>
+        <textarea  rows="10" cols="50" style="width: 400px" name="determinations">{{ taxa }}</textarea>
+
+        {% for field in form.hidden_fields %}
+            <div style="display:none;">{{ field }}</div>
+        {% endfor %}
+
+        {% csrf_token %}
+        <!-- hr/>
+        <p>Or upload a list of names to search in batch:</p>
+        <p><input type="file" name="taxonnamesfile" value="Upload Names to Search"></p -->
+        <hr/>
+        <input class="prettyBtn" type="submit" name="Search" value="Search" id="search-list">
+        <input type="checkbox" name="source" value="CSpace" {% if "CSpace" in sources %}checked{% endif %}>CSpace
+        <input type="checkbox" name="source" value="GBIF" {% if "GBIF" in sources %}checked{% endif %}>GBIF
+        <input type="checkbox" name="source" value="Tropicos" {% if "Tropicos" in sources %}checked{% endif %}>Tropicos
+
+    </form>
+
+
+    <div id="waitingImage" style="display: none">
+        <h1><img style="vertical-align: middle"
+                 src="{% static "cspace_django_site/images/timer-animated.gif" %}"
+                 alt="Searching..."/> Searching...</h1>
+    </div>
+
+    <div id="content-main">
+        {% if multipleresults|length > 0 %}
+            {% include "taxon_serviceResults.html" %}
+        {% endif %}
+    </div>
+
+{% endblock %}

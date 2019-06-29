@@ -1,0 +1,73 @@
+{% extends "cspace_django_site/base_site.html" %}
+{% load i18n admin_static %}
+{% load staticfiles %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "common/css/theme.blue.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "cspace_django_site/css/smoothness/jquery-ui-1.10.3.custom.min.css" %}"/>
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/fss-reset.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/fss-layout.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css//fss-text.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/cspace.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/Pager.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/NumberPatternChooser.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/Confirmation.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/Autocomplete.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/StructuredDate.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/search.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/pivot.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/authority.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/repeatable.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/datepicker.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/osteo.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "common/css/PublicSearch.css" %}"/>
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href=".{% static "css/cspace_ie.css" %}"/> <![endif]-->
+{% endblock %}
+
+{% block extrascript %}
+    <script type="text/javascript" src="{% static "js/skeletonSearch.js" %}"></script>
+    <!-- <script type="text/javascript" src="{% static "js/Osteology.js" %}"></script> -->
+    <!-- <script type="text/javascript" src="{% static "js/pahma.js" %}"></script> -->
+{% endblock %}
+
+
+{% block content %}
+    <div id="content-main">
+        {% include "toggled.html" %}
+
+
+        {% if resultsOnly %}
+            {% include "shrine.html" %}
+        {% else %}
+            <div class="searchPanel">
+                <form class="searchForm" id="search">
+                    {% csrf_token %}
+                    <div id="searchfieldsTarget">
+                        {% include "fields.html" %}
+                        {% include "skeleton.html" %}
+                        {% include "buttons.html" %}
+                    </div>
+                </form>
+            </div>
+            <div id="waitingImage" style="display: none">
+                <h1><img style="vertical-align: middle"
+                         src="{% static "cspace_django_site/images/timer-animated.gif" %}"
+                         alt="Searching..."/> Searching...</h1>
+            </div>
+            <div id="resultsPanel">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if count > 0 %}
+                    {% include "searchResults.html" %}
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

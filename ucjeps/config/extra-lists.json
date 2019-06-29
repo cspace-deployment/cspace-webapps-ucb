@@ -1,0 +1,17 @@
+{
+  "geodeticDatums": {
+    "EPSG:4267-NAD27": "epsg4267-nad27",
+    "EPSG:4269-NAD83": "epsg4269-nad83",
+    "EPSG:4326-WGS84": "epsg4326-wgs84",
+    "NAD83 & WGS84": "NAD83&amp;WGS84",
+    "WGS84": "WGS84",
+    "not recorded": "Not Recorded",
+    "unknown": "unknown"
+  },
+  "georefProtocols": {
+    "BioGeomancer": "biogeomancer",
+    "Chapman, Wieczorek 2006, Guide to Best Practices for Georeferencing": "chapman-wieczorek-2006-guide-best-practices-georeferencing",
+    "Georeferencing For Dummies": "georeferencing-dummies",
+    "MaNIS/HerpNet/ORNIS Georeferencing Guidelines": "manis-herpnet-ornis-georeferencing-guidelines"
+  }
+}

@@ -1,0 +1,23 @@
+{% extends "cspace_django_site/base_site.html" %}
+{% load i18n admin_static %}
+{% load staticfiles %}
+
+{% block content %}
+    <div id="content-main">
+        <div id="tabs">
+            <ul>
+                <li><a href="#import">Import Activity</a></li>
+                <li><a href="#other">Other Details</a></li>
+            </ul>
+            <div id="import">
+                {% include 'csvimport_upload.html' %}
+                {% include 'csvimport_view.html' %}
+                <hr/>
+                {% include 'csvimport_check.html' %}
+            </div>
+            <div id="other">
+                {% include 'csvimport_matrix.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

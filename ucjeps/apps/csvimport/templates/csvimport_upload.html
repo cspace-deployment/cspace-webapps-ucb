@@ -1,0 +1,30 @@
+<div id="upload">
+    <h2>
+        Upload a file to import
+    </h2>
+    <form enctype="multipart/form-data" action="{% url 'csvimport:uploadfile' %}" method="post">
+        {% csrf_token %}
+        {% if status == 'down' %}
+            <h2><span style="color:red">System is down, please standby!</span></h2>
+        {% else %}
+            <table>
+                <tr>
+                    <th>
+                    <input class="prettyBtn" type="submit" name="upload" value="Upload ">
+                    </th>
+                    <td>
+                        <input type="file" name="importfile" value="{{ importfile }}">
+                    </td>
+                    <td>
+                        The file must be a "delimited file"; the program will try to guess what type.
+                    </td>
+                </tr>
+            </table>
+            {% if errors|length > 0 %}
+                {% for e in errors %}
+                    <h4><span style="color:red">{{ e }}</span></h4>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    </form>
+</div>
