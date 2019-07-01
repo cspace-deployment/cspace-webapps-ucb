@@ -4,7 +4,7 @@ from django.template import RequestContext, loader
 from recordstats import RecordStats
 
 @login_required()
-def index(request):
+def cinestats(request):
    stats = RecordStats()
    doccount = stats.getDocCount()
    docytd = stats.getDocYTD()

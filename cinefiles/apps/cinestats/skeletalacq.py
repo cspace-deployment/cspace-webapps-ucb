@@ -76,15 +76,15 @@ for lineno, ci in enumerate(FMProFile):
     counts['Collection Items'] += 1
     ci = [x.strip() for x in ci]
     if len(ci) < 272:
-        print "problem line %s" % lineno
-        print ci
+        print("problem line %s" % lineno)
+        print(ci)
         continue
     key = '.'.join([ci[i] for i in [121, 116, 117]])
     if key[0] == '.': key = key[1:] # remove leading '.' if we made one...
 
-    #print key + "\t",
+    #print(key + "\t",)
     for var in columnsToCount:
-        # print ci[var] + "\t",
+        # print(ci[var] + "\t",)
         CountMyDict(collectionItems, key, var, ci[var])
         #print
     # make persistent csid (i.e. MD5 hash of (unique) IDnumber)
@@ -110,5 +110,5 @@ for key in collectionItems.keys():
     outputfh.writerow(outputRow)
 
 for s in counts.keys():
-    print "%s: %s " % (s, counts[s])
+    print("%s: %s " % (s, counts[s]))
 

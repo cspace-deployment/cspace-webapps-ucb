@@ -19,8 +19,7 @@ class RecordStats:
         self.PORT = config.get('connect', 'port')
 
         # for psycopg2
-        self.connect_string = "host=%s port=%s dbname=%s user=%s password=%s sslmode=%s" % (
-            self.SERVER, self.PORT, self.DBNAME, self.USER, self.PW, self.MODE)
+        self.connect_string = "host=%s port=%s dbname=%s user=%s password=%s sslmode=%s" % (self.SERVER, self.PORT, self.DBNAME, self.USER, self.PW, self.MODE)
 
 
     def getConn(self):
@@ -234,11 +233,11 @@ class RecordStats:
 
         cur.execute(publishers)
         publisherCounts = cur.fetchall()
-        print publisherCounts
+        print(publisherCounts)
 
         cur.execute(documents)
         documentCounts = cur.fetchall()
-        print documentCounts
+        print(documentCounts)
 
         res = {}
         for d in documentCounts:
