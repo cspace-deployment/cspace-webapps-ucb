@@ -1,6 +1,5 @@
 import time
 import logging
-import urllib2
 from cspace_django_site.main import cspace_django_site
 from common import cspace
 import solr
@@ -70,8 +69,8 @@ def find_items_in_cspace(request, thing, keyword, pgSz):
         totalItems = thing_members.find('.//totalItems')
         totalItems = int(totalItems.text)
         objectcsids = [e.text for e in thing_members.findall('.//csid')]
-    except urllib2.HTTPError, e:
-        return (None, None, 0, [], 'Error: we could not make list of thing_ members')
+    except:
+        return (None, None, 0, [], 'Error: we could not make list of thing_members')
 
     return (keyword, thing_csid, totalItems, objectcsids, None)
 
@@ -81,7 +80,7 @@ def setup_solr_search(queryterms, context, prmz, request, searchterm):
     context['searchValues']['querystring'] = querystring
     context['searchValues']['url'] = ''
     context['searchValues']['maxresults'] = prmz.MAXRESULTS
-    loginfo(logger, 'start location history search', context, request)
+    loginfo('locationhistory', 'start location history search', context, request)
     return do_location_search(context, prmz, querystring, searchterm)
 
 
@@ -91,7 +90,7 @@ def do_location_search(context, prmz, querystring, searchterm):
     solr_core = 'pahma-locations'
     solrfl = 'object_csid_s id location_s crate_s locationdate_dt objectname_s objectcount_s objectnumber_s sortableobjectnumber_s'.replace(' ',',')
 
-    # print 'Solr query: %s' % querystring
+    # print('Solr query: %s' % querystring)
     try:
         startpage = context['maxresults'] * (context['start'] - 1)
     except:
@@ -101,19 +100,18 @@ def do_location_search(context, prmz, querystring, searchterm):
     # create a connection to a solr server
     s = solr.SolrConnection(url='%s/%s' % (solr_server, solr_core))
 
-    print 'query: %s' % querystring
+    print('query: %s' % querystring)
     try:
         maxresults = 10000
         solrtime = time.time()
         response = s.query(querystring, facet='true', fq={}, fields=solrfl,
                            rows=maxresults, facet_limit=prmz.MAXFACETS, sort=context['sortkey'],
                            facet_mincount=1, start=startpage)
-        print 'Solr search succeeded, %s results, %s rows requested starting at %s; %8.2f seconds.' % (
-            response.numFound, maxresults, startpage, time.time() - solrtime)
+        print('Solr search succeeded, %s results, %s rows requested starting at %s; %8.2f seconds.' % (response.numFound, maxresults, startpage, time.time() - solrtime))
     # except:
     except Exception as inst:
         # raise
-        print 'Solr search failed: %s' % str(inst)
+        print('Solr search failed: %s' % str(inst))
         context['errormsg'] = 'Solr4 query failed'
         return context
 
