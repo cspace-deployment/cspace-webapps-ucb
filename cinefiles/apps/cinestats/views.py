@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import RequestContext, loader
-from recordstats import RecordStats
+from cinestats.recordstats import RecordStats
 
 @login_required()
 def cinestats(request):
