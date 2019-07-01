@@ -26,7 +26,7 @@ def prepareFiles(request, validateonly):
     tricoder_files = []
     numProblems = 0
     for lineno, afile in enumerate(request.FILES.getlist('tricoderfiles')):
-        # print afile
+        # print(afile)
         # we gotta do this for now!
         if 'barcode.' not in afile.name: afile.name = 'barcode.' + afile.name
         fileinfo = {'id': lineno, 'name': afile.name, 'status': '', 'date': time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())}
@@ -38,7 +38,7 @@ def prepareFiles(request, validateonly):
             numProblems += 1
         else:
             try:
-                print "%s %s: %s %s (%s %s)" % ('id', lineno, 'name', afile.name, 'size', afile.size)
+                print("%s %s: %s %s (%s %s)" % ('id', lineno, 'name', afile.name, 'size', afile.size))
                 if not validateonly:
                     handle_uploaded_file(afile)
                 fileinfo['status'] = 'OK'
