@@ -42,9 +42,8 @@ IMAGENUMBERELEMENT
     else:
         payload = payload.replace('IMAGENUMBERELEMENT', '')
     payload = payload.replace('INSTITUTION', institution)
-    payload = payload % (
-        f['blobCsid'], f['rightsHolderRefname'], f['creator'], f['name'], f['contributor'], f['objectNumber'])
-    # print payload
+    payload = payload % (f['blobCsid'], f['rightsHolderRefname'], f['creator'], f['name'], f['contributor'], f['objectNumber'])
+    # print(payload)
     return payload
 
 
@@ -56,13 +55,13 @@ def uploadtricoder(tricoderElements, config):
         password = config.get('connect', 'password')
         INSTITUTION = config.get('info', 'institution')
     except:
-        print "could not get at least one of realm, hostname, username, password or institution from config file."
-        # print "can't continue, exiting..."
+        print("could not get at least one of realm, hostname, username, password or institution from config file.")
+        # print("can't continue, exiting...")
         raise
 
     objectCSID = getCSID('objectnumber', tricoderElements['objectnumber'], config)
     if objectCSID == [] or objectCSID is None:
-        print "could not get (i.e. find) objectnumber's csid: %s." % tricoderElements['objectnumber']
+        print("could not get (i.e. find) objectnumber's csid: %s." % tricoderElements['objectnumber'])
         # raise Exception("<span style='color:red'>Object Number not found: %s!</span>" % tricoderElements['objectnumber'])
         #raise
     else:
@@ -86,7 +85,7 @@ def uploadtricoder(tricoderElements, config):
 
         messages = []
         messages.append("posting to tricoder REST API...")
-        # print updateItems
+        # print(updateItems)
         payload = tricoderPayload(updateItems, INSTITUTION)
         messages.append(payload)
         messages.append(payload)
@@ -164,23 +163,23 @@ def getRecords(rawFile):
 
 if __name__ == "__main__":
 
-    print "MEDIA: config file: %s" % sys.argv[2]
-    print "MEDIA: input  file: %s" % sys.argv[1]
+    print("MEDIA: config file: %s" % sys.argv[2])
+    print("MEDIA: input  file: %s" % sys.argv[1])
 
     try:
         form = {'webapp': CONFIGDIRECTORY + sys.argv[2]}
         config = getConfig(form)
     except:
-        print "MEDIA: could not get configuration"
+        print("MEDIA: could not get configuration")
         sys.exit()
 
-    # print 'config',config
+    # print('config',config)
     records, columns = getRecords(sys.argv[1])
     if columns == -1:
-        print 'MEDIA: Error! %s' % records
+        print('MEDIA: Error! %s' % records)
         sys.exit()
 
-    print 'MEDIA: %s columns and %s lines found in file %s' % (columns, len(records), sys.argv[1])
+    print('MEDIA: %s columns and %s lines found in file %s' % (columns, len(records), sys.argv[1]))
     outputFile = sys.argv[1].replace('.step2.csv', '.step3.csv')
     outputfh = csv.writer(open(outputFile, 'wb'), delimiter="\t")
 
@@ -191,17 +190,15 @@ if __name__ == "__main__":
         for v1, v2 in enumerate(
                 'name size objectnumber blobCSID date creator contributor rightsholder imagenumber filenamewithpath'.split(' ')):
             tricoderElements[v2] = r[v1]
-        #print tricoderElements
-        print 'objectnumber %s' % tricoderElements['objectnumber']
+        #print(tricoderElements)
+        print('objectnumber %s' % tricoderElements['objectnumber'])
         try:
             tricoderElements = uploadtricoder(tricoderElements, config)
-            print "MEDIA: objectnumber %s, objectcsid: %s, tricodercsid: %s, %8.2f" % (
-                tricoderElements['objectnumber'], tricoderElements['objectCSID'], tricoderElements['tricoderCSID'], (time.time() - elapsedtimetotal))
+            print("MEDIA: objectnumber %s, objectcsid: %s, tricodercsid: %s, %8.2f" % (tricoderElements['objectnumber'], tricoderElements['objectCSID'], tricoderElements['tricoderCSID'], (time.time() - elapsedtimetotal)))
             r.append(tricoderElements['tricoderCSID'])
             r.append(tricoderElements['objectCSID'])
             outputfh.writerow(r)
         except:
-            print "MEDIA: create failed for objectnumber %s, %8.2f" % (
-                tricoderElements['objectnumber'], (time.time() - elapsedtimetotal))
+            print("MEDIA: create failed for objectnumber %s, %8.2f" % (tricoderElements['objectnumber'], (time.time() - elapsedtimetotal)))
             # raise
 

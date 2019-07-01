@@ -22,10 +22,10 @@ SERVERINFO = {
 }
 
 if isdir(TRICODERDIR):
-    print "Using %s as working directory for tricoder files and metadata files" % (FILEPATH % 'input')
+    print("Using %s as working directory for tricoder files and metadata files" % (FILEPATH % 'input'))
 else:
-    print "working directory %s does not exist. this webapp will not work!" % (FILEPATH % 'input')
-    print "using /tmp as a placeholder"
+    print("working directory %s does not exist. this webapp will not work!" % (FILEPATH % 'input'))
+    print("using /tmp as a placeholder")
     TRICODERDIR = "/tmp"
 
 # Get an instance of a logger, log some startup info
@@ -112,9 +112,8 @@ def handle_uploaded_file(f):
 
 # this function not currently in use. Copied from another script, it's not Django-compatible
 def viewFile(logfilename, numtodisplay):
-    print '<table width="100%">\n'
-    print ('<tr>' + (4 * '<th class="ncell">%s</td>') + '</tr>\n') % (
-        'locationDate,objectNumber,objectStatus,handler'.split(','))
+    print('<table width="100%">\n')
+    print(('<tr>' + (4 * '<th class="ncell">%s</td>') + '</tr>\n') % ('locationDate,objectNumber,objectStatus,handler'.split(',')))
     try:
         file_handle = open(logfilename)
         file_size = file_handle.tell()
@@ -128,9 +127,9 @@ def viewFile(logfilename, numtodisplay):
         for l in [i.split('\t')[x] for x in [0, 1, 2, 5]]:
             line += ('<td>%s</td>' % l)
             # for l in i.split('\t') : line += ('<td>%s</td>' % l)
-            print '<tr>' + line + '</tr>'
+            print('<tr>' + line + '</tr>')
 
     except:
-        print '<tr><td colspan="4">failed. sorry.</td></tr>'
+        print('<tr><td colspan="4">failed. sorry.</td></tr>')
 
-    print '</table>'
+    print('</table>')
