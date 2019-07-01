@@ -81,7 +81,7 @@ try:
     templateXML = fromstring(template)
     items = templateXML.findall('.//list-item')
 except:
-    print 'could not open and parse XML template file %s' % xmlfile
+    print('could not open and parse XML template file %s' % xmlfile)
 
 
 def xName(name, fieldname, idx):

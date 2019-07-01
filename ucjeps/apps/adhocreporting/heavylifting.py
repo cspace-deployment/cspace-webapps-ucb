@@ -16,7 +16,7 @@ def select_cells(applayout, row):
             if fieldName in row:
                 r.append(row[fieldName])
             else:
-                print "Key error: ensure fieldname specified in layout.csv (" + fieldName + ") matches fieldname specified in SELECT phrase in setquery.py"
+                print("Key error: ensure fieldname specified in layout.csv (" + fieldName + ") matches fieldname specified in SELECT phrase in setquery.py")
     return r
 
 def extractTerms(context, dict, requestedField):
@@ -115,7 +115,7 @@ def getData(context,request):
         context[formField] = request.GET[formField]
 
     # import datelist
-    # print getitems('collectionobjects', 100, '1999-01-01', '2015-05-01', 'month')
+    # print(getitems('collectionobjects', 100, '1999-01-01', '2015-05-01', 'month'))
     # data = datelist.datelist
 
     num2ret = context['num2ret']
@@ -140,7 +140,7 @@ def doActivity(context, request):
     # import datelist
     # daterange = datelist.datelist
     # getitems(table, num2ret, start_date, end_date, period)
-    # print getitems('collectionobjects', 100, '1999-01-01', '2015-05-01', 'month')
+    # print(getitems('collectionobjects', 100, '1999-01-01', '2015-05-01', 'month'))
 
     num2ret = 500
     period = forminput['period'][2]

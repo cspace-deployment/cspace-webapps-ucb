@@ -17,7 +17,7 @@ def testDB(config):
         objects.execute('set statement_timeout to 5000')
         objects.execute('select * from hierarchy limit 30000')
         return "OK"
-    except psycopg2.DatabaseError, e:
+    except psycopg2.DatabaseError as e:
         sys.stderr.write('testDB error: %s' % e)
         return '%s' % e
     except:
@@ -137,42 +137,42 @@ if __name__ == "__main__":
     form = {'webapp': 'barcodeprintDev'}
 
     config = getConfig(form)
-    print getobjinfo('1-504', config)
+    print(getobjinfo('1-504', config))
 
-    print '\nkeyinfo\n'
+    print('\nkeyinfo\n')
     # Kroeber, 20A, X  1,  1
     # Kroeber, 20AMez, 128 A
     for i, loc in enumerate(getlocations('Kroeber, 20A, X  1,  3', '', 1, config, 'keyinfo','pahma')):
-        print 'location', i + 1, loc[0:12]
+        print('location', i + 1, loc[0:12])
 
     sys.exit()
 
 
     config = getConfig('sysinvProd.cfg')
-    print '\nrefnames\n'
-    print getrefname('concepts_common', 'zzz', config)
-    print getrefname('concepts_common', '', config)
-    print getrefname('concepts_common', 'Yurok', config)
-    print findrefnames('places_common', ['zzz', 'Sudan, Northern Africa, Africa'], config)
-    print '\ncurrentlocation\n'
-    print findcurrentlocation('c65b2ffa-6e5f-4a6d-afa4-e0b57fc16106', config)
+    print('\nrefnames\n')
+    print(getrefname('concepts_common', 'zzz', config))
+    print(getrefname('concepts_common', '', config))
+    print(getrefname('concepts_common', 'Yurok', config))
+    print(findrefnames('places_common', ['zzz', 'Sudan, Northern Africa, Africa'], config))
+    print('\ncurrentlocation\n')
+    print(findcurrentlocation('c65b2ffa-6e5f-4a6d-afa4-e0b57fc16106', config))
 
-    print '\nset of locations\n'
+    print('\nset of locations\n')
     for loc in getloclist('set', 'Kroeber, 20A, W B', '', 10, config):
-        print loc
+        print(loc)
 
-    print '\nlocations by prefix\n'
+    print('\nlocations by prefix\n')
     for loc in getloclist('prefix', 'Kroeber, 20A, W B', '', 1000, config):
-        print loc
+        print(loc)
 
-    print '\nlocations by range\n'
+    print('\nlocations by range\n')
     for loc in getloclist('range', 'Kroeber, 20A, W B2, 1', 'Kroeber, 20A, W B5, 11', 1000, config):
-        print loc
+        print(loc)
 
-    print '\nobjects\n'
+    print('\nobjects\n')
     for i, loc in enumerate(getlocations('Regatta, A150, South Nexel Unit 6, C', '', 1, config, 'inventory','pahma')):
-        print 'location', i + 1, loc[0:6]
+        print('location', i + 1, loc[0:6])
 
-    print '\nkeyinfo\n'
+    print('\nkeyinfo\n')
     for i, loc in enumerate(getlocations('Kroeber, 20AMez, 128 A', '', 1, config, 'keyinfo','pahma')):
-        print 'location', i + 1, loc[0:12]
+        print('location', i + 1, loc[0:12])

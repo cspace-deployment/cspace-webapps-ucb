@@ -4,9 +4,6 @@
 import sys
 import time
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
 
 def getActivities(form):
     selected = form.get('activity')
@@ -410,10 +407,10 @@ if __name__ == '__main__':
         result += '<tr><td>%s</td><td>%s</td></tr>' % (k, t[k])
     result += '</table>'
 
-    print '''Content-Type: text/html; charset=utf-8
+    print('''Content-Type: text/html; charset=utf-8)
 
-    '''
-    print result
+    ''')
+    print (result)
 
     result += '</html>\n'
 

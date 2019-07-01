@@ -1,6 +1,6 @@
 import os
 import csv
-import ConfigParser
+import configparser
 
 from common import cspace  # we use the config file reading function
 from cspace_django_site import settings
@@ -23,7 +23,7 @@ def getapplist(myappdir, thisInstitution, thisDeployment):
 
     for configfile in files:
         if '.cfg' in configfile:
-            config = ConfigParser.RawConfigParser()
+            config = configparser.RawConfigParser()
             config.read(os.path.join(myappdir, configfile))
             try:
                 deployment = config.get('info', 'serverlabel')

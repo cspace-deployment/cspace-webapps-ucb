@@ -73,7 +73,7 @@ def postxml(requestType, uri, realm, server, username, password, payload):
     if requestType == 'PUT': request.get_method = lambda: 'PUT'
     try:
         f = urllib2.urlopen(request)
-    except urllib2.URLError, e:
+    except urllib2.URLError as e:
         if hasattr(e, 'reason'):
             sys.stderr.write('We failed to reach a server.\n')
             sys.stderr.write('Reason: ' + str(e.reason) + '\n')
@@ -81,7 +81,7 @@ def postxml(requestType, uri, realm, server, username, password, payload):
             sys.stderr.write('The server couldn\'t fulfill the request.\n')
             sys.stderr.write('Error code: ' + str(e.code) + '\n')
         if True:
-            #print 'Error in POSTing!'
+            #print('Error in POSTing!')
             sys.stderr.write("Error in POSTing!\n")
             sys.stderr.write("%s\n" % url)
             sys.stderr.write(payload)

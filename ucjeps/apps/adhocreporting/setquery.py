@@ -351,4 +351,4 @@ WHERE
 
 if __name__ == "__main__":
 
-    print "compiles OK"
+    print("compiles OK")

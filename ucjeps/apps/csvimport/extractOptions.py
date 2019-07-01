@@ -41,7 +41,7 @@ def get_lists(file_name):
                         flattened_lists[r][t] = t
         except:
             raise
-            print 'Error loading JSON config file'
+            print('Error loading JSON config file')
 
     return flattened_lists
 
@@ -50,6 +50,6 @@ if __name__ == "__main__":
     static_lists = get_lists(sys.argv[1])
 
     for list in sorted(static_lists):
-        print list
+        print(list)
         for key in sorted(static_lists[list]):
-            print '   %-25s %s' % (key.encode('utf-8'), static_lists[list][key].encode('utf-8'))
+            print('   %-25s %s' % (key.encode('utf-8'), static_lists[list][key].encode('utf-8')))

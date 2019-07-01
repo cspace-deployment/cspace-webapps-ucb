@@ -76,9 +76,9 @@ def prepareFiles(request, context):
     jobinfo = {}
     specimens = []
     for lineno, afile in enumerate(request.FILES.getlist('importfile')):
-        # print afile
+        # print(afile)
         try:
-            print "%s %s: %s %s (%s %s)" % ('id', lineno + 1, 'name', afile.name, 'size', afile.size)
+            print("%s %s: %s %s (%s %s)" % ('id', lineno + 1, 'name', afile.name, 'size', afile.size))
             
             handle_uploaded_file(afile)
 

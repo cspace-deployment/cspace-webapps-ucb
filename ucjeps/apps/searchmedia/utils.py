@@ -82,7 +82,7 @@ def getfacets(response):
         _v = []
         for k, v in values.items():
             _v.append((k, v))
-        _facets[key] = sorted(_v, key=lambda (a, b): b, reverse=True)
+        _facets[key] = sorted(_v, key=lambda ab: (ab[1]), reverse=True)
     return _facets
 
 
@@ -113,13 +113,13 @@ def checkValue(cell):
             cell = cell.translate({0xd7: u"x"})
             cell = cell.decode('utf-8', 'ignore').encode('utf-8')
         except:
-            print 'unicode problem', cell.encode('utf-8', 'ignore')
+            print('unicode problem', cell.encode('utf-8', 'ignore'))
             cell = cell.encode('utf-8', 'ignore')
     return cell
 
 
 def writeCsv(filehandle, fieldset, items, writeheader=False, csvFormat='csv'):
-    # print "Fieldset: %s" % fieldset
+    # print("Fieldset: %s" % fieldset)
     writer = csv.writer(filehandle, delimiter='\t')
     # write the header
     if writeheader:
@@ -208,8 +208,7 @@ def setupGoogleMap(requestObject, context):
                 pass
     context['mapmsg'] = []
     if len(context['items']) < context['count']:
-        context['mapmsg'].append('%s points plotted. %s selected objects examined (of %s in result set).' % (
-            len(markerlist), len(selected), context['count']))
+        context['mapmsg'].append('%s points plotted. %s selected objects examined (of %s in result set).' % (len(markerlist), len(selected), context['count']))
     else:
         context['mapmsg'].append(
             '%s points plotted. all %s selected objects in result set examined.' % (len(markerlist), len(selected)))
@@ -233,8 +232,7 @@ def setupBMapper(requestObject, context):
     filehandle = open(path.join(LOCALDIR, filename), 'wb')
     writeCsv(filehandle, getfields('bMapper', 'name'), mappableitems, writeheader=False, csvFormat='bmapper')
     filehandle.close()
-    context['mapmsg'].append('%s points of the %s selected objects examined had coordinates (%s in result set).' % (
-        len(mappableitems), numSelected, context['count']))
+    context['mapmsg'].append('%s points of the %s selected objects examined had coordinates (%s in result set).' % (len(mappableitems), numSelected, context['count']))
     # context['mapmsg'].append('if our connection to berkeley mapper were working, you be able see them plotted there.')
     context['items'] = mappableitems
     bmapperconfigfile = '%s/%s/%s' % (BMAPPERSERVER, BMAPPERDIR, BMAPPERCONFIGFILE)
@@ -313,7 +311,7 @@ def extractValue(listItem, key):
             # item[p] = item[p].toordinal()
             temp = temp.isoformat().replace('T00:00:00+00:00', '')
         except:
-            print 'date problem: ', temp
+            print('date problem: ', temp)
 
     return temp
 
@@ -382,7 +380,7 @@ def setConstants(context):
         context['maxfacets'] = int(requestObject['maxfacets']) if 'maxfacets' in requestObject else MAXFACETS
         context['sortkey'] = requestObject['sortkey'] if 'sortkey' in requestObject else DEFAULTSORTKEY
     except:
-        print "no searchValues set"
+        print("no searchValues set")
         context['displayType'] = setDisplayType({})
         context['url'] = ''
         context['querystring'] = ''
@@ -467,7 +465,7 @@ def doSearch(context):
                         t = '"' + t + '"'
                         index = PARMS[p][3].replace('_txt', '_s')
                     elif p + '_qualifier' in requestObject:
-                        # print 'qualifier:',requestObject[p+'_qualifier']
+                        # print('qualifier:',requestObject[p+'_qualifier'])
                         qualifier = requestObject[p + '_qualifier']
                         if qualifier == 'exact':
                             index = PARMS[p][3].replace('_txt', '_s')
@@ -500,7 +498,7 @@ def doSearch(context):
             queryterms.append(searchTerm)
             urlterms.append('%s=%s' % (p, cgi.escape(requestObject[p])))
             if p + '_qualifier' in requestObject:
-                # print 'qualifier:',requestObject[p+'_qualifier']
+                # print('qualifier:',requestObject[p+'_qualifier'])
                 urlterms.append('%s=%s' % (p + '_qualifier', cgi.escape(requestObject[p + '_qualifier'])))
         querystring = ' AND '.join(queryterms)
 
@@ -528,7 +526,7 @@ def doSearch(context):
     else:
         locsonly = None
 
-    print 'Solr query: %s' % querystring
+    print('Solr query: %s' % querystring)
     try:
         startpage = context['maxresults'] * (context['start'] - 1)
     except:
@@ -539,12 +537,11 @@ def doSearch(context):
         response = s.query(querystring, facet='true', facet_field=facetfields, fq={}, fields=solrfl,
                            rows=context['maxresults'], facet_limit=MAXFACETS, sort=context['sortkey'],
                            facet_mincount=1, start=startpage)
-        print 'Solr search succeeded, %s results, %s rows requested starting at %s; %8.2f seconds.' % (
-            response.numFound, context['maxresults'], startpage, time.time() - solrtime)
+        print('Solr search succeeded, %s results, %s rows requested starting at %s; %8.2f seconds.' % (response.numFound, context['maxresults'], startpage, time.time() - solrtime))
     # except:
     except Exception as inst:
         # raise
-        print 'Solr search failed: %s' % str(inst)
+        print('Solr search failed: %s' % str(inst))
         context['errormsg'] = 'Solr4 query failed'
         return context
 
@@ -568,7 +565,7 @@ def doSearch(context):
             for sumi, sumcol in enumerate(summfields):
                 if not sumcol in summaryrows[summarizeon][1][sumi]:
                     summaryrows[summarizeon][1][sumi] += [sumcol, ]
-                    # print summarizeon, sumi, sumcol, summaryrows[summarizeon][1][sumi]
+                    # print(summarizeon, sumi, sumcol, summaryrows[summarizeon][1][sumi])
             summaryrows[summarizeon][0] += 1
 
         # pull out the fields that have special functions in the UI
@@ -611,8 +608,7 @@ def doSearch(context):
     # I think this hack works for most values... but really it should be done properly someday... ;-)
     numberOfPages = 1 + int(response._numFound / (context['maxresults'] + 0.001))
     context['lastpage'] = numberOfPages
-    context['pagesummary'] = 'Page %s of %s [items %s to %s]. ' % (
-        context['start'], numberOfPages, startpage + 1,
+    context['pagesummary'] = 'Page %s of %s [items %s to %s]. ' % (context['start'], numberOfPages, startpage + 1,
         min(context['start'] * context['maxresults'], response._numFound))
 
     context['count'] = response._numFound

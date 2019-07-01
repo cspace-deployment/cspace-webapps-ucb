@@ -6,9 +6,6 @@ import psycopg2
 import psycopg2.extras
 from setquery import setquery
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
 timeoutcommand = "set statement_timeout to 1200000; SET NAMES 'utf8';"
 
 from initialsetup import institution, connect_string
@@ -26,7 +23,7 @@ def testDB(cursor):
     try:
         cursor.execute('select * from hierarchy limit 30000')
         return "OK"
-    except psycopg2.DatabaseError, e:
+    except psycopg2.DatabaseError as e:
         sys.stderr.write('testDB error: %s' % e)
         return '%s' % e
     except:
@@ -49,14 +46,14 @@ def getlocations(location1, location2, num2ret, updateType):
         getobjects = setquery(updateType, loc[0], 'alive')
 
 
-        #print getobjects
+        #print(getobjects)
 
         try:
             elapsedtime = time.time()
             cursor.execute(getobjects)
             elapsedtime = time.time() - elapsedtime
             if debug: sys.stderr.write('all objects: %s :: %s\n' % (loc[0], elapsedtime))
-        except psycopg2.DatabaseError, e:
+        except psycopg2.DatabaseError as e:
             sys.stderr.write('getlocations select error: %s' % e)
             #return result
             raise
@@ -68,7 +65,7 @@ def getlocations(location1, location2, num2ret, updateType):
         try:
             rows = cursor.fetchall()
             sys.stderr.write("getloclist %s = %s\n" % (loc[0], len(rows)))
-        except psycopg2.DatabaseError, e:
+        except psycopg2.DatabaseError as e:
             sys.stderr.write("fetchall getlocations database error!")
 
         if debug: sys.stderr.write('number objects to be checked: %s\n' % len(rows))
@@ -95,7 +92,7 @@ def getplants(location1, location2, num2ret, updateType, qualifier):
         elapsedtime = time.time() - elapsedtime
         #sys.stderr.write('query :: %s\n' % getobjects)
         if debug: sys.stderr.write('all objects: %s :: %s\n' % (location1, elapsedtime))
-    except psycopg2.DatabaseError, e:
+    except psycopg2.DatabaseError as e:
         raise
         #sys.stderr.write('getplants select error: %s' % e)
         #return result
@@ -106,7 +103,7 @@ def getplants(location1, location2, num2ret, updateType, qualifier):
     try:
         result = [list(item) for item in cursor.fetchall()]
         if debug: sys.stderr.write('object count: %s\n' % (len(result)))
-    except psycopg2.DatabaseError, e:
+    except psycopg2.DatabaseError as e:
         sys.stderr.write("fetchall getplants database error!")
 
     return result
@@ -144,7 +141,7 @@ limit """ + str(num2ret)
     try:
         cursor.execute(getobjects)
         #for object in objects.fetchall():
-        #print object
+        #print(object)
         # return objects.fetchall()
         return [list(item) for item in cursor.fetchall()]
     except:
@@ -175,7 +172,7 @@ def getobjlist(searchType, object1, object2, num2ret):
 
     cursor.execute(getobjects)
     #for object in objects.fetchall():
-    #print object
+    #print(object)
     # return objects.fetchall()
     return [list(item) for item in cursor.fetchall()]
 
@@ -204,17 +201,13 @@ def getrefname(table, term):
         column = 'refname'
 
     if table == 'collectionobjects_common_briefdescriptions':
-        query = "SELECT item FROM collectionobjects_common_briefdescriptions WHERE item ILIKE '%s' LIMIT 1" % (
-            term.replace("'", "''"))
+        query = "SELECT item FROM collectionobjects_common_briefdescriptions WHERE item ILIKE '%s' LIMIT 1" % (term.replace("'", "''"))
     elif table == 'pahmaaltnumgroup':
-        query = "SELECT pahmaaltnum FROM pahmaaltnumgroup WHERE pahmaaltnum ILIKE '%s' LIMIT 1" % (
-            term.replace("'", "''"))
+        query = "SELECT pahmaaltnum FROM pahmaaltnumgroup WHERE pahmaaltnum ILIKE '%s' LIMIT 1" % (term.replace("'", "''"))
     elif table == 'pahmaaltnumgroup_type':
-        query = "SELECT pahmaaltnumtype FROM pahmaaltnumgroup WHERE pahmaaltnum ILIKE '%s' LIMIT 1" % (
-            term.replace("'", "''"))
+        query = "SELECT pahmaaltnumtype FROM pahmaaltnumgroup WHERE pahmaaltnum ILIKE '%s' LIMIT 1" % (term.replace("'", "''"))
     else:
-        query = "select %s from %s where %s ILIKE '%%''%s''%%' LIMIT 1" % (
-            column, table, column, term.replace("'", "''"))
+        query = "select %s from %s where %s ILIKE '%%''%s''%%' LIMIT 1" % (column, table, column, term.replace("'", "''"))
 
     try:
         cursor.execute(query)
@@ -274,7 +267,7 @@ WHERE co.objectnumber = '%s' LIMIT 1""" % museumNumber
 
     cursor.execute(getobjects)
     #for ob in objects.fetchone():
-    #print ob
+    #print(ob)
     return cursor.fetchone()
 
 
@@ -532,4 +525,4 @@ ORDER BY REGEXP_REPLACE(fcp.item, '^.*\)''(.*)''$', '\\1'), pog.anthropologyplac
 
 if __name__ == "__main__":
 
-    print "it compiles"
+    print("it compiles")

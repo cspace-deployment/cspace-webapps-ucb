@@ -49,7 +49,7 @@ def get_entity(request, entitytype, responsemimetype):
     opener = urllib2.build_opener(authhandler)
     urllib2.install_opener(opener)
     url = "%s/cspace-services/%s" % (server, entitytype)
-    #print "<p>%s</p>" % url
+    #print("<p>%s</p>" % url)
     elapsedtime = 0
 
     # Get an instance of a logger, log some startup info
@@ -61,13 +61,13 @@ def get_entity(request, entitytype, responsemimetype):
         f = urllib2.urlopen(url)
         data = f.read()
         elapsedtime = time.time() - elapsedtime
-    except urllib2.URLError, e:
+    except urllib2.URLError as e:
         if hasattr(e, 'reason'):
-            print 'We failed to reach a server.'
-            print 'Reason: ', e.reason
+            print('We failed to reach a server.')
+            print('Reason: ', e.reason)
         else:
-            print 'The server couldn\'t fulfill the request.'
-            print 'Error code: ', e.code
+            print('The server couldn\'t fulfill the request.')
+            print('Error code: ', e.code)
     else:
         #return (url,data,elapsedtime)
         return HttpResponse(data, content_type=responsemimetype)

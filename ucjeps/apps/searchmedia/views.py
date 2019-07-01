@@ -23,7 +23,7 @@ from cspace_django_site import settings
 
 # read common config file
 prmz = loadConfiguration('common')
-print 'Configuration for common successfully read'
+print('Configuration for common successfully read')
 
 # on startup, setup this webapp layout...
 config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'searchmedia')
@@ -107,8 +107,7 @@ def dispatch(request):
 
                 # create the HttpResponse object with the appropriate CSV header.
                 response = HttpResponse(content_type='text/csv')
-                response['Content-Disposition'] = 'attachment; filename="%s-%s.%s"' % (
-                    prmz.CSVPREFIX, datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S"), prmz.CSVEXTENSION)
+                response['Content-Disposition'] = 'attachment; filename="%s-%s.%s"' % (prmz.CSVPREFIX, datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S"), prmz.CSVEXTENSION)
                 return writeCsv(response, fieldset, csvitems, writeheader=True, csvFormat=csvformat)
             except:
                 messages.error(request, 'Problem creating .csv file. Sorry!')

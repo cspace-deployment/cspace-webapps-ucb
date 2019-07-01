@@ -116,7 +116,7 @@ def loadConfiguration(configFileName):
         SIZEGRID = config.get('search', 'SIZEGRID')
         SIZECOMPACT = config.get('search', 'SIZECOMPACT')
     except:
-        print 'could not get image layout (size and derviative to use) from config file, using defaults'
+        print('could not get image layout (size and derviative to use) from config file, using defaults')
         DERIVATIVEGRID     = "Thumbnail"
         DERIVATIVECOMPACT  = "Thumbnail"
         SIZEGRID           = "100px"
@@ -156,19 +156,19 @@ def loadConfiguration(configFileName):
 
     except:
         raise
-        print 'error in configuration file %s' % path.join(settings.BASE_PARENT_DIR, 'config/' + configFileName)
-        print 'this webapp will probably not work.'
+        print('error in configuration file %s' % path.join(settings.BASE_PARENT_DIR, 'config/' + configFileName))
+        print('this webapp will probably not work.')
 
     return MAXMARKERS, MAXRESULTS, MAXLONGRESULTS, MAXFACETS, IMAGESERVER, BMAPPERSERVER, BMAPPERDIR, BMAPPERURL, BMAPPERCONFIGFILE, CSVPREFIX, CSVEXTENSION, LOCALDIR, SEARCH_QUALIFIERS, EMAILABLEURL, SUGGESTIONS, LAYOUT, CSPACESERVER, INSTITUTION, VERSION, FIELDDEFINITIONS, DERIVATIVECOMPACT, DERIVATIVEGRID, SIZECOMPACT, SIZEGRID
 
 # read this app's config file
 MAXMARKERS, MAXRESULTS, MAXLONGRESULTS, MAXFACETS, IMAGESERVER, BMAPPERSERVER, BMAPPERDIR, BMAPPERURL, BMAPPERCONFIGFILE, CSVPREFIX, CSVEXTENSION, LOCALDIR, SEARCH_QUALIFIERS, EMAILABLEURL, SUGGESTIONS, LAYOUT, CSPACESERVER, INSTITUTION, VERSION, FIELDDEFINITIONS, DERIVATIVECOMPACT, DERIVATIVEGRID, SIZECOMPACT, SIZEGRID = loadConfiguration('search')
-print 'Configuration successfully read'
+print('Configuration successfully read')
 
 
 def loadFields(fieldFile):
     # get "frontend" configuration from the ... frontend configuration file
-    print 'Reading field definitions from %s' % path.join(settings.BASE_PARENT_DIR, 'config/' + fieldFile)
+    print('Reading field definitions from %s' % path.join(settings.BASE_PARENT_DIR, 'config/' + fieldFile))
 
     LOCATION = ''
     DROPDOWNS = []
@@ -184,7 +184,7 @@ def loadFields(fieldFile):
             LOCATION = PARMS[p][3]
 
     if LOCATION == '':
-        print "LOCATION not set, please specify a variable as 'location'"
+        print("LOCATION not set, please specify a variable as 'location'")
 
     facetfields = [f['solrfield'] for f in FIELDS['Search'] if f['fieldtype'] == 'dropdown']
 
@@ -202,7 +202,7 @@ def loadFields(fieldFile):
         response = s.query('*:*', facet='true', facet_field=facetfields, fq={},
                            rows=0, facet_limit=1000, facet_mincount=1, start=0)
 
-        print 'Solr search succeeded, %s results' % (response.numFound)
+        print('Solr search succeeded, %s results' % (response.numFound))
 
         # facets = getfacets(response)
 
@@ -213,11 +213,11 @@ def loadFields(fieldFile):
             _v = []
             for k, v in values.items():
                 _v.append((k, v))
-            _facets[key] = sorted(_v, key=lambda (a, b): b, reverse=True)
+            _facets[key] = sorted(_v, key=lambda ab: (ab[1]), reverse=True)
         facets = _facets
 
         for facet, values in facets.items():
-            print 'facet', facet, len(values)
+            print('facet', facet, len(values))
             FACETS[facet] = sorted(values, key=lambda tup: tup[0])
             # build dropdowns for searching
             for f in FIELDS['Search']:
@@ -232,7 +232,7 @@ def loadFields(fieldFile):
         #raise
         errormsg = 'Solr query for facets failed: %s' % str(inst)
         solrIsUp = False
-        print 'Solr facet search failed. Concluding that Solr is down or unreachable... Will not be trying again! Please fix and restart!'
+        print('Solr facet search failed. Concluding that Solr is down or unreachable... Will not be trying again! Please fix and restart!')
 
     # figure out which solr fields are the required ones...
     REQUIRED = []
@@ -247,4 +247,4 @@ def loadFields(fieldFile):
 
 # on startup, do a query to get options values for forms...
 DROPDOWNS, FIELDS, FACETS, LOCATION, PARMS, SEARCHCOLUMNS, SEARCHROWS, SOLRSERVER, SOLRCORE, TITLE, DEFAULTSORTKEY, REQUIRED = loadFields(FIELDDEFINITIONS)
-print 'Reading field definitions from %s' % path.join(settings.BASE_PARENT_DIR, 'config/' + FIELDDEFINITIONS)
+print('Reading field definitions from %s' % path.join(settings.BASE_PARENT_DIR, 'config/' + FIELDDEFINITIONS))

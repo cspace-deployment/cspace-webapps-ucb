@@ -24,7 +24,7 @@ def createXMLpayload(template, values, institution):
 start = time.time()
 delim = '\t'
 
-print (len(sys.argv))
+print((len(sys.argv)))
 
 CREDENTIALS = sys.argv[1]
 BASE_URL = sys.argv[2]
@@ -43,7 +43,7 @@ initial_get = BASE_URL + '/items' + PAGE_OPT
 r = requests.get(initial_get, auth=tuple(CREDENTIALS.split(':')))
 
 if (r.status_code < 200 or r.status_code > 300):
-    print ('The request {0} could not be fulfilled. Please try again.'.format(initial_get))
+    print(('The request {0} could not be fulfilled. Please try again.'.format(initial_get)))
 
 try:
     xml = fromstring(r.content)
@@ -75,7 +75,7 @@ for c in range(len(csids)):
     csid = re.findall('>(\S+?)<', csids[c])[0]
 
     request = BASE_URL + csid
-    print ("Processing {0}".format(request))
+    print(("Processing {0}".format(request)))
 
     get_response = requests.get(request, auth=(user, password))
     if (get_response.status_code < 200 and get_response.status_code >= 300):

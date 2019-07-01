@@ -77,8 +77,8 @@ def eloan(request):
         else:
             try:
                 recType = 'loansout'
-            except urllib2.HTTPError, e:
-                print 'Error1'
+            except urllib2.HTTPError as e:
+                print('Error1')
                 return
 
         #################################################################
@@ -119,8 +119,8 @@ def eloan(request):
             lodata = get_entity(request, loquery, expectedmimetype).content
             loanoutXML = fromstring(lodata)
 
-        except urllib2.HTTPError, e:
-            print 'Error2.'
+        except urllib2.HTTPError as e:
+            print('Error2.')
             return
 
         # Start gathering loan out info into results: loan number (already have), borrower's contact and loan date.
