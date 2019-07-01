@@ -1,17 +1,15 @@
 __author__ = 'jblowe'
 
-from django.conf.urls import url
+from django.urls import include, path
 from csvimport import views
 
 urlpatterns = [
-
-    url(r'^$', views.upload_file),
-    url(r'uploadfile', views.upload_file, name='uploadfile'),
-    url(r'showqueue', views.showqueue, name='showqueue'),
-    url(r'downloadresults/(?P<filename>[\w\-\.]+)$', views.downloadresults, name='downloadresults'),
-    url(r'showresults/(?P<filename>[\w\-\.]+)$', views.showresults, name='showresults'),
-    url(r'deletejob/(?P<jobname>[\w\-\.]+)$', views.deletejob, name='deletejob'),
-    url(r'nextstep/(?P<step>[\w\-\.]+)/(?P<filename>[\w\-\.]+)$', views.nextstep, name='nextstep'),
-    url(r'showcsvconfig', views.show_csv_config, name='showcsvconfig'),
-
+    path('', views.upload_file),
+    path('uploadfile', views.upload_file, name='uploadfile'),
+    path('showqueue', views.showqueue, name='showqueue'),
+    path('downloadresults/<filename>', views.downloadresults, name='downloadresults'),
+    path('showresults/<filename>', views.showresults, name='showresults'),
+    path('deletejob/<jobname>', views.deletejob, name='deletejob'),
+    path('nextstep/<step>/<filename>', views.nextstep, name='nextstep'),
+    path('showcsvconfig', views.show_csv_config, name='showcsvconfig'),
 ]

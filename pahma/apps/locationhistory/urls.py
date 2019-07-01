@@ -1,9 +1,9 @@
 __author__ = 'jblowe'
 
-from django.conf.urls import patterns, url
+from django.urls import include, path
 from locationhistory import views
 
-urlpatterns = patterns('',
-                       url(r'^$', views.index, name='index'),
-                       url(r'^results', views.results, name='results'),
-                       )
+urlpatterns = [
+    path('', views.locationhistory, name='locationhistory'),
+    path('results', views.results, name='results'),
+]

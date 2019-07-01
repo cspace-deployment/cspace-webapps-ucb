@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, url
+from django.urls import include, path
 
 from cinestats import views
 
-urlpatterns = patterns('',
-   url(r'^$', views.index, name='index')
-)
+urlpatterns = [
+    path('', views.cinestats, name='cinestats')
+]

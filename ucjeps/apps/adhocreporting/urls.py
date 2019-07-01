@@ -1,10 +1,10 @@
 __author__ = 'jblowe'
 
-from django.conf.urls import patterns, url
+from django.urls import include, path
 from toolbox import views
 
-urlpatterns = patterns('',
-                       url(r'^$', views.toolbox, name='toolbox'),
-                       url(r'^json/?$', views.jsonrequest, name='jsonrequest'),
-                       url(r'^(?P<appname>[\w\-]+)/?', views.tool, name='toolbox'),
-                       )
+urlpatterns = [
+    path('', views.toolbox, name='toolbox'),
+    path('json/', views.jsonrequest, name='jsonrequest'),
+    path('(P<appname>[\w\-]+)/?', views.tool, name='toolbox'),
+]

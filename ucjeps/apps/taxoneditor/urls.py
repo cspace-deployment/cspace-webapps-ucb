@@ -1,10 +1,10 @@
 __author__ = 'jblowe'
 
-from django.conf.urls import patterns, url
+from django.urls import include, path
 from taxoneditor import views
 
-urlpatterns = patterns('',
-                       url(r'^$', views.taxoneditor, name='index'),
-                       url(r'^search$', views.search, name='search'),
-                       url(r'^create/?', views.create_taxon, name='create_taxon'),
-                       )
+urlpatterns = [
+    path('', views.taxoneditor, name='index'),
+    path('search', views.search, name='search'),
+    path('create/', views.create_taxon, name='create_taxon'),
+]
