@@ -1,62 +1,54 @@
-from django.conf.urls import patterns, include, url
-
-# Uncomment the next two lines to enable the admin:
+"""
+UCJEPS webapps
+"""
+from django.urls import include, path
 from django.contrib import admin
 from django.contrib.auth import views
 
-admin.autodiscover()
-
 #
-# Initialize our web site -things like our AuthN backend need to be initialized.
+# Initialize our web site - things like our AuthN backend need to be initialized.
 #
-from main import cspace_django_site
+from cspace_django_site.main import cspace_django_site
 
 cspace_django_site.initialize()
 
-urlpatterns = patterns('',
-                       #  Examples:
-                       #  url(r'^$', 'cspace_django_site.views.home', name='home'),
-                       #  url(r'^cspace_django_site/', include('cspace_django_site.foo.urls')),
+urlpatterns = [
+    # these are django builtin webapps
+    path('admin/', admin.site.urls),
+    path('accounts/login/', views.LoginView.as_view(), name='login'),
+    path('accounts/logout/', views.LogoutView.as_view(), name='logout'),
+    path('', include('landing.urls')),
+    path('landing/', include('landing.urls'), name='landing'),
 
-                       #  Uncomment the admin/doc line below to enable admin documentation:
-                       #  url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    # these are 2 "helper" apps, a generic 'hello world' and a proxy to cspace services
+    # path('hello', 'hello.views.home', name='home'),
+    # path('service/', include('service.urls')),
+    # these are "internal webapps", used by other webapps -- not user-facing
+    path('suggestpostgres/', include('suggestpostgres.urls', namespace='suggestpostgres')),
+    path('suggestsolr/', include('suggestsolr.urls', namespace='suggestsolr')),
+    path('suggest/', include('suggest.urls', namespace='suggest')),
+    path('imageserver/', include('imageserver.urls', namespace='imageserver')),
 
-                       url(r'^$', 'landing.views.index', name='index'),
-                       # these are django builtin webapps
-                       url(r'^admin/', include(admin.site.urls)),
-                       url(r'^accounts/login/$', views.login, name='login'),
-                       url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name='logout'),
+    # these are user-facing (i.e. present a UI to the caller)
+    # path('asura/', include('asura.urls', namespace='asura')),
+    path('csvimport/', include('csvimport.urls', namespace='csvimport')),
+    path('grouper/', include('grouper.urls', namespace='grouper')),
+    path('imagebrowser/', include('imagebrowser.urls', namespace='imagebrowser')),
+    path('imaginator/', include('imaginator.urls', namespace='imaginator')),
+    path('internal/', include('internal.urls', namespace='internal')),
+    # path('ireports/', include('ireports.urls', namespace='ireports')),
+    path('landing/', include('landing.urls', namespace='landing')),
+    path('search/', include('search.urls', namespace='search')),
+    path('eloan/', include('eloan.urls', namespace='eloan')),
+    path('searchmedia/', include('searchmedia.urls', namespace='searchmedia')),
+    path('publicsearch/', include('publicsearch.urls', namespace='publicsearch')),
+    # path('simplesearch/', include('simplesearch.urls', namespace='simplesearch')),
+    # path('toolbox/', include('toolbox.urls', namespace='toolbox')),
+    path('taxoneditor/', include('taxoneditor.urls', namespace='taxoneditor')),
+    path('uploadmedia/', include('uploadmedia.urls', namespace='uploadmedia')),
+    path('workflow/', include('workflow.urls', namespace='workflow')),
 
-                       # these are "internal webapps", used by other webapps -- not user-facing
-                       #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-                       url(r'^service/', include('service.urls')),
-                       url(r'^suggestpostgres/', include('suggestpostgres.urls', namespace='suggestpostgres')),
-                       url(r'^suggestsolr/', include('suggestsolr.urls', namespace='suggestsolr')),
-                       url(r'^suggest/', include('suggest.urls', namespace='suggest')),
-                       url(r'^imageserver/', include('imageserver.urls', namespace='imageserver')),
-
-                       # these are user-facing (i.e. present a UI to the caller)
-                       #url(r'^asura/', include('asura.urls', namespace='asura')),
-                       #url(r'^batchuploadimages/', include('batchuploadimages.urls', namespace='batchuploadimages')),
-                       url(r'^csvimport/', include('csvimport.urls', namespace='csvimport')),
-                       url(r'^grouper/?', include('grouper.urls', namespace='grouper')),
-                       url(r'^imagebrowser/?', include('imagebrowser.urls', namespace='imagebrowser')),
-                       url(r'^imaginator/?', include('imaginator.urls', namespace='imaginator')),
-                       url(r'^internal/', include('internal.urls', namespace='internal')),
-                       #url(r'^ireports/', include('ireports.urls', namespace='ireports')),
-                       url(r'^landing/?', include('landing.urls', namespace='landing')),
-                       url(r'^search/', include('search.urls', namespace='search')),
-                       url(r'^eloan/', include('eloan.urls', namespace='eloan')),
-                       url(r'^searchmedia/', include('searchmedia.urls', namespace='searchmedia')),
-                       url(r'^publicsearch/', include('publicsearch.urls', namespace='publicsearch')),
-                       #url(r'^simplesearch/', include('simplesearch.urls', namespace='simplesearch')),
-                       #url(r'^toolbox/', include('toolbox.urls', namespace='toolbox')),
-                       url(r'^taxoneditor/', include('taxoneditor.urls', namespace='taxoneditor')),
-                       url(r'^uploadmedia/', include('uploadmedia.urls', namespace='uploadmedia')),
-                       url(r'^workflow/', include('workflow.urls', namespace='workflow')),
-
-                       # these two paths are special: they are used to create permalinks for objects and media
-                       url(r'^(media)/', include('permalinks.urls', namespace='permalinks')),
-                       url(r'^(objects)/', include('permalinks.urls', namespace='permalinks')),
-
-                       )
+    # these two paths are special: they are used to create permalinks for objects and media
+    path('(media)/', include('permalinks.urls', namespace='permalinks')),
+    path('(objects)/', include('permalinks.urls', namespace='permalinks')),
+]

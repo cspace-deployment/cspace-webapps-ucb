@@ -7,23 +7,21 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'rest_framework',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     # 'demo' apps -- uncomment for debugging or demo
     'hello',
-    'service',
+    # 'service',
     # 'service' apps: no UI
     'common',
-    #'csvimport',
+    # 'csvimport',
     'suggest',
     'suggestpostgres',
     'suggestsolr',
-    #'batchuploadimages',
     # 'standard' apps
-    #'adhocreports',
+    # 'adhocreports',
     'grouper',
     'imagebrowser',
     'imageserver',
@@ -34,7 +32,6 @@ INSTALLED_APPS = (
     'permalinks',
     'search',
     'toolbox',
-    #'simplesearch',
+    # 'simplesearch',
     # 'uploadmedia',
 )
-

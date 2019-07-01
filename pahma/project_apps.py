@@ -7,25 +7,23 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'rest_framework',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     # 'demo' apps -- uncomment for debugging or demo
-    #'hello',
-    #'service',
+    # 'hello',
+    # 'service',
     # 'service' apps: no UI
     'common',
-    #'csvimport',
-    #'curator',
+    # 'csvimport',
+    # 'curator',
     'suggest',
     'suggestpostgres',
     'suggestsolr',
-    #'batchuploadimages',
     # 'standard' apps
-    #'asura',
-    #'adhocreports',
+    # 'asura',
+    # 'adhocreports',
     'grouper',
     'imagebrowser',
     'imageserver',
@@ -37,11 +35,10 @@ INSTALLED_APPS = (
     'osteology',
     'permalinks',
     'search',
-    #'taxonomyeditor',
+    # 'taxonomyeditor',
     'toolbox',
-    #'simplesearch',
+    # 'simplesearch',
     'uploadmedia',
     'uploadtricoder',
     'workflow',
 )
-
