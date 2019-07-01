@@ -3,13 +3,10 @@ import os
 import re
 import time
 import sys, csv
-from Counter import Counter
 
 from copy import deepcopy
 from xml.etree.ElementTree import tostring, parse, Element, fromstring
 from xml.sax.saxutils import escape
-
-from unicode_hack import UnicodeReader, UnicodeWriter
 
 
 def createXMLpayload(template, values, institution):
@@ -55,9 +52,9 @@ except:
 
 
 with open(sys.argv[2], 'w') as f2:
-    writer = UnicodeWriter(f2, delimiter=delim, quoting=csv.QUOTE_NONE, quotechar=chr(255))
+    writer = csv.writer(f2, delimiter=delim, quoting=csv.QUOTE_NONE, quotechar=chr(255))
     with open(INPUT_FILE, 'r') as f1:
-        reader = UnicodeReader(f1, delimiter=delim, quoting=csv.QUOTE_NONE, quotechar=chr(255))
+        reader = csv.reader(f1, delimiter=delim, quoting=csv.QUOTE_NONE, quotechar=chr(255))
         for lineno, row in enumerate(reader):
             if lineno == 0:
                 header = row
@@ -78,7 +75,7 @@ for c in range(len(csids)):
     print(("Processing {0}".format(request)))
 
     get_response = requests.get(request, auth=(user, password))
-    if (get_response.status_code < 200 and get_response.status_code >= 300):
+    if get_response.status_code < 200 and get_response.status_code >= 300:
         print("The item with CSID {0} failed to be fetched".format(csid))
         failed_reqs_file.write(
             "The item with CSID {0} failed to be fetched with status code {1} because {2}".format(csid,
@@ -90,7 +87,7 @@ for c in range(len(csids)):
     content = get_response.content
 
     put_request = requests.put(request, content, auth=(user, password), headers=headers)
-    if (put_request.status_code < 200 and put_request.status_code >= 300):
+    if put_request.status_code < 200 and put_request.status_code >= 300:
         print("The item with CSID {0} failed to be PUTted".format(csid))
         failed_reqs_file.write(
             "The item with CSID {0} failed to be PUTted with status code {1} because {2}".format(csid,
