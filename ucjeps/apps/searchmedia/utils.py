@@ -107,14 +107,11 @@ def makeMarker(location):
 
 
 def checkValue(cell):
-    # the following few lines are a hack to handle non-unicode data which appears to be present in the solr datasource
-    if isinstance(cell, str):
-        try:
-            cell = str(cell)
-        except:
-            print('unicode problem', cell.encode('utf-8', 'ignore'))
-            cell = cell.encode('utf-8', 'ignore')
-    return cell
+    try:
+        return str(cell)
+    except:
+        print('unicode problem', cell.encode('utf-8', 'ignore'))
+        return cell.encode('utf-8', 'ignore')
 
 
 def writeCsv(filehandle, fieldset, items, writeheader=False, csvFormat='csv'):

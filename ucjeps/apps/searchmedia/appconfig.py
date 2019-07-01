@@ -139,7 +139,7 @@ def loadConfiguration(configFileName):
         # SOLRCORE = config.get('search', 'SOLRCORE')
         LOCALDIR = config.get('search', 'LOCALDIR')
         SEARCH_QUALIFIERS = config.get('search', 'SEARCH_QUALIFIERS').split(',')
-        SEARCH_QUALIFIERS = [unicode(x) for x in SEARCH_QUALIFIERS]
+        SEARCH_QUALIFIERS = [str(x) for x in SEARCH_QUALIFIERS]
         FIELDDEFINITIONS = config.get('search', 'FIELDDEFINITIONS')
         CSVPREFIX = config.get('search', 'CSVPREFIX')
         CSVEXTENSION = config.get('search', 'CSVEXTENSION')
