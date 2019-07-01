@@ -13,7 +13,7 @@ class ConnectorTestCase(unittest.TestCase):
         self.assertEqual(dbqueries.testDB(dbqueries.cursor), "OK")
 
     def test_setQuery(self):
-        config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), "toolbox")
+        config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), "toolbox")
         institution = config.get('info','institution')
         qualifier = ''
         location = ''

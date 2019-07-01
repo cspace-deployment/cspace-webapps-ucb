@@ -81,7 +81,7 @@ def definefields(parmFile, suggestions):
     columns = "id app name label role type parameter autocomplete row column".split(" ")
 
     try:
-        f = open(parmFile, 'rb')
+        f = open(parmFile, 'r')
         csvfile = csv.reader(f, delimiter="\t")
     except IOError:
         raise
@@ -133,8 +133,8 @@ def definefields(parmFile, suggestions):
 
 # global variables
 
-config = cspace.getConfig(os.path.join(settings.BASE_PARENT_DIR, 'config'), 'toolbox')
-APPDIR = os.path.join(settings.BASE_PARENT_DIR, 'toolbox', config.get('info', 'appdir'))
+config = cspace.getConfig(os.path.join(settings.BASE_DIR, 'config'), 'toolbox')
+APPDIR = os.path.join(settings.BASE_DIR, 'toolbox', config.get('info', 'appdir'))
 institution = config.get('info', 'institution')
 deployment = config.get('info', 'serverlabel')
 connect_string = config.get('connect', 'connect_string')
@@ -147,10 +147,10 @@ try:
 except:
     suggestions = None
 
-appLayout = definefields(os.path.join(settings.BASE_PARENT_DIR, 'toolbox', APPDIR, 'layout.csv'), suggestions)
+appLayout = definefields(os.path.join(settings.BASE_DIR, 'toolbox', APPDIR, 'layout.csv'), suggestions)
 
 try:
-    VERSION = os.popen("cd " + settings.BASE_PARENT_DIR + " ; /usr/bin/git describe --always").read().strip()
+    VERSION = os.popen("cd " + settings.BASE_DIR + " ; /usr/bin/git describe --always").read().strip()
     if VERSION == '':  # try alternate location for git (this is the usual Mac location)
         VERSION = os.popen("/usr/local/bin/git describe --always").read().strip()
 except:

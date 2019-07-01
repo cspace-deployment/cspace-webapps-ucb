@@ -11,7 +11,7 @@ from cspace_django_site import settings
 from os import path, listdir
 from os.path import isfile, isdir, join
 
-config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'uploadtricoder')
+config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'uploadtricoder')
 TRICODERDIR = config.get('files', 'directory')
 POSTBLOBPATH = config.get('info', 'postblobpath')
 TITLE = config.get('info', 'apptitle')
@@ -84,7 +84,7 @@ def checkFile(filename):
 def loginfo(infotype, line, request):
     logdata = ''
     # user = getattr(request, 'user', None)
-    if request.user and not request.user.is_anonymous():
+    if request.user and not request.user.is_anonymous:
         username = request.user.username
     else:
         username = '-'

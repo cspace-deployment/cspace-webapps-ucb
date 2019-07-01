@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <div id="view" style="display: {{ fileview }}">
     <hr/>
-    <form action="{% url 'csvimport:uploadfile' %}" method="post">
+    <form action="{% url 'uploadcsvfile' %}" method="post">
         {% csrf_token %}
         <button class="prettyBtn">close this view</button>
     </form>

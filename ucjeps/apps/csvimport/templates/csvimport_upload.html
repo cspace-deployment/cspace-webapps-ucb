@@ -2,7 +2,7 @@
     <h2>
         Upload a file to import
     </h2>
-    <form enctype="multipart/form-data" action="{% url 'csvimport:uploadfile' %}" method="post">
+    <form enctype="multipart/form-data" action="{% url 'uploadcsvfile' %}" method="post">
         {% csrf_token %}
         {% if status == 'down' %}
             <h2><span style="color:red">System is down, please standby!</span></h2>

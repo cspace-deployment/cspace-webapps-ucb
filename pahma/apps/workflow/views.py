@@ -74,11 +74,11 @@ def workflow(request):
         end_date_timestamp = end_date.strip() + "T23:59:59"
         connection = cspace.connection.create_connection(config, request.user)
         search_terms = 'as=collectionspace_core:updatedAt >= TIMESTAMP "%s" AND collectionspace_core:updatedAt <= TIMESTAMP "%s"'
-        #search_terms = urllib.quote_plus(search_terms % (start_date, end_date))
+        #search_terms = urllib.parse.quote_plus(search_terms % (start_date, end_date))
         search_terms = search_terms % (start_date_timestamp, end_date_timestamp)
         search_terms = search_terms.replace(' ', '%20')
-        logger.info('%s :: %s' % ('workflow', 'cspace-services/%s?%s&pgSz=%s&wf_deleted=false&pgNum=%s' % ('collectionobjects', search_terms, size_limit, page-1)))
-        (url, data, statusCode,elapsedtime) = connection.make_get_request('cspace-services/%s?%s&pgSz=%s&wf_deleted=false&pgNum=%s' % ('collectionobjects', search_terms, size_limit, page-1))
+        logger.info('%s :: %s' % ('workflow', 'cspace-services/%s?%s&pgSz=%s&wf_deleted=false&pgNum=%s' % ('collectionobjects', search_terms, size_limit, int(page-1))))
+        (url, data, statusCode,elapsedtime) = connection.make_get_request('cspace-services/%s?%s&pgSz=%s&wf_deleted=false&pgNum=%s' % ('collectionobjects', search_terms, size_limit, int(page-1)))
         # ...collectionobjects?kw=%27orchid%27&wf_deleted=false
         results = []
         error_message = ''

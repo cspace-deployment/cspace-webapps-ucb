@@ -5,29 +5,25 @@ import time, datetime
 import csv
 import solr
 import cgi
-import logging
 from os import path
 
 from django.http import HttpResponse, HttpResponseRedirect
 from cspace_django_site.main import cspace_django_site
+from common.utils import loginfo
 
 # global variables (at least to this module...)
 
-from appconfig import PARMS, MAXMARKERS, MAXRESULTS, MAXLONGRESULTS, MAXFACETS, IMAGESERVER, BMAPPERSERVER, BMAPPERDIR
-from appconfig import BMAPPERURL, BMAPPERCONFIGFILE, SOLRSERVER, SOLRCORE, LOCALDIR, DROPDOWNS, SEARCH_QUALIFIERS, TITLE
+from publicsearch.appconfig import PARMS, MAXMARKERS, MAXRESULTS, MAXLONGRESULTS, MAXFACETS, IMAGESERVER, BMAPPERSERVER, BMAPPERDIR
+from publicsearch.appconfig import BMAPPERURL, BMAPPERCONFIGFILE, SOLRSERVER, SOLRCORE, LOCALDIR, DROPDOWNS, SEARCH_QUALIFIERS, TITLE
 
 SolrIsUp = True
 FACETS = {}
 
 
-# Get an instance of a logger, log some startup info
-logger = logging.getLogger(__name__)
-logger.info('%s :: %s :: %s' % ('portal startup', '-', '%s | %s | %s' % (SOLRSERVER, IMAGESERVER, BMAPPERSERVER)))
-
 def loginfo(infotype, context, request):
     logdata = ''
     #user = getattr(request, 'user', None)
-    if request.user and not request.user.is_anonymous():
+    if request.user and not request.user.is_anonymous:
         username = request.user.username
     else:
         username = '-'
@@ -39,7 +35,7 @@ def loginfo(infotype, context, request):
         logdata = context['querystring']
     if 'url' in context:
         logdata += ' :: %s' % context['url']
-    logger.info('%s :: %s :: %s :: %s' % (infotype, count, username, logdata))
+    loginfo('publicsearch', '%s :: %s :: %s :: %s' % (infotype, count, username, logdata))
 
 
 def getfromXML(element,xpath):

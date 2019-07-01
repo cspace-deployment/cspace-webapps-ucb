@@ -14,7 +14,7 @@ logger.info('%s :: %s :: %s' % ('toolbox startup', '-', '-'))
 def loginfo(infotype, context, request):
     logdata = ''
     # user = getattr(request, 'user', None)
-    if request.user and not request.user.is_anonymous():
+    if request.user and not request.user.is_anonymous:
         username = request.user.username
     else:
         username = '-'

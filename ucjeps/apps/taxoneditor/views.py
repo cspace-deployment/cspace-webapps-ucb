@@ -8,12 +8,12 @@ import time
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
-from taxon import taxon_template
+from taxoneditor.taxon import taxon_template
 from xml.sax.saxutils import escape
 
-from utils import termTypeDropdowns, termStatusDropdowns, taxonRankDropdowns, taxonfields, labels, formfields, numberWanted
-from utils import extractTag, xName, TITLE, taxon_authority_csid, tropicos_api_key
-from utils import fromstring, lookupMajorGroup
+from taxoneditor.utils import termTypeDropdowns, termStatusDropdowns, taxonRankDropdowns, taxonfields, labels, formfields, numberWanted
+from taxoneditor.utils import extractTag, xName, TITLE, taxon_authority_csid, tropicos_api_key
+from taxoneditor.utils import fromstring, lookupMajorGroup
 
 # alas, there are many ways the XML parsing functionality might be installed.
 # the following code attempts to find and import the best...
@@ -74,7 +74,7 @@ def taxoneditor(request):
             if 'CSpace' in sources:
                 cspaceTime = time.time()
                 connection = cspace.connection.create_connection(config, request.user)
-                requestURL = 'cspace-services/taxonomyauthority/%s/items?pt=%s&wf_deleted=false&pgSz=%s' % (taxon_authority_csid, urllib.quote_plus(taxon_prefix), numberWanted)
+                requestURL = 'cspace-services/taxonomyauthority/%s/items?pt=%s&wf_deleted=false&pgSz=%s' % (taxon_authority_csid, urllib.parse.quote_plus(taxon_prefix), numberWanted)
                 (url, data, statusCode, elapsedTime) = connection.make_get_request(requestURL)
                 if statusCode != 200 or data is None:
                     data = '<error>error %s</error>' % statusCode
@@ -144,7 +144,7 @@ def taxoneditor(request):
                     results['Tropicos'].append(r)
                 tropicosTime = time.time() - tropicosTime
                 elapsedTimes['Tropicos'] += tropicosTime
-                print('%s %s %s items http://api.gbif.org/v1/species/search/?q=%s' % (itemcount, tropicosTime, numberofitems, urllib.quote_plus(taxon_prefix)))
+                print('%s %s %s items http://api.gbif.org/v1/species/search/?q=%s' % (itemcount, tropicosTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)))
             if 'GBIF' in sources:
                 gbifTime = time.time()
                 # do GBIF search
@@ -171,7 +171,7 @@ def taxoneditor(request):
                     results['GBIF'].append(r)
                 gbifTime = time.time() - gbifTime
                 elapsedTimes['GBIF'] += gbifTime
-                print('%s %s %s items http://api.gbif.org/v1/parser/name/%s' % (itemcount, gbifTime, numberofitems, urllib.quote_plus(taxon_prefix)))
+                print('%s %s %s items http://api.gbif.org/v1/parser/name/%s' % (itemcount, gbifTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)))
             multipleresults.append([taxon, taxon_prefix, results, itemcount])
 
     return render(request, 'taxoneditor.html', {'timestamp': timestamp, 'version': prmz.VERSION, 'fields': formfields,

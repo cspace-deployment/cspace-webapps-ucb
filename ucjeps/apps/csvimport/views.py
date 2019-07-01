@@ -14,12 +14,11 @@ import logging
 import time, datetime
 from copy import deepcopy
 
-from utils import SERVERINFO, TITLE, loginfo
-from utils import check_columns, get_recordtypes, handle_uploaded_file
+from csvimport.utils import SERVERINFO, TITLE, loginfo
+from csvimport.utils import check_columns, get_recordtypes, handle_uploaded_file
 
-
-from extrautils import SERVERLABEL, SERVERLABELCOLOR, CODEPATH, INSTITUTION, JOBDIR
-from extrautils import getJobfile, getJoblist
+from csvimport.extrautils import SERVERLABEL, SERVERLABELCOLOR, CODEPATH, INSTITUTION, JOBDIR
+from csvimport.extrautils import getJobfile, getJoblist
 
 RECORDTYPES = get_recordtypes()
 
@@ -101,7 +100,7 @@ def setConstants(request):
 
 
 @login_required()
-def upload_file(request):
+def upload_csv_file(request):
     elapsedtime = time.time()
     context = setConstants(request)
     context['jobnumber'] = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
@@ -126,7 +125,7 @@ def upload_file(request):
 
 @login_required()
 def downloadresults(request, filename):
-    f = open(getJobfile(filename), "rb")
+    f = open(getJobfile(filename), 'r')
     response = HttpResponse(FileWrapper(f), content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="%s"' % filename
     return response
@@ -136,7 +135,7 @@ def downloadresults(request, filename):
 def showresults(request, filename):
     elapsedtime = 0.0
     context = setConstants(request)
-    f = open(getJobfile(filename), "rb")
+    f = open(getJobfile(filename), 'r')
     filecontent = f.read()
     f.close()
     context['filename'] = filename

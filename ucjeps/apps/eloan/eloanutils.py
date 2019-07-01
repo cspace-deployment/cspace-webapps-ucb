@@ -9,7 +9,7 @@ from cspace_django_site import settings
 from publicsearch.utils import doSearch
 
 from os import path
-import urllib2
+import urllib
 import time
 import logging
 import re
@@ -32,7 +32,7 @@ def get_entity(request, entitytype, responsemimetype):
     #(url, data, statusCode) = connection.make_get_request('cspace-services/%s' % image)
     #return HttpResponse(data, content_type='image/jpeg')
 
-    config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'eloan')
+    config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'eloan')
     username = config.get('connect', 'username')
     password = config.get('connect', 'password')
     hostname = config.get('connect', 'hostname')
@@ -43,11 +43,11 @@ def get_entity(request, entitytype, responsemimetype):
 
     server = protocol + "://" + hostname + port
 
-    passman = urllib2.HTTPPasswordMgr()
+    passman = urllib.request.HTTPPasswordMgr()
     passman.add_password(realm, server, username, password)
-    authhandler = urllib2.HTTPBasicAuthHandler(passman)
-    opener = urllib2.build_opener(authhandler)
-    urllib2.install_opener(opener)
+    authhandler = urllib.request.HTTPBasicAuthHandler(passman)
+    opener = urllib.request.build_opener(authhandler)
+    urllib.request.install_opener(opener)
     url = "%s/cspace-services/%s" % (server, entitytype)
     #print("<p>%s</p>" % url)
     elapsedtime = 0
@@ -58,10 +58,10 @@ def get_entity(request, entitytype, responsemimetype):
 
     try:
         elapsedtime = time.time()
-        f = urllib2.urlopen(url)
+        f = urllib.request.urlopen(url)
         data = f.read()
         elapsedtime = time.time() - elapsedtime
-    except urllib2.URLError as e:
+    except urllib.request.URLError as e:
         if hasattr(e, 'reason'):
             print('We failed to reach a server.')
             print('Reason: ', e.reason)

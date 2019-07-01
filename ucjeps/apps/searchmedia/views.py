@@ -26,7 +26,7 @@ prmz = loadConfiguration('common')
 print('Configuration for common successfully read')
 
 # on startup, setup this webapp layout...
-config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'searchmedia')
+config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'searchmedia')
 fielddefinitions = config.get('search', 'FIELDDEFINITIONS')
 prmz = loadFields(fielddefinitions, prmz)
 

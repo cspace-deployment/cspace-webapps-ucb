@@ -6,6 +6,7 @@ import json
 import logging
 import requests
 import urllib
+from collections import Counter
 from requests.auth import HTTPBasicAuth
 from xml.etree.ElementTree import tostring, parse, Element, fromstring
 
@@ -16,8 +17,6 @@ from xml.sax.saxutils import escape
 from common.utils import deURN
 
 import time
-import urllib2
-
 import re
 
 sys.path.append("../../ucjeps")
@@ -26,16 +25,14 @@ from common import cspace  # we use the config file reading function
 from cspace_django_site import settings
 from os import path, listdir
 from os.path import isfile, isdir, join
-from common.Counter import Counter
-from common.unicode_hack import UnicodeReader, UnicodeWriter
 
-from extractOptions import get_lists
-static_lists = get_lists(path.join(settings.BASE_PARENT_DIR, 'config/cspace-ui-config-ucjeps.json'))
+from csvimport.extractOptions import get_lists
+static_lists = get_lists(path.join(settings.BASE_DIR, 'config/cspace-ui-config-ucjeps.json'))
 
 # this hack provides a means to 'overlay' existing static lists with other lists.
 # it is specifically implemented to allow the recoding of 'stateProvince' values for UCJEPS
-with open(path.join(settings.BASE_PARENT_DIR, 'config/extra-lists.json'), 'rb') as e:
-    extralists = e.read().encode('utf-8')
+with open(path.join(settings.BASE_DIR, 'config/extra-lists.json'), 'r') as e:
+    extralists = e.read()
     e.close()
 try:
     extra_static_lists = json.loads(extralists.replace('\n', ''))
@@ -43,7 +40,7 @@ except:
     print('could not parse "extra-lists.json". aborting.')
     sys.exit(1)
 
-config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'csvimport')
+config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'csvimport')
 TITLE = config.get('info', 'apptitle')
 SERVERINFO = {
     'serverlabelcolor': config.get('info', 'serverlabelcolor'),
@@ -92,13 +89,13 @@ def dump_row(row, error_type, message):
     MAPPING_FILE.append('%5s %-30s %-30s %-10s' % tuple(row[i] for i in [0, 1, 2, 4]) + '%-10s %s' % (error_type, message))
 
 def load_mapping_file(mapping_file):
-    mapping_file = path.join(path.join(settings.BASE_PARENT_DIR, 'config'), mapping_file)
+    mapping_file = path.join(path.join(settings.BASE_DIR, 'config'), mapping_file)
     delim = '\t'
     cspace_mapping = {}
     constants = []
     dump_row('Row InputField CSpaceField X DataType X X'.split(' '), 'Status', 'Message')
     with open(mapping_file, 'r') as f1:
-        reader = UnicodeReader(f1, delimiter=delim, quoting=csv.QUOTE_NONE, quotechar=chr(255))
+        reader = csv.reader(f1, delimiter=delim, quoting=csv.QUOTE_NONE, quotechar=chr(255))
         errors = 0
         for lineno, row in enumerate(reader):
             try:
@@ -163,7 +160,7 @@ def getRecords(rawFile):
         sample = rawFile.read(4096)
         dialect = csv.Sniffer().sniff(sample, delimiters = ',\t')
         rawFile.seek(0)
-        csvfile = UnicodeReader(rawFile, dialect)
+        csvfile = csv.reader(rawFile, dialect)
     except IOError as e:
         print("item%s " % e)
         sys.exit(1)
@@ -172,7 +169,7 @@ def getRecords(rawFile):
         for delimiter in delimiters:
             if delimiter in sample:
                 rawFile.seek(0)
-                csvfile = UnicodeReader(rawFile, delimiter=delimiter)
+                csvfile = csv.reader(rawFile, delimiter=delimiter)
                 break
 
     try:
@@ -269,13 +266,13 @@ def check_cell_in_cspace(mapping_key, key, value):
     elif mapping_key[2] == 'integer':
         try:
             int(value)
-            return 0, 'an integer', unicode(int(value))
+            return 0, 'an integer', str(int(value))
         except:
             return 1, '"%s" is not an integer. ' % value
     elif mapping_key[2] == 'float':
         try:
             float(value)
-            return 0, 'a float', unicode(float(value))
+            return 0, 'a float', str(float(value))
         except:
             return 1, '"%s" is not a float. ' % value
     else:
@@ -475,7 +472,7 @@ def check_columns(labels, header, field_map):
 def loginfo(infotype, line, request):
     logdata = ''
     # user = getattr(request, 'user', None)
-    if request.user and not request.user.is_anonymous():
+    if request.user and not request.user.is_anonymous:
         username = request.user.username
     else:
         username = '-'
@@ -520,7 +517,7 @@ def extract_refname(xml, term, pgSz, record_type):
                 print('could not get termDisplayName or refName or updatedAt from %s' % csid)
                 return 'Failed X X X X'.split(' '), totalItems
             if normalize(term.encode('utf-8')) == normalize(termDisplayName.encode('utf-8')):
-                return ['OK', csid, unicode(termDisplayName), refName, updated_at], totalItems
+                return ['OK', csid, str(termDisplayName), refName, updated_at], totalItems
         if totalItems > pgSz:
             return 'MaybeMissed X X X X'.split(' '), totalItems
         return 'NoMatch X X X X'.split(' '), totalItems
@@ -721,19 +718,19 @@ def postxml(requestType, uri, realm, protocol, hostname, port, username, passwor
     if port != '':
         port = ':' + port
     server = protocol + "://" + hostname + port
-    passman = urllib2.HTTPPasswordMgr()
+    passman = urllib.request.HTTPPasswordMgr()
     passman.add_password(realm, server, username, password)
-    authhandler = urllib2.HTTPBasicAuthHandler(passman)
-    opener = urllib2.build_opener(authhandler)
-    urllib2.install_opener(opener)
+    authhandler = urllib.request.HTTPBasicAuthHandler(passman)
+    opener = urllib.request.build_opener(authhandler)
+    urllib.request.install_opener(opener)
     url = "%s/cspace-services/%s" % (server, uri)
 
     elapsedtime = time.time()
-    request = urllib2.Request(url, payload.encode('utf-8'), {'Content-Type': 'application/xml'})
-    # default method for urllib2 with payload is POST
+    request = urllib.request.Request(url, payload.encode('utf-8'), {'Content-Type': 'application/xml'})
+    # default method for urllib.request with payload is POST
     if requestType == 'PUT': request.get_method = lambda: 'PUT'
     try:
-        f = urllib2.urlopen(request)
+        f = urllib.request.urlopen(request)
         data = f.read()
         info = f.info()
         # if a POST, the Location element contains the new CSID
@@ -741,7 +738,7 @@ def postxml(requestType, uri, realm, protocol, hostname, port, username, passwor
             csid = re.search(uri + '/(.*)', info.getheader('Location')).group(1)
         else:
             csid = ''
-    except urllib2.HTTPError as e:
+    except urllib.error.HTTPError as e:
         sys.stderr.write('URL: ' + url + '\n')
         sys.stderr.write('PUT/POST failed.\n')
         if hasattr(e, 'reason'):
@@ -753,7 +750,7 @@ def postxml(requestType, uri, realm, protocol, hostname, port, username, passwor
         if info: print(info)
         if data: sys.stderr.write('Data: ' + data + '\n')
         raise
-    except urllib2.URLError as e:
+    except urllib.error.URLError as e:
         sys.stderr.write('URL: ' + url + '\n')
         if hasattr(e, 'reason'):
             sys.stderr.write('Reason: ' + str(e.reason) + '\n')

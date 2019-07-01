@@ -31,7 +31,7 @@ prmz = loadConfiguration('common')
 print('Configuration for common successfully read')
 
 # on startup, setup this webapp layout...
-config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'search')
+config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'search')
 fielddefinitions = config.get('search', 'FIELDDEFINITIONS')
 prmz = loadFields(fielddefinitions, prmz)
 
@@ -57,7 +57,7 @@ def publicsearch(request):
     else:
         context = setConstants({}, prmz, request)
 
-    loginfo(logger, 'start search', context, request)
+    loginfo('publicsearch', 'start search', context, request)
     context['additionalInfo'] = AdditionalInfo.objects.filter(live=True)
     return render(request, 'search.html', context)
 
@@ -65,28 +65,28 @@ def publicsearch(request):
 # @profile("retrieve.prof")
 def retrieveResults(request):
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
         if form.is_valid():
             context = {'searchValues': requestObject}
             context = doSearch(context, prmz, request)
 
-            loginfo(logger, 'results.%s' % context['displayType'], context, request)
+            loginfo('publicsearch', 'results.%s' % context['displayType'], context, request)
             return render(request, 'searchResults.html', context)
 
 
 @csrf_exempt
 def facetJSON(request):
     if request.method == 'GET' and request.GET != {}:
-        requestObject = dict(request.GET.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
         if form.is_valid():
             context = {'searchValues': requestObject}
             context = doSearch(context, prmz, request)
 
-            loginfo(logger, 'results.%s' % context['displayType'], context, request)
+            loginfo('publicsearch', 'results.%s' % context['displayType'], context, request)
             #del context['FIELDS']
             #del context['facets']
             if not 'items' in context:
@@ -100,14 +100,14 @@ def facetJSON(request):
 @csrf_exempt
 def retrieveJSON(request):
     if request.method == 'GET' and request.GET != {}:
-        requestObject = dict(request.GET.iteritems())
+        requestObject = request.GET
         form = forms.Form(requestObject)
 
         if form.is_valid():
             context = {'searchValues': requestObject}
             context = doSearch(context, prmz, request)
 
-            loginfo(logger, 'results.%s' % context['displayType'], context, request)
+            loginfo('publicsearch', 'results.%s' % context['displayType'], context, request)
             #del context['FIELDS']
             #del context['facets']
             if not 'items' in context:
@@ -126,34 +126,34 @@ def JSONentry(request):
 
 def bmapper(request):
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
         if form.is_valid():
             context = {'searchValues': requestObject}
             context = setupBMapper(request, requestObject, context, prmz)
 
-            loginfo(logger, 'bmapper', context, request)
+            loginfo('publicsearch', 'bmapper', context, request)
             return HttpResponse(context['bmapperurl'])
 
 
 def gmapper(request):
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
         if form.is_valid():
             context = {'searchValues': requestObject}
             context = setupGoogleMap(request, requestObject, context, prmz)
 
-            loginfo(logger, 'gmapper', context, request)
+            loginfo('publicsearch', 'gmapper', context, request)
             return render(request, 'maps.html', context)
 
 
 def dispatch(request):
 
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
     if 'csv' in request.POST or 'downloadstats' in request.POST:
@@ -162,7 +162,7 @@ def dispatch(request):
             try:
                 context = {'searchValues': requestObject}
                 csvformat, fieldset, csvitems = setupCSV(request, requestObject, context, prmz)
-                loginfo(logger, 'csv', context, request)
+                loginfo('publicsearch', 'csv', context, request)
 
                 # create the HttpResponse object with the appropriate CSV header.
                 response = HttpResponse(content_type='text/csv')
@@ -178,7 +178,7 @@ def dispatch(request):
         if form.is_valid():
             try:
                 context = {'searchValues': requestObject}
-                loginfo(logger, 'pdf', context, request)
+                loginfo('publicsearch', 'pdf', context, request)
                 return setup4PDF(request, context, prmz)
 
             except:
@@ -194,16 +194,16 @@ def dispatch(request):
 
 def statistics(request):
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
         if form.is_valid():
             elapsedtime = time.time()
             try:
                 context = {'searchValues': requestObject}
-                loginfo(logger, 'statistics1', context, request)
+                loginfo('publicsearch', 'statistics1', context, request)
                 context = computeStats(request, requestObject, context, prmz)
-                loginfo(logger, 'statistics2', context, request)
+                loginfo('publicsearch', 'statistics2', context, request)
                 context['summarytime'] = '%8.2f' % (time.time() - elapsedtime)
                 # 'downloadstats' is handled in writeCSV, via post
                 return render(request, 'statsResults.html', context)
@@ -216,5 +216,5 @@ def loadNewFields(request, fieldfile, prmx):
     loadFields(fieldfile + '.csv', prmx)
 
     context = setConstants({}, prmx, request)
-    loginfo(logger, 'loaded fields', context, request)
+    loginfo('publicsearch', 'loaded fields', context, request)
     return render(request, 'search.html', context)

@@ -11,7 +11,7 @@ from common import cspace  # we use the config file reading function
 
 def getParms(parmFile):
     try:
-        f = open(parmFile, 'rb')
+        f = open(parmFile, 'r')
         csvfile = csv.reader(f, delimiter="\t")
     except IOError:
         raise
@@ -107,7 +107,7 @@ def parseRows(rows):
 
 
 def loadConfiguration(configFileName):
-    config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), configFileName)
+    config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), configFileName)
 
 
     try:
@@ -148,7 +148,7 @@ def loadConfiguration(configFileName):
         LAYOUT = config.get('search', 'LAYOUT')
 
         try:
-            VERSION = popen("cd " + settings.BASE_PARENT_DIR + " ; /usr/bin/git describe --always").read().strip()
+            VERSION = popen("cd " + settings.BASE_DIR + " ; /usr/bin/git describe --always").read().strip()
             if VERSION == '':  # try alternate location for git (this is the usual Mac location)
                 VERSION = popen("/usr/local/bin/git describe --always").read().strip()
         except:
@@ -156,7 +156,7 @@ def loadConfiguration(configFileName):
 
     except:
         raise
-        print('error in configuration file %s' % path.join(settings.BASE_PARENT_DIR, 'config/' + configFileName))
+        print('error in configuration file %s' % path.join(settings.BASE_DIR, 'config/' + configFileName))
         print('this webapp will probably not work.')
 
     return MAXMARKERS, MAXRESULTS, MAXLONGRESULTS, MAXFACETS, IMAGESERVER, BMAPPERSERVER, BMAPPERDIR, BMAPPERURL, BMAPPERCONFIGFILE, CSVPREFIX, CSVEXTENSION, LOCALDIR, SEARCH_QUALIFIERS, EMAILABLEURL, SUGGESTIONS, LAYOUT, CSPACESERVER, INSTITUTION, VERSION, FIELDDEFINITIONS, DERIVATIVECOMPACT, DERIVATIVEGRID, SIZECOMPACT, SIZEGRID
@@ -168,14 +168,14 @@ print('Configuration successfully read')
 
 def loadFields(fieldFile):
     # get "frontend" configuration from the ... frontend configuration file
-    print('Reading field definitions from %s' % path.join(settings.BASE_PARENT_DIR, 'config/' + fieldFile))
+    print('Reading field definitions from %s' % path.join(settings.BASE_DIR, 'config/' + fieldFile))
 
     LOCATION = ''
     DROPDOWNS = []
     FACETS = {}
 
     FIELDS, PARMS, SEARCHCOLUMNS, SEARCHROWS, SOLRSERVER, SOLRCORE, TITLE, DEFAULTSORTKEY = getParms(
-        path.join(settings.BASE_PARENT_DIR, 'config/' + fieldFile))
+        path.join(settings.BASE_DIR, 'config/' + fieldFile))
 
     for p in PARMS:
         if 'dropdown' in PARMS[p][1]:
@@ -247,4 +247,4 @@ def loadFields(fieldFile):
 
 # on startup, do a query to get options values for forms...
 DROPDOWNS, FIELDS, FACETS, LOCATION, PARMS, SEARCHCOLUMNS, SEARCHROWS, SOLRSERVER, SOLRCORE, TITLE, DEFAULTSORTKEY, REQUIRED = loadFields(FIELDDEFINITIONS)
-print('Reading field definitions from %s' % path.join(settings.BASE_PARENT_DIR, 'config/' + FIELDDEFINITIONS))
+print('Reading field definitions from %s' % path.join(settings.BASE_DIR, 'config/' + FIELDDEFINITIONS))

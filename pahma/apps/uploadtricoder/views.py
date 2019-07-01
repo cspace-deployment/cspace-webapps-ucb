@@ -163,7 +163,7 @@ def checkfilename(request):
 def showresults(request):
     filename = request.GET['filename']
     directory = request.GET['directory']
-    f = open(get_tricoder_file(directory,filename), "rb")
+    f = open(get_tricoder_file(directory,filename), 'r')
     status = 'up'
     timestamp = time.strftime("%b %d %Y %H:%M:%S", time.localtime())
     return render(request, 'uploadtricoder.html',

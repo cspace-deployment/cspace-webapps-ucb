@@ -139,9 +139,9 @@ class CleanlinesFile(file):
 
 
 def getRecords(rawFile):
-    # csvfile = csv.reader(codecs.open(rawFile,'rb','utf-8'),delimiter="\t")
+    # csvfile = csv.reader(codecs.open(rawFile,'r','utf-8'),delimiter="\t")
     try:
-        f = CleanlinesFile(rawFile, 'rb')
+        f = CleanlinesFile(rawFile, 'r')
         csvfile = csv.reader(f, delimiter="|")
     except IOError:
         message = 'Expected to be able to read %s, but it was not found or unreadable' % rawFile
@@ -181,7 +181,7 @@ if __name__ == "__main__":
 
     print('MEDIA: %s columns and %s lines found in file %s' % (columns, len(records), sys.argv[1]))
     outputFile = sys.argv[1].replace('.step2.csv', '.step3.csv')
-    outputfh = csv.writer(open(outputFile, 'wb'), delimiter="\t")
+    outputfh = csv.writer(open(outputFile, 'w'), delimiter="\t")
 
     for i, r in enumerate(records):
 

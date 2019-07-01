@@ -4,7 +4,7 @@ from os import path
 from common import cspace # we use the config file reading function
 from cspace_django_site import settings
 
-config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'eloan')
+config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'eloan')
 
 MAXMARKERS = int(config.get('eloan', 'MAXMARKERS'))
 MAXRESULTS = int(config.get('eloan', 'MAXRESULTS'))

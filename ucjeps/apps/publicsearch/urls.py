@@ -6,7 +6,7 @@ from publicsearch import views
 urlpatterns = [
     path('', views.direct, name='direct'),
     path('publicsearch/', views.publicsearch, name='publicsearch'),
-    path('publicsearch/(P<fieldfile>[\w-]+)', views.loadNewFields, name='loadNewFields'),
+    path('publicsearch/<fieldfile>', views.loadNewFields, name='loadNewFields'),
     path('results/', views.retrieveResults, name='retrieveResults'),
     path('json/', views.retrieveJSON, name='retrieveJSON'),
     path('json/facet/', views.facetJSON, name='facetJSON'),

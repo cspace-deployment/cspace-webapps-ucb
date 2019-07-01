@@ -26,7 +26,7 @@ adhocprmz = loadConfiguration('common')
 print('Configuration for common successfully read')
 
 # on startup, setup this webapp layout...
-config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'adhocreports')
+config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'adhocreports')
 fielddefinitions = config.get('search', 'FIELDDEFINITIONS')
 adhocprmz = loadFields(fielddefinitions, adhocprmz)
 # nb: we override the app title here with the one configured for ad hoc reports

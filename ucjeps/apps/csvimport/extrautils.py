@@ -13,9 +13,9 @@ from common import cspace  # we use the config file reading function
 from common.utils import deURN
 from cspace_django_site import settings
 
-config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'csvimport')
+config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'csvimport')
 QUEUEDIR = config.get('files', 'directory')
-CODEPATH = path.join(settings.BASE_PARENT_DIR, 'csvimport')
+CODEPATH = path.join(settings.BASE_DIR, 'csvimport')
 SERVERLABEL = config.get('info', 'serverlabel')
 SERVERLABELCOLOR = config.get('info', 'serverlabelcolor')
 INSTITUTION = config.get('info', 'institution')

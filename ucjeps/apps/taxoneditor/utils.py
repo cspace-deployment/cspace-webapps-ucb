@@ -2,7 +2,7 @@ from common.utils import deURN
 import xml.etree.ElementTree as ET
 # import sys, csv, re, os
 from xml.sax.saxutils import escape
-from lookupMajorGroup import lookupMajorGroup
+from taxoneditor.lookupMajorGroup import lookupMajorGroup
 
 try:
     from xml.etree.ElementTree import tostring, parse, Element, fromstring

@@ -7,8 +7,6 @@ import re
 # this "standalone" app nevertheless needs access to django bits in utils and common; add a path to help
 sys.path.append("../../ucjeps")
 
-from common.unicode_hack import UnicodeReader, UnicodeWriter
-
 from utils import load_mapping_file, validate_items, count_columns, getRecords, write_intermediate_files
 from utils import send_to_cspace, count_stats, count_numbers, getConfig, find_keyfield
 
@@ -76,7 +74,7 @@ def main():
         parameters_ok = False
 
     try:
-        with open(sys.argv[1], 'rb') as f:
+        with open(sys.argv[1], 'r') as f:
             try:
                 dataDict, inputRecords, lines, file_header, bad_rows = getRecords(f)
             except Exception as inst:
@@ -113,7 +111,7 @@ def main():
         parameters_ok = False
 
     try:
-        with open(sys.argv[4], 'rb') as f:
+        with open(sys.argv[4], 'r') as f:
             xmlTemplate = f.read()
             # print(xmlTemplate)
     except:
@@ -121,21 +119,21 @@ def main():
         parameters_ok = False
 
     try:
-        outputfh = UnicodeWriter(open(sys.argv[5], 'wb'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
+        outputfh = csv.writer(open(sys.argv[5], 'w'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
                                 escapechar='\\')
     except:
         print("could not open validated file for write %s" % sys.argv[5])
         parameters_ok = False
 
     try:
-        nonvalidfh = UnicodeWriter(open(sys.argv[6], 'wb'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
+        nonvalidfh = csv.writer(open(sys.argv[6], 'w'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
                                 escapechar='\\')
     except:
         print("could not open nonvalidated file for write %s" % sys.argv[6])
         parameters_ok = False
 
     try:
-        termsfh = UnicodeWriter(open(sys.argv[7], 'wb'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
+        termsfh = csv.writer(open(sys.argv[7], 'w'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
                                 escapechar='\\')
     except:
         print("could not open terms file for write %s" % sys.argv[5])
@@ -144,7 +142,7 @@ def main():
     try:
         in_progress_file = re.sub(r'\..*?.csv','.inprogress.log', sys.argv[1])
         in_progress_file = re.sub(r'\.csv','.inprogress.log', in_progress_file)
-        in_progress = open(in_progress_file, 'wb')
+        in_progress = open(in_progress_file, 'w')
         in_progress.write("started at %s\n" % time.strftime("%b %d %Y %H:%M:%S", time.localtime()))
         in_progress.flush()
     except:

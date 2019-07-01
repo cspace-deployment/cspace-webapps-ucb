@@ -2,14 +2,14 @@
     <h2>
         Check on or advance recent uploads
     </h2>
-    <form action="{% url 'csvimport:showqueue' %}" method="post">
+    <form action="{% url 'showcsvqueue' %}" method="post">
         {% csrf_token %}
         {% if display == 'showerrors' %}
             {% include "csvimport_showerrors.html" %}
         {% elif display == 'checkjobs' %}
             {% include "csvimport_showqueue.html" %}
         {% endif %}
-        <input class="prettyBtn" type="submit" name="checkjobs" value="Refresh">
+        <input class="prettyBtn" type="submit" name="checkimportjobs" value="Refresh">
         (display the most recent
         <select id="num2display" name="num2display">
             <option value="50">50</option>

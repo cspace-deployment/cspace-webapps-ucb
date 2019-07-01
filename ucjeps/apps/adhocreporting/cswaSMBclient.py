@@ -45,7 +45,7 @@ def uploadCmdrWatch(barcodeFile, dataType, data, config):
         # storeFile(service_name, path, file_obj, timeout=30)
         # service_name - the name of the shared folder for the path
 
-        barcodeFh = open('/tmp/%s' % localslug, 'rb')
+        barcodeFh = open('/tmp/%s' % localslug, 'r')
         bytes = conn.storeFile(service_name, barcodeFile, barcodeFh)
 
         barcodeFh.close()

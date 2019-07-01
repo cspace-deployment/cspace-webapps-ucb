@@ -16,14 +16,14 @@ from cspace_django_site import settings
 from os import path
 from .models import AdditionalInfo
 
-config = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'locationhistory')
+config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'locationhistory')
 
 # read common config file
 common = 'common'
 prmz = loadConfiguration(common)
 print('Configuration for %s successfully read' % common)
 
-locationConfig = cspace.getConfig(path.join(settings.BASE_PARENT_DIR, 'config'), 'locationhistory')
+locationConfig = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'locationhistory')
 prmz.FIELDDEFINITIONS = locationConfig.get('locationhistory', 'FIELDDEFINITIONS')
 
 # add in the the field definitions...
@@ -78,7 +78,7 @@ def results(request):
             if group == '':
                 messages = ['A value for group title is required.']
             else:
-                grouptitle, groupcsid, totalItems, list_of_objects, errormsg = find_items_in_cspace(request, 'group', urllib.quote_plus(group), prmz.MAXRESULTS)
+                grouptitle, groupcsid, totalItems, list_of_objects, errormsg = find_items_in_cspace(request, 'group', urllib.parse.quote_plus(group), prmz.MAXRESULTS)
 
                 if groupcsid is not None and len(list_of_objects) > 0:
                     queryterms = [prmz.CSIDFIELD + ':(' + " OR ".join(list_of_objects) + ')']

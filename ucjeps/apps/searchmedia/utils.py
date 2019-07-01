@@ -28,7 +28,7 @@ SolrIsUp = True  # an initial guess! this is verified below...
 def loginfo(infotype, context, request):
     logdata = ''
     # user = getattr(request, 'user', None)
-    if request.user and not request.user.is_anonymous():
+    if request.user and not request.user.is_anonymous:
         username = request.user.username
     else:
         username = '-'
@@ -108,10 +108,9 @@ def makeMarker(location):
 
 def checkValue(cell):
     # the following few lines are a hack to handle non-unicode data which appears to be present in the solr datasource
-    if isinstance(cell, unicode):
+    if isinstance(cell, str):
         try:
-            cell = cell.translate({0xd7: u"x"})
-            cell = cell.decode('utf-8', 'ignore').encode('utf-8')
+            cell = str(cell)
         except:
             print('unicode problem', cell.encode('utf-8', 'ignore'))
             cell = cell.encode('utf-8', 'ignore')
@@ -229,7 +228,7 @@ def setupBMapper(requestObject, context):
     mappableitems, numSelected = getMapPoints(context, requestObject)
     context['mapmsg'] = []
     filename = 'bmapper%s.csv' % datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S")
-    filehandle = open(path.join(LOCALDIR, filename), 'wb')
+    filehandle = open(path.join(LOCALDIR, filename), 'w')
     writeCsv(filehandle, getfields('bMapper', 'name'), mappableitems, writeheader=False, csvFormat='bmapper')
     filehandle.close()
     context['mapmsg'].append('%s points of the %s selected objects examined had coordinates (%s in result set).' % (len(mappableitems), numSelected, context['count']))

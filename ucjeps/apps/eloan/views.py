@@ -5,9 +5,8 @@ import re
 import time
 from django.shortcuts import render, render_to_response, redirect
 import urllib
-import urllib2
 from cspace_django_site.main import cspace_django_site
-from eloanutils import get_entity, build_solr_query, getInstitutionCodefromDisplayName, getShortIdfromRefName
+from eloan.eloanutils import get_entity, build_solr_query, getInstitutionCodefromDisplayName, getShortIdfromRefName
 from common.utils import getfromXML
 
 
@@ -40,7 +39,7 @@ except ImportError:
 # global variables (at least to this module...)
 config = cspace_django_site.getConfig()
 
-from appconfig import SOLRSERVER, SOLRCORE, SOLRQUERYPARAM, PARMS
+from eloan.appconfig import SOLRSERVER, SOLRCORE, SOLRQUERYPARAM, PARMS
 
 # CONSTANTS
 SEARCHRESULTS = {}
@@ -59,7 +58,7 @@ def eloan(request):
 
         #if 'kw' conforms to the UCJEPS naming convention, continue. Else send error "E-loan numbers begin..."
         if re.match(r"^.+E[0-9]+$", request.GET['kw']) is not None:
-            eloanNum = urllib.quote_plus(request.GET['kw'])
+            eloanNum = urllib.parse.quote_plus(request.GET['kw'])
             eloanNum = str(eloanNum)
         else:
             errMsg = 'Error: E-loan numbers begin with a collection code, followed by a capital E and only digits after that. You entered: '+request.GET['kw']
@@ -69,7 +68,7 @@ def eloan(request):
 
         if 'recType' in request.GET and request.GET['recType']:
 
-            recType = urllib.quote_plus(request.GET['recType'])
+            recType = urllib.parse.quote_plus(request.GET['recType'])
             recType = str(recType)
 
         # Record type hard-coded for now in eloan.html. Generalize?
@@ -77,7 +76,7 @@ def eloan(request):
         else:
             try:
                 recType = 'loansout'
-            except urllib2.HTTPError as e:
+            except urllib.error.HTTPError as e:
                 print('Error1')
                 return
 
@@ -119,7 +118,7 @@ def eloan(request):
             lodata = get_entity(request, loquery, expectedmimetype).content
             loanoutXML = fromstring(lodata)
 
-        except urllib2.HTTPError as e:
+        except urllib.error.HTTPError as e:
             print('Error2.')
             return
 

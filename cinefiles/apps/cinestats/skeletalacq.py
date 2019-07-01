@@ -48,7 +48,7 @@ outputFile = sys.argv[2]
 # inputFile = "/Users/jblowe/cinefilesAcq/collectionitems2.csv"
 # outputFile = "testfile.csv"
 
-FMProFile = csv.reader(open(inputFile, 'rb'), delimiter="\t", quotechar="\\")
+FMProFile = csv.reader(open(inputFile, 'r'), delimiter="\t", quotechar="\\")
 collectionItems = {}
 counts['Collection Items'] = 0
 counts['Skeletal Acq Records output'] = 0
@@ -94,7 +94,7 @@ for lineno, ci in enumerate(FMProFile):
         CountMyDict(collectionItems, key, 999, csid)
     keys[key] = 1
 
-outputfh = csv.writer(open(outputFile, 'wb'), delimiter="\t")
+outputfh = csv.writer(open(outputFile, 'w'), delimiter="\t")
 
 for key in collectionItems.keys():
     counts['Skeletal Acq Records output'] += 1
