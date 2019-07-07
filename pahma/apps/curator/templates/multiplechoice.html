@@ -1,0 +1,14 @@
+{% if error %}
+    <p style="color: red;">Please submit a search term.</p>
+{% endif %}
+<form action="" method="post">
+    {%  csrf_token %}
+    {% include "curator_search.html" %}
+    {% if resultType == 'oddthingout' %}
+        {% include "oddthingout.html" %}
+    {% elif resultType == 'metadata' %}
+        {% include "compact.html" %}
+    {% elif resultType == 'images' %}
+        {% include "masonrycontainer.html" %}
+    {% endif %}
+</form>

@@ -1,0 +1,27 @@
+<form action="" method="get">
+    {% include "curator_search.html" %}
+</form>
+<div id="facets">
+    <input type="hidden" name="pane" value="facets">
+    {% for facet in facets %}
+        <div style="float:left; max-width: 220px;">
+            {{ facet.0 }}
+            <table id="Facet.{{ facet.0 }}" class="tablesorter-blue" style="width:15%">
+                <thead>
+                <tr>
+                    <th>Value</th>
+                    <th>F</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for f in facet.1 %}
+                    <tr>
+                        <td class="facet"><a href="#" class="facet-item" data-facetType={{ facet.0 }}>{{ f.0 }}</a></td>
+                        <td>{{ f.1 }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+</div>
