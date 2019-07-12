@@ -1,4 +1,4 @@
-import ConfigParser
+import configparser
 import sys
 
 PAGE="""<html lang="en-us">
@@ -196,7 +196,7 @@ if output_type == 'html':
 else:
     dont_show = 'common hello service suggestsolr suggestpostgres'.split(' ')
 
-config = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
 
 all_apps = {}
 
@@ -225,37 +225,37 @@ for tenant in tenants:
 
 if output_type == 'text':
 
-    print '%-20s' % 'apps',
+    print('%-20s' % 'apps', end='')
     for tenant in tenants:
-        print '%-15s' % tenant,
+        print('%-15s' % tenant, end='')
     print
 
     for app in sorted(all_apps.keys()):
-        print '%-20s' % app,
+        print('%-20s' % app, end='')
         for tenant in tenants:
             if tenant in all_apps[app]:
-                print '%-15s' % all_apps[app][tenant],
+                print('%-15s' % all_apps[app][tenant], end='')
             else:
-                print '%-15s' % ' ',
+                print('%-15s' % ' ', end='')
         print
 
 elif output_type == 'table':
 
-    print '\t'.join(['apps'] + tenants)
+    print('\t'.join(['apps'] + tenants))
 
     n = 0
     for app in sorted(all_apps.keys()):
-        print '%s\t' % app,
+        print('%s\t' % app, end='')
         for tenant in tenants:
             if tenant in all_apps[app]:
-                print '%s\t' % all_apps[app][tenant],
+                print('%s\t' % all_apps[app][tenant], end='')
                 n += 1
             else:
-                print '%s\t' % ' ',
+                print('%s\t' % ' ', end='')
         print
 
     print
-    print 'number of apps\t%s' % n
+    print('number of apps\t%s' % n)
 
 
 elif output_type == 'table-html':
@@ -275,7 +275,7 @@ elif output_type == 'table-html':
         html += '</tr>'
     html += '</table>'
 
-    print html.replace('DEPLOYMENT','-dev')
+    print(html.replace('DEPLOYMENT','-dev'))
 
 else:
     html = '<table>'
@@ -299,20 +299,20 @@ else:
         html += '</tr>'
     html += '</table>'
 
-    print PAGE % (html.replace('DEPLOYMENT',''), html.replace('DEPLOYMENT','-dev'))
+    print(PAGE % (html.replace('DEPLOYMENT',''), html.replace('DEPLOYMENT','-dev')))
 
 if False:
 
-    print '%-10s' % ' ',
+    print('%-10s' % ' ', end='')
     for app in sorted(all_apps.keys()):
-        print '%-10s' % app,
+        print('%-10s' % app, end='')
     print
     for tenant in tenants:
-        print '%-10s' % tenant,
-        # print '%-20s' % app,
+        print('%-10s' % tenant, end='')
+        # print('%-20s' % app, end='')
         for app in sorted(all_apps.keys()):
             if tenant in all_apps[app]:
-                print '%-10s' % all_apps[app][tenant],
+                print('%-10s' % all_apps[app][tenant], end='')
             else:
-                print '%-10s' % ' ',
+                print('%-10s' % ' ', end='')
         print
