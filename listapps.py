@@ -228,7 +228,7 @@ if output_type == 'text':
     print('%-20s' % 'apps', end='')
     for tenant in tenants:
         print('%-15s' % tenant, end='')
-    print
+    print()
 
     for app in sorted(all_apps.keys()):
         print('%-20s' % app, end='')
@@ -237,7 +237,7 @@ if output_type == 'text':
                 print('%-15s' % all_apps[app][tenant], end='')
             else:
                 print('%-15s' % ' ', end='')
-        print
+        print()
 
 elif output_type == 'table':
 
@@ -252,9 +252,9 @@ elif output_type == 'table':
                 n += 1
             else:
                 print('%s\t' % ' ', end='')
-        print
+        print()
 
-    print
+    print()
     print('number of apps\t%s' % n)
 
 
@@ -306,7 +306,7 @@ if False:
     print('%-10s' % ' ', end='')
     for app in sorted(all_apps.keys()):
         print('%-10s' % app, end='')
-    print
+    print()
     for tenant in tenants:
         print('%-10s' % tenant, end='')
         # print('%-20s' % app, end='')
@@ -315,4 +315,4 @@ if False:
                 print('%-10s' % all_apps[app][tenant], end='')
             else:
                 print('%-10s' % ' ', end='')
-        print
+        print()
