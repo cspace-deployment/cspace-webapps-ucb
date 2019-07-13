@@ -8,7 +8,7 @@ import sys
 # from common.cspace import logged_in_or_basicauth
 from django.shortcuts import render, HttpResponse
 import time, datetime, re
-from utils import SERVERINFO, TITLE, POSTBLOBPATH, handle_uploaded_file, getCSID, get_tricoder_file, get_tricoder_filelist, loginfo
+from uploadtricoder.utils import SERVERINFO, TITLE, POSTBLOBPATH, handle_uploaded_file, getCSID, get_tricoder_file, get_tricoder_filelist, loginfo
 
 # read common config file, just for the version info
 from common.appconfig import loadConfiguration

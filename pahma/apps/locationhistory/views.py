@@ -11,7 +11,7 @@ from django.shortcuts import render, render_to_response
 from common.utils import setConstants
 from common.appconfig import loadConfiguration, loadFields, getParms
 from common import cspace # we use the config file reading function
-from locationutils import find_items_in_cspace, setup_solr_search
+from locationhistory.locationutils import find_items_in_cspace, setup_solr_search
 from cspace_django_site import settings
 from os import path
 from .models import AdditionalInfo
