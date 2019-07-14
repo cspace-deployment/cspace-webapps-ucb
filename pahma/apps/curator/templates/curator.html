@@ -2,11 +2,42 @@
 {% load i18n admin_static %}
 {% load staticfiles %}
 
+{% block extrascript %}
+<script type="text/javascript" src="{% static "curator/js/curator.js" %}"></script>
+{% endblock %}
+
+{% block extrastyle %}
+<style>
+
+.hint {
+    display: none;
+}
+
+.start, .done {
+    background: white;
+    padding: 6px;
+    display: block;
+}
+
+.correct {
+    background: green;
+    padding: 6px;
+}
+
+.wrong {
+    background: red;
+    padding: 6px;
+}
+
+</style>
+{% endblock %}
+
+
 {% block content %}
     {% include "toggled.html" %}
     <div id="tabs">
         <ul>
-            <li><a href="#guess">Guessing Game</a></li>
+            <li><a href="#guess">Odd Thing Out</a></li>
             <li><a href="#facets">Facet Game</a></li>
             <li><a href="#maps">Map Game</a></li>
         </ul>

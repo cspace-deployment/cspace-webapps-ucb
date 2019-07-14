@@ -4,9 +4,21 @@
     <input aria-labelledby="text-input" type="text" name="keyword" size="40" id="keyword" value="{{ keyword }}">
     <input type="hidden" name="maxresults" value="{{ maxresults }}">
     <input type="hidden" name="pixonly" value="{{ pixonly }}">
+    <input type="hidden" name="score" value="{{ score }}">
+    <input type="hidden" name="displayType" value="full">
     <!-- input class="prettyBtn" type="submit" name="submit" value="I'm feeling lucky" style="margin: 20px;" -->
     <input class="prettyBtn" type="submit" name="submit" value="Seed" style="margin: 20px;">
     (enter a 'seed value' to generate a set of records)
+    <!-- select id="sets" name="sets">
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+    </select -->
+    <span style="float: right; font-size: larger;">
+        game: <input type="text" name="start" id="start" style="width: 80px; text-align: center;" readonly value="{{ start }}">
+        right: <input type="text" name="right" id="right" style="width: 80px; text-align: center;" readonly value="{{ right }}">
+        wrong: <input type="text" name="wrong" id="wrong" style="width: 80px; text-align: center;" readonly value="{{ wrong }}">
+    </span>
     <!-- input class="prettyBtn" type="submit" name="submit" value="Search for Images" style="margin: 20px;" -->
 </div>
 {% for field in form.hidden_fields %}
@@ -20,11 +32,10 @@
     {% if count > 0 %}
         <hr/>
         {{ count }} items in this deck.
-        {% if time %}
-            ({{ time }} seconds.)
-        {% endif %}
+        In each row there is one object that does not belong (i.e. has a different value for one of the fields in the object record).
+        Click on the one that does not fit in.
         <hr/>
     {% elif keyword %}
-        no items found. please try a different value
+        No items found. Please try a different value.
     {% endif %}
 </div>

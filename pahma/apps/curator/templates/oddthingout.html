@@ -1,52 +1,55 @@
 {% spaceless %}
     {% load staticfiles %}
     <table cellspace="1" id="resultsListing">
-    <tbody>
-    {% for label, objitems in questions.items %}
-        <tr>
-        <td>
-        <h4>{{ label }}</h4>
-            <span title="{{ objitems.1 }}">hint1</span><br/>
-            <span title="{{ objitems.2 }}">hint2</span>
-            <div style="display: none">
-            {{ objitems.1 }} <br/> {{ objitems.2 }}
-            </div>
-        </td>
-    {% for item in objitems.0 %}
-        <td>
-            {% if item.blobs %}
-            <div>
-                <a target="image" href="{{ imageserver }}/blobs/{{ item.blobs.0 }}/derivatives/OriginalJpeg/content"><img style="object-fit: cover; width:220px; height:220px;" src="{{ imageserver }}/blobs/{{ item.blobs.0 }}/derivatives/Medium/content"/></a>
-            </div>
-        {% else %}
-            <div style="height: {{ sizegrid }}; width: {{ sizegrid }}; background-color: lightgray">
-            <br/>&nbsp;[no image]
-            </div>
-        {% endif %}
-        <div style="word-wrap: break-word">
-            <b>{{ item.mainentry|safe }}</b>
-            <a title="permalink" target=_new href="/{{ institution }}/objects/{{ item.accession }}"><img src="{% static "common/images/permalink.svg" %}" class="cspaceLink"></a>
-        </div>
-        <!--
-            {% for i in item.otherfields %}
-            {% if i.value %}
-                {% if i.multi %}
-                    <p class="tiny">{{ i.label }}:</p>
-                        <ul style="text-indent: 15px">
-                        {% for t in i.value %}
-                            <li><p class="tiny">{{ t|safe }}</p></li>
-                        {% endfor %}
-                        </ul>
-                {% else %}
-                    <p class="tiny">{{ i.label }}: {{ i.value|safe }}</p>
-                {% endif %}
-            {% endif %}
-            {% endfor %}
-            -->
-        </td>
-    {% endfor %}
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        <tbody>
+        {% for label, objitems in questions.items %}
+            <tr>
+                <td id="{{ forloop.counter }}">
+                    <h4>Set {{ forloop.counter }}</h4>
+                    <h4>{{ label }}</h4>
+                    <div class="hint">
+                        <p><i>same things:</i> {{ objitems.1 }}</p>
+                        <p><i>odd thing:</i> {{ objitems.2 }}</p>
+                    <input type="hidden" id="answer" value="{{ objitems.3 }}"/>
+                    </div>
+                </td>
+                {% for item in objitems.0 %}
+                    <td>
+                        {% if item.blobs %}
+                            <div class="start" id="{% if objitems.3 == forloop.counter %}correct{% else %}wrong{% endif %}">
+                                <img style="object-fit: cover; width:220px; height:220px;" src="{{ imageserver }}/blobs/{{ item.blobs.0 }}/derivatives/Medium/content"/>
+                            </div>
+                        {% else %}
+                            <a href="">
+                                <div style="height: {{ sizegrid }}; width: {{ sizegrid }}; background-color: lightgray">
+                                    <br/>&nbsp;[no image]
+                                </div>
+                            </a>
+                        {% endif %}
+                        <div style="width: 220px;">
+                            <b>{{ item.mainentry|safe }}</b>
+                            <a title="permalink" target=_new href="/{{ institution }}/objects/{{ item.accession }}"><img src="{% static "common/images/permalink.svg" %}" class="cspaceLink"></a>
+                        </div>
+                        <!--
+                            {% for i in item.otherfields %}
+                            {% if i.value %}
+                                {% if i.multi %}
+                                    <p class="tiny">{{ i.label }}:</p>
+                                        <ul style="text-indent: 15px">
+                                        {% for t in i.value %}
+                                            <li><p class="tiny">{{ t|safe }}</p></li>
+                                        {% endfor %}
+                                        </ul>
+                                {% else %}
+                                    <p class="tiny">{{ i.label }}: {{ i.value|safe }}</p>
+                                {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        -->
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endspaceless %}

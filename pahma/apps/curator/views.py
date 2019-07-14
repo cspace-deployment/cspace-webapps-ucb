@@ -50,11 +50,12 @@ def random_sample(choices, bins, label, number_of_items):
     return x, crowd_name
 
 
-def organize(items, number_of_items):
+def organize(items, number_of_items, sets):
     questions = []
     bins = collections.defaultdict(dict)
     for x in items:
         for i in x['otherfields']:
+            if i['value'] == '': continue
             if not i['label'] in bins:
                 bins[i['label']] = collections.defaultdict(list)
             if type(i['value']) == type([]):
@@ -62,7 +63,8 @@ def organize(items, number_of_items):
             else:
                 bins[i['label']][i['value']].append(x)
     game_bins = collections.defaultdict(dict)
-    for label in bins:
+    for i, label in enumerate(bins):
+        if i >= sets: break
         possible = []
         oddman = []
         for b in bins[label]:
@@ -74,7 +76,9 @@ def organize(items, number_of_items):
             crowd, label_for_crowd = random_sample(possible, bins, label, number_of_items - 1)
             oddman, label_for_oddman = random_sample(oddman, bins, label, 1)
             crowd.append(oddman[0])
-            game_bins[label] = crowd, label_for_crowd, label_for_oddman
+            crowd = random.sample(crowd, len(crowd))
+            correct = crowd.index(oddman[0]) + 1
+            game_bins[label] = crowd, label_for_crowd, label_for_oddman, correct
         else:
             pass
 
@@ -96,16 +100,21 @@ def curator(request):
                'maxresults': prmz.MAXRESULTS}
 
     if request.method == 'GET':
-        pass
+        context['score'] = 0
+        context['wrong'] = 0
+        context['right'] = 0
+        context['start'] = 0
 
     if 'pane' in request.POST:
-        context['displayType'] = 'full'
         if request.POST['pane'] == 'guess':
-            # do search
             context['searchValues'] = request.POST
             context['count'] = 0
             prmz.MAXFACETS = 20
             # default display type is Grid
+            if 'score' in request.POST:
+                context['score'] = int(request.POST['score'])
+                context['right'] = int(request.POST['right'])
+                context['wrong'] = int(request.POST['wrong'])
             if 'keyword' in request.POST:
                 context['keyword'] = request.POST['keyword']
             if 'accession' in request.POST:
@@ -133,10 +142,13 @@ def curator(request):
 
                 loginfo(logger, 'start curator search', context, request)
                 context = doSearch(context, prmz, request)
+                context['start'] = int(request.POST['start']) + 1
                 if context['count'] >= 1000:
                     number_in_play = min(prmz.MAXRESULTS, context['count'])
-                    number_of_items = 10
-                    context['questions'] = organize(context['items'], 6)
+                    number_of_items = 6
+                    max_number_of_sets = 15
+                    context['questions'] = organize(context['items'], number_of_items, max_number_of_sets)
+                    #context['questions'] = organize(context['items'], 6, int(request.POST['sets']))
                 else:
                     context['errormsg'] = 'need to find at least 1000 objects to play!'
                 # record_range = random.sample(range(number_in_play - 1), number_of_items)
