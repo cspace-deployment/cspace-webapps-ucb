@@ -48,6 +48,7 @@ urlpatterns = [
     path('toolbox/', include('toolbox.urls'), name='toolbox'),
     # path('cswa/', include('cswa.urls'), name='cswa'),
     path('workflow/', include('workflow.urls'), name='workflow'),
+    path('x3dviewer/', include('x3dviewer.urls'), name='x3dviewer'),
     path('uploadmedia/', include('uploadmedia.urls'), name='uploadmedia'),
     path('uploadtricoder/', include('uploadtricoder.urls'), name='uploadtricoder'),
 

@@ -41,4 +41,5 @@ INSTALLED_APPS = (
     'uploadmedia',
     'uploadtricoder',
     'workflow',
+    'x3dviewer',
 )
