@@ -68,10 +68,9 @@ def search(request):
 @login_required()
 def skeleton(request):
     if request.method == 'GET' and request.GET != {}:
-        # context = {'searchValues': dict(request.GET.iteritems())}
         aggregate, search_keys = gatherosteoparms(dict(request.GET.iteritems()))
-        requestObject = {'querystring': (' OR '.join(aggregate)), 'url': 'url', 'special': 'true'}
-        context = {'searchValues': requestObject}
+        search_values = {'querystring': (' OR '.join(aggregate)), 'url': 'url', 'special': 'true'}
+        context = {'searchValues': search_values}
         context['aggregate'] = search_keys
         context = doSearch(context, prmz, request)
     else:
@@ -86,11 +85,10 @@ def skeleton(request):
 @login_required()
 def retrieveResults(request):
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
-        form = forms.Form(requestObject)
+        form = forms.Form(request.POST)
 
         if form.is_valid():
-            context = {'searchValues': requestObject}
+            context = {'searchValues': request.POST}
             context = doSearch(context, prmz, request)
 
         loginfo(logger, 'results.%s' % context['displayType'], context, request)
