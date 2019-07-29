@@ -46,7 +46,7 @@
                     display: "inline"
                 });
 
-                $.post("locationhistory/results", formData).done(function (data) {
+                $.post("results", formData).done(function (data) {
                     $('#resultsPanel').html(data);
 
                     $('#resultsListing').tablesorter({

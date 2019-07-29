@@ -10,7 +10,7 @@
         {% if error %}
             <p style="color: red;">Please submit a search term.</p>
         {% endif %}
-        <form action="" method="get">
+        <form method="get">
             {% for field in form.hidden_fields %}
                 <div style="display:none;">{{ field }}</div>
             {% endfor %}

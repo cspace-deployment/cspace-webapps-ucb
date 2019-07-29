@@ -1,7 +1,7 @@
 {% if error %}
     <p style="color: red;">Please submit a search term.</p>
 {% endif %}
-<form action="" method="post">
+<form method="post">
     {%  csrf_token %}
     {% include "curator_search.html" %}
     {% if resultType == 'oddthingout' %}

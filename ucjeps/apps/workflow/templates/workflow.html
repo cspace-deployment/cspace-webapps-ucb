@@ -10,7 +10,7 @@
         {% if error %}
             <p style="color: red;">Please submit a search term.</p>
         {% endif %}
-        <form action="" method="get">
+        <form method="get">
             start date (YYYY-MM-DD): <input type="text" name="start_date" value="{{ start_date }}">
             end date (optional. start date is the default): <input type="text" name="end_date" value="{{ end_date }}">
             <input class="prettyBtn" type="submit" value="Search">
