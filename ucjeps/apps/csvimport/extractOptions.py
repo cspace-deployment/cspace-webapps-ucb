@@ -25,7 +25,7 @@ Option lists resemble the following:
 '''
 
 def get_lists(file_name):
-    with open(file_name) as f:
+    with open(file_name, encoding='utf-8') as f:
         flattened_lists = {}
         config_jason = f.read()
         try:
