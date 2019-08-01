@@ -28,7 +28,7 @@
                         {% endif %}
                         <div style="width: 220px;">
                             <b>{{ item.mainentry|safe }}</b>
-                            <a title="permalink" target=_new href="/{{ institution }}/objects/{{ item.accession }}"><img src="{% static "common/images/permalink.svg" %}" class="cspaceLink"></a>
+                            <a title="permalink" target=_new href="/{{ institution }}/object/{{ item.accession }}"><img src="{% static "common/images/permalink.svg" %}" class="cspaceLink"></a>
                         </div>
                         <!--
                             {% for i in item.otherfields %}

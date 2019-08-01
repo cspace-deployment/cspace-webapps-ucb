@@ -47,6 +47,6 @@ urlpatterns = [
     path('uploadmedia/', include('uploadmedia.urls'), name='uploadmedia'),
 
     # these two paths are special: they are used to create permalinks for objects and media
-    path('(media)/', include('permalinks.urls'), name='permalinks'),
-    path('(objects)/', include('permalinks.urls'), name='permalinks'),
+    path('media/', include('permalinks.urls'), name='permalinks'),
+    path('object/', include('permalinks.urls'), name='permalinks'),
 ]
