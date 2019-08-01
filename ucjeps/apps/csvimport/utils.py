@@ -94,7 +94,7 @@ def load_mapping_file(mapping_file):
     cspace_mapping = {}
     constants = []
     dump_row('Row InputField CSpaceField X DataType X X'.split(' '), 'Status', 'Message')
-    with open(mapping_file, 'r') as f1:
+    with open(mapping_file, 'r', encoding='utf-8') as f1:
         reader = csv.reader(f1, delimiter=delim, quoting=csv.QUOTE_NONE, quotechar=chr(255))
         errors = 0
         for lineno, row in enumerate(reader):
