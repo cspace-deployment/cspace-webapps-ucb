@@ -9,7 +9,7 @@
                 <li>Select Files to Upload</li>
             </h2>
 
-            <form enctype="multipart/form-data" action="{% url 'uploadtricoder:uploadfiles' %}" method="post">
+            <form enctype="multipart/form-data" action="{% url 'tri_uploadfiles' %}" method="post">
                 {% csrf_token %}
                 {% if status == 'down' %}
                     <h2><span style="color:red">System is down, please standby!</span></h2>
@@ -30,7 +30,7 @@
             <h2>
                 <li>Check on jobs and uploads</li>
             </h2>
-            <form action="{% url 'uploadtricoder:showqueue' %}" method="post">
+            <form action="{% url 'tri_showqueue' %}" method="post">
                 {% csrf_token %}
                 <input class="prettyBtn" type="submit" name="checkpending" value="View Pending">
                 <input class="prettyBtn" type="submit" name="checkprocessed" value="View Processed">

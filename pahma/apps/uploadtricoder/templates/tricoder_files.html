@@ -22,7 +22,7 @@
         <tbody>
         {% for tuf in tricoder_upload_files %}
             <tr>
-                <td><a href="showresults/?filename={{ tuf.name }}&directory={{ directory }}">{{ tuf.name }}</a></td>
+                <td><a href="tri_showresults/?filename={{ tuf.name }}&directory={{ directory }}">{{ tuf.name }}</a></td>
                 <td>{{ tuf.status }}</td>
             </tr>
         {% endfor %}
