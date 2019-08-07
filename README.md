@@ -1,4 +1,5 @@
-## UCB Django webapp customizations
+## cspace-webapps-ucb
+#### UCB Django webapp customizations
 
 This Directory contains _sample_ configuration files for the various UCB tenants using the "Django webapps".
 
