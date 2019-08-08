@@ -3,11 +3,16 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.2.0-rc1
-Wed Aug  7 12:51:11 PDT 2019
+This is version 5.2.0-rc2
+Thu Aug  8 10:26:20 PDT 2019
 
-b3d670c (HEAD -> master) CSW-99: a start on updated documentation for the cspace-webapps-ucb repo
-daa4863 (origin/master, origin/HEAD) CSW-101: tweak templates for 'permalinks' webapps
+39e02d4 (HEAD -> master, origin/master, origin/HEAD) CSW-101: a few more places to encode payload
+3fdc742 CSW-101: initial updates to a possible uploadtricoder batch proces
+9ca7101 CSW-101: 'requests' returns a different 'info' object in python3
+81e43d4 CSW-101: 'RequestContext' object is not needed any more in Python3
+036edf6 (tag: 5.2.0-rc1) revise change log and VERSION file for version 5.2.0-rc1
+b3d670c CSW-99: a start on updated documentation for the cspace-webapps-ucb repo
+daa4863 CSW-101: tweak templates for 'permalinks' webapps
 d2111c5 CSW-101: correct path in x3dviewer
 d5c863b CSW-101: make tricoder urls unique: django2 requires this
 fb2c33f CSW-101: specify encoding for input .csv file
