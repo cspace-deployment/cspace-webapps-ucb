@@ -3,13 +3,6 @@ import sys
 import codecs
 import time
 
-# NB: the BMU facility uses methods from the "legacy" CGI webapps, imported below.
-# Therefore, it must either be run from the directory where these modules live,
-# or these modules must be copied to where the batch system (i.e. cron job) runs the script
-#
-# at the moment, the whole shebang expects to be run in /var/www/cgi-bin, and there are
-# a couple of hardcoded dependencies below
-
 CONFIGDIRECTORY = '/var/www/cfgs/'
 
 from cswaUtils import postxml, relationsPayload, getConfig
@@ -37,10 +30,6 @@ IMAGENUMBERELEMENT
 </ns2:tricoder_INSTITUTION>
 </document>
 """
-    if institution == 'bampfa':
-        payload = payload.replace('IMAGENUMBERELEMENT', '<imageNumber>%s</imageNumber>' % f['imageNumber'])
-    else:
-        payload = payload.replace('IMAGENUMBERELEMENT', '')
     payload = payload.replace('INSTITUTION', institution)
     payload = payload % (f['blobCsid'], f['rightsHolderRefname'], f['creator'], f['name'], f['contributor'], f['objectNumber'])
     # print(payload)
