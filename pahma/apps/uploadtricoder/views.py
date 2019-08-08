@@ -8,6 +8,7 @@ import sys
 # from common.cspace import logged_in_or_basicauth
 from django.shortcuts import render, HttpResponse
 import time, datetime, re
+
 from uploadtricoder.utils import SERVERINFO, TITLE, POSTBLOBPATH, handle_uploaded_file, getCSID, get_tricoder_file, get_tricoder_filelist, loginfo
 
 # read common config file, just for the version info
@@ -62,18 +63,17 @@ def prepareFiles(request, validateonly):
         if 'createtricoder' in request.POST:
             tricoder_fileinfo['status'] = 'createtricoder'
             if not validateonly:
-                loginfo('start', get_tricoder_file('input',tricoder_filenumber), request)
+                loginfo('start', get_tricoder_file('input',tricoder_filenumber), {}, request)
                 try:
                     retcode = subprocess.call(
                         [POSTBLOBPATH, get_tricoder_file('input',tricoder_filenumber)])
                     if retcode < 0:
-                        loginfo('process', tricoder_filenumber + " Child was terminated by signal %s" % -retcode,
-                                request)
+                        loginfo('process', tricoder_filenumber + " Child was terminated by signal %s" % -retcode, {}, request)
                     else:
-                        loginfo('process', tricoder_filenumber + ": Child returned %s" % retcode, request)
+                        loginfo('process', tricoder_filenumber + ": Child returned %s" % retcode, {}, request)
                 except OSError as e:
-                    loginfo('error', "Execution failed: %s" % e, request)
-                loginfo('finish', get_tricoder_file('input',tricoder_filenumber), request)
+                    loginfo('error', "Execution failed: %s" % e, {}, request)
+                loginfo('finish', get_tricoder_file('input',tricoder_filenumber), {}, request)
 
         elif 'uploadtricoder' in request.POST:
             tricoder_fileinfo['status'] = 'uploadtricoder'

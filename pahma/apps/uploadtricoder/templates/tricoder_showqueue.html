@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for filename,filefailed,fileinfo,filesummary in tricoder_files %}
+        {% for filename,filefailed,fileinfo in tricoder_files %}
             <tr>
                 <td><a href="tri_showresults/?filename={{ filename }}&directory={{ directory }}">{{ filename }}</a></td>
                 <!-- td>{{ filesummary }}</td>

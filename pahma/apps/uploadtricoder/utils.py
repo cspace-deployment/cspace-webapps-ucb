@@ -7,6 +7,7 @@ from xml.sax.saxutils import escape
 import hashlib
 
 from common import cspace  # we use the config file reading function
+from common.utils import loginfo
 from cspace_django_site import settings
 from os import path, listdir
 from os.path import isfile, isdir, join
@@ -21,12 +22,13 @@ SERVERINFO = {
     'serverlabel': config.get('info', 'serverlabel')
 }
 
+
 if isdir(TRICODERDIR):
-    print("Using %s as working directory for tricoder files and metadata files" % (FILEPATH % 'input'))
+    loginfo('tricoder',"Using %s as working directory for images and metadata files" % TRICODERDIR, {}, {})
 else:
-    print("working directory %s does not exist. this webapp will not work!" % (FILEPATH % 'input'))
-    print("using /tmp as a placeholder")
-    TRICODERDIR = "/tmp"
+    loginfo('tricoder',"%s is not an existing directory, using /tmp instead" % TRICODERDIR, {}, {})
+    TRICODERDIR  = '/tmp'
+
 
 # Get an instance of a logger, log some startup info
 logger = logging.getLogger(__name__)
@@ -81,16 +83,6 @@ def checkFile(filename):
     return len(lines), recordtypes
 
 
-def loginfo(infotype, line, request):
-    logdata = ''
-    # user = getattr(request, 'user', None)
-    if request.user and not request.user.is_anonymous:
-        username = request.user.username
-    else:
-        username = '-'
-    logger.info('%s :: %s :: %s' % (infotype, line, logdata))
-
-
 def getQueue(tricoder_filetypes):
     return [x for x in listdir(FILEPATH % '') if '%s.csv' % tricoder_filetypes in x]
 
@@ -108,28 +100,3 @@ def handle_uploaded_file(f):
         for chunk in f.chunks():
             destination.write(chunk)
     destination.close()
-
-
-# this function not currently in use. Copied from another script, it's not Django-compatible
-def viewFile(logfilename, numtodisplay):
-    print('<table width="100%">\n')
-    print(('<tr>' + (4 * '<th class="ncell">%s</td>') + '</tr>\n') % ('locationDate,objectNumber,objectStatus,handler'.split(',')))
-    try:
-        file_handle = open(logfilename)
-        file_size = file_handle.tell()
-        file_handle.seek(max(file_size - 9 * 1024, 0))
-
-        lastn = file_handle.read().splitlines()[-numtodisplay:]
-        for i in lastn:
-            i = i.replace('urn:cspace:bampfa.cspace.berkeley.edu:personauthorities:name(person):item:name', '')
-            line = ''
-            if i[0] == '#': pass
-        for l in [i.split('\t')[x] for x in [0, 1, 2, 5]]:
-            line += ('<td>%s</td>' % l)
-            # for l in i.split('\t') : line += ('<td>%s</td>' % l)
-            print('<tr>' + line + '</tr>')
-
-    except:
-        print('<tr><td colspan="4">failed. sorry.</td></tr>')
-
-    print('</table>')
