@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.template import RequestContext, loader
+from django.template import loader
 from cinestats.recordstats import RecordStats
 
 @login_required()
@@ -26,7 +26,7 @@ def cinestats(request):
 
    template = loader.get_template('cinestats/stats.html')
 
-   context = RequestContext(request, {
+   context = {
       'allnames_count': allnames,
       'allnames_ytd': personytd+orgytd+committeeytd,
       'person_count': personcount,
@@ -44,6 +44,6 @@ def cinestats(request):
       'subject_count': subjcount,
       'subject_ytd': subjytd,
        'accesscounts': accesscounts
-   })
+   }
    return HttpResponse(template.render(context))
  
