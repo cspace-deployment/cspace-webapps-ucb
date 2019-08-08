@@ -734,8 +734,8 @@ def postxml(requestType, uri, realm, protocol, hostname, port, username, passwor
         data = f.read()
         info = f.info()
         # if a POST, the Location element contains the new CSID
-        if info.getheader('Location'):
-            csid = re.search(uri + '/(.*)', info.getheader('Location')).group(1)
+        if info['Location']:
+            csid = re.search(uri + '/(.*)', info['Location']).group(1)
         else:
             csid = ''
     except urllib.error.HTTPError as e:
