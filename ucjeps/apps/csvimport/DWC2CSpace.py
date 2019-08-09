@@ -18,8 +18,8 @@ def main():
 
     if len(sys.argv) < 10:
         print
-        print('need 8 arguments:')
-        print('%s <csv input file> <config file> <mapping file> <template> <output file> <terms file> <action> <uri>') % sys.argv[0]
+        print('need 9 arguments, or suitable placeholders:')
+        print('%s <csv input file> <config file> <mapping file> <template> <validated file> <unvalidated file> <terms file> <action> <uri>' % sys.argv[0])
         sys.exit()
 
     # print(header)
