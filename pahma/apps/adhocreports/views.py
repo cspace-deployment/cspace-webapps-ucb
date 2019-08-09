@@ -56,7 +56,7 @@ def search(request):
 
 def retrieveResults(request):
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
         if form.is_valid():
@@ -69,7 +69,7 @@ def retrieveResults(request):
 
 def bmapper(request):
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
         if form.is_valid():
@@ -82,7 +82,7 @@ def bmapper(request):
 
 def gmapper(request):
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
         if form.is_valid():
@@ -96,7 +96,7 @@ def gmapper(request):
 def dispatch(request):
 
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
     if 'csv' in request.POST or 'downloadstats' in request.POST:
@@ -138,7 +138,7 @@ def dispatch(request):
 
 def statistics(request):
     if request.method == 'POST' and request.POST != {}:
-        requestObject = dict(request.POST.iteritems())
+        requestObject = request.POST
         form = forms.Form(requestObject)
 
         if form.is_valid():
