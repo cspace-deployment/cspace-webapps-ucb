@@ -3,10 +3,14 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.2.0-rc2
-Thu Aug  8 10:26:20 PDT 2019
+This is version 5.2.0-rc3
+Fri Aug  9 10:13:18 PDT 2019
 
-39e02d4 (HEAD -> master, origin/master, origin/HEAD) CSW-101: a few more places to encode payload
+8735407 (HEAD -> master, origin/master, origin/HEAD) CSW-101: urls for tricoder upload have changed a bit with django2
+3ea3df5 CSW-96: change label to 'Named hybrid?' for UCBG portals
+84d1814 CSW-101: tricoder file upload webapp needed some tlc
+2d321f2 (tag: 5.2.0-rc2) revise change log and VERSION file for version 5.2.0-rc2
+39e02d4 CSW-101: a few more places to encode payload
 3fdc742 CSW-101: initial updates to a possible uploadtricoder batch proces
 9ca7101 CSW-101: 'requests' returns a different 'info' object in python3
 81e43d4 CSW-101: 'RequestContext' object is not needed any more in Python3
