@@ -17,7 +17,7 @@
         <tbody>
         {% for filename,filefailed,fileinfo in tricoder_files %}
             <tr>
-                <td><a href="tri_showresults/?filename={{ filename }}&directory={{ directory }}">{{ filename }}</a></td>
+                <td><a href="tri_showresults?filename={{ filename }}&directory={{ directory }}">{{ filename }}</a></td>
                 <!-- td>{{ filesummary }}</td>
                 {% if filefailed == True %}
                     <td><span style="color: red">Failed.</span></td>
