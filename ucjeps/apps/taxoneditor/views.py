@@ -13,7 +13,7 @@ from xml.sax.saxutils import escape
 
 from taxoneditor.utils import termTypeDropdowns, termStatusDropdowns, taxonRankDropdowns, taxonfields, labels, formfields, numberWanted
 from taxoneditor.utils import extractTag, xName, TITLE, taxon_authority_csid, tropicos_api_key
-from taxoneditor.utils import fromstring, lookupMajorGroup
+from taxoneditor.utils import fromstring, lookupMajorGroup, taxontermsources
 
 # alas, there are many ways the XML parsing functionality might be installed.
 # the following code attempts to find and import the best...
@@ -137,7 +137,7 @@ def taxoneditor(request):
                     for i,fieldname in enumerate('X Family X ScientificNameWithAuthors ScientificName CommonName X NameId'.split(' ')):
                         r.append(xName(name, fieldname, i))
                     r[0] = ['id', sequence_number]
-                    r[6] = ['termSource', 'Tropicos']
+                    r[6] = ['termSource', taxontermsources['Tropicos']]
                     #r = {'id': sequence_number, 'family': name['Family'], 'idsource': 'Tropicos', 'id': name['NameId'],
                     #     'scientificnamewithauthors': name['ScientificNameWithAuthors'],
                     #     'scientificname': name['ScientificName']}
@@ -167,7 +167,7 @@ def taxoneditor(request):
                         r.append(xName(name, fieldname, i))
                     r[2][1] = lookupMajorGroup(r[2][1])
                     r[0] = ['id', sequence_number]
-                    r[6] = ['termSource', 'GBIF']
+                    r[6] = ['termSource', taxontermsources['GBIF']]
                     results['GBIF'].append(r)
                 gbifTime = time.time() - gbifTime
                 elapsedTimes['GBIF'] += gbifTime

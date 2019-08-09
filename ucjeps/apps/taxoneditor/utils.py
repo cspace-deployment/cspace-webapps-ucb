@@ -32,6 +32,8 @@ except ImportError:
 TITLE = 'Taxon Editor'
 numberWanted = 10
 
+# these are constants, some of which need to be kept up to date.
+
 taxon_authority_csid = '87036424-e55f-4e39-bd12'
 tropicos_api_key = 'd0a905a9-75c9-466e-bbab-5b568f4e8b91'
 termTypeDropdowns = [('descriptor', 'descriptor'), ('Leave empty', '')]
@@ -50,7 +52,23 @@ taxonfields = [
     ('updated_at', 'Updated At', 'ignore', '', ''),
     ('inAuthority', 'Authority CSID', 'ignore', '', '')
 ]
-    # these are constants or derived (i.e. not from service)
+
+taxontermsources = {
+    "GBIF": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource53)'GBIF'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource23)'Index Fungorum'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource24)'Index Herbariorum Index to Collectors'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource25)'Index Kewensis'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource26)'Index Nominum Algarum'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource27)'Index Nominum Genericorum'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource28)'Index to California Plant Names'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource30)'International Plant Names Index'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource39)'Richard L. Moe'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource41)'Royal Botanical Gardens (KEW)'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource46)'The Jepson Manual: Higher Plants of California'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource32)'Jepson Interchange'",
+    "Tropicos": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource49)'Tropicos'",
+    # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource50)'UC Botanical Garden'",
+}
 
 keep_for_now = [
     ('termFormattedDisplayName', 'Formatted Scientific Name', 'string', '', ''),
