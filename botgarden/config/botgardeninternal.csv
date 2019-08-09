@@ -81,4 +81,4 @@ field	66	group	Group	grouptitle_ss			keyword	13,2			43				43	x
 field	67	researcher	Researcher Name	researcher_s			keyword	14,2			44				44	x
 field	68	latitude	Latitude	latitude_f			keyword								45	x
 field	69	longitude	Longitude	longitude_f			keyword								46	x
-field	70	hybridflag	Is named hybrid?	hybridflag_s			dropdown	15,1			30					x
+field	70	hybridflag	Named hybrid?	hybridflag_s			dropdown	15,1			30					x
