@@ -516,28 +516,29 @@ def extract_refname(xml, term, pgSz, record_type):
             except:
                 print('could not get termDisplayName or refName or updatedAt from %s' % csid)
                 return 'Failed X X X X'.split(' '), totalItems
-            if normalize(term.encode('utf-8')) == normalize(termDisplayName.encode('utf-8')):
+            if normalize(term) == normalize(termDisplayName):
                 return ['OK', csid, str(termDisplayName), refName, updated_at], totalItems
         if totalItems > pgSz:
             return 'MaybeMissed X X X X'.split(' '), totalItems
         return 'NoMatch X X X X'.split(' '), totalItems
     except:
+        raise
         return 'xmlParseFailed X X X X'.split(' '), totalItems
 
 
 def rest_query(term, record_type):
     pgSz = 100
-    search_term = normalize(term.encode('utf-8'))
+    search_term = normalize(term)
     response = do_query('kw', search_term, record_type, pgSz)
     if response.status_code != 200:
         error_msg = "HTTP%s X X X X" % response.status_code
         return error_msg.split(' ')
     refname_result, totalitems = extract_refname(response.content, term, pgSz, record_type)
     if totalitems > pgSz and refname_result[0] != 'OK':
-        print('%s term %s (=%s) returned %s for kw search, only %s examined. status is %s.' % (record_type, term.encode('utf-8'), search_term, totalitems, pgSz, refname_result[0]))
+        print('%s term %s (=%s) returned %s for kw search, only %s examined. status is %s.' % (record_type, term, search_term, totalitems, pgSz, refname_result[0]))
     # hail mary: do a pt search if kw fails (but not in vocabularies -- doesn't work)
     if refname_result[0] != 'OK' and refname_result[0] != 'ZeroResults' and 'vocabularies' not in record_type:
-        print('fallback: %s term %s (=%s) trying pt search.' % (record_type, term.encode('utf-8'), search_term))
+        print('fallback: %s term %s (=%s) trying pt search.' % (record_type, term, search_term))
         # TODO: seems any authority search will only bring back 100...
         response = do_query('pt', term, record_type, 100)
         refname_result, totalitems = extract_refname(response.content, term, pgSz, record_type)
@@ -555,7 +556,7 @@ def rest_query(term, record_type):
 
 def do_query(index, search_term, record_type, pgSz):
     querystring = {index: search_term, 'wf_deleted': 'false', 'pgSz': pgSz}
-    querystring = urllib.urlencode(querystring)
+    querystring = urllib.parse.urlencode(querystring)
     # print(querystring)
     url = '%s/cspace-services/%s?%s' % (http_parms.server, record_type, querystring)
     response = requests.get(url, auth=HTTPBasicAuth(http_parms.username, http_parms.password))
@@ -600,7 +601,7 @@ def count_stats(stats, mapping):
                             label = items[item_key][0]
                         else:
                             label = 'invalid value:'
-                    print('  %15s: %s' % (label, item_key.encode('utf-8')))
+                    print('  %15s: %s' % (label, item_key))
                     bad_values += 1
 
     return ok_count, bad_count, bad_values
