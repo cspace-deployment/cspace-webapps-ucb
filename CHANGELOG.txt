@@ -3,10 +3,15 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.2.0-rc3
-Fri Aug  9 10:13:18 PDT 2019
+This is version 5.2.0-rc4
+Sat Aug 10 04:30:42 PDT 2019
 
-8735407 (HEAD -> master, origin/master, origin/HEAD) CSW-101: urls for tricoder upload have changed a bit with django2
+b6f43c3 (HEAD -> master, origin/master, origin/HEAD) CSW-38: use the new refNames for taxontermsource in the taxon editor
+e73f4b2 CSW-101: a few more places where python3 uses bytes and python2.7 uses strings
+ba8f3a9 CSW-101: typo in csvImport usage instructions
+64c7597 CSW-101: request.POST is a different object in Django2.2
+5d6d9f9 (tag: 5.2.0-rc3) revise change log and VERSION file for version 5.2.0-rc3
+8735407 CSW-101: urls for tricoder upload have changed a bit with django2
 3ea3df5 CSW-96: change label to 'Named hybrid?' for UCBG portals
 84d1814 CSW-101: tricoder file upload webapp needed some tlc
 2d321f2 (tag: 5.2.0-rc2) revise change log and VERSION file for version 5.2.0-rc2
