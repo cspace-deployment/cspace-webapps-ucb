@@ -47,14 +47,13 @@ def taxoneditor(request):
     sources = []
     determinations = ''
     multipleresults = []
+    sources = ['CSpace', 'GBIF', 'Tropicos']
 
     if request.method == 'POST':
         determinations = request.POST[formfield]
         taxa = determinations.split('\n')
         if 'source' in request.POST:
             sources = request.POST.getlist('source')
-        else:
-            sources = []
         # do search
         itemcount = 0
         sequence_number = 0
@@ -62,7 +61,6 @@ def taxoneditor(request):
             itemcount += 1
             # remove leading and trailing white space
             taxon = taxon.strip()
-            taxon = taxon.encode('utf-8')
             taxon_prefix = taxon.replace('. ', '.')
             taxon_prefix = re.sub(r' +\(.*','',taxon_prefix)
             # extract just latin name (= "Genus species"
@@ -103,11 +101,6 @@ def taxoneditor(request):
                     r = [sequence_number, family, major_group, termDisplayName, termName, commonName, 'CSpace', csid, updated_at]
                     r = [ ['', x] for x in r]
 
-                    # hardcoded here for now, should eventually get these from the authentication backend
-                    # but tenant is not even stored there...
-                    #h ostname = 'pahma.cspace.berkeley.edu'
-                    # tenant = 'pahma'
-                    # link = 'http://%s/collectionspace/ui/%s/html/cataloging.html?csid=%s' % (hostname, tenant, csid)
                     results['CollectionSpace'].append(r)
                 cspaceTime = time.time() - cspaceTime
                 elapsedTimes['CollectionSpace'] += cspaceTime
@@ -137,7 +130,7 @@ def taxoneditor(request):
                     for i,fieldname in enumerate('X Family X ScientificNameWithAuthors ScientificName CommonName X NameId'.split(' ')):
                         r.append(xName(name, fieldname, i))
                     r[0] = ['id', sequence_number]
-                    r[6] = ['termSource', taxontermsources['Tropicos']]
+                    r[6] = ['termSource', 'Tropicos']
                     #r = {'id': sequence_number, 'family': name['Family'], 'idsource': 'Tropicos', 'id': name['NameId'],
                     #     'scientificnamewithauthors': name['ScientificNameWithAuthors'],
                     #     'scientificname': name['ScientificName']}
@@ -167,7 +160,7 @@ def taxoneditor(request):
                         r.append(xName(name, fieldname, i))
                     r[2][1] = lookupMajorGroup(r[2][1])
                     r[0] = ['id', sequence_number]
-                    r[6] = ['termSource', taxontermsources['GBIF']]
+                    r[6] = ['termSource','GBIF']
                     results['GBIF'].append(r)
                 gbifTime = time.time() - gbifTime
                 elapsedTimes['GBIF'] += gbifTime
@@ -190,9 +183,11 @@ def load_payload(payload, request, cspace_fields):
     for field in cspace_fields:
         cspace_name = field[0]
         if cspace_name in request.POST.keys():
-            # TODO: sort out this encode issue, when we have a new version of python
-            payload = payload.replace('{%s}' % cspace_name, escape(request.POST[cspace_name]).encode("ascii","xmlcharrefreplace"))
-            #payload = payload.replace('{%s}' % cspace_name, escape(request.POST[cspace_name]).encode(encoding="ascii",errors="xmlcharrefreplace"))
+            if cspace_name == 'termSource':
+                termSource = taxontermsources[request.POST[cspace_name]]
+                payload = payload.replace('{%s}' % cspace_name, termSource)
+            else:
+                payload = payload.replace('{%s}' % cspace_name, request.POST[cspace_name])
 
     # get rid of any unsubstituted items in the template
     payload = re.sub(r'\{.*?\}', '', payload)
@@ -206,24 +201,20 @@ def create_taxon(request):
     payload = load_payload(taxon_template,request,taxonfields)
     uri = 'cspace-services/%s/%s/items' % ('taxonomyauthority', taxon_authority_csid)
 
-    elapsedtimetotal = 0.0
+    elapsedtime = time.time()
     messages = {}
     # messages.append("posting to %s REST API..." % uri)
     # print(payload)
     # messages.append(payload)
 
     connection = cspace.connection.create_connection(config, request.user)
+    taxonCSID = ''
     try:
         (url, data, taxonCSID, elapsedtime) = connection.postxml(uri=uri, payload=payload, requesttype='POST')
         messages['item'] = request.POST['item']
         messages['csid'] = taxonCSID
-        messages['elapsedtime'] = elapsedtime
     except:
-        messages['error'] = '%s REST API post failed...please report to cspace-support!' % uri
+        messages['error'] = "got HTTP response %s for POST to %s; don't think it worked. " % (taxonCSID, uri)
 
-
-    if data == None:
-        messages['error'] = "got HTTP response %s; don't think it worked. " % taxonCSID
-
-    messages['elapsedtime'] = elapsedtime
+    messages['elapsedtime'] = time.time() - elapsedtime
     return render(request, 'taxon_save_result.html', messages)

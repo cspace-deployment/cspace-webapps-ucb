@@ -4,8 +4,8 @@
     <taxonTermGroupList>
       <taxonTermGroup>
         <termName>{termName}</termName>
-        <termSource/>
-        <termSourceID></termSourceID>
+        <termSource>{termSource}</termSource>
+        <termSourceID>{termSourceID}</termSourceID>
         <taxonomicStatus>accepted</taxonomicStatus>
         <termSourceNote/>
         <termLanguage/>

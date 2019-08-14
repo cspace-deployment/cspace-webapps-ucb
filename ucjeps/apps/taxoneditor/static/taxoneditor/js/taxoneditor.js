@@ -1,9 +1,9 @@
 $(document).on('click', '#taxon-item', function () {
     var tds = $( this ).parent().parent().children().get();
-    console.log(tds);
+    // console.log(tds);
     for (td in tds) {
             var fieldname = tds[td].className;
-            console.log(fieldname);
+            // console.log(fieldname);
             field_to_set = document.getElementById(fieldname + this.dataset.item);
             if (field_to_set) {
                 document.getElementById(fieldname + this.dataset.item).value = tds[td].innerText.trim();
@@ -24,7 +24,7 @@ $(document).on('click', '#create-taxon', function () {
 
         $.ajax({
             type: 'POST',
-            url: 'create',
+            url: 'create/',
             data: $(this.parentElement).serialize()
         }).done(function (data) {
             $(resultDiv).html(data);
