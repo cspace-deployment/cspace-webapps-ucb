@@ -3,10 +3,12 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.2.0-rc4
-Sat Aug 10 04:30:42 PDT 2019
+This is version 5.2.0-rc5
+Wed Aug 14 14:40:03 PDT 2019
 
-b6f43c3 (HEAD -> master, origin/master, origin/HEAD) CSW-38: use the new refNames for taxontermsource in the taxon editor
+f0ae93b (HEAD -> master, origin/master, origin/HEAD) CSW-38: additional refactoring of ucjeps taxon editor for python3/django2
+9a5fac7 (tag: 5.2.0-rc4) revise change log and VERSION file for version 5.2.0-rc4
+b6f43c3 CSW-38: use the new refNames for taxontermsource in the taxon editor
 e73f4b2 CSW-101: a few more places where python3 uses bytes and python2.7 uses strings
 ba8f3a9 CSW-101: typo in csvImport usage instructions
 64c7597 CSW-101: request.POST is a different object in Django2.2
