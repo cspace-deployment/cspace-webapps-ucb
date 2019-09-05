@@ -146,7 +146,7 @@
 119	# georeferencedBy	geoRefencedBy											
 120	georeferenceProtocol	geoRefProtocol		static		geoRefProtocols	unused	0	0				
 122	georeferenceVerificationStatus	geoRefVerificationStatus		literal				1	1				
-123	# georeferenceRemarks	geoRefRemarks					unused	0	0	0	0		
+123	georeferenceRemarks	geoRefRemarks		literal									
 135	collId												
 138	# 												
 139	# FIMS to Cspace field name mapping												
