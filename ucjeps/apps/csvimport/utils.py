@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import csv
 import sys
+import traceback
 import re
 import json
 import logging
@@ -240,11 +241,11 @@ def check_cell_in_cspace(mapping_key, key, value):
     if value == '':
         return 0, '', u''
     if mapping_key[2] == 'literal':
-        return 0, 'a literal', value.decode('utf-8')
+        return 0, 'a literal', value
     elif mapping_key[2] == 'constant':
         return 0, 'a constant', mapping_key[5]
     elif mapping_key[2] == 'date':
-        return 0, 'a date', value.decode('utf-8')
+        return 0, 'a date', value
     elif mapping_key[2] == 'key':
         return 0, 'key', value
     elif mapping_key[2] == 'refname':
@@ -276,7 +277,7 @@ def check_cell_in_cspace(mapping_key, key, value):
         except:
             return 1, '"%s" is not a float. ' % value
     else:
-        return 0, 'unvalidated', value.decode('utf-8')
+        return 0, 'unvalidated', value
 
 
 def validate_cell(CSPACE_MAPPING, key, values):
@@ -692,9 +693,13 @@ def send_to_cspace(action, inputRecords, file_header, xmlTemplate, outputfh, uri
                 raise
             outputfh.writerow(cspaceElements)
             # flush output buffers so we get a much data as possible if there is a failure
-            outputfh.flush()
+            # outputfh.flush()
             sys.stdout.flush()
-        except:
+        except Exception:
+            print("Exception!")
+            print("-"*60)
+            traceback.print_exc(file=sys.stdout)
+            print("-"*60)
             print("item create/update failed for object number '%s', %8.2f" % (cspaceElements[0], (time.time() - elapsedtimetotal)))
             failures += 1
         recordsprocessed += 1
@@ -827,7 +832,7 @@ def DWC2CSPACE(action, xmlTemplate, input_dataDict, config, uri):
                 else:
                     # update the xml...
                     payload = update_xml(payload, input_dataDict, INSTITUTION, action)
-                    (url, data, dummyCSID, elapsedtime) = postxml('PUT', '%s/%s' % (uri, itemCSID), realm, protocol, hostname, port, username, password, payload)
+                    (url, data, dummyCSID, elapsedtime) = postxml('PUT', '%s/%s' % (uri, itemCSID), realm, protocol, hostname, port, username, password, payload.decode('utf-8'))
                     pass
             except:
                 raise

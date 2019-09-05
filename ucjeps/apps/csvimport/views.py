@@ -222,7 +222,7 @@ def nextstep(request, step, filename):
 
     time.sleep(1)
 
-    return showqueue(request)
+    return redirect('showcsvqueue')
 
 
 @login_required()
