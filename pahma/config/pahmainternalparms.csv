@@ -53,7 +53,7 @@ field	40	crate	Container	computedcrate_s		cr	keyword	7,3				28			32	x
 field	41	exhibitiontitle	Exhibition Title	exhibitiontitle_ss			keyword	9,3				29			33	x
 field	42	exhibitionnumber	Exhibition Number	exhibitionnumber_ss			keyword	9,2				30			34	x
 field	43	group	Group	grouptitle_ss			keyword	10,3				31			35	x
-field	44	locationdate	Location Date	locationdate_dt			date	8,3				32			36	x
+#field	44	locationdate	Location Date	locationdate_dt			date	8,3				32			36	x
 field	45	keyword	Keyword	text			keyword	1,1							37	x
 field	46	blobs	Blob	blob_ss			blob								38	x
 field	47	cards	Card	card_ss			card								39	x
