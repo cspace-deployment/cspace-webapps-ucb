@@ -3,14 +3,16 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.2.0-rc6
-Thu Sep  5 12:26:56 PDT 2019
+This is version 5.2.0-rc7
+Fri Sep  6 13:44:51 PDT 2019
 
-205bcef (HEAD -> master) CSW-125: disable 'move object range' tool in bampfa toolbox
+3d48079 (HEAD -> master) CSW-117: locationdate is not actually a value in the pahma-internal core
+a3045de (tag: 5.2.0-rc6, origin/master, origin/HEAD) revise change log and VERSION file for version 5.2.0-rc6
+205bcef CSW-125: disable 'move object range' tool in bampfa toolbox
 c0806e1 CSW-118: minor ux improvement: redirect correctly after action
 a46b5c0 CSW-118: update csvImport config file for collectionobjects
 c1c6f92 CSW-118: update *.sh files used by csvImport for python3 and venv
-3250e96 (tag: 5.2.0-rc5, origin/master, origin/HEAD) revise change log and VERSION file for version 5.2.0-rc5
+3250e96 (tag: 5.2.0-rc5) revise change log and VERSION file for version 5.2.0-rc5
 f0ae93b CSW-38: additional refactoring of ucjeps taxon editor for python3/django2
 9a5fac7 (tag: 5.2.0-rc4) revise change log and VERSION file for version 5.2.0-rc4
 b6f43c3 CSW-38: use the new refNames for taxontermsource in the taxon editor
