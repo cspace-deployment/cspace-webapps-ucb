@@ -690,7 +690,7 @@ def send_to_cspace(action, inputRecords, file_header, xmlTemplate, outputfh, uri
             if cspaceElements[1] != '':
                 successes += 1
             else:
-                raise
+                raise Exception('DWC2CSPACE did not return a valid result')
             outputfh.writerow(cspaceElements)
             # flush output buffers so we get a much data as possible if there is a failure
             # outputfh.flush()
