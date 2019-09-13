@@ -1,11 +1,11 @@
 __author__ = 'jblowe'
 
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import csrf_exempt
 import json
 import sys
 import traceback
-#from common.cspace import logged_in_or_basicauth
 from django.shortcuts import render, HttpResponse, redirect
 from wsgiref.util import FileWrapper
 from os import path, remove
@@ -15,7 +15,7 @@ import time, datetime
 from copy import deepcopy
 
 from csvimport.utils import SERVERINFO, TITLE, loginfo
-from csvimport.utils import check_columns, get_recordtypes, handle_uploaded_file
+from csvimport.utils import check_columns, get_recordtypes, handle_uploaded_file, get_file_type
 
 from csvimport.extrautils import SERVERLABEL, SERVERLABELCOLOR, CODEPATH, INSTITUTION, JOBDIR
 from csvimport.extrautils import getJobfile, getJoblist
@@ -79,7 +79,7 @@ def prepareFiles(request, context):
         try:
             print("%s %s: %s %s (%s %s)" % ('id', lineno + 1, 'name', afile.name, 'size', afile.size))
             
-            handle_uploaded_file(afile)
+            handle_uploaded_file(afile, request.POST['record_type'])
 
         except:
             sys.stderr.write("error! file=%s %s" % (afile.name, traceback.format_exc()))
@@ -100,6 +100,7 @@ def setConstants(request):
 
 
 @login_required()
+@csrf_protect
 def upload_csv_file(request):
     elapsedtime = time.time()
     context = setConstants(request)
@@ -135,15 +136,19 @@ def downloadresults(request, filename):
 def showresults(request, filename):
     elapsedtime = 0.0
     context = setConstants(request)
-    f = open(getJobfile(filename), 'r')
-    filecontent = f.read()
-    f.close()
-    context['filename'] = filename
-    context['logcontent'] = filecontent
-    #context['filecontent'] = reformat(filecontent)
-    elapsedtime = time.time() - elapsedtime
-    context = setContext(context, elapsedtime)
-    context['fileview'] = 'inline'
+    try:
+        f = open(getJobfile(filename), 'r')
+        filecontent = f.read()
+        f.close()
+        context['filename'] = filename
+        context['logcontent'] = filecontent
+        #context['filecontent'] = reformat(filecontent)
+        elapsedtime = time.time() - elapsedtime
+        context = setContext(context, elapsedtime)
+        context['fileview'] = 'inline'
+    except:
+        logger.info('%s :: %s' % ('csvimport could not open file', filename))
+        return showqueue(request)
 
     return render(request, 'csvimport.html', context)
                               
@@ -203,9 +208,10 @@ def nextstep(request, step, filename):
     loginfo('start', getJobfile(filename), request)
     try:
         file_is_OK = True
+        record_type = get_file_type(JOBDIR % filename)
         if file_is_OK:
             script = path.join(CODEPATH, '%s.sh' % step)
-            p_object = subprocess.Popen([script, JOBDIR % filename, 'collectionobjects'])
+            p_object = subprocess.Popen([script, JOBDIR % filename, record_type])
             if p_object._child_created:
                 pid = p_object.pid
                 loginfo('process', filename + ": Child returned %s" % p_object.returncode, request)

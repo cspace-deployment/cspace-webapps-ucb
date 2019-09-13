@@ -8,7 +8,7 @@ import re
 sys.path.append("../../ucjeps")
 
 from utils import load_mapping_file, validate_items, count_columns, getRecords, write_intermediate_files
-from utils import send_to_cspace, count_stats, count_numbers, getConfig, find_keyfield
+from utils import send_to_cspace, count_stats, count_numbers, getConfig, find_keyfield, fixup
 
 CONFIGDIRECTORY = ''
 
@@ -40,7 +40,7 @@ def main():
 
     try:
         uri = sys.argv[9]
-        uris = 'collectionobjects orgauthorities'
+        uris = 'collectionobjects orgauthorities taxon'
         valid_uri = False
         for test_uri in uris.split(' '):
             if test_uri in uri:
@@ -55,7 +55,7 @@ def main():
 
     try:
         action = sys.argv[8]
-        actions = 'count validate validate-add validate-update validate-both add update both'
+        actions = 'count validate validate-add validate-new validate-update validate-both add update both'
         if not action in actions.split(' '):
             print('Error! not a valid action: %s' % action)
             parameters_ok = False
@@ -107,7 +107,7 @@ def main():
             print("terminating due to %s errors detected in mapping configuration" % errors)
             parameters_ok = False
     except:
-        print("could not get mapping configuration")
+        print("could not get mapping configuration %s" % sys.argv[3])
         parameters_ok = False
 
     try:
@@ -192,11 +192,22 @@ def main():
 
     elif 'validate' in action:
 
-        validated_data, nonvalidating_items, stats, number_check= validate_items(mapping, constants,
+        validating_items, nonvalidating_items, stats, number_check= validate_items(mapping, constants,
                                                                                           inputRecords, file_header, uri,
                                                                                           in_progress, action, keyrow)
 
         ok_count, bad_count, bad_values = count_stats(stats, mapping)
+        not_found, found, total = count_numbers(number_check)
+
+        # for the 'new' action, we want to switch things around a bit
+        if action == 'validate-new':
+            x = validating_items
+            validating_items = fixup(nonvalidating_items, stats, file_header)
+            nonvalidating_items = x
+            x = not_found
+            found = not_found
+            not_found = x
+            bad_count == 0
 
         if bad_count != 0:
             print
@@ -204,13 +215,12 @@ def main():
             # print("cowardly refusal to write invalid output file")
             # sys.exit(1)
 
-        not_found, found, total = count_numbers(number_check)
 
         print
         print("%s:  %s found, %s not found, %s total" % ('record keys', found, not_found, total))
         print
 
-        recordsprocessed, successes, failures = write_intermediate_files(stats, validated_data, nonvalidating_items,
+        recordsprocessed, successes, failures = write_intermediate_files(stats, validating_items, nonvalidating_items,
                                                                          constants, file_header, mapping,
                                                                          outputfh, nonvalidfh, termsfh, number_check,
                                                                          keyrow)

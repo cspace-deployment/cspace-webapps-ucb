@@ -60,7 +60,6 @@ else:
 
 MAPPING_FILE = []
 
-
 class http_parms:
     pass
 
@@ -209,11 +208,43 @@ def check_file(file_handle):
     return len(lines), recordtypes
 
 
+def get_file_type(filename):
+    name_parts = filename.split('.')
+    extension = name_parts[-1]
+
+    type_filename = filename + '.input.type.txt'
+    type_file_handle = open(type_filename, 'r')
+    record_type = type_file_handle.readline()
+    type_file_handle.close()
+    return record_type.strip()
+
+
+# an ugly function, that should someday be eliminated by refactoring
+def fixup(items, stats, file_header):
+    revised_items = []
+    for row in items:
+        revised_row = []
+        for i, cell in enumerate(row):
+            # ugh. TODO: tidy this stats thing up. use classes.
+            if cell in stats[0][i][7]:
+                if stats[0][i][7][cell][0] != 'ZeroResults':
+                    cell = stats[0][i][7][cell][3]
+            revised_row.append(cell)
+        revised_items.append(revised_row)
+    return revised_items
+
+
 # following function borrowed from Django docs, w modifications
-def handle_uploaded_file(f):
+def handle_uploaded_file(f, record_type):
     name_parts = f.name.split('.')
     extension = name_parts[-1]
     copied_filename = f.name.replace('.%s' % extension, '.input.csv')
+
+    type_filename = f.name.replace('.%s' % extension, '.input.type.txt')
+    type_file_handle = open(path.join(IMPORTDIR, '%s') % type_filename, 'w')
+    type_file_handle.writelines(record_type)
+    type_file_handle.close()
+
     destination = open(path.join(IMPORTDIR, '%s') % copied_filename, 'wb+')
     with destination:
         for chunk in f.chunks():
@@ -360,6 +391,7 @@ def map_items(input_data, file_header, keyrow):
 def find_keyfield(CSPACE_MAPPING, file_header):
 
     keyrow = -1
+    keyfield = None
     try:
         for field in CSPACE_MAPPING:
             if CSPACE_MAPPING[field][2] == 'key':
@@ -607,7 +639,7 @@ def count_stats(stats, mapping):
 
     return ok_count, bad_count, bad_values
 
-def write_intermediate_files(stats, validated_data, nonvalidating_items, constants, file_header, mapping, outputfh, nonvalidfh, termsfh, number_check, keyrow):
+def write_intermediate_files(stats, validating_items, nonvalidating_items, constants, file_header, mapping, outputfh, nonvalidfh, termsfh, number_check, keyrow):
 
     successes = 0
     failures = 0
@@ -634,7 +666,7 @@ def write_intermediate_files(stats, validated_data, nonvalidating_items, constan
 
     outputfh.writerow(cspace_header + [c[0] for c in constants])
     outputfh.writerow(['csid'] + file_header + [c[0] for c in constants])
-    for input_data in validated_data:
+    for input_data in validating_items:
         try:
             outputfh.writerow([number_check[input_data[keyrow]]] + input_data)
             recordsprocessed += 1
@@ -652,7 +684,7 @@ def write_intermediate_files(stats, validated_data, nonvalidating_items, constan
             failures += 1
         except:
             try:
-                outputfh.writerow([''] + input_data)
+                nonvalidfh.writerow([''] + input_data)
                 recordsprocessed += 1
                 failures += 1
             except Exception as inst:
