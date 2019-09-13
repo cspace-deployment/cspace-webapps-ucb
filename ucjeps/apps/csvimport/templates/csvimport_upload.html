@@ -7,7 +7,7 @@
         {% if status == 'down' %}
             <h2><span style="color:red">System is down, please standby!</span></h2>
         {% else %}
-            <table>
+            <table border="1">
                 <tr>
                     <th>
                     <input class="prettyBtn" type="submit" name="upload" value="Upload ">
@@ -16,7 +16,14 @@
                         <input type="file" name="importfile" value="{{ importfile }}">
                     </td>
                     <td>
-                        The file must be a "delimited file"; the program will try to guess what type.
+                        Choose record type:
+                        <select id="record_type" name="record_type">
+                            <option value="">Please select</option>
+                            {% for displayname, cspace_type in recordtypes %}
+                                <option value="{{ cspace_type }}">{{ displayname }}</option>
+                            {% endfor %}
+                        </select>
+                        </select>
                     </td>
                 </tr>
             </table>
