@@ -119,21 +119,21 @@ def main():
         parameters_ok = False
 
     try:
-        outputfh = csv.writer(open(sys.argv[5], 'w'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
+        outputfh = csv.writer(open(sys.argv[5], 'w', encoding='utf-8'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
                                 escapechar='\\')
     except:
         print("could not open validated file for write %s" % sys.argv[5])
         parameters_ok = False
 
     try:
-        nonvalidfh = csv.writer(open(sys.argv[6], 'w'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
+        nonvalidfh = csv.writer(open(sys.argv[6], 'w', encoding='utf-8'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
                                 escapechar='\\')
     except:
         print("could not open nonvalidated file for write %s" % sys.argv[6])
         parameters_ok = False
 
     try:
-        termsfh = csv.writer(open(sys.argv[7], 'w'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
+        termsfh = csv.writer(open(sys.argv[7], 'w', encoding='utf-8'), delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=chr(255),
                                 escapechar='\\')
     except:
         print("could not open terms file for write %s" % sys.argv[5])
@@ -142,7 +142,7 @@ def main():
     try:
         in_progress_file = re.sub(r'\..*?.csv','.inprogress.log', sys.argv[1])
         in_progress_file = re.sub(r'\.csv','.inprogress.log', in_progress_file)
-        in_progress = open(in_progress_file, 'w')
+        in_progress = open(in_progress_file, 'w', encoding='utf-8')
         in_progress.write("started at %s\n" % time.strftime("%b %d %Y %H:%M:%S", time.localtime()))
         in_progress.flush()
     except:
