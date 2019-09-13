@@ -126,7 +126,7 @@ def upload_csv_file(request):
 
 @login_required()
 def downloadresults(request, filename):
-    f = open(getJobfile(filename), 'r')
+    f = open(getJobfile(filename), 'r', encoding='utf-8')
     response = HttpResponse(FileWrapper(f), content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="%s"' % filename
     return response
@@ -137,7 +137,7 @@ def showresults(request, filename):
     elapsedtime = 0.0
     context = setConstants(request)
     try:
-        f = open(getJobfile(filename), 'r')
+        f = open(getJobfile(filename), 'r', encoding='utf-8')
         filecontent = f.read()
         f.close()
         context['filename'] = filename

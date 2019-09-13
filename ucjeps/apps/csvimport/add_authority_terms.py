@@ -51,9 +51,9 @@ except:
     raise
 
 
-with open(sys.argv[2], 'w') as f2:
+with open(sys.argv[2], 'w',  encoding='utf-8') as f2:
     writer = csv.writer(f2, delimiter=delim, quoting=csv.QUOTE_NONE, quotechar=chr(255))
-    with open(INPUT_FILE, 'r') as f1:
+    with open(INPUT_FILE, 'r', encoding='utf-8') as f1:
         reader = csv.reader(f1, delimiter=delim, quoting=csv.QUOTE_NONE, quotechar=chr(255))
         for lineno, row in enumerate(reader):
             if lineno == 0:

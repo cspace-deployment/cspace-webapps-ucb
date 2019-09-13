@@ -74,7 +74,7 @@ def main():
         parameters_ok = False
 
     try:
-        with open(sys.argv[1], 'r') as f:
+        with open(sys.argv[1], 'r', encoding='utf-8') as f:
             try:
                 dataDict, inputRecords, lines, file_header, bad_rows = getRecords(f)
             except Exception as inst:
@@ -111,7 +111,7 @@ def main():
         parameters_ok = False
 
     try:
-        with open(sys.argv[4], 'r') as f:
+        with open(sys.argv[4], 'r', encoding='utf-8') as f:
             xmlTemplate = f.read()
             # print(xmlTemplate)
     except:

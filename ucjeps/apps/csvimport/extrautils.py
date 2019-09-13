@@ -1,5 +1,4 @@
 import csv
-import codecs
 import re
 import json
 import logging
@@ -138,7 +137,7 @@ def checkFile(filename):
 
 
 def writeCsv(filename, items, writeheader):
-    filehandle = codecs.open(filename, 'w', 'utf-8')
+    filehandle = open(filename, 'w', encoding='utf-8')
     writer = csv.writer(filehandle, delimiter='|')
     writer.writerow(writeheader)
     for item in items:

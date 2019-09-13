@@ -32,7 +32,7 @@ static_lists = get_lists(path.join(settings.BASE_DIR, 'config/cspace-ui-config-u
 
 # this hack provides a means to 'overlay' existing static lists with other lists.
 # it is specifically implemented to allow the recoding of 'stateProvince' values for UCJEPS
-with open(path.join(settings.BASE_DIR, 'config/extra-lists.json'), 'r') as e:
+with open(path.join(settings.BASE_DIR, 'config/extra-lists.json'), 'r', encoding='utf-8') as e:
     extralists = e.read()
     e.close()
 try:
