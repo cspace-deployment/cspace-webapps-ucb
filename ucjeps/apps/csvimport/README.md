@@ -23,7 +23,7 @@ in the config directory:
 Download the UI configuration from https://ucjeps.cspace.berkeley.edu/config.
 (Click the 'Save configuration as JSON" link to download.)
 
-Then you'll have to get it up to the server somehow:
+Then you'll have to get it up to the server somehow, e.g.:
 
 ```
 scp cspace-ui-config.json cspace-prod-01.ist.berkeley.edu:/tmp/cspace-ui-config-ucjeps.json
@@ -35,11 +35,22 @@ Note the filename; it is hardcoded in the csvImport program right now!
 cp /tmp/cspace-ui-config-ucjeps.json ~/ucjeps/config
 ```
 
+You can test / inspect this file using the `extractOptions.py` script in this directory.
+It does a 'prettyprint' listing of the contents; you can save that as a file to
+inspect or grep for values in it.
+
+E.g.
+
+```
+csvimport $ python extractOptions.py ../../config/cspace-ui-config-ucjeps.json | grep 'Tropicos'
+   b'Tropicos'               b'Tropicos'
+```
+
 #### The command line interface (CLI)
 
 You can also run csvImport from the command line, without using the
 webapp. There's not a good motivation for doing that that I can think of
-but for long jobs or many batches of files it might be useful.
+but for long jobs or many batches of files it might be useful. And certainly for development!
 
 Here's how to set up and run the code. Note that if csvImport is already installed
 you may consider simply running it where it is installed.
