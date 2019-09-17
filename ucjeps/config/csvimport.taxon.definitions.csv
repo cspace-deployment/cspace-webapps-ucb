@@ -41,19 +41,19 @@
 43		termName					cspace field only		
 44		termPrefForLang					cspace field only		
 45		termQualifier					cspace field only		
-46	source	termSource		static		termSource			
+46	source	termSource		static		taxonTermSources			
 47		termSourceDetail					cspace field only		
 48		termSourceID					cspace field only		
 49		termSourceNote					cspace field only		
 50		termStatus					cspace field only		
 51		termType					cspace field only		
 52	majorgroup	taxonMajorGroup		literal					
-53		coordUncertaintyUnit		static		coordUncertaintyUnits			
-78		coordinateSystem		static		coordinateSystems			
-79		taxonIdentKind		static		taxonIdentKinds			
-80		taxonRank		static		taxonRanks			
-81		taxonTermSource		static		taxonTermSources			
-82		taxonTermStatus		static		taxonTermStatuses			
-83		taxonTermType		static		taxonTermTypes			
-84		taxonomicStatus		static		taxonomicStatuses			
-85		typeSpecimenKind		static		typeSpecimenKinds			
+53		coordUncertaintyUnit		static					
+78		coordinateSystem		static					
+79		taxonIdentKind		static					
+80		taxonRank		static					
+81		taxonTermSource		static					
+82		taxonTermStatus		static					
+83		taxonTermType		static					
+84		taxonomicStatus		static					
+85		typeSpecimenKind		static					
