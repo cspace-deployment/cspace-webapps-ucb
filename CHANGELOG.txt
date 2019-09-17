@@ -3,11 +3,23 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.2.0-rc7
-Fri Sep  6 13:44:51 PDT 2019
+This is version 5.2.0-rc8
+Tue Sep 17 11:34:41 PDT 2019
 
-3d48079 (HEAD -> master) CSW-117: locationdate is not actually a value in the pahma-internal core
-a3045de (tag: 5.2.0-rc6, origin/master, origin/HEAD) revise change log and VERSION file for version 5.2.0-rc6
+e4c53cc (HEAD -> master) CSW-131: further refactoring of csvImport back- and frontends for addn'l record types
+e790845 CSW-131: updates to taxon template for csvImport
+5773da0 CSW-131: further updates to csvImport config files for authorities
+3e3d9d8 (origin/master, origin/HEAD) CSW-118: still more files still not being opened using utf-8
+314971c CSW-118: some files still not being opened using utf-8
+6352ef9 CSW-118: remove some old versions of csvImport config files
+4ff41f2 CSW-118: refactor webapp and batch process to handle multiple record types
+2316fd9 CSW-118: update csvImport configuration file
+8cfde19 CSW-118: refactor csvImport templates to support multiple record types
+50fc243 CSW-118: refactor csvImport shell scripts to support multiple record types
+3c207e5 CSW-118: raise the proper exception in csvImport
+0dedb98 (tag: 5.2.0-rc7) revise change log and VERSION file for version 5.2.0-rc7
+3d48079 CSW-117: locationdate is not actually a value in the pahma-internal core
+a3045de (tag: 5.2.0-rc6) revise change log and VERSION file for version 5.2.0-rc6
 205bcef CSW-125: disable 'move object range' tool in bampfa toolbox
 c0806e1 CSW-118: minor ux improvement: redirect correctly after action
 a46b5c0 CSW-118: update csvImport config file for collectionobjects
