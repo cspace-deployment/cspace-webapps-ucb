@@ -236,7 +236,7 @@ def show_csv_config(request):
 
     recordtype = 'collectionobjects'
 
-    matrix = deepcopy(RECORDTYPES[recordtype][2][0])
+    matrix = deepcopy(RECORDTYPES[recordtype][3][0])
     # convert from dict of tuples to list of tuples
     matrix = [[m, ] + matrix[m] for m in matrix]
     matrix = [[m[i] for i in (0, 1, 3, 6, 5)] for m in matrix]

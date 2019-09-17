@@ -1,6 +1,4 @@
 import csv
-import re
-import json
 import logging
 import datetime, time
 
@@ -128,7 +126,7 @@ def getJoblist(request):
 
 
 def checkFile(filename):
-    file_handle = open(filename, 'w', encoding='utf-8')
+    file_handle = open(filename, 'r', encoding='utf-8')
     date_uploaded  = datetime.datetime.fromtimestamp(path.getmtime(filename)).strftime("%Y-%m-%d %H:%M:%S")
     lines = [l for l in file_handle.read().splitlines()]
     #specimens = [f.split("\t")[0] for f in lines]

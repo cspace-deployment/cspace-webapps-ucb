@@ -1,16 +1,13 @@
-#!/usr/bin/env /usr/bin/python
-# -*- coding: UTF-8 -*-
 
-import os
 import sys
+import codecs
 
 import time
 import urllib2
 import re
 import psycopg2
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 
 timeoutcommand = "set statement_timeout to 240000; SET NAMES 'utf8';"
 

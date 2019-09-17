@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
 import csv
 import sys
 import traceback
-import re
 import json
 import logging
 import requests
@@ -204,8 +202,8 @@ def getRecords(rawFile):
 def check_file(file_handle):
     file_handle.seek(0)
     lines = file_handle.read().splitlines()
-    recordtypes = [f.split("\t") for f in lines]
-    return len(lines), recordtypes
+    table = [f.split("\t") for f in lines]
+    return len(lines), table
 
 
 def get_file_type(filename):
@@ -323,7 +321,7 @@ def validate_cell(CSPACE_MAPPING, key, values):
             except Exception as inst:
                 print(inst)
                 print("problem key", key)
-                print("problem value", v)
+                print("problem value", v.encode('utf-8'))
                 print("mapping", CSPACE_MAPPING[key])
                 isaproblem, message, validated_value = 1, 'exception', v
                 raise
@@ -392,23 +390,25 @@ def find_keyfield(CSPACE_MAPPING, file_header):
 
     keyrow = -1
     keyfield = None
-    try:
-        for field in CSPACE_MAPPING:
-            if CSPACE_MAPPING[field][2] == 'key':
-                keyfield = CSPACE_MAPPING[field][0]
-                try:
-                    keyrow = file_header.index(keyfield)
-                except:
-                    try:
-                        keyfield = field
-                        keyrow = file_header.index(keyfield)
-                    except:
-                        pass
-                break
-    except:
-        raise
+    for field in CSPACE_MAPPING:
+        if CSPACE_MAPPING[field][2] == 'key':
+            keyfield = CSPACE_MAPPING[field][0]
+            # handle specical case: 'aliases'
+            if field[0] == '=':
+                return check_both(field[1:], keyfield,file_header)
+            else:
+                return check_both(field, keyfield,file_header)
 
-    return keyfield, keyrow
+def check_both(field, keyfield,file_header):
+    if keyfield in file_header:
+        keyrow = file_header.index(keyfield)
+        return keyfield, keyrow
+    elif field in file_header:
+        keyfield = field
+        keyrow = file_header.index(field)
+        return keyfield, keyrow
+    else:
+        return None, -1
 
 
 def validate_items(CSPACE_MAPPING, constants, input_data, file_header, uri, in_progress, action, keyrow):
@@ -430,7 +430,7 @@ def validate_items(CSPACE_MAPPING, constants, input_data, file_header, uri, in_p
             validated += validation_status
             output_row.append(mapped_row)
         output_row += extract_constants(constants, row, file_header)
-        if not record_existence_check(key_checks[row[keyrow]], action):
+        if not record_existence_check(key_checks, row, keyrow, action):
             validated += 1
         if validated == 0:
             validated_items.append(output_row)
@@ -453,7 +453,14 @@ def check_key(key_checks, action, uri, in_progress):
     return result_keys
 
 
-def record_existence_check(key, action):
+def record_existence_check(key_checks, row, keyrow, action):
+    try:
+        key = key_checks[row[keyrow]]
+    except:
+        print(f'key not found in key_checks keyrow = {keyrow}')
+        print(row)
+        return False
+
     record_check = True
     if key == '':
         if 'update' in action:
@@ -486,7 +493,7 @@ def extract_constants(constants, row, file_header):
 
 def check_columns(labels, header, field_map):
     RECORDTYPES = get_recordtypes()
-    cspace_fields = RECORDTYPES[field_map][2]
+    cspace_fields = RECORDTYPES[field_map][3]
     handling = []
     if header == 'use':
         for label in labels:

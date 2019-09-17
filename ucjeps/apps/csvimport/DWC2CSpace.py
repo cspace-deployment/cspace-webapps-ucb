@@ -1,14 +1,15 @@
-# -*- coding: utf-8 -*-
 import csv
+import codecs
 import sys
 import time
 import re
 
 # this "standalone" app nevertheless needs access to django bits in utils and common; add a path to help
 sys.path.append("../../ucjeps")
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 
 from utils import load_mapping_file, validate_items, count_columns, getRecords, write_intermediate_files
-from utils import send_to_cspace, count_stats, count_numbers, getConfig, find_keyfield, fixup
+from utils import send_to_cspace, count_stats, count_numbers, getConfig, find_keyfield, fixup, get_recordtypes
 
 CONFIGDIRECTORY = ''
 
@@ -164,15 +165,15 @@ def main():
         print
         print('cspace record type is %s' % uri)
         print
-        print('%-30s %10s %10s' % tuple(stats[1]),)
+        print('%-30s %10s %10s' % tuple(stats[1]), end=' ')
         print(' %-25s %-15s' % ('cspace field', 'validation type'))
         print
         for s in stats[0]:
-            print('%-30s %10s %10s' % tuple(s),)
+            print('%-30s %10s %10s' % tuple(s), end=' ')
             if s[0] in mapping:
                 print(' %-25s %-15s' % (mapping[s[0]][0], mapping[s[0]][2]))
             else:
-                print
+                print()
         print
 
         # create a copy of the input file, for further processing...
@@ -228,7 +229,9 @@ def main():
     elif action in 'add update both'.split(' '):
 
         keyfield, keyrow = find_keyfield(mapping, file_header)
-        recordsprocessed, successes, failures = send_to_cspace(action, inputRecords, file_header, xmlTemplate, outputfh, uri, in_progress, keyrow)
+        recordtypes = get_recordtypes()
+        service = recordtypes[uri][2]
+        recordsprocessed, successes, failures = send_to_cspace(action, inputRecords, file_header, xmlTemplate, outputfh, service, in_progress, keyrow)
 
     print("FINISHED %s records: %s processed, %s successful, %s failures" % (action, recordsprocessed, successes, failures))
     print
