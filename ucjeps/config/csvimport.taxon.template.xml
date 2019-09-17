@@ -3,17 +3,16 @@
     <ns2:taxon_common xmlns:ns2="http://collectionspace.org/services/taxonomy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <taxonTermGroupList>
       <taxonTermGroup>
-        <termName>{termName}</termName>
+        <termName>{taxon}</termName>
         <termSource>{termSource}</termSource>
         <termSourceID>{termSourceID}</termSourceID>
         <taxonomicStatus>accepted</taxonomicStatus>
         <termSourceNote/>
         <termLanguage/>
         <termPrefForLang>true</termPrefForLang>
-        <termDisplayName>{termDisplayName}</termDisplayName>
+        <termDisplayName>{taxon}</termDisplayName>
         <termType>descriptor</termType>
         <termStatus>accepted</termStatus>
-        <termFormattedDisplayName></termFormattedDisplayName>
         <termQualifier/>
         <termSourceDetail/>
       </taxonTermGroup>
