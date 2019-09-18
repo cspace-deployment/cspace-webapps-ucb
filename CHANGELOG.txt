@@ -3,13 +3,19 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.2.0-rc8
-Tue Sep 17 11:34:41 PDT 2019
+This is version 5.2.0-rc9
+Wed Sep 18 08:24:48 PDT 2019
 
-e4c53cc (HEAD -> master) CSW-131: further refactoring of csvImport back- and frontends for addn'l record types
+7827150 (HEAD -> master) CSW-131: termSource is actually a dynamic list, not a static vocab now
+4229362 CSW-131: minor tweaks to csvImport to improve messaging and reliability
+ea2b0a2 (origin/master, origin/HEAD) CSW-131: use correct value for 'source' static vocab in csvImport
+2325cda CSW-131: update README.md a bit
+a93c4e4 CSW-131: add 'majorgroup' to taxon definitions, etc.
+ca6b66d (tag: 5.2.0-rc8) revise change log and VERSION file for version 5.2.0-rc8
+e4c53cc CSW-131: further refactoring of csvImport back- and frontends for addn'l record types
 e790845 CSW-131: updates to taxon template for csvImport
 5773da0 CSW-131: further updates to csvImport config files for authorities
-3e3d9d8 (origin/master, origin/HEAD) CSW-118: still more files still not being opened using utf-8
+3e3d9d8 CSW-118: still more files still not being opened using utf-8
 314971c CSW-118: some files still not being opened using utf-8
 6352ef9 CSW-118: remove some old versions of csvImport config files
 4ff41f2 CSW-118: refactor webapp and batch process to handle multiple record types
