@@ -183,6 +183,7 @@ def getRecords(rawFile):
             if len(row) != len(header):
                 bad_rows[1] += 1
                 bad_rows[2].append(rowNumber + 1)
+                raise Exception('row and header have different number of columns %s' % str(rowNumber + 1))
             for col_number, cell in enumerate(row):
                 if cell == "#": continue  # skip comments
                 col_name = header[col_number]
@@ -225,7 +226,7 @@ def fixup(items, stats, file_header):
         for i, cell in enumerate(row):
             # ugh. TODO: tidy this stats thing up. use classes.
             if cell in stats[0][i][7]:
-                if stats[0][i][7][cell][0] != 'ZeroResults':
+                if type(stats[0][i][7][cell]) == type([]) and stats[0][i][7][cell][0] != 'ZeroResults':
                     cell = stats[0][i][7][cell][3]
             revised_row.append(cell)
         revised_items.append(revised_row)
