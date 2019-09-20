@@ -3,12 +3,14 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.2.0-rc9
-Wed Sep 18 08:24:48 PDT 2019
+This is version 5.2.0-rc10
+Thu Sep 19 18:25:04 PDT 2019
 
-7827150 (HEAD -> master) CSW-131: termSource is actually a dynamic list, not a static vocab now
+1a263ce (HEAD -> master) CSW-135: only try to import etree from xml.etree.ElementTree
+de2447e (tag: 5.2.0-rc9, origin/master, origin/HEAD) revise change log and VERSION file for version 5.2.0-rc9
+7827150 CSW-131: termSource is actually a dynamic list, not a static vocab now
 4229362 CSW-131: minor tweaks to csvImport to improve messaging and reliability
-ea2b0a2 (origin/master, origin/HEAD) CSW-131: use correct value for 'source' static vocab in csvImport
+ea2b0a2 CSW-131: use correct value for 'source' static vocab in csvImport
 2325cda CSW-131: update README.md a bit
 a93c4e4 CSW-131: add 'majorgroup' to taxon definitions, etc.
 ca6b66d (tag: 5.2.0-rc8) revise change log and VERSION file for version 5.2.0-rc8
