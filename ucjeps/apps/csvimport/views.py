@@ -22,12 +22,6 @@ from csvimport.extrautils import getJobfile, getJoblist
 
 RECORDTYPES = get_recordtypes()
 
-try:
-    from xml.etree.ElementTree import tostring, parse, Element, fromstring
-except:
-    print("could not import with xml.etree.ElementTree")
-    raise
-
 # read common config file, just for the version info
 from common.appconfig import loadConfiguration
 prmz = loadConfiguration('common')

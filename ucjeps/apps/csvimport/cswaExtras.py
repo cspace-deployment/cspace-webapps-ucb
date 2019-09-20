@@ -34,26 +34,6 @@ WHERE pc.refname ILIKE '%""" + arg + "%%'"
 
 MAXLOCATIONS = 1000
 
-try:
-    import xml.etree.ElementTree as etree
-    #print("running with ElementTree")
-except ImportError:
-    try:
-        from lxml import etree
-        #print("running with lxml.etree")
-    except ImportError:
-        try:
-            # normal cElementTree install
-            import cElementTree as etree
-            #print("running with cElementTree")
-        except ImportError:
-            try:
-                # normal ElementTree install
-                import elementtree.ElementTree as etree
-                #print("running with ElementTree")
-            except ImportError:
-                print("Failed to import ElementTree from any known place")
-
 
 def postxml(requestType, uri, realm, server, username, password, payload):
     passman = urllib2.HTTPPasswordMgr()

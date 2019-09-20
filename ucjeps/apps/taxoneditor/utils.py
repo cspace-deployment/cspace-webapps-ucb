@@ -4,30 +4,7 @@ import xml.etree.ElementTree as ET
 from xml.sax.saxutils import escape
 from taxoneditor.lookupMajorGroup import lookupMajorGroup
 
-try:
-    from xml.etree.ElementTree import tostring, parse, Element, fromstring
-    print("running with xml.etree.ElementTree")
-except ImportError:
-    try:
-        from lxml import etree
-
-        print("running with lxml.etree")
-    except ImportError:
-        try:
-            # normal cElementTree install
-            import cElementTree as etree
-
-            print("running with cElementTree")
-        except ImportError:
-            try:
-                # normal ElementTree install
-                import elementtree.ElementTree as etree
-
-                print("running with ElementTree")
-            except ImportError:
-                print("Failed to import ElementTree from any known place")
-
-
+from xml.etree.ElementTree import fromstring
 
 TITLE = 'Taxon Editor'
 numberWanted = 10

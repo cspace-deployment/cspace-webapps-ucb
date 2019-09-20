@@ -9,32 +9,7 @@ from cspace_django_site.main import cspace_django_site
 from eloan.eloanutils import get_entity, build_solr_query, getInstitutionCodefromDisplayName, getShortIdfromRefName
 from common.utils import getfromXML
 
-
-# alas, there are many ways the XML parsing functionality might be installed.
-# the following code attempts to find and import the best...
-try:
-    from xml.etree.ElementTree import tostring, parse, Element, fromstring
-
-    print("running with xml.etree.ElementTree")
-except ImportError:
-    try:
-        from lxml import etree
-
-        print("running with lxml.etree")
-    except ImportError:
-        try:
-            # normal cElementTree install
-            import cElementTree as etree
-
-            print("running with cElementTree")
-        except ImportError:
-            try:
-                # normal ElementTree install
-                import elementtree.ElementTree as etree
-
-                print("running with ElementTree")
-            except ImportError:
-                print("Failed to import ElementTree from any known place")
+from xml.etree.ElementTree import fromstring
 
 # global variables (at least to this module...)
 config = cspace_django_site.getConfig()
