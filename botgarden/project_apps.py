@@ -22,7 +22,7 @@ INSTALLED_APPS = (
     'suggestsolr',
     # 'standard' apps
     # 'adhocreports',
-    'grouper',
+    # 'grouper',
     'imagebrowser',
     'imageserver',
     'imaginator',
