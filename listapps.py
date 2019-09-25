@@ -11,7 +11,7 @@ PAGE="""<html lang="en-us">
     <!-- link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.22.custom.css"/>
     <script type="text/javascript" src="js/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script -->
-    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <!-- link rel="stylesheet" type="text/css" href="css/base.css" -->
     <style>
     li {margin: 10px 0;}
     .likeabutton {
@@ -23,6 +23,7 @@ PAGE="""<html lang="en-us">
     }
     p { margin: 2px; }
     h3, h4 { padding: 0px; margin-bottom: 6px; margin-top: 6px; color: #4d4d4d; }
+    span.servers { padding-left: 16px; }
     </style>
 </head>
 <body class="">
@@ -35,22 +36,24 @@ PAGE="""<html lang="en-us">
         </div>
          <div id="tabs">
             <ul>
-                <li><a href="#prodtab">Production Apps</a></li>
-                <li><a href="#devtab">Development Apps</a></li>
+                <li><a href="#prodtab">Applications</a></li>
                 <li><a href="#documentstab">Help!</a></li>
                 <li><a href="#analyticstab">Analytics</a></li>
                 <li><a href="#otheruserstab">Other Public Portals</a></li>
                 <li><a href="#newstab">News</a></li>
             </ul>
             <div id="prodtab">
-                <h3>Links to <span style="color: red">Production</span> Systems</h3>
+                <p>
+                    Servers:
+                    <a href="https://webapps.cspace.berkeley.edu"><span class="servers" style="color: red">Production</span></a>
+                    <a href="https://webapps-qa.cspace.berkeley.edu"><span class="servers" style="color: blue">QA</span></a>
+                    <a href="https://webapps-dev.cspace.berkeley.edu"><span class="servers" style="color: green">Development</span></a>
+                    <span class="servers" style="font-size: 10pt;">(pick the server you wish to work with)</span>
+                </p>
+                <hr/>
                 %s
             </div>
 
-            <div id="devtab">
-                <h3>Links to <span style="color: green">Development</span> Systems</h3>
-                %s
-            </div>
              <div id="analyticstab">
                  <div id="analyticspages">
                      <ul>
@@ -74,18 +77,15 @@ PAGE="""<html lang="en-us">
                  <p>There is no one single place to find information and links to the various services and websites
                  associated with CollectionSpace@UCB.  This is probably as close as you will get to such a place.</p>
                  <p>This webpage and its various panes provide links to web-accessible CSpace applications at UCB.</p>
-                 <p>For each set of applications, are two "deployments" (i.e. installations) of the code:</p>
+                 <p>For each set of applications, are three "deployments" (i.e. installations) of the code:</p>
                  <ul>
                      <li>The <span style="color: red">Production</span> deployment, where "real work" should be done;</li>
-                     <li>The <span style="color: green">Development</span>  deployment, where testing, experimentation, and training should be done.</li>
+                     <li>The <span style="color: blue">QA</span> deployment, where formal testing gets done;</li>
+                     <li>The <span style="color: green">Development</span>  deployment, where development, experimentation, and training should be done.</li>
                  </ul>
-                 The first two tabs (above left) show what is available for each deployment.</p>
-                 <p>
-                     <b>Make sure you are working with the deployment you should be working with!</b></b>
-                 </p>
                  <p>There are two basic types of applications:</p>
                  <ul>
-                 <li>Webapps written using the <a target="new" href="https://github.com/cspace-deployment/cspace_django_project/blob/master/README.md">CollectionSpace Django Project</a></li>
+                 <li>Webapps written using the <a target="new" href="https://github.com/cspace-deployment/cspace-webapps-common/blob/master/README.md">CollectionSpace Django Project</a></li>
                  <li>The <a target="new" href="">"regular UIs"</a>, which require authentication.</li>
                 </ul>
             </div>
@@ -149,7 +149,8 @@ APPS = {
     'taxoneditor': 'Taxon Editor',
     'toolbox': 'Toolbox',
     'locationhistory': 'Location History',
-    'workflow': 'Workflow Helper'
+    'workflow': 'Workflow Helper',
+    'x3dviewer': 'X3D Viewer'
 
 }
 
@@ -166,8 +167,8 @@ header = """
 cell = """
 <tr>
 <td style="width: 340px; vertical-align: top;">
-<a  class="likeabutton" target="_blank" href="https://%sDEPLOYMENT.cspace.berkeley.edu">
-<h4>%s</h4>
+<a  class="likeabutton" target="_blank" href="https://%s.cspace.berkeley.edu">
+<h3>%s</h3>
 <img style="max-width: 330px ; max-height: 100px" alt="%s" src="https://webapps.cspace.berkeley.edu/%s_static/cspace_django_site/images/header-logo.png"></a>
 </td>
 """
@@ -177,7 +178,7 @@ def wrap(tag, value):
 
 
 def app_anchor(link_text, tenant, app, deployment):
-    return '<a href="https://webapps%s.cspace.berkeley.edu/%s/%s" target="webapp">%s</a>' % (deployment, tenant, app, link_text)
+    return '<a href="/%s/%s" target="webapp">%s</a>' % (tenant, app, link_text)
 
 
 def app_image(app):
@@ -275,9 +276,9 @@ elif output_type == 'table-html':
         html += '</tr>'
     html += '</table>'
 
-    print(html.replace('DEPLOYMENT','-dev'))
+    print(html)
 
-else:
+elif output_type == 'html':
     html = '<table>'
     html += '<tr><th>%s' % ''
     for app_type in 'Public Private'.split(' '):
@@ -299,20 +300,4 @@ else:
         html += '</tr>'
     html += '</table>'
 
-    print(PAGE % (html.replace('DEPLOYMENT',''), html.replace('DEPLOYMENT','-dev')))
-
-if False:
-
-    print('%-10s' % ' ', end='')
-    for app in sorted(all_apps.keys()):
-        print('%-10s' % app, end='')
-    print()
-    for tenant in tenants:
-        print('%-10s' % tenant, end='')
-        # print('%-20s' % app, end='')
-        for app in sorted(all_apps.keys()):
-            if tenant in all_apps[app]:
-                print('%-10s' % all_apps[app][tenant], end='')
-            else:
-                print('%-10s' % ' ', end='')
-        print()
+    print(PAGE % html)
