@@ -51,7 +51,7 @@ def accesscontrolalloworigin(stuff2return):
 
 def publicsearch(request):
     if request.method == 'GET' and request.GET != {}:
-        context = {'searchValues': dict(request.GET.iteritems())}
+        context = {'searchValues': request.GET}
         context = doSearch(context, prmz, request)
 
     else:

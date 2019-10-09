@@ -32,7 +32,7 @@ prmz = loadFields(fielddefinitions, prmz)
 
 # Get an instance of a logger, log some startup info
 logger = logging.getLogger(__name__)
-logger.info('%s :: %s :: %s' % ('public portal startup', '-', '%s | %s | %s' % (prmz.SOLRSERVER, prmz.IMAGESERVER, prmz.BMAPPERSERVER)))
+logger.info('%s :: %s :: %s' % ('media portal startup', '-', '%s | %s | %s' % (prmz.SOLRSERVER, prmz.IMAGESERVER, prmz.BMAPPERSERVER)))
 
 
 def direct(request):
@@ -41,7 +41,7 @@ def direct(request):
 
 def search(request):
     if request.method == 'GET' and request.GET != {}:
-        context = {'searchValues': dict(request.GET.iteritems())}
+        context = {'searchValues': request.GET}
         context = doSearch(context, prmz, request)
 
     else:
