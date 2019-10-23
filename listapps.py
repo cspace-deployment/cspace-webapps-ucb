@@ -30,7 +30,7 @@ PAGE="""<html lang="en-us">
 <div id="container">
     <div id="content-main" style="max-width: 1000px;">
         <div>
-            <img height="40px" src="http://www.collectionspace.org/wp-content/uploads/2014/11/CSpaceLogo.png">
+            <img height="40px" src="https://www.collectionspace.org/wp-content/uploads/2014/11/CSpaceLogo.png">
             <span style="font-size: 28px;vertical-align: 35%%;">@</span>
             <img height="60px" src="https://www.berkeley.edu/brand/berkeley-logo.png">
         </div>
