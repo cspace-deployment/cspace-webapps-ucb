@@ -78,7 +78,10 @@ def get_tricoder_filelist(directory):
 
 def checkFile(filename):
     file_handle = open(filename)
-    lines = file_handle.read().splitlines()
+    try:
+        lines = file_handle.read().splitlines()
+    except:
+        lines = [filename]
     recordtypes = [f.split(",")[0] for f in lines]
     return len(lines), recordtypes
 
