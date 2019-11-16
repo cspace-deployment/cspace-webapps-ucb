@@ -18,7 +18,7 @@ PAGE="""<html lang="en-us">
         appearance: button;
         -moz-appearance: button;
         -webkit-appearance: button;
-        text-decoration: none; font: menu; color: ButtonText;
+        text-decoration: none; font: menu; background-color: white;
         display: inline-block;
     }
     p { margin: 2px; }
@@ -126,7 +126,7 @@ PAGE="""<html lang="en-us">
 MUSEUMS = {
     'botgarden': ['UC Botanical Garden', '13d90c7c-60cc-4f13-9985'],
     'bampfa': ['Berkeley Art Museum', 'a558ed9e-e4cd-4680-87d3'],
-    'cinefiles': ['Pacific File Archive', '331dfe82-7877-4484-8f20'],
+    'cinefiles': ['Pacific Film Archive', '331dfe82-7877-4484-8f20'],
     'pahma': ['Phoebe A. Hearst Museum of Anthropology', 'c8055214-50e7-49b1-b15b'],
     'ucjeps': ['University and Jepson Herbaria', '1c18cf1e-4826-4f33-b047']
 }
