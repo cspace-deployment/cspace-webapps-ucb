@@ -3,10 +3,18 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.2.0-rc12
-Fri Oct 11 07:32:23 PDT 2019
+This is version 5.3.0-rc1
+Thu Nov 21 06:30:54 PST 2019
 
-4df4ba6 (HEAD -> master, origin/master, origin/HEAD) CSW-142: revise example config files for Django webapps #2: new settings for new server
+90df1ee (HEAD -> master) CSW-185: add previous determinations to 2 ucbg portal configurations
+ad487bb CSW-191: initial workaround for 'regular UI' links: just eliminate them
+80e369f CSW-165: css improvements to webapps landing page for firefox
+5ed37af CSW-180: use correct 404 placeholder for imageserver
+172965e (origin/master, origin/HEAD) CSW-179: invalid files in Tricoder queues may cause 'show queue' to fail
+cf25a0e CSW-165: get 'cspace logo' (on webapps landing page) via https
+92a9303 NOJIRA: update README.md
+666bc91 (tag: 5.2.0-rc12, tag: 5.2.0) revise change log and VERSION file for version 5.2.0-rc12
+4df4ba6 CSW-142: revise example config files for Django webapps #2: new settings for new server
 bc55771 CSW-142: revise example config files for Django webapps #1: eliminate cruft
 3efc994 (tag: 5.2.0-rc11) revise change log and VERSION file for version 5.2.0-rc11
 afc14b3 CSW-156: make 'emailable URLs work again in portals
