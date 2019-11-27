@@ -3,14 +3,20 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc1
-Thu Nov 21 06:30:54 PST 2019
+This is version 5.3.0-rc2
+Wed Nov 27 15:06:13 PST 2019
 
-90df1ee (HEAD -> master) CSW-185: add previous determinations to 2 ucbg portal configurations
+9993661 (HEAD -> master) CSW-192, CSW-193: ucbg portal frontend config no longer internal versioned
+95a12b7 CSW-192, CSW-193: regularize order of fields in ucbg .csv portal downloads
+be654a5 (origin/master, origin/HEAD) CSW-192, CSW-193: update portal configs to include habit, sex, and material type for botgarden
+0f1fd4f CSW-185: use the latest label for 'scientific name' in ucbg portals
+3b59e17 CSW-185: update presentation of 'all' and 'previous' determinations to 2 ucbg portal configurations
+66b346c (tag: 5.3.0-rc1) revise change log and VERSION file for version 5.3.0-rc1
+90df1ee CSW-185: add previous determinations to 2 ucbg portal configurations
 ad487bb CSW-191: initial workaround for 'regular UI' links: just eliminate them
 80e369f CSW-165: css improvements to webapps landing page for firefox
 5ed37af CSW-180: use correct 404 placeholder for imageserver
-172965e (origin/master, origin/HEAD) CSW-179: invalid files in Tricoder queues may cause 'show queue' to fail
+172965e CSW-179: invalid files in Tricoder queues may cause 'show queue' to fail
 cf25a0e CSW-165: get 'cspace logo' (on webapps landing page) via https
 92a9303 NOJIRA: update README.md
 666bc91 (tag: 5.2.0-rc12, tag: 5.2.0) revise change log and VERSION file for version 5.2.0-rc12
