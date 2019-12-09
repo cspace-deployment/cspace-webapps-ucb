@@ -3,12 +3,14 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc2
-Wed Nov 27 15:06:13 PST 2019
+This is version 5.3.0-rc3
+Mon Dec  9 13:18:35 PST 2019
 
-9993661 (HEAD -> master) CSW-192, CSW-193: ucbg portal frontend config no longer internal versioned
+25164ac (HEAD -> master, origin/master, origin/HEAD) CC-831: update tricoder webapp config to put uploaded files where they should go
+d665c70 (tag: 5.3.0-rc2) revise change log and VERSION file for version 5.3.0-rc2
+9993661 CSW-192, CSW-193: ucbg portal frontend config no longer internal versioned
 95a12b7 CSW-192, CSW-193: regularize order of fields in ucbg .csv portal downloads
-be654a5 (origin/master, origin/HEAD) CSW-192, CSW-193: update portal configs to include habit, sex, and material type for botgarden
+be654a5 CSW-192, CSW-193: update portal configs to include habit, sex, and material type for botgarden
 0f1fd4f CSW-185: use the latest label for 'scientific name' in ucbg portals
 3b59e17 CSW-185: update presentation of 'all' and 'previous' determinations to 2 ucbg portal configurations
 66b346c (tag: 5.3.0-rc1) revise change log and VERSION file for version 5.3.0-rc1

@@ -7,7 +7,6 @@ import requests
 import urllib
 from collections import Counter
 from requests.auth import HTTPBasicAuth
-from xml.etree.ElementTree import tostring, fromstring
 
 import configparser
 from copy import deepcopy
