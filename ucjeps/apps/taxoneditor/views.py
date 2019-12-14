@@ -117,10 +117,10 @@ def taxoneditor(request):
                 try:
                     names2use = response.json()
                     if 'Error' in names2use[0]:
-                        loginfo('taxoneditor', 'Error from Tropicos: %s' % names2use['Error'], {}, {})
+                        loginfo('taxoneditor', 'ERROR: from Tropicos: %s' % names2use['Error'], {}, {})
                         names2use = []
                 except:
-                    loginfo('taxoneditor', 'could not parse returned JSON, or it was empty', {}, {})
+                    loginfo('taxoneditor', 'ERROR: could not parse returned JSON, or it was empty', {}, {})
                     names2use = []
                 numberofitems = len(names2use)
                 if len(names2use) > numberWanted:

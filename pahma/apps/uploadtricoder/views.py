@@ -63,17 +63,17 @@ def prepareFiles(request, validateonly):
         if 'createtricoder' in request.POST:
             tricoder_fileinfo['status'] = 'createtricoder'
             if not validateonly:
-                loginfo('start', get_tricoder_file('input',tricoder_filenumber), {}, request, {}, {})
+                loginfo('tricoder start', get_tricoder_file('input',tricoder_filenumber), {}, request, {}, {})
                 try:
                     retcode = subprocess.call(
                         [POSTBLOBPATH, get_tricoder_file('input',tricoder_filenumber)])
                     if retcode < 0:
-                        loginfo('process', tricoder_filenumber + " Child was terminated by signal %s" % -retcode, {}, request, {}, {})
+                        loginfo('tricoder ERROR: process', tricoder_filenumber + " Child was terminated by signal %s" % -retcode, {}, request, {}, {})
                     else:
-                        loginfo('process', tricoder_filenumber + ": Child returned %s" % retcode, {}, request, {}, {})
+                        loginfo('tricode process', tricoder_filenumber + ": Child returned %s" % retcode, {}, request, {}, {})
                 except OSError as e:
-                    loginfo('error', "Execution failed: %s" % e, {}, request, {}, {})
-                loginfo('finish', get_tricoder_file('input',tricoder_filenumber), {}, request, {}, {})
+                    loginfo('tricoder', "ERROR: Execution failed: %s" % e, {}, request, {}, {})
+                loginfo('tricoder finish', get_tricoder_file('input',tricoder_filenumber), {}, request, {}, {})
 
         elif 'uploadtricoder' in request.POST:
             tricoder_fileinfo['status'] = 'uploadtricoder'
