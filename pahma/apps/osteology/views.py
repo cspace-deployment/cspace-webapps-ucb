@@ -59,7 +59,7 @@ def search(request):
     else:
         context = setConstants({}, prmz, request)
 
-    loginfo(logger, 'start search', context, request)
+    loginfo('osteology', 'start search', context, request)
     context['additionalInfo'] = AdditionalInfo.objects.filter(live=True)
     context['extra_nav'] = {'href': '../skeleton', 'id': 'skeleton', 'name': 'Skeleton'}
     return render(request, 'search.html', context)
@@ -76,7 +76,7 @@ def skeleton(request):
     else:
         context = setConstants({}, prmz, request)
 
-    loginfo(logger, 'start skeleton search', context, request)
+    loginfo('osteology', 'start skeleton search', context, request)
     context['additionalInfo'] = AdditionalInfo.objects.filter(live=True)
     context['extra_nav'] = {'href': '../search', 'id': 'search', 'name': 'Metadata Search'}
     return render(request, 'osteo.html', context)
@@ -91,5 +91,5 @@ def retrieveResults(request):
             context = {'searchValues': request.POST}
             context = doSearch(context, prmz, request)
 
-        loginfo(logger, 'results.%s' % context['displayType'], context, request)
+        loginfo('osteology', 'results.%s' % context['displayType'], context, request)
         return render(request, 'searchResults.html', context)

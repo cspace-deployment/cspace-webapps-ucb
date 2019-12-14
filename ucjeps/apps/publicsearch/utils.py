@@ -20,24 +20,6 @@ SolrIsUp = True
 FACETS = {}
 
 
-def loginfo(infotype, context, request):
-    logdata = ''
-    #user = getattr(request, 'user', None)
-    if request.user and not request.user.is_anonymous:
-        username = request.user.username
-    else:
-        username = '-'
-    if 'count' in context:
-        count = context['count']
-    else:
-        count = '-'
-    if 'querystring' in context:
-        logdata = context['querystring']
-    if 'url' in context:
-        logdata += ' :: %s' % context['url']
-    loginfo('publicsearch', '%s :: %s :: %s :: %s' % (infotype, count, username, logdata), {}, {})
-
-
 def getfromXML(element,xpath):
     result = element.find(xpath)
     if result is None: return ''
@@ -290,7 +272,7 @@ def doSearch(solr_server, solr_core, context):
                         #item[p] = item[p].toordinal()
                         item[p] = item[p].isoformat().replace('T00:00:00+00:00', '')
                     except:
-                        loginfo('publicsearch', 'date problem: ', item[p], {}, {})
+                        loginfo('publicsearch', f'date problem: {item[p]}', {}, {})
             except:
                 #raise
                 pass
@@ -353,7 +335,7 @@ if 'errormsg' in context:
     loginfo('publicsearch', 'Initial solr search failed. Concluding that Solr is down or unreachable... Will not be trying again! Please fix and restart!', {}, {})
 else:
     for facet in context['facetflds']:
-        loginfo('publicsearch', 'facet',facet[0],len(facet[1]), {}, {})
+        loginfo('publicsearch', f'facet: {facet[0]} {len(facet[1])}', {}, {})
         if facet[0] in DROPDOWNS:
             FACETS[facet[0]] = sorted(facet[1])
         # if the facet is not in a dropdown, save the memory for something better

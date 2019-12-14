@@ -49,7 +49,7 @@ def search(request):
     else:
         context = setConstants({}, adhocprmz, request)
 
-    loginfo(logger, 'start adhocreport', context, request)
+    loginfo('adhocreports', 'start adhocreport', context, request)
     context['additionalInfo'] = AdditionalInfo.objects.filter(live=True)
     return render(request, 'adhocreports.html', context)
 
@@ -63,7 +63,7 @@ def retrieveResults(request):
             context = {'searchValues': requestObject}
             context = doSearch(context, adhocprmz, request)
 
-            loginfo(logger, 'results.%s' % context['displayType'], context, request)
+            loginfo('adhocreports', 'results.%s' % context['displayType'], context, request)
             return render(request, 'adhocresults.html', context)
 
 
@@ -76,7 +76,7 @@ def bmapper(request):
             context = {'searchValues': requestObject}
             context = setupBMapper(requestObject, context, adhocprmz)
 
-            loginfo(logger, 'bmapper', context, request)
+            loginfo('adhocreports', 'bmapper', context, request)
             return HttpResponse(context['bmapperurl'])
 
 
@@ -89,7 +89,7 @@ def gmapper(request):
             context = {'searchValues': requestObject}
             context = setupGoogleMap(requestObject, context, adhocprmz)
 
-            loginfo(logger, 'gmapper', context, request)
+            loginfo('adhocreports', 'gmapper', context, request)
             return render(request, 'maps.html', context)
 
 
@@ -105,7 +105,7 @@ def dispatch(request):
             try:
                 context = {'searchValues': requestObject}
                 csvformat, fieldset, csvitems = setupCSV(requestObject, context, adhocprmz)
-                loginfo(logger, 'csv', context, request)
+                loginfo('adhocreports', 'csv', context, request)
 
                 # create the HttpResponse object with the appropriate CSV header.
                 response = HttpResponse(content_type='text/csv')
@@ -121,7 +121,7 @@ def dispatch(request):
         if form.is_valid():
             try:
                 context = {'searchValues': requestObject}
-                loginfo(logger, 'pdf', context, request)
+                loginfo('adhocreports', 'pdf', context, request)
                 return setup4PDF(request, context, adhocprmz)
 
             except:
@@ -145,9 +145,9 @@ def statistics(request):
             elapsedtime = time.time()
             try:
                 context = {'searchValues': requestObject}
-                loginfo(logger, 'statistics1', context, request)
+                loginfo('adhocreports', 'statistics1', context, request)
                 context = computeStats(requestObject, context, adhocprmz)
-                loginfo(logger, 'statistics2', context, request)
+                loginfo('adhocreports', 'statistics2', context, request)
                 context['summarytime'] = '%8.2f' % (time.time() - elapsedtime)
                 # 'downloadstats' is handled in writeCSV, via post
                 return render(request, 'statsResults.html', context)
@@ -160,5 +160,5 @@ def loadNewFields(request, fieldfile, prmz):
     loadFields(fieldfile + '.csv', prmz)
 
     context = setConstants({}, prmz, request)
-    loginfo(logger, 'loaded fields', context, request)
+    loginfo('adhocreports', 'loaded fields', context, request)
     return render(request, 'adhocreports.html', context)

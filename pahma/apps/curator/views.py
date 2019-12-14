@@ -140,7 +140,7 @@ def curator(request):
                 else:
                     context['resultType'] = 'metadata'
 
-                loginfo(logger, 'start curator search', context, request)
+                loginfo('curator', 'start curator search', context, request)
                 context = doSearch(context, prmz, request)
                 context['start'] = int(request.POST['start']) + 1
                 if context['count'] >= 1000:

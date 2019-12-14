@@ -4,7 +4,6 @@ import time, datetime
 import csv
 import solr
 import cgi
-import logging
 
 from os import path
 from copy import deepcopy
@@ -22,25 +21,9 @@ from appconfig import DROPDOWNS, FIELDS, FACETS, LOCATION, PARMS, SEARCHCOLUMNS,
 from appconfig import CSVPREFIX, CSVEXTENSION, TITLE, DEFAULTSORTKEY, REQUIRED
 from appconfig import DERIVATIVECOMPACT, DERIVATIVEGRID, SIZECOMPACT, SIZEGRID
 
+from common.utils import loginfo
+
 SolrIsUp = True  # an initial guess! this is verified below...
-
-
-def loginfo(infotype, context, request):
-    logdata = ''
-    # user = getattr(request, 'user', None)
-    if request.user and not request.user.is_anonymous:
-        username = request.user.username
-    else:
-        username = '-'
-    if 'count' in context:
-        count = context['count']
-    else:
-        count = '-'
-    if 'querystring' in context:
-        logdata = context['querystring']
-    if 'url' in context:
-        logdata += ' :: %s' % context['url']
-    logger.info('%s :: %s :: %s :: %s' % (infotype, count, username, logdata))
 
 
 def getfromXML(element, xpath):
@@ -110,7 +93,7 @@ def checkValue(cell):
     try:
         return str(cell)
     except:
-        loginfo('searchmedia', 'unicode problem', cell.encode('utf-8', 'ignore'), {}, {})
+        loginfo('searchmedia', 'unicode problem: ' + cell.encode('utf-8', 'ignore'), {}, {})
         return cell.encode('utf-8', 'ignore')
 
 
@@ -307,7 +290,7 @@ def extractValue(listItem, key):
             # item[p] = item[p].toordinal()
             temp = temp.isoformat().replace('T00:00:00+00:00', '')
         except:
-            loginfo('searchmedia', 'date problem: ', temp, {}, {})
+            loginfo('searchmedia', 'date problem: ' + temp, {}, {})
 
     return temp
 

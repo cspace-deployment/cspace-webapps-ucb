@@ -30,6 +30,7 @@ fielddefinitions = config.get('search', 'FIELDDEFINITIONS')
 prmz = loadFields(fielddefinitions, prmz)
 
 # Get an instance of a logger, log some startup info
+import logging
 logger = logging.getLogger(__name__)
 logger.info('%s :: %s :: %s' % ('media portal startup', '-', '%s | %s | %s' % (prmz.SOLRSERVER, prmz.IMAGESERVER, prmz.BMAPPERSERVER)))
 
@@ -46,7 +47,7 @@ def search(request):
     else:
         context = setConstants({}, prmz, request)
 
-    loginfo(logger, 'start search', context, request)
+    loginfo('searchmedia', 'start search', context, request)
     context['additionalInfo'] = AdditionalInfo.objects.filter(live=True)
     return render(request, 'ucjeps_searchmedia.html', context)
 
@@ -60,7 +61,7 @@ def retrieveResults(request):
             context = {'searchValues': requestObject}
             context = doSearch(context, prmz, request)
 
-        loginfo(logger, 'results.%s' % context['displayType'], context, request)
+        loginfo('searchmedia', 'results.%s' % context['displayType'], context, request)
         return render(request, 'searchResults.html', context)
 
 
@@ -73,7 +74,7 @@ def bmapper(request):
             context = {'searchValues': requestObject}
             context = setupBMapper(requestObject, context, prmz)
 
-            loginfo(logger, 'bmapper', context, request)
+            loginfo('searchmedia', 'bmapper', context, request)
             return HttpResponse(context['bmapperurl'])
 
 
@@ -86,7 +87,7 @@ def gmapper(request):
             context = {'searchValues': requestObject}
             context = setupGoogleMap(requestObject, context, prmz)
 
-            loginfo(logger, 'gmapper', context, request)
+            loginfo('searchmedia', 'gmapper', context, request)
             return render(request, 'maps.html', context)
 
 
@@ -102,7 +103,7 @@ def dispatch(request):
             try:
                 context = {'searchValues': requestObject}
                 csvformat, fieldset, csvitems = setupCSV(requestObject, context, prmz)
-                loginfo(logger, 'csv', context, request)
+                loginfo('searchmedia', 'csv', context, request)
 
                 # create the HttpResponse object with the appropriate CSV header.
                 response = HttpResponse(content_type='text/csv')
@@ -118,7 +119,7 @@ def dispatch(request):
         if form.is_valid():
             try:
                 context = {'searchValues': requestObject}
-                loginfo(logger, 'pdf', context, request)
+                loginfo('searchmedia', 'pdf', context, request)
                 return setup4PDF(request, context, prmz)
 
             except:
@@ -142,9 +143,9 @@ def statistics(request):
             elapsedtime = time.time()
             try:
                 context = {'searchValues': requestObject}
-                loginfo(logger, 'statistics1', context, request)
+                loginfo('searchmedia', 'statistics1', context, request)
                 context = computeStats(requestObject, context, prmz)
-                loginfo(logger, 'statistics2', context, request)
+                loginfo('searchmedia', 'statistics2', context, request)
                 context['summarytime'] = '%8.2f' % (time.time() - elapsedtime)
                 # 'downloadstats' is handled in writeCSV, via post
                 return render(request, 'statsResults.html', context)
@@ -157,5 +158,5 @@ def loadNewFields(request, fieldfile, prmz):
     loadFields(fieldfile + '.csv', prmz)
 
     context = setConstants({}, prmz, request)
-    loginfo(logger, 'loaded fields', context, request)
+    loginfo('searchmedia', 'loaded fields', context, request)
     return render(request, 'ucjeps_searchmedia.html', context)

@@ -13,7 +13,7 @@ import configparser
 from copy import deepcopy
 from xml.sax.saxutils import escape
 
-from common.utils import deURN
+from common.utils import deURN, loginfo
 
 import time
 import re
@@ -513,16 +513,6 @@ def check_columns(labels, header, field_map):
     elif header == 'none':
         pass
     return handling
-
-
-def loginfo(infotype, line, request):
-    logdata = ''
-    # user = getattr(request, 'user', None)
-    if request.user and not request.user.is_anonymous:
-        username = request.user.username
-    else:
-        username = '-'
-    logger.info('%s :: %s :: %s' % (infotype, line, logdata))
 
 
 def extract_tag(xml, tag):
