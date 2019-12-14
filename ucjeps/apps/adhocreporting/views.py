@@ -8,8 +8,8 @@ from django import forms
 from bson import json_util
 import json
 
-from utils import loginfo, handleJSONrequest, setconstants, APPS
-
+from utils import handleJSONrequest, setconstants, APPS
+from common.utils import loginfo
 
 def direct(request):
     return redirect('toolbox/')

@@ -7,6 +7,7 @@ CONFIGDIRECTORY = '/var/www/cfgs/'
 
 from cswaUtils import postxml, relationsPayload, getConfig
 from cswaDB import getCSID
+from common.utils import loginfo
 
 
 def tricoderPayload(f, institution):
@@ -32,7 +33,7 @@ IMAGENUMBERELEMENT
 """
     payload = payload.replace('INSTITUTION', institution)
     payload = payload % (f['blobCsid'], f['rightsHolderRefname'], f['creator'], f['name'], f['contributor'], f['objectNumber'])
-    # loginfo('uploadtricoder', payload, {}, {})
+    # print('uploadtricoder', payload)
     return payload
 
 
@@ -152,23 +153,23 @@ def getRecords(rawFile):
 
 if __name__ == "__main__":
 
-    loginfo('uploadtricoder', "MEDIA: config file: %s" % sys.argv[2], {}, {})
-    loginfo('uploadtricoder', "MEDIA: input  file: %s" % sys.argv[1], {}, {})
+    print('uploadtricoder', "MEDIA: config file: %s" % sys.argv[2])
+    print('uploadtricoder', "MEDIA: input  file: %s" % sys.argv[1])
 
     try:
         form = {'webapp': CONFIGDIRECTORY + sys.argv[2]}
         config = getConfig(form)
     except:
-        loginfo('uploadtricoder', "MEDIA: could not get configuration", {}, {})
+        print('uploadtricoder', "MEDIA: could not get configuration")
         sys.exit()
 
-    # loginfo('uploadtricoder', 'config',config, {}, {})
+    # print('uploadtricoder', 'config',config)
     records, columns = getRecords(sys.argv[1])
     if columns == -1:
-        loginfo('uploadtricoder', 'MEDIA: Error! %s' % records, {}, {})
+        print('uploadtricoder', 'MEDIA: Error! %s' % records)
         sys.exit()
 
-    loginfo('uploadtricoder', 'MEDIA: %s columns and %s lines found in file %s' % (columns, len(records), sys.argv[1]), {}, {})
+    print('uploadtricoder', 'MEDIA: %s columns and %s lines found in file %s' % (columns, len(records), sys.argv[1]))
     outputFile = sys.argv[1].replace('.step2.csv', '.step3.csv')
     outputfh = csv.writer(open(outputFile, 'w'), delimiter="\t")
 
@@ -179,15 +180,15 @@ if __name__ == "__main__":
         for v1, v2 in enumerate(
                 'name size objectnumber blobCSID date creator contributor rightsholder imagenumber filenamewithpath'.split(' ')):
             tricoderElements[v2] = r[v1]
-        #loginfo('uploadtricoder', tricoderElements, {}, {})
-        loginfo('uploadtricoder', 'objectnumber %s' % tricoderElements['objectnumber'], {}, {})
+        #print('uploadtricoder', tricoderElements)
+        print('uploadtricoder', 'objectnumber %s' % tricoderElements['objectnumber'])
         try:
             tricoderElements = uploadtricoder(tricoderElements, config)
-            loginfo('uploadtricoder', "MEDIA: objectnumber %s, objectcsid: %s, tricodercsid: %s, %8.2f" % (tricoderElements['objectnumber'], tricoderElements['objectCSID'], tricoderElements['tricoderCSID'], (time.time() - elapsedtimetotal)), {}, {})
+            print('uploadtricoder', "MEDIA: objectnumber %s, objectcsid: %s, tricodercsid: %s, %8.2f" % (tricoderElements['objectnumber'], tricoderElements['objectCSID'], tricoderElements['tricoderCSID'], (time.time() - elapsedtimetotal)))
             r.append(tricoderElements['tricoderCSID'])
             r.append(tricoderElements['objectCSID'])
             outputfh.writerow(r)
         except:
-            loginfo('uploadtricoder', "MEDIA: create failed for objectnumber %s, %8.2f" % (tricoderElements['objectnumber'], (time.time() - elapsedtimetotal)), {}, {})
+            print('uploadtricoder', "MEDIA: create failed for objectnumber %s, %8.2f" % (tricoderElements['objectnumber'], (time.time() - elapsedtimetotal)))
             # raise
 

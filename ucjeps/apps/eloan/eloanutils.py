@@ -7,6 +7,7 @@ from os import path
 from common import cspace # we use the config file reading function
 from cspace_django_site import settings
 from publicsearch.utils import doSearch
+from common.utils import loginfo
 
 from os import path
 import urllib

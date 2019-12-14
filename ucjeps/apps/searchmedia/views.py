@@ -2,7 +2,6 @@ __author__ = 'jblowe, amywieliczka'
 
 import time, datetime
 from os import path
-import logging
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, render_to_response, redirect

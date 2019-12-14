@@ -1,4 +1,4 @@
-from common.utils import deURN
+from common.utils import deURN, loginfo
 import xml.etree.ElementTree as ET
 # import sys, csv, re, os
 from xml.sax.saxutils import escape

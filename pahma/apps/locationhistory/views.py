@@ -8,7 +8,7 @@ import urllib
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, render_to_response
 
-from common.utils import setConstants
+from common.utils import setConstants, loginfo
 from common.appconfig import loadConfiguration, loadFields, getParms
 from common import cspace # we use the config file reading function
 from locationhistory.locationutils import find_items_in_cspace, setup_solr_search

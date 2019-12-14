@@ -2,6 +2,7 @@ import psycopg2
 from common import cspace # we use the config file reading function
 from cspace_django_site import settings
 from os import path
+from common.utils import loginfo
 
 
 class RecordStats:

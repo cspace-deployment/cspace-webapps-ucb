@@ -7,6 +7,7 @@ import sys, csv
 from copy import deepcopy
 from xml.etree.ElementTree import tostring, parse, Element, fromstring
 from xml.sax.saxutils import escape
+from common.utils import loginfo
 
 
 def createXMLpayload(template, values, institution):

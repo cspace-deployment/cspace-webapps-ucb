@@ -5,28 +5,9 @@ import logging
 from .models import AdditionalInfo
 from initialsetup import appLayout, APPS, institution, deployment, suggestions, VERSION
 import heavylifting
+from common.utils import loginfo
 
-# Get an instance of a logger, log some startup info
-logger = logging.getLogger(__name__)
-logger.info('%s :: %s :: %s' % ('toolbox startup', '-', '-'))
-
-
-def loginfo(infotype, context, request):
-    logdata = ''
-    # user = getattr(request, 'user', None)
-    if request.user and not request.user.is_anonymous:
-        username = request.user.username
-    else:
-        username = '-'
-    if 'count' in context:
-        count = context['count']
-    else:
-        count = '-'
-    if 'querystring' in context:
-        logdata = context['querystring']
-    if 'url' in context:
-        logdata += ' :: %s' % context['url']
-    logger.info('%s :: %s :: %s :: %s' % (infotype, count, username, logdata))
+loginfo('%s :: %s :: %s' % ('toolbox startup', '-', '-'), '', {}, {})
 
 
 def setconstants(context, appname):

@@ -7,6 +7,7 @@ from copy import deepcopy
 
 from cspace_django_site import settings
 from common import cspace  # we use the config file reading function
+from common.utils import loginfo
 
 
 def getParms(parmFile):

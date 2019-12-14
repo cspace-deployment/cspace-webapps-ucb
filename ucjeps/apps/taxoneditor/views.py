@@ -19,6 +19,7 @@ from taxoneditor.utils import fromstring, lookupMajorGroup, taxontermsources
 # the following code attempts to find and import the best...
 
 from common import cspace
+from common.utils import loginfo
 from cspace_django_site.main import cspace_django_site
 
 # read common config file

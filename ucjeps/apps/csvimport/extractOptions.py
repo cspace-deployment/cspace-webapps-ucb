@@ -1,5 +1,6 @@
 import json
 import sys
+from common.utils import loginfo
 
 '''
 Option lists resemble the following:
@@ -40,7 +41,7 @@ def get_lists(file_name):
                         flattened_lists[r][t] = t
         except:
             raise
-            loginfo('csvimport', 'Error loading JSON config file', {}, {})
+            loginfo('csvimport', f'Error loading JSON config file: {file_name}', {}, {})
 
     return flattened_lists
 

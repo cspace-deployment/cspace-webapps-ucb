@@ -10,9 +10,7 @@ from xml.etree.ElementTree import fromstring
 # global variables (at least to this module...)
 config = cspace_django_site.getConfig()
 
-# Get an instance of a logger, log some startup info
-logger = logging.getLogger(__name__)
-logger.info('%s :: %s :: %s' % ('location history startup', '-', '%s | %s' % ('', '')))
+loginfo('location history startup', '', {}, {})
 
 
 def getfromCSpace(uri, request):
