@@ -3,11 +3,13 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc7
-Sat Dec 14 11:51:11 PST 2019
+This is version 5.3.0-rc8
+Sat Dec 14 13:34:25 PST 2019
 
-4db2561 (HEAD -> master) CSW-177: straighten out a few more logging inconsistencies
-1649efd (tag: 5.3.0-rc6, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc6
+48da994 (HEAD -> master) CSW-177: indicate which log messages are errors
+7d4d32b (tag: 5.3.0-rc7, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc7
+4db2561 CSW-177: straighten out a few more logging inconsistencies
+1649efd (tag: 5.3.0-rc6) revise change log and VERSION file for version 5.3.0-rc6
 f458541 CSW-177: import loginfo where it is needed in custom webapps
 00028fc (tag: 5.3.0-rc5) revise change log and VERSION file for version 5.3.0-rc5
 ad3e827 CSW-177: use loginfo for (almost) all console messages
