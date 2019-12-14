@@ -7,6 +7,7 @@ import requests
 import urllib
 from collections import Counter
 from requests.auth import HTTPBasicAuth
+from xml.etree.ElementTree import tostring, fromstring
 
 import configparser
 from copy import deepcopy
@@ -442,14 +443,19 @@ def validate_items(CSPACE_MAPPING, constants, input_data, file_header, uri, in_p
 def check_key(key_checks, action, uri, in_progress):
     result_keys = {}
     for recordsprocessed, k in enumerate(key_checks):
-        refname = rest_query(k, uri)
-        if recordsprocessed % 1000 == 0:
-            in_progress.write("%s keys checked of %s, %s\n" % (recordsprocessed, len(key_checks.keys()), time.strftime("%b %d %Y %H:%M:%S", time.localtime())))
-            in_progress.flush()
-        if refname[0] != 'ZeroResults':
-            result_keys[k] = refname[1]
+        if action == 'validate-update' and uri == 'taxon':
+            # TODO: we shouldn't need both the refname and the display name as keys here.
+            result_keys[k] = key_checks[k][1]
+            result_keys[key_checks[k][3]] = key_checks[k][1]
         else:
-            result_keys[k] = ''
+            refname = rest_query(k, uri)
+            if recordsprocessed % 1000 == 0:
+                in_progress.write("%s keys checked of %s, %s\n" % (recordsprocessed, len(key_checks.keys()), time.strftime("%b %d %Y %H:%M:%S", time.localtime())))
+                in_progress.flush()
+            if refname[0] != 'ZeroResults':
+                result_keys[k] = refname[1]
+            else:
+                result_keys[k] = ''
     return result_keys
 
 
@@ -729,6 +735,7 @@ def send_to_cspace(action, inputRecords, file_header, xmlTemplate, outputfh, uri
             if cspaceElements[1] != '':
                 successes += 1
             else:
+                print(cspaceElements)
                 raise Exception('DWC2CSPACE did not return a valid result')
             outputfh.writerow(cspaceElements)
             # flush output buffers so we get a much data as possible if there is a failure

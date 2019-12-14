@@ -3,10 +3,12 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc3
-Mon Dec  9 13:18:35 PST 2019
+This is version 5.3.0-rc4
+Fri Dec 13 16:54:06 PST 2019
 
-25164ac (HEAD -> master, origin/master, origin/HEAD) CC-831: update tricoder webapp config to put uploaded files where they should go
+e16938b (HEAD -> master) CSW-177: toolbox audit file belongs with django logs
+d6512c9 (tag: 5.3.0-rc3, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc3
+25164ac CC-831: update tricoder webapp config to put uploaded files where they should go
 d665c70 (tag: 5.3.0-rc2) revise change log and VERSION file for version 5.3.0-rc2
 9993661 CSW-192, CSW-193: ucbg portal frontend config no longer internal versioned
 95a12b7 CSW-192, CSW-193: regularize order of fields in ucbg .csv portal downloads
