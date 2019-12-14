@@ -3,11 +3,13 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc5
-Sat Dec 14 10:21:15 PST 2019
+This is version 5.3.0-rc6
+Sat Dec 14 10:58:53 PST 2019
 
-ad3e827 (HEAD -> master) CSW-177: use loginfo for (almost) all console messages
-57af8bf (tag: 5.3.0-rc4, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc4
+f458541 (HEAD -> master) CSW-177: import loginfo where it is needed in custom webapps
+00028fc (tag: 5.3.0-rc5, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc5
+ad3e827 CSW-177: use loginfo for (almost) all console messages
+57af8bf (tag: 5.3.0-rc4) revise change log and VERSION file for version 5.3.0-rc4
 e16938b CSW-177: toolbox audit file belongs with django logs
 d6512c9 (tag: 5.3.0-rc3) revise change log and VERSION file for version 5.3.0-rc3
 25164ac CC-831: update tricoder webapp config to put uploaded files where they should go
