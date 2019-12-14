@@ -21,7 +21,7 @@ config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'locationhisto
 # read common config file
 common = 'common'
 prmz = loadConfiguration(common)
-print('Configuration for %s successfully read' % common)
+loginfo('locationhistory', 'Configuration for %s successfully read' % common, {}, {})
 
 locationConfig = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'locationhistory')
 prmz.FIELDDEFINITIONS = locationConfig.get('locationhistory', 'FIELDDEFINITIONS')
@@ -36,7 +36,7 @@ prmz.NUMBERFIELD = locationConfig.get('locationhistory', 'NUMBERFIELD')
 prmz.CSIDFIELD = locationConfig.get('locationhistory', 'CSIDFIELD')
 prmz.MOVEMENTCSIDFIELD = locationConfig.get('locationhistory', 'MOVEMENTCSIDFIELD')
 
-print('Configuration for %s successfully read' % 'locationhistory')
+loginfo('locationhistory', 'Configuration for %s successfully read' % 'locationhistory', {}, {})
 
 def remove_items(context):
     for item in 'locationaction items labels count'.split(' '):

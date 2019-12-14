@@ -24,7 +24,7 @@ from cspace_django_site.main import cspace_django_site
 # read common config file
 from common.appconfig import loadConfiguration
 prmz = loadConfiguration('common')
-print('Configuration for common successfully read')
+loginfo('taxoneditor', 'Configuration for common successfully read', {}, {})
 
 # TODO: simplify this code: parms should be read and URLs created in a single place
 config = cspace_django_site.getConfig()
@@ -89,7 +89,7 @@ def taxoneditor(request):
                     taxonRefname = extractTag(i,'taxon')
                     (url, taxondata, statusCode, elapsedTime) = connection.make_get_request(
                         'cspace-services/taxonomyauthority/%s/items/%s' % (taxon_authority_csid, csid))
-                    print('%s cspace-services/taxonomyauthority/%s/items/%s' % (elapsedTime, taxon_authority_csid, csid))
+                    loginfo('taxoneditor', '%s cspace-services/taxonomyauthority/%s/items/%s' % (elapsedTime, taxon_authority_csid, csid), {}, {})
                     taxonXML = fromstring(taxondata)
                     family = extractTag(taxonXML, 'family')
                     major_group = extractTag(taxonXML, 'taxonMajorGroup')
@@ -104,22 +104,22 @@ def taxoneditor(request):
                     results['CollectionSpace'].append(r)
                 cspaceTime = time.time() - cspaceTime
                 elapsedTimes['CollectionSpace'] += cspaceTime
-                print('%s %s %s items %s' % (itemcount, cspaceTime, numberofitems, url))
+                loginfo('taxoneditor', '%s %s %s items %s' % (itemcount, cspaceTime, numberofitems, url), {}, {})
             if 'Tropicos' in sources:
                 tropicosTime = time.time()
                 # do Tropicos search
                 # params = urllib.urlencode({'name': taxon})
                 tropicosURL = "http://services.tropicos.org/Name/Search"
                 response = requests.get(tropicosURL, params={'name': taxon_prefix.replace('.','%2E'), 'pagesize':numberWanted, 'apikey':tropicos_api_key, 'format': 'json'})
-                #print(tropicosURL)
+                #loginfo('taxoneditor', tropicosURL, {}, {})
                 response.encoding = 'utf-8'
                 try:
                     names2use = response.json()
                     if 'Error' in names2use[0]:
-                        print('Error from Tropicos: %s' % names2use['Error'])
+                        loginfo('taxoneditor', 'Error from Tropicos: %s' % names2use['Error'], {}, {})
                         names2use = []
                 except:
-                    print('could not parse returned JSON, or it was empty')
+                    loginfo('taxoneditor', 'could not parse returned JSON, or it was empty', {}, {})
                     names2use = []
                 numberofitems = len(names2use)
                 if len(names2use) > numberWanted:
@@ -137,7 +137,7 @@ def taxoneditor(request):
                     results['Tropicos'].append(r)
                 tropicosTime = time.time() - tropicosTime
                 elapsedTimes['Tropicos'] += tropicosTime
-                print('%s %s %s items http://api.gbif.org/v1/species/search/?q=%s' % (itemcount, tropicosTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)))
+                loginfo('taxoneditor', '%s %s %s items http://api.gbif.org/v1/species/search/?q=%s' % (itemcount, tropicosTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)), {}, {})
             if 'GBIF' in sources:
                 gbifTime = time.time()
                 # do GBIF search
@@ -164,7 +164,7 @@ def taxoneditor(request):
                     results['GBIF'].append(r)
                 gbifTime = time.time() - gbifTime
                 elapsedTimes['GBIF'] += gbifTime
-                print('%s %s %s items http://api.gbif.org/v1/parser/name/%s' % (itemcount, gbifTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)))
+                loginfo('taxoneditor', '%s %s %s items http://api.gbif.org/v1/parser/name/%s' % (itemcount, gbifTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)), {}, {})
             multipleresults.append([taxon, taxon_prefix, results, itemcount])
 
     return render(request, 'taxoneditor.html', {'timestamp': timestamp, 'version': prmz.VERSION, 'fields': formfields,
@@ -204,7 +204,7 @@ def create_taxon(request):
     elapsedtime = time.time()
     messages = {}
     # messages.append("posting to %s REST API..." % uri)
-    # print(payload)
+    # loginfo('taxoneditor', payload, {}, {})
     # messages.append(payload)
 
     connection = cspace.connection.create_connection(config, request.user)

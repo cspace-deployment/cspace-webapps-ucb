@@ -58,7 +58,7 @@ def postxml(requestType, uri, realm, server, username, password, payload):
             sys.stderr.write('The server couldn\'t fulfill the request.\n')
             sys.stderr.write('Error code: ' + str(e.code) + '\n')
         if True:
-            #print('Error in POSTing!')
+            #loginfo('csvimport', 'Error in POSTing!', {}, {})
             sys.stderr.write("Error in POSTing!\n")
             sys.stderr.write("%s\n" % url)
             sys.stderr.write(payload)

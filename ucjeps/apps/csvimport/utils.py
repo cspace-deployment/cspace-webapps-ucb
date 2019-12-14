@@ -36,7 +36,7 @@ with open(path.join(settings.BASE_DIR, 'config/extra-lists.json'), 'r', encoding
 try:
     extra_static_lists = json.loads(extralists.replace('\n', ''))
 except:
-    print('could not parse "extra-lists.json". aborting.')
+    loginfo('csvimport', 'could not parse "extra-lists.json". aborting.', {}, {})
     sys.exit(1)
 
 config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'csvimport')
@@ -79,8 +79,8 @@ try:
         pass
 
 except:
-    print("could not get at least one of realm, hostname, port, protocol, username, password or institution from config file.")
-    # print("can't continue, exiting...")
+    loginfo('csvimport', "could not get at least one of realm, hostname, port, protocol, username, password or institution from config file.", {}, {})
+    # loginfo('csvimport', "can't continue, exiting...", {}, {})
     sys.exit(1)
 
 def dump_row(row, error_type, message):
@@ -138,7 +138,7 @@ def get_recordtypes():
     except:
         raise
         RECORDTYPES = {'configerror': ['Configuration Error', []]}
-        print('Error loading mapping file')
+        loginfo('csvimport', 'Error loading mapping file', {}, {})
     return RECORDTYPES
 
 
@@ -160,7 +160,7 @@ def getRecords(rawFile):
         rawFile.seek(0)
         csvfile = csv.reader(rawFile, dialect)
     except IOError as e:
-        print("item%s " % e)
+        loginfo('csvimport', "item%s " % e, {}, {})
         sys.exit(1)
     except:
         # nope, can't sniff: try a brute force approach, look for tabs, then commas...
@@ -194,7 +194,7 @@ def getRecords(rawFile):
                 cell_values[col_name][row[col_number]] += 1
         return cell_values, rows, rowNumber, header, bad_rows
     except IOError as e:
-        print("item%s " % e)
+        loginfo('csvimport', "item%s " % e, {}, {})
         sys.exit(1)
     except:
         raise
@@ -320,10 +320,10 @@ def validate_cell(CSPACE_MAPPING, key, values):
             try:
                 isaproblem, message, validated_value = check_cell_in_cspace(CSPACE_MAPPING[key], key, v)
             except Exception as inst:
-                print(inst)
-                print("problem key", key)
-                print("problem value", v.encode('utf-8'))
-                print("mapping", CSPACE_MAPPING[key])
+                loginfo('csvimport', inst, {}, {})
+                loginfo('csvimport', "problem key", key, {}, {})
+                loginfo('csvimport', "problem value", v.encode('utf-8'), {}, {})
+                loginfo('csvimport', "mapping", CSPACE_MAPPING[key], {}, {})
                 isaproblem, message, validated_value = 1, 'exception', v
                 raise
 
@@ -463,8 +463,8 @@ def record_existence_check(key_checks, row, keyrow, action):
     try:
         key = key_checks[row[keyrow]]
     except:
-        print(f'key not found in key_checks keyrow = {keyrow}')
-        print(row)
+        loginfo('csvimport', f'key not found in key_checks keyrow = {keyrow}', {}, {})
+        loginfo('csvimport', row, {}, {})
         return False
 
     record_check = True
@@ -560,7 +560,7 @@ def extract_refname(xml, term, pgSz, record_type):
                         except:
                             raise
             except:
-                print('could not get termDisplayName or refName or updatedAt from %s' % csid)
+                loginfo('csvimport', 'could not get termDisplayName or refName or updatedAt from %s' % csid, {}, {})
                 return 'Failed X X X X'.split(' '), totalItems
             if normalize(term) == normalize(termDisplayName):
                 return ['OK', csid, str(termDisplayName), refName, updated_at], totalItems
@@ -581,29 +581,29 @@ def rest_query(term, record_type):
         return error_msg.split(' ')
     refname_result, totalitems = extract_refname(response.content, term, pgSz, record_type)
     if totalitems > pgSz and refname_result[0] != 'OK':
-        print('%s term %s (=%s) returned %s for kw search, only %s examined. status is %s.' % (record_type, term, search_term, totalitems, pgSz, refname_result[0]))
+        loginfo('csvimport', '%s term %s (=%s) returned %s for kw search, only %s examined. status is %s.' % (record_type, term, search_term, totalitems, pgSz, refname_result[0]), {}, {})
     # hail mary: do a pt search if kw fails (but not in vocabularies -- doesn't work)
     if refname_result[0] != 'OK' and refname_result[0] != 'ZeroResults' and 'vocabularies' not in record_type:
-        print('fallback: %s term %s (=%s) trying pt search.' % (record_type, term, search_term))
+        loginfo('csvimport', 'fallback: %s term %s (=%s) trying pt search.' % (record_type, term, search_term), {}, {})
         # TODO: seems any authority search will only bring back 100...
         response = do_query('pt', term, record_type, 100)
         refname_result, totalitems = extract_refname(response.content, term, pgSz, record_type)
         if totalitems > 100:
-            print('%s term %s returned %s for pt search, only %s examined. status is %s.' % (record_type, term, totalitems, pgSz, refname_result[0]))
+            loginfo('csvimport', '%s term %s returned %s for pt search, only %s examined. status is %s.' % (record_type, term, totalitems, pgSz, refname_result[0]), {}, {})
         if response.status_code != 200:
             error_msg = "HTTP%s X X X X" % response.status_code
             return error_msg.split(' ')
         if refname_result[0] == 'OK':
-            print('fallback for %s worked!' % term)
+            loginfo('csvimport', 'fallback for %s worked!' % term, {}, {})
         else:
-            print('fallback for %s failed: %s' % (term, refname_result[0]))
+            loginfo('csvimport', 'fallback for %s failed: %s' % (term, refname_result[0]), {}, {})
     return refname_result
 
 
 def do_query(index, search_term, record_type, pgSz):
     querystring = {index: search_term, 'wf_deleted': 'false', 'pgSz': pgSz}
     querystring = urllib.parse.urlencode(querystring)
-    # print(querystring)
+    # loginfo('csvimport', querystring, {}, {})
     url = '%s/cspace-services/%s?%s' % (http_parms.server, record_type, querystring)
     response = requests.get(url, auth=HTTPBasicAuth(http_parms.username, http_parms.password))
     # response.raise_for_status()
@@ -630,15 +630,15 @@ def count_stats(stats, mapping):
     bad_count = 0
     bad_values = 0
     print
-    print('%-35s %10s %10s  %-10s %10s' % tuple(stats[1][:5]))
+    loginfo('csvimport', '%-35s %10s %10s  %-10s %10s' % tuple(stats[1][:5]), {}, {})
     print
     for s in stats[0]:
         if s[3] == 'OK':
             ok_count += 1
-            print('%-35s %10s %10s  %-10s %10s' % tuple(s[:5]))
+            loginfo('csvimport', '%-35s %10s %10s  %-10s %10s' % tuple(s[:5]), {}, {})
         else:
             bad_count += 1
-            print('%-35s %10s %10s  %-10s %10s' % tuple(s[:5]))
+            loginfo('csvimport', '%-35s %10s %10s  %-10s %10s' % tuple(s[:5]), {}, {})
             items = s[7]
             for item_key in sorted(items):
                 if items[item_key][0] != 'OK':
@@ -647,7 +647,7 @@ def count_stats(stats, mapping):
                             label = items[item_key][0]
                         else:
                             label = 'invalid value:'
-                    print('  %15s: %s' % (label, item_key))
+                    loginfo('csvimport', '  %15s: %s' % (label, item_key), {}, {})
                     bad_values += 1
 
     return ok_count, bad_count, bad_values
@@ -701,13 +701,13 @@ def write_intermediate_files(stats, validating_items, nonvalidating_items, const
                 recordsprocessed += 1
                 failures += 1
             except Exception as inst:
-                print('failed to write row %s of input data' % i)
-                print(inst)
-                print(('|').join(input_data))
+                loginfo('csvimport', 'failed to write row %s of input data' % i, {}, {})
+                loginfo('csvimport', inst, {}, {})
+                loginfo('csvimport', ('|').join(input_data), {}, {})
                 recordsprocessed += 1
                 failures += 1
                 # try:
-                #    print('could not write: ', number_check[input_data[keyrow]])
+                #    loginfo('csvimport', 'could not write: ', number_check[input_data[keyrow]], {}, {})
                 # except:
                 #    pass
 
@@ -731,22 +731,22 @@ def send_to_cspace(action, inputRecords, file_header, xmlTemplate, outputfh, uri
             cspaceElements = DWC2CSPACE(action, xmlTemplate, input_dict, config, uri)
             del cspaceElements[2]
             cspaceElements.append('%8.2f' % (time.time() - elapsedtimetotal))
-            # print("item created: %s, csid: %s %s" % tuple(cspaceElements))
+            # loginfo('csvimport', "item created: %s, csid: %s %s" % tuple(cspaceElements), {}, {})
             if cspaceElements[1] != '':
                 successes += 1
             else:
-                print(cspaceElements)
+                loginfo('csvimport', cspaceElements, {}, {})
                 raise Exception('DWC2CSPACE did not return a valid result')
             outputfh.writerow(cspaceElements)
             # flush output buffers so we get a much data as possible if there is a failure
             # outputfh.flush()
             sys.stdout.flush()
         except Exception:
-            print("Exception!")
-            print("-"*60)
+            loginfo('csvimport', "Exception!", {}, {})
+            loginfo('csvimport', "-"*60, {}, {})
             traceback.print_exc(file=sys.stdout)
-            print("-"*60)
-            print("item create/update failed for object number '%s', %8.2f" % (cspaceElements[0], (time.time() - elapsedtimetotal)))
+            loginfo('csvimport', "-"*60, {}, {})
+            loginfo('csvimport', "item create/update failed for object number '%s', %8.2f" % (cspaceElements[0], (time.time() - elapsedtimetotal)), {}, {})
             failures += 1
         recordsprocessed += 1
     return recordsprocessed, successes, failures
@@ -797,9 +797,9 @@ def postxml(requestType, uri, realm, protocol, hostname, port, username, passwor
             sys.stderr.write('Reason: ' + str(e.reason) + '\n')
         if hasattr(e, 'code'):
             sys.stderr.write('Error code: ' + str(e.code) + '\n')
-        print(payload)
-        #print(data)
-        if info: print(info)
+        loginfo('csvimport', payload, {}, {})
+        #loginfo('csvimport', data, {}, {})
+        if info: loginfo('csvimport', info, {}, {})
         if data: sys.stderr.write('Data: ' + data + '\n')
         raise
     except urllib.error.URLError as e:
@@ -809,7 +809,7 @@ def postxml(requestType, uri, realm, protocol, hostname, port, username, passwor
         if hasattr(e, 'code'):
             sys.stderr.write('Error code: ' + str(e.code) + '\n')
         if True:
-            # print('Error in POSTing!')
+            # loginfo('csvimport', 'Error in POSTing!', {}, {})
             sys.stderr.write("Error in POSTing!\n")
             sys.stderr.write(payload)
             raise
@@ -840,8 +840,8 @@ def DWC2CSPACE(action, xmlTemplate, input_dataDict, config, uri):
         password = config.get('connect', 'password')
         INSTITUTION = config.get('info', 'institution')
     except:
-        print("could not get at least one of realm, hostname, username, password or institution from config file.")
-        # print("can't continue, exiting...")
+        loginfo('csvimport', "could not get at least one of realm, hostname, username, password or institution from config file.", {}, {})
+        # loginfo('csvimport', "can't continue, exiting...", {}, {})
         raise
 
     messages = []
@@ -898,8 +898,8 @@ def update_xml(payload, input_dataDict, INSTITUTION, action):
             if value == '':
                 pass
             else:
-                print('tag %s not found, no update made' % tag)
-                print('wanted to insert: %s' % value)
+                loginfo('csvimport', 'tag %s not found, no update made' % tag, {}, {})
+                loginfo('csvimport', 'wanted to insert: %s' % value, {}, {})
         else:
             if value != '':
                 element.text = value

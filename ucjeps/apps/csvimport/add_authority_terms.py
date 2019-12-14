@@ -21,7 +21,7 @@ def createXMLpayload(template, values, institution):
 start = time.time()
 delim = '\t'
 
-print((len(sys.argv)))
+loginfo('csvimport', (len(sys.argv)), {}, {})
 
 CREDENTIALS = sys.argv[1]
 BASE_URL = sys.argv[2]
@@ -40,7 +40,7 @@ initial_get = BASE_URL + '/items' + PAGE_OPT
 r = requests.get(initial_get, auth=tuple(CREDENTIALS.split(':')))
 
 if (r.status_code < 200 or r.status_code > 300):
-    print(('The request {0} could not be fulfilled. Please try again.'.format(initial_get)))
+    loginfo('csvimport', ('The request {0} could not be fulfilled. Please try again.'.format(initial_get)), {}, {})
 
 try:
     xml = fromstring(r.content)
@@ -72,11 +72,11 @@ for c in range(len(csids)):
     csid = re.findall('>(\S+?)<', csids[c])[0]
 
     request = BASE_URL + csid
-    print(("Processing {0}".format(request)))
+    loginfo('csvimport', ("Processing {0}".format(request)), {}, {})
 
     get_response = requests.get(request, auth=(user, password))
     if get_response.status_code < 200 and get_response.status_code >= 300:
-        print("The item with CSID {0} failed to be fetched".format(csid))
+        loginfo('csvimport', "The item with CSID {0} failed to be fetched".format(csid), {}, {})
         failed_reqs_file.write(
             "The item with CSID {0} failed to be fetched with status code {1} because {2}".format(csid,
                                                                                                   get_response.status_code,
@@ -88,7 +88,7 @@ for c in range(len(csids)):
 
     put_request = requests.put(request, content, auth=(user, password), headers=headers)
     if put_request.status_code < 200 and put_request.status_code >= 300:
-        print("The item with CSID {0} failed to be PUTted".format(csid))
+        loginfo('csvimport', "The item with CSID {0} failed to be PUTted".format(csid), {}, {})
         failed_reqs_file.write(
             "The item with CSID {0} failed to be PUTted with status code {1} because {2}".format(csid,
                                                                                                  put_request.status_code,
@@ -100,4 +100,4 @@ for c in range(len(csids)):
     success_file.write("The item with CSID {0} was successfully updated. \n".format(csid))
 
 end = time.time()
-print("Time elapsed: {0} seconds".format(str(end - start)))
+loginfo('csvimport', "Time elapsed: {0} seconds".format(str(end - start)), {}, {})

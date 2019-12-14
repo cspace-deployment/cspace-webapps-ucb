@@ -27,7 +27,7 @@ def prepareFiles(request, validateonly):
     tricoder_files = []
     numProblems = 0
     for lineno, afile in enumerate(request.FILES.getlist('tricoderfiles')):
-        # print(afile)
+        # loginfo('uploadtricoder', afile, {}, {})
         # we gotta do this for now!
         if 'barcode.' not in afile.name: afile.name = 'barcode.' + afile.name
         fileinfo = {'id': lineno, 'name': afile.name, 'status': '', 'date': time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())}
@@ -39,7 +39,7 @@ def prepareFiles(request, validateonly):
             numProblems += 1
         else:
             try:
-                print("%s %s: %s %s (%s %s)" % ('id', lineno, 'name', afile.name, 'size', afile.size))
+                loginfo('uploadtricoder', "%s %s: %s %s (%s %s)" % ('id', lineno, 'name', afile.name, 'size', afile.size), {}, {})
                 if not validateonly:
                     handle_uploaded_file(afile)
                 fileinfo['status'] = 'OK'
@@ -63,17 +63,17 @@ def prepareFiles(request, validateonly):
         if 'createtricoder' in request.POST:
             tricoder_fileinfo['status'] = 'createtricoder'
             if not validateonly:
-                loginfo('start', get_tricoder_file('input',tricoder_filenumber), {}, request)
+                loginfo('start', get_tricoder_file('input',tricoder_filenumber), {}, request, {}, {})
                 try:
                     retcode = subprocess.call(
                         [POSTBLOBPATH, get_tricoder_file('input',tricoder_filenumber)])
                     if retcode < 0:
-                        loginfo('process', tricoder_filenumber + " Child was terminated by signal %s" % -retcode, {}, request)
+                        loginfo('process', tricoder_filenumber + " Child was terminated by signal %s" % -retcode, {}, request, {}, {})
                     else:
-                        loginfo('process', tricoder_filenumber + ": Child returned %s" % retcode, {}, request)
+                        loginfo('process', tricoder_filenumber + ": Child returned %s" % retcode, {}, request, {}, {})
                 except OSError as e:
-                    loginfo('error', "Execution failed: %s" % e, {}, request)
-                loginfo('finish', get_tricoder_file('input',tricoder_filenumber), {}, request)
+                    loginfo('error', "Execution failed: %s" % e, {}, request, {}, {})
+                loginfo('finish', get_tricoder_file('input',tricoder_filenumber), {}, request, {}, {})
 
         elif 'uploadtricoder' in request.POST:
             tricoder_fileinfo['status'] = 'uploadtricoder'

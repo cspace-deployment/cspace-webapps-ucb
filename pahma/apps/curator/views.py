@@ -19,7 +19,7 @@ config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'curator')
 # read common config file
 common = 'common'
 prmz = loadConfiguration(common)
-print('Configuration for %s successfully read' % common)
+loginfo('curator', 'Configuration for %s successfully read' % common, {}, {})
 
 searchConfig = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'curator')
 prmz.FIELDDEFINITIONS = searchConfig.get('curator', 'FIELDDEFINITIONS')
@@ -31,7 +31,7 @@ prmz = loadFields(prmz.FIELDDEFINITIONS, prmz)
 prmz.MAXRESULTS = int(searchConfig.get('curator', 'MAXRESULTS'))
 prmz.TITLE = searchConfig.get('curator', 'TITLE')
 
-print('Configuration for %s successfully read' % 'curator')
+loginfo('curator', 'Configuration for %s successfully read' % 'curator', {}, {})
 
 # Get an instance of a logger, log some startup info
 logger = logging.getLogger(__name__)

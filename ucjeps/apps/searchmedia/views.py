@@ -23,7 +23,7 @@ from cspace_django_site import settings
 
 # read common config file
 prmz = loadConfiguration('common')
-print('Configuration for common successfully read')
+loginfo('searchmedia', 'Configuration for common successfully read', {}, {})
 
 # on startup, setup this webapp layout...
 config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'searchmedia')

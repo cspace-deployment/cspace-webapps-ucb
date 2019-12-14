@@ -69,9 +69,9 @@ def prepareFiles(request, context):
     jobinfo = {}
     specimens = []
     for lineno, afile in enumerate(request.FILES.getlist('importfile')):
-        # print(afile)
+        # loginfo('csvimport', afile, {}, {})
         try:
-            print("%s %s: %s %s (%s %s)" % ('id', lineno + 1, 'name', afile.name, 'size', afile.size))
+            loginfo('csvimport', "%s %s: %s %s (%s %s)" % ('id', lineno + 1, 'name', afile.name, 'size', afile.size), {}, {})
             
             handle_uploaded_file(afile, request.POST['record_type'])
 
@@ -199,7 +199,7 @@ def nextstep(request, step, filename):
 
     messages.append('estimated time = %8.1f seconds' % (len([]) * 10 / 60.0))
 
-    loginfo('start', getJobfile(filename), request)
+    loginfo('start', getJobfile(filename), request, {}, {})
     try:
         file_is_OK = True
         record_type = get_file_type(JOBDIR % filename)
@@ -208,14 +208,14 @@ def nextstep(request, step, filename):
             p_object = subprocess.Popen([script, JOBDIR % filename, record_type])
             if p_object._child_created:
                 pid = p_object.pid
-                loginfo('process', filename + ": Child returned %s" % p_object.returncode, request)
+                loginfo('process', filename + ": Child returned %s" % p_object.returncode, request, {}, {})
                 messages.append('process ' + filename + ": Child returned %s" % p_object.returncode)
             else:
-                loginfo('process', filename + " Child had returncode %s" % p_object.returncode, request)
+                loginfo('process', filename + " Child had returncode %s" % p_object.returncode, request, {}, {})
     except OSError as e:
         messages.append('job failed')
-        loginfo('error', "Execution failed: %s" % e, request)
-    loginfo('finish', getJobfile(filename), request)
+        loginfo('error', "Execution failed: %s" % e, request, {}, {})
+    loginfo('finish', getJobfile(filename), request, {}, {})
 
     context['messages'] = messages
     context['elapsedtime'] = time.time() - elapsedtime

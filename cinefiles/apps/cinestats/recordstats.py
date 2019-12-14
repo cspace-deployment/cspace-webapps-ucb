@@ -233,11 +233,11 @@ class RecordStats:
 
         cur.execute(publishers)
         publisherCounts = cur.fetchall()
-        print(publisherCounts)
+        loginfo('cinestats', publisherCounts, {}, {})
 
         cur.execute(documents)
         documentCounts = cur.fetchall()
-        print(documentCounts)
+        loginfo('cinestats', documentCounts, {}, {})
 
         res = {}
         for d in documentCounts:

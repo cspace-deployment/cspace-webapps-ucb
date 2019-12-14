@@ -35,7 +35,7 @@ def loginfo(infotype, context, request):
         logdata = context['querystring']
     if 'url' in context:
         logdata += ' :: %s' % context['url']
-    loginfo('publicsearch', '%s :: %s :: %s :: %s' % (infotype, count, username, logdata))
+    loginfo('publicsearch', '%s :: %s :: %s :: %s' % (infotype, count, username, logdata), {}, {})
 
 
 def getfromXML(element,xpath):
@@ -143,7 +143,7 @@ def setConstants(context):
             context['maxfacets'] = MAXFACETS
 
     except:
-        print("no searchValues set")
+        loginfo('publicsearch', "no searchValues set", {}, {})
         context['displayType'] = setDisplayType({})
         context['url'] = ''
         context['querystring'] = ''
@@ -198,7 +198,7 @@ def doSearch(solr_server, solr_core, context):
                         t = '"' + t + '"'
                         index = recodevarname(p)
                     elif p + '_qualifier' in requestObject:
-                        # print('qualifier:',requestObject[p+'_qualifier'])
+                        # loginfo('publicsearch', 'qualifier:',requestObject[p+'_qualifier'], {}, {})
                         qualifier = requestObject[p + '_qualifier']
                         if qualifier == 'exact':
                             index = recodevarname(p)
@@ -226,7 +226,7 @@ def doSearch(solr_server, solr_core, context):
             queryterms.append(searchTerm)
             urlterms.append('%s=%s' % (p, cgi.escape(requestObject[p])))
         querystring = ' AND '.join(queryterms)
-        print(querystring)
+        loginfo('publicsearch', querystring, {}, {})
 
         if urlterms != []:
             urlterms.append('displayType=%s' % context['displayType'])
@@ -290,7 +290,7 @@ def doSearch(solr_server, solr_core, context):
                         #item[p] = item[p].toordinal()
                         item[p] = item[p].isoformat().replace('T00:00:00+00:00', '')
                     except:
-                        print('date problem: ', item[p])
+                        loginfo('publicsearch', 'date problem: ', item[p], {}, {})
             except:
                 #raise
                 pass
@@ -311,7 +311,7 @@ def doSearch(solr_server, solr_core, context):
     if context['displayType'] == 'list' and response._numFound > context['maxresults']:
         context['recordlimit'] = '(display limited to %s)' % context['maxresults']
 
-    #print('items',len(context['items']))
+    #loginfo('publicsearch', 'items',len(context['items']), {}, {})
     context['count'] = response._numFound
     m = {}
     context['labels'] = {}
@@ -341,23 +341,23 @@ def doSearch(solr_server, solr_core, context):
     return context
 
 # on startup, do a query to get options values for forms...
-print('Starting initialization')
+loginfo('publicsearch', 'Starting initialization', {}, {})
 context = {'displayType': 'list', 'maxresults': 0,
            'searchValues': {'csv': 'true', 'querystring': '*:*', 'url': '', 'maxfacets': 1000, 'count': 0}}
 context = doSearch(SOLRSERVER, SOLRCORE, context)
-#print('solr facet search time: %s' % context['time'])
+#loginfo('publicsearch', 'solr facet search time: %s' % context['time'], {}, {})
 
 start = time.time()
 if 'errormsg' in context:
     solrIsUp = False
-    print('Initial solr search failed. Concluding that Solr is down or unreachable... Will not be trying again! Please fix and restart!')
+    loginfo('publicsearch', 'Initial solr search failed. Concluding that Solr is down or unreachable... Will not be trying again! Please fix and restart!', {}, {})
 else:
     for facet in context['facetflds']:
-        print('facet',facet[0],len(facet[1]))
+        loginfo('publicsearch', 'facet',facet[0],len(facet[1]), {}, {})
         if facet[0] in DROPDOWNS:
             FACETS[facet[0]] = sorted(facet[1])
         # if the facet is not in a dropdown, save the memory for something better
         else:
             FACETS[facet[0]] = []
-print('Initialization complete: %s' % (time.time() - start))
+loginfo('publicsearch', 'Initialization complete: %s' % (time.time() - start), {}, {})
 

@@ -65,7 +65,7 @@ def do_location_search(context, prmz, querystring, searchterm):
     solr_core = 'pahma-locations'
     solrfl = 'object_csid_s id location_s crate_s locationdate_dt objectname_s objectcount_s objectnumber_s sortableobjectnumber_s'.replace(' ',',')
 
-    # print('Solr query: %s' % querystring)
+    # loginfo('locationhistory', 'Solr query: %s' % querystring, {}, {})
     try:
         startpage = context['maxresults'] * (context['start'] - 1)
     except:
@@ -75,18 +75,18 @@ def do_location_search(context, prmz, querystring, searchterm):
     # create a connection to a solr server
     s = solr.SolrConnection(url='%s/%s' % (solr_server, solr_core))
 
-    print('query: %s' % querystring)
+    loginfo('locationhistory', 'query: %s' % querystring, {}, {})
     try:
         maxresults = 10000
         solrtime = time.time()
         response = s.query(querystring, facet='true', fq={}, fields=solrfl,
                            rows=maxresults, facet_limit=prmz.MAXFACETS, sort=context['sortkey'],
                            facet_mincount=1, start=startpage)
-        print('Solr search succeeded, %s results, %s rows requested starting at %s; %8.2f seconds.' % (response.numFound, maxresults, startpage, time.time() - solrtime))
+        loginfo('locationhistory', 'Solr search succeeded, %s results, %s rows requested starting at %s; %8.2f seconds.' % (response.numFound, maxresults, startpage, time.time() - solrtime), {}, {})
     # except:
     except Exception as inst:
         # raise
-        print('Solr search failed: %s' % str(inst))
+        loginfo('locationhistory', 'Solr search failed: %s' % str(inst), {}, {})
         context['errormsg'] = 'Solr4 query failed'
         return context
 
