@@ -199,7 +199,7 @@ def nextstep(request, step, filename):
 
     messages.append('estimated time = %8.1f seconds' % (len([]) * 10 / 60.0))
 
-    loginfo('csvimport start', getJobfile(filename), request, {}, {})
+    loginfo('csvimport start', getJobfile(filename), context, request)
     try:
         file_is_OK = True
         record_type = get_file_type(JOBDIR % filename)
@@ -208,14 +208,14 @@ def nextstep(request, step, filename):
             p_object = subprocess.Popen([script, JOBDIR % filename, record_type])
             if p_object._child_created:
                 pid = p_object.pid
-                loginfo('csvimport process', filename + ": Child returned %s" % p_object.returncode, request, {}, {})
+                loginfo('csvimport process', filename + ": Child returned %s" % p_object.returncode, context, request)
                 messages.append('process ' + filename + ": Child returned %s" % p_object.returncode)
             else:
-                loginfo('csvimport process', filename + " Child had returncode %s" % p_object.returncode, request, {}, {})
+                loginfo('csvimport process', filename + " Child had returncode %s" % p_object.returncode, context, request)
     except OSError as e:
         messages.append('job failed')
-        loginfo('csvimport', "ERROR: Execution failed: %s" % e, request, {}, {})
-    loginfo('csvimport finish', getJobfile(filename), request, {}, {})
+        loginfo('csvimport', "ERROR: Execution failed: %s" % e, context, request)
+    loginfo('csvimport finish', getJobfile(filename), context, request)
 
     context['messages'] = messages
     context['elapsedtime'] = time.time() - elapsedtime
