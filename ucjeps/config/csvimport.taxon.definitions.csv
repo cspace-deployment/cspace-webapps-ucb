@@ -43,7 +43,7 @@
 45		termQualifier					cspace field only		
 46	source	termSource		refname		vocabularies/2ef8db1a-d4d6-4c86-b2b4			
 47		termSourceDetail					cspace field only		
-48	sourceID	termSourceID					cspace field only		
+48	sourceID	termSourceID		literal			cspace field only		
 49		termSourceNote					cspace field only		
 50		termStatus					cspace field only		
 51		termType					cspace field only		
