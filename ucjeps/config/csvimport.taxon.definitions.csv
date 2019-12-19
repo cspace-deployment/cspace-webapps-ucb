@@ -21,7 +21,7 @@
 21	scientificNameAuthorship	taxonAuthor		literal			taxon field	13	21
 22	genus						taxon field	15	21
 23	specificEpithet						taxon field	11	14
-24	taxonRank	taxonRank		literal			taxon field	0	0
+24	taxonRank	taxonRank		refname		vocabularies/3db08631-78ed-4294-a3dc	taxon field	0	0
 25	infraspecificEpithet						taxon field	0	0
 26	taxonRemarks						taxon field	0	0
 27		taxonomicIdentHybridName					cspace field only		
