@@ -32,7 +32,7 @@
         <taxonAuthorType/>
       </taxonAuthorGroup>
     </taxonAuthorGroupList>
-    <taxonRank>species</taxonRank>
+    <taxonRank>{taxonRank}</taxonRank>
   </ns2:taxon_common>
   <ns2:taxon_naturalhistory xmlns:ns2="http://collectionspace.org/services/taxon/domain/naturalhistory" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <plantAttributesGroupList/>

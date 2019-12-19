@@ -21,7 +21,7 @@
 21	scientificNameAuthorship	taxonAuthor		literal			taxon field	13	21
 22	genus						taxon field	15	21
 23	specificEpithet						taxon field	11	14
-24	taxonRank						taxon field	0	0
+24	taxonRank	taxonRank		literal			taxon field	0	0
 25	infraspecificEpithet						taxon field	0	0
 26	taxonRemarks						taxon field	0	0
 27		taxonomicIdentHybridName					cspace field only		
@@ -43,7 +43,7 @@
 45		termQualifier					cspace field only		
 46	source	termSource		refname		vocabularies/2ef8db1a-d4d6-4c86-b2b4			
 47		termSourceDetail					cspace field only		
-48		termSourceID					cspace field only		
+48	sourceID	termSourceID					cspace field only		
 49		termSourceNote					cspace field only		
 50		termStatus					cspace field only		
 51		termType					cspace field only		
