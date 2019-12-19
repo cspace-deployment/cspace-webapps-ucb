@@ -43,10 +43,6 @@ def random_sample(choices, bins, label, number_of_items):
     crowd_name = crowd[0][0]
 
     x = random.sample(bins[label][crowd_name], number_of_items)
-    # keys_to_use = [list(v)[k] for k in select]
-    # x = [bins[label][crowd][k] for k in select]
-    # x = [bins[label][crowd][k] for k in keys_to_use]
-    # x = [bins[label][crowd][c] for c in range(number_of_items)]
     return x, crowd_name
 
 
