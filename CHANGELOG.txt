@@ -3,11 +3,19 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc8
-Sat Dec 14 13:34:25 PST 2019
+This is version 5.3.0-rc9
+Thu Dec 19 16:00:08 PST 2019
 
-48da994 (HEAD -> master) CSW-177: indicate which log messages are errors
-7d4d32b (tag: 5.3.0-rc7, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc7
+758bb5c (HEAD -> master) CSW-202: correct some calls to loginfo() in csvimport
+0f05691 CSW-202: taxonRank is now a dynamic vocabulary
+629c205 CSW-202: example 'undo' script should point to production
+72e1767 CSW-202: csvimport backend needs these two scripts
+c46faf2 CSW-202: oops, need to include field type in csvimport taxon config
+a7b0019 CSW-202: revise taxon config: field defs and XML template
+0710acd NOJIRA: revisions to curator
+40835ce (tag: 5.3.0-rc8, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc8
+48da994 CSW-177: indicate which log messages are errors
+7d4d32b (tag: 5.3.0-rc7) revise change log and VERSION file for version 5.3.0-rc7
 4db2561 CSW-177: straighten out a few more logging inconsistencies
 1649efd (tag: 5.3.0-rc6) revise change log and VERSION file for version 5.3.0-rc6
 f458541 CSW-177: import loginfo where it is needed in custom webapps
