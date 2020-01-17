@@ -1,80 +1,65 @@
 #	Parameters for CineFiles Public Collections Browser															x		
 #																x		
-date		9/28/2019														x		
+date		01/17/2020														x
 revision		2														x		
 #																x		
 title	CineFiles															x		
 #																x		
 #																x		
-server	http://localhost:8983/solr															x		
+server	http://localhost:8983/solr															x
 core	cinefiles-public															x		
 #																x		
 #		Fields						row,column								x		
 #																x		
 header		Name	Label	SolrField	SearchTarget	Suggestions	Role	Search	Facet	bMapper	fullDisplay	listDisplay	gridDisplay	mapDisplay	inCSV	placeholder		
-#	1	id	ID	id			id,csid									x		
-#	2	objectnumber	Object number	objectnumber_s			objectno,accession,string	1,1			1	1	1		1	x		
-#	3	docdisplayname	Title	docdisplayname_s			keyword	1,2			2	2	2		2	x		
-#	4	doctitle	Sort Title	doctitle_s			keyword	1,3	2							x		
-#	5	source	Source	source_s			keyword	2,1	1		3	3	3		3	x		
-#	6	doctype	Doctype	doctype_s			dropdown	2,2	3		4				4	x		
-#	7	source_refname	source_refname	source_refname_s			string	2,3								x		
-#	8	doctype_refname	doctype_refname	doctype_refname_s			string	3,1								x		
-#	9	collection	Collection	collection_s			keyword	3,2	4		5				5	x		
-#	10	collection_refname	collection_refname	collection_refname_s			keyword	3,3								x		
-#	18	hasbiblio	Has bibliography	hasbiblio_s			dropdown	6,2	12		13				13	x		
-#	17	hasboxinfo	Has box info	hasboxinfo_s			dropdown	6,1	11		12				12	x		
-#	14	hascastcr	Has cast credits	hascastcr_s			dropdown	5,1	8		9				9	x		
-#	15	hascostinfo	Has cost info	hascostinfo_s			dropdown	5,2	9		10				10	x		
-#	13	hasfilmog	Has filmography	hasfilmog_s			dropdown	4,3	7		8				8	x		
-#	11	hasillust	Has illustrations	hasillust_s			dropdown	4,1	5		6				6	x		
-#	12	hasprodco	Has production co	hasprodco_s			dropdown	4,2	6		7				7	x		
-#	16	hastechcr	Has tech credits	hastechcr_s			dropdown	5,3	10		11				11	x		
-#	19	recordstatus	Record status	recordstatus_s			dropdown	6,3	13		14	4	4		14	x		
-#	20	numberofobjects	Number of objects	numberofobjects_s			dropdown	7,1	14		15	5	5		15	x		
-#	21	doc_id	Doc ID	doc_id_s			string	7,2			16	6	6		16	x		
-#	22	latlong	LatLong	latlong_p			location									x		
-#	23	hasimage	Show only items with images	blob_ss			present	7,3								x		
-field	24	id	ID	id			id,csid,objectno,accession,string				1				1	x	4344	10819
-field	25	doctitle	Document title	doctitle_s			keyword	1			16				16	x	47	61582
-field	26	doctype	Document type	doctype_s			dropdown				17				17	x	90	61582
-field	27	pages	Document pages	pages_s			string				18				18	x	5146	19964
-field	28	pg_info	Document pageinfo	pg_info_s			string				19				19	x	3610	54731
-field	29	source	Document source	source_s			keyword	2	4		20				20	x	3604	54731
-field	30	src_id	Document source ID	src_id_s			string				21				21	x	8219	39561
-field	31	author	Document author	author_ss			keyword	3	5		22				22	x	8225	39561
-field	32	doc_name_id	Document name ID	doc_name_id_s			string				23				23	x	108	60871
-field	33	doclanguage	Document language	doclanguage_ss			dropdown	4	6		24				24	x	16015	47885
-field	34	pubdate	Document date	pubdate_s			keyword	5			25				25	x	3	61435
-field	35	code	Document code	code_s			dropdown		7		26				26	x	2	61582
-field	36	biblio	Has bibliography	biblio_s			dropdown				27				27	x	2	61582
-field	37	bx_info	Has box info	bx_info_s			dropdown				28				28	x	2	61582
-field	38	cast_cr	Has cast credits	cast_cr_s			dropdown				29				29	x	2	61582
-field	39	costinfo	Has cost info	costinfo_s			dropdown				30				30	x	2	61582
-field	40	dist_co	Has dstribution company	dist_co_s			dropdown				31				31	x	2	61582
-field	41	filmog	Has filmography	filmog_s			dropdown				32				32	x	2	61582
-field	42	illust	Has illustrations	illust_s			dropdown				33				33	x	2	61582
-field	43	prod_co	Has production co	prod_co_s			dropdown				34				34	x	2	61582
-field	44	tech_cr	Has tech credits	tech_cr_s			dropdown				35				35	x	195	203
-field	45	docurl	Document URL	docurl_s			keyword				36				36	x	13849	47800
-field	46	pubdatescalar	Document publication date	pubdatescalar_s			keyword				37				37	x	14110	47801
-field	47	latepubdatescalar	Document late pub date	latepubdatescalar_s			keyword				38				38	x	110	22756
-field	48	srcurl	Document Source URL	srcurl_s			keyword				39				39	x	843	1692
-field	49	docsubject	Document subject	docsubject_ss			keyword		7		40				40	x	4572	17886
-field	50	docnamesubject	Document name subject	docnamesubject_ss			keyword				41				41	x	52816	61582
-#	51	updatedat	Document	updatedat_s			keyword				42				42	x	0	0
-#	52	hasimage	Show only items with images	blob_ss							43				43	x		
-#films	53															x		
-field	54	film_name_id	Film name id	film_name_id_s			string				2				2	x	72	11058
-field	55	doc_count	Film doc count	doc_count_s			string				3				3	x	10845	11058
-field	56	filmtitle	Film title	filmtitle_s			keyword				4				4	x	626	9862
-field	57	country	Film country	country_ss			keyword	6			5				5	x	115	10645
-field	58	filmyear	Film year	filmyear_s			keyword	7	1		6				6	x	4340	10818
-field	59	director	Film director	director_ss			keyword	8	2		7				7	x	333	9342
-field	60	filmlanguage	Film language	filmlanguage_s			dropdown	9	3		8				8	x	4341	7506
-field	61	prodco	Film production company	prodco_s			keyword				9				9	x	7979	8333
-field	62	subject	Film subject	subject_ss			keyword	10			10				10	x	1862	9226
-field	63	genre	Film genre	genre_ss			keyword	11			11				11	x	10909	11058
-field	64	title	Film title 2	title_s			keyword				12				12	x	4341	7506
-field	65	prodco_id	Film production company ID	prodco_id_s			string				13				13	x	10656	11058
-field	66	updatedat	Updated at	updatedat_s			string				14				14	x		
+#	1	Document fields																
+field	2	id	ID	id			id,csid				1	1	1		1	x	types	tokens
+field	3	csid	CSID	csid_s			string				2	2	2		2	x		
+field	4	objectnumber	Object number	doc_id_s			objectno,accession,string	1,1			3	3	3		3	x		
+field	5	doctitle	Document title	doctitle_s			keyword,mainentry,sortkey	1,2			4	4	4		4	x	58421	61582
+field	6	doctype	Document type	doctype_s			keyword	1,3			5	5	5		5	x	39374	61582
+field	7	pages	Document pages	pages_s			keyword	2,1			6	6	6		6	x	47	61582
+field	8	pg_info	Document pageinfo	pg_info_s			keyword	2,2			7	7	7		7	x	90	61582
+field	9	source	Document source	source_s			dropdown	2,3			8	8	8		8	x	5146	19964
+field	10	src_id	Document source ID	src_id_s			string	3,1			9	9	9		9	x	3610	54731
+field	11	author	Document author(s)	author_s			string	3,2			10	10	10		10	x	3604	54731
+field	12	doc_name_id	Document name ID	name_id_s			keyword	3,3			11	11	11		11	x	8219	39561
+field	13	doclanguage	Document language	doclanguage_s			keyword	4,1			12	12	12		12	x	8225	39561
+field	14	pubdate	Document date	pubdate_s			dropdown	4,2			13	13	13		13	x	108	60871
+field	15	code	Document code	code_s			dropdown	4,3			14	14	14		14	x	16015	47885
+field	16	biblio	Has bibliography	cast_cr_s			dropdown	5,1			15	15	15		15	x	3	61435
+field	17	bx_info	Has box info	tech_cr_s			dropdown	5,2			16	16	16		16	x	2	61582
+field	18	cast_cr	Has cast credits	bx_info_s			dropdown	5,3			17	17	17		17	x	2	61582
+field	19	costinfo	Has cost info	filmog_s			dropdown	6,1			18	18	18		18	x	2	61582
+field	20	dist_co	Has dstribution company	dist_co_s			dropdown	6,2			19	19	19		19	x	2	61582
+field	21	filmog	Has filmography	prod_co_s			dropdown	6,3			20	20	20		20	x	2	61582
+field	22	illust	Has illustrations	costinfo_s			dropdown	7,1			21	21	21		21	x	2	61582
+field	23	prod_co	Has production co	illust_s			dropdown	7,2			22	22	22		22	x	2	61582
+field	24	tech_cr	Has tech credits	biblio_s			string				23	23	23		23	x	2	61582
+field	25	docurl	Document URL	docurl_s			keyword	7,3			24	24	24		24	x	2	61582
+field	26	pubdatescalar	Document publication date	pubdatescalar_s			keyword				25	25	25		25	x	195	203
+field	27	latepubdatescalar	Document late pub date	latepubdatescalar_s			keyword				26	26	26		26	x	13849	47800
+field	28	srcurl	Document Source URL	srcurl_s			keyword				27	27	27		27	x	14110	47801
+field	29	docsubject	Document subject(s)	docsubject_s			keyword				28	28	28		28	x	110	22756
+field	30	docnamesubject	Document name subject	docnamesubject_s			keyword				29	29	29		29	x	843	1692
+field	31	updatedat	Updated at	updatedat_s			keyword				30	30	30		30	x	4572	17886
+field	32	hasimage	Show only items with images	blob_ss			present				31	31	31		31	x	52816	61582
+field	33	pdf	PDF	pdf_s			string				32	32	32		32	x	52816	61582
+field	34	hasimage	Show only items with images	blob_ss			present				33	33	33		33	x	52816	61582
+field	35															x		
+field	36															x		
+field	37	Film field														x		
+field	38			id												x	11053	11058
+field	39	film_name_id	Film name id	name_id_s			string									x	4344	10819
+field	40	doc_count	Film doc count	doc_count_s			string				34	34	34		34	x	72	11058
+field	41	filmtitle	Film title	filmtitle_s			keyword	8,1			35	35	35		35	x	10845	11058
+field	42	country	Film country(ies)	country_s			dropdown	8,2			36	36	36		36	x	626	9862
+field	43	filmyear	Film year	filmyear_s			dropdown	8,3			37	37	37		37	x	115	10645
+field	44	director	Film director	director_s			keyword	9,1			38	38	38		38	x	4340	10818
+field	45	filmlanguage	Film language(s)	filmlanguage_s			dropdown	9,2			39	39	39		39	x	333	9342
+field	46	prodco	Film production company	prodco_s			keyword	9,3			40	40	40		40	x	4341	7506
+field	47	subject	Film subject(s)	subject_s			dropdown				41	41	41		41	x	7979	8333
+field	48	genre	Film genre(s)	genre_s			dropdown				42	42	42		42	x	1862	9226
+field	49	title	Film title 2	title_s			keyword				43	43	43		43	x	10909	11058
+field	50	prodco_id	Film production company ID	prodco_id_s			keyword				44	44	44		44	x	4341	7506
+	51	updatedat	Updated at	updatedat_s			keyword				45	45	45		45	x	10656	11058
