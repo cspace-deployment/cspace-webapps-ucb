@@ -28,7 +28,7 @@
     <taxonIsNamedHybrid>false</taxonIsNamedHybrid>
     <taxonAuthorGroupList>
       <taxonAuthorGroup>
-        <taxonAuthor/>
+        <taxonAuthor>{taxonAuthor}</taxonAuthor>
         <taxonAuthorType/>
       </taxonAuthorGroup>
     </taxonAuthorGroupList>
@@ -37,10 +37,11 @@
   <ns2:taxon_naturalhistory xmlns:ns2="http://collectionspace.org/services/taxon/domain/naturalhistory" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <plantAttributesGroupList/>
     <naturalHistoryCommonNameGroupList/>
-    <family>{family}</family>
+    <family>{taxon_naturalhistory/family}</family>
     <relatedTermGroupList/>
   </ns2:taxon_naturalhistory>
   <ns2:taxon_ucjeps xmlns:ns2="http://collectionspace.org/services/taxon/local/ucjeps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <taxonMajorGroup>{taxonMajorGroup}</taxonMajorGroup>
+      <taxonBasionym>{taxon_ucjeps/taxonBasionym}</taxonBasionym>
+      <taxonMajorGroup>{taxon_ucjeps/taxonMajorGroup}</taxonMajorGroup>
   </ns2:taxon_ucjeps>
 </document>

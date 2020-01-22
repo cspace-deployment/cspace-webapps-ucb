@@ -14,7 +14,7 @@
 14	kingdom	kingdom		literal			taxon field	2	21
 15	phylum	phylum		literal			taxon field	3	21
 16	class	class		literal			taxon field	3	21
-17	family	family		refname		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	10	21
+17	family	taxon_naturalhistory/family		refname		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	10	21
 18	scientificName	taxon		refname		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	16	22
 19	scientificName	taxon		key		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	16	22
 20	taxonID						taxon field	15	21
@@ -31,7 +31,7 @@
 32		proposed					cspace field only		
 33		taxonAuthor					cspace field only		
 34		taxonAuthorType					cspace field only		
-35		taxonCitation					cspace field only		
+35		TaxonCitationList/taxonCitation					cspace field only
 36		taxonCurrency					cspace field only		
 37		taxonIsNamedHybrid					cspace field only		
 38		taxonomicStatus					cspace field only		
@@ -47,11 +47,11 @@
 49		termSourceNote					cspace field only		
 50		termStatus					cspace field only		
 51		termType					cspace field only		
-52	majorgroup	taxonMajorGroup		literal					
+52	majorgroup	taxon_ucjeps/taxonMajorGroup		literal
 53		coordUncertaintyUnit							
 78		coordinateSystem							
 79		taxonIdentKind							
-80		taxonRank							
+80	basionym	taxon_naturalhistory/taxonBasionym		refname		taxonomyauthority/87036424-e55f-4e39-bd12
 81		taxonTermSource							
 82		taxonTermStatus							
 83		taxonTermType							
