@@ -107,11 +107,14 @@ def getJoblist(request):
     errors = []
     for f in sorted(filelist):
         if len(jobdict.keys()) > num2display:
-            pass
             records = []
         else:
             # we only need to count lines if the file is within range...
-            linecount, records, date_uploaded = checkFile(join(jobpath, f))
+            try:
+                linecount, records, date_uploaded = checkFile(join(jobpath, f))
+            except:
+                # TODO: we skip files altogether if there is any problem processing them, probably we should do something better...
+                continue
         parts = f.split('.')
         try:
             file_type = parts[1]

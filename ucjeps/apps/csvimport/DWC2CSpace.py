@@ -82,7 +82,7 @@ def main():
                 print(inst)
                 print
                 print("could not get CSV records to load")
-                parameters_ok = False
+                raise
         if bad_rows[1] > 0:
             print('Error! %s %s' % (bad_rows[1], bad_rows[0]))
             print('rows: ',)
@@ -106,6 +106,7 @@ def main():
 
         if errors != 0:
             print("terminating due to %s errors detected in mapping configuration" % errors)
+
             parameters_ok = False
     except:
         print("could not get mapping configuration %s" % sys.argv[3])

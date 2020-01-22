@@ -72,12 +72,13 @@ def prepareFiles(request, context):
         # loginfo('csvimport', afile, {}, {})
         try:
             loginfo('csvimport', "%s %s: %s %s (%s %s)" % ('id', lineno + 1, 'name', afile.name, 'size', afile.size), {}, {})
-            
-            handle_uploaded_file(afile, request.POST['record_type'])
+            xxx = RECORDTYPES
+            handle_uploaded_file(afile, request.POST['record_type'], RECORDTYPES[request.POST['record_type']][2])
 
         except:
+            raise
             sys.stderr.write("error! file=%s %s" % (afile.name, traceback.format_exc()))
-            specimens.append({'name': afile.name, 'size': afile.size, 'error': 'problem uploading file or extracting image metadata, not processed'})
+            specimens.append({'name': afile.name, 'size': afile.size, 'error': 'problem uploading file or extracting data cells, not processed'})
 
     return jobinfo, specimens
 
@@ -202,7 +203,7 @@ def nextstep(request, step, filename):
     loginfo('csvimport start', getJobfile(filename), context, request)
     try:
         file_is_OK = True
-        record_type = get_file_type(JOBDIR % filename)
+        record_type, uri = get_file_type(JOBDIR % filename)
         if file_is_OK:
             script = path.join(CODEPATH, '%s.sh' % step)
             p_object = subprocess.Popen([script, JOBDIR % filename, record_type])

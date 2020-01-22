@@ -84,6 +84,8 @@ except:
     sys.exit(1)
 
 def dump_row(row, error_type, message):
+    if error_type != '':
+        print('%5s %-30s %-30s %-10s' % tuple(row[i] for i in [0, 1, 2, 4]) + '%-10s %s' % (error_type, message))
     MAPPING_FILE.append('%5s %-30s %-30s %-10s' % tuple(row[i] for i in [0, 1, 2, 4]) + '%-10s %s' % (error_type, message))
 
 def load_mapping_file(mapping_file):
@@ -213,9 +215,10 @@ def get_file_type(filename):
 
     type_filename = filename + '.input.type.txt'
     type_file_handle = open(type_filename, 'r')
-    record_type = type_file_handle.readline()
+    data_line = type_file_handle.readline()
     type_file_handle.close()
-    return record_type.strip()
+    record_type, uri = data_line.strip().split('\t')
+    return record_type, uri
 
 
 # an ugly function, that should someday be eliminated by refactoring
@@ -234,14 +237,14 @@ def fixup(items, stats, file_header):
 
 
 # following function borrowed from Django docs, w modifications
-def handle_uploaded_file(f, record_type):
+def handle_uploaded_file(f, record_type, uri):
     name_parts = f.name.split('.')
     extension = name_parts[-1]
     copied_filename = f.name.replace('.%s' % extension, '.input.csv')
 
     type_filename = f.name.replace('.%s' % extension, '.input.type.txt')
     type_file_handle = open(path.join(IMPORTDIR, '%s') % type_filename, 'w')
-    type_file_handle.writelines(record_type)
+    type_file_handle.writelines(f'{record_type}\t{uri}')
     type_file_handle.close()
 
     destination = open(path.join(IMPORTDIR, '%s') % copied_filename, 'wb+')
@@ -556,7 +559,7 @@ def extract_refname(xml, term, pgSz, record_type):
                 return ['OK', csid, str(termDisplayName), refName, updated_at], totalItems
         if totalItems > pgSz:
             return 'MaybeMissed X X X X'.split(' '), totalItems
-        return 'NoMatch X X X X'.split(' '), totalItems
+        return ['NoMatch', '', term, term, 'X'], totalItems
     except:
         raise
         return 'xmlParseFailed X X X X'.split(' '), totalItems
@@ -573,7 +576,7 @@ def rest_query(term, record_type):
     if totalitems > pgSz and refname_result[0] != 'OK':
         loginfo('csvimport', '%s term %s (=%s) returned %s for kw search, only %s examined. status is %s.' % (record_type, term, search_term, totalitems, pgSz, refname_result[0]), {}, {})
     # hail mary: do a pt search if kw fails (but not in vocabularies -- doesn't work)
-    if refname_result[0] != 'OK' and refname_result[0] != 'ZeroResults' and 'vocabularies' not in record_type:
+    if refname_result[0] != 'OK' and (refname_result[0] != 'ZeroResults' or refname_result[0] != 'NoMatch') and 'vocabularies' not in record_type:
         loginfo('csvimport', 'fallback: %s term %s (=%s) trying pt search.' % (record_type, term, search_term), {}, {})
         # TODO: seems any authority search will only bring back 100...
         response = do_query('pt', term, record_type, 100)
