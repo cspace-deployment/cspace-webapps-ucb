@@ -69,16 +69,13 @@ def prepareFiles(request, context):
     jobinfo = {}
     specimens = []
     for lineno, afile in enumerate(request.FILES.getlist('importfile')):
-        # loginfo('csvimport', afile, {}, {})
         try:
             loginfo('csvimport', "%s %s: %s %s (%s %s)" % ('id', lineno + 1, 'name', afile.name, 'size', afile.size), {}, {})
-            xxx = RECORDTYPES
             handle_uploaded_file(afile, request.POST['record_type'], RECORDTYPES[request.POST['record_type']][2])
 
         except:
-            raise
-            sys.stderr.write("error! file=%s %s" % (afile.name, traceback.format_exc()))
-            specimens.append({'name': afile.name, 'size': afile.size, 'error': 'problem uploading file or extracting data cells, not processed'})
+            sys.stderr.write("error! in line %s of %s: %s" % (lineno, afile.name, traceback.format_exc()))
+            specimens.append({'name': afile.name, 'error': 'problem uploading file or extracting data cells, not processed'})
 
     return jobinfo, specimens
 

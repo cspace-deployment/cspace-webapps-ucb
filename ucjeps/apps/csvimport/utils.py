@@ -84,7 +84,7 @@ except:
     sys.exit(1)
 
 def dump_row(row, error_type, message):
-    if error_type != '':
+    if error_type == 'Error':
         print('%5s %-30s %-30s %-10s' % tuple(row[i] for i in [0, 1, 2, 4]) + '%-10s %s' % (error_type, message))
     MAPPING_FILE.append('%5s %-30s %-30s %-10s' % tuple(row[i] for i in [0, 1, 2, 4]) + '%-10s %s' % (error_type, message))
 
@@ -729,7 +729,7 @@ def send_to_cspace(action, inputRecords, file_header, xmlTemplate, outputfh, uri
                 successes += 1
             else:
                 loginfo('csvimport', cspaceElements, {}, {})
-                raise Exception('DWC2CSPACE did not return a valid result')
+                raise Exception(f'DWC2CSPACE did not return a valid result for {cspaceElements}')
             outputfh.writerow(cspaceElements)
             # flush output buffers so we get a much data as possible if there is a failure
             # outputfh.flush()
