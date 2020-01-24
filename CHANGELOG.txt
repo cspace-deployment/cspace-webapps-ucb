@@ -3,14 +3,21 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc10
-Wed Jan 22 10:34:05 PST 2020
+This is version 5.3.0-rc11
+Fri Jan 24 12:34:27 PST 2020
 
-267c1da (HEAD -> master) CSW-203: repair csvImport to handle authority record updates for UCJEPS
+31c5545 (HEAD -> master) CSW-231: BMU enhancements to support revised UCJEP workflow
+8aa7479 CSW-229: revise 'demo' config for CineFiles portal
+2267a3a (origin/master, origin/HEAD) CSW-229: retain original exhaustive Portal config, as possible 'internal' portal config
+3085b55 CSW-229: next iteration of CineFiles portal configuration, 1st edits by MCQ
+165192b NOJIRA: correct a contributor/creator refname, accidently munged
+e254045 NOJIRA: grouper needs CSIDFIELD for CineFiles
+67c8263 (tag: 5.3.0-rc10) revise change log and VERSION file for version 5.3.0-rc10
+267c1da CSW-203: repair csvImport to handle authority record updates for UCJEPS
 9614370 CSW-203: improve UCJEPS csvimport configuration (for updates, etc.)
 8019786 CSW-193: revise rendering of habit, sex, material type in UCBG portals
 68911bf CSW-222: revise 'demo' config for CineFiles portal
-109603f (origin/master, origin/HEAD) CSW-154: enable django portal for cinefiles (for debugging)
+109603f CSW-154: enable django portal for cinefiles (for debugging)
 1ded2e5 CSW-154: next iteration of cinefiles portal config
 16a9db5 CSW-154: use proper portal config for grouper
 5fca35f (tag: 5.3.0-rc9) revise change log and VERSION file for version 5.3.0-rc9
