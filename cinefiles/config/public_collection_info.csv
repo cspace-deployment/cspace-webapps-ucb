@@ -43,7 +43,7 @@ field	28	srcurl	Document Source URL	srcurl_s			keyword				3				28	x	14110	47801
 field	29	docsubject	Document subject(s)	docsubject_ss			keyword								29	x	110	22756
 field	30	docnamesubject	Document name subject	docnamesubject_ss			keyword	8,3			8				30	x	843	1692
 field	31	doc_updated_at	Doc updated at	updated_at_dt			keyword								32	x	4572	17886
-field	33	pdf	PDF	pdf_ss			string								33	x	52816	61582
+field	33	pdf	PDF	pdf_ss			string				29				33	x	52816	61582
 field	34	hasimage	Show only items with images	blob_ss			present	9,1							34	x	52816	61582
 field	35	blobs	Images	blob_ss			blob									x	52816	61582
 #	36															x		
@@ -59,7 +59,7 @@ field	45	filmlanguage	Film language(s)	filmlanguage_ss			dropdown	7,3	6		25				3
 field	46	prodco	Film production company	prodco_ss			keyword	8,1			26				40	x	4341	7506
 field	47	subject	Film subject(s)	subject_ss			dropdown				28				41	x	7979	8333
 field	48	genre	Film genre(s)	genre_ss			dropdown	8,2	7		27				42	x	1862	9226
-field	49	title	Film title variations	title_ss			keyword	6,2			21				43	x	10909	11058
+field	49	title_variations	Film title variations	title_ss			keyword	6,2			21				43	x	10909	11058
 field	50	prodco_id	Film production company ID	prodco_id_ss			keyword								44	x	4341	7506
 field	51	film_updated_at	Film updated at	film_updated_at_dt			keyword								46	x	10656	11058
-field	52	films_assoc	Associated films	films_assoc_ss			keyword	6,1			20	7	3		47	x		
+field	52	film_info	Associated films	film_info_ss			keyword	6,1			20	7	3		47	x		
