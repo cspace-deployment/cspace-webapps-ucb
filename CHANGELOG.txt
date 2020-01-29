@@ -3,12 +3,15 @@ CHANGELOG for the cspace_django_webapps
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc11
-Fri Jan 24 12:34:27 PST 2020
+This is version 5.3.0-rc12
+Wed Jan 29 08:10:11 PST 2020
 
-31c5545 (HEAD -> master) CSW-231: BMU enhancements to support revised UCJEP workflow
+6212169 (HEAD -> master) CSW-226: use correct Solr field names in CineFiles Blacklight demo config
+72fc569 CSW-231: update UCJEPS BMU parameters
+90be88e (tag: 5.3.0-rc11, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc11
+31c5545 CSW-231: BMU enhancements to support revised UCJEP workflow
 8aa7479 CSW-229: revise 'demo' config for CineFiles portal
-2267a3a (origin/master, origin/HEAD) CSW-229: retain original exhaustive Portal config, as possible 'internal' portal config
+2267a3a CSW-229: retain original exhaustive Portal config, as possible 'internal' portal config
 3085b55 CSW-229: next iteration of CineFiles portal configuration, 1st edits by MCQ
 165192b NOJIRA: correct a contributor/creator refname, accidently munged
 e254045 NOJIRA: grouper needs CSIDFIELD for CineFiles
