@@ -1,21 +1,21 @@
 #	Parameters for CineFiles Public Collections Browser															x		
 #																x		
-date		01/24/20														x		
-revision		4														x		
+date		03/09/20														x
+revision		5														x
 #																x		
 title	Collection Browser															x		
 #																x		
 #																x		
-server	http://localhost:8983/solr															x		
+server	https://webapps-dev.cspace.berkeley.edu/solr															x
 core	cinefiles-public															x		
 #																x		
 #		Fields						row,column								x		
 #																x		
 header		Name	Label	SolrField	SearchTarget	Suggestions	Role	Search	Facet	bMapper	fullDisplay	listDisplay	gridDisplay	mapDisplay	inCSV	placeholder		
 #	1	Document fields														x		
-field	2	id	ID	id			id,csid								1	x	types	tokens
-field	3	csid	CSID	csid_s			string								2	x		
-field	4	objectnumber	Object number	doc_id_s			objectno,accession,string								3	x		
+field	2	id	ID	id			objectno,accession,id								1	x	types	tokens
+field	3	csid	CSID	csid_s			csid,string								2	x
+field	4	objectnumber	Object number	doc_id_s			string								3	x
 field	5	doctitle	Document title	doctitle_ss			keyword,mainentry,sortkey	1,1							5	x	58421	61582
 field	6	doctype	Document type	doctype_s			keyword	1,2	1		6				6	x	39374	61582
 field	7	pages	Document pages	pages_s			keyword				7	5			7	x	47	61582
