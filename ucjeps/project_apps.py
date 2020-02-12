@@ -34,7 +34,7 @@ INSTALLED_APPS = (
     'searchmedia',
     'publicsearch',
     'permalinks',
-    # 'toolbox',
+    'toolbox',
     # 'simplesearch',
     'uploadmedia',
     'taxoneditor',
