@@ -3,14 +3,16 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc13
-Wed Feb 12 10:14:43 PST 2020
+This is version 5.3.0-rc14
+Thu Feb 13 17:18:05 PST 2020
 
-e8c1dc7 (HEAD -> master) CSW-120: enable grouper for botgarden
+a111f52 (HEAD -> master) CSW-231: standalone python3 version of 'extractOptions' script
+97f7ac6 (tag: 5.3.0-rc13, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc13
+e8c1dc7 CSW-120: enable grouper for botgarden
 30dd02a CSW-231: allow PAHMA BMU users to create groups
 c67eefa CSW-223: revise CineFiles frontend Solr config (for Portals)
 b3927dd CSW-231: additional customizations for UCJEPS BMU for revised workflow
-aa23d34 (tag: 5.3.0-rc12, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc12
+aa23d34 (tag: 5.3.0-rc12) revise change log and VERSION file for version 5.3.0-rc12
 6212169 CSW-226: use correct Solr field names in CineFiles Blacklight demo config
 72fc569 CSW-231: update UCJEPS BMU parameters
 90be88e (tag: 5.3.0-rc11) revise change log and VERSION file for version 5.3.0-rc11
