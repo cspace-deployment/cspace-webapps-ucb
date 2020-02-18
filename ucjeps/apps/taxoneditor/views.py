@@ -4,12 +4,12 @@ import re
 import requests
 import urllib
 import time
+import html
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
 from taxoneditor.taxon import taxon_template
-from xml.sax.saxutils import escape
 
 from taxoneditor.utils import termTypeDropdowns, termStatusDropdowns, taxonRankDropdowns, taxonfields, labels, formfields, numberWanted
 from taxoneditor.utils import extractTag, xName, TITLE, taxon_authority_csid, tropicos_api_key
@@ -44,7 +44,6 @@ except:
 def taxoneditor(request):
 
     formfield = 'determinations'
-    timestamp = 'timestamp'
     sources = []
     determinations = ''
     multipleresults = []
@@ -58,6 +57,7 @@ def taxoneditor(request):
         # do search
         itemcount = 0
         sequence_number = 0
+        elapsedTimes = {'CollectionSpace': 0.0, 'GBIF': 0.0, 'Tropicos': 0.0}
         for taxon in taxa:
             itemcount += 1
             # remove leading and trailing white space
@@ -68,7 +68,6 @@ def taxoneditor(request):
             taxon_prefix = re.sub(r'([A-Z][a-z\-]+) ([a-z\-]+).*',r'\1 \2', taxon_prefix)
             if taxon == '': continue
             results = {'CollectionSpace': [], 'GBIF': [], 'Tropicos': []}
-            elapsedTimes = {'CollectionSpace': 0.0, 'GBIF': 0.0, 'Tropicos': 0.0}
             # '() NameId Family ScientificNameWithAuthors ScientificName () NameId'
             if 'CSpace' in sources:
                 cspaceTime = time.time()
@@ -120,7 +119,7 @@ def taxoneditor(request):
                         loginfo('taxoneditor', 'ERROR: from Tropicos: %s' % names2use['Error'], {}, {})
                         names2use = []
                 except:
-                    loginfo('taxoneditor', 'ERROR: could not parse returned JSON, or it was empty', {}, {})
+                    loginfo('taxoneditor', 'ERROR: could not parse returned Tropicos JSON, or it was empty', {}, {})
                     names2use = []
                 numberofitems = len(names2use)
                 if len(names2use) > numberWanted:
@@ -138,7 +137,7 @@ def taxoneditor(request):
                     results['Tropicos'].append(r)
                 tropicosTime = time.time() - tropicosTime
                 elapsedTimes['Tropicos'] += tropicosTime
-                loginfo('taxoneditor', '%s %s %s items http://api.gbif.org/v1/species/search/?q=%s' % (itemcount, tropicosTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)), {}, {})
+                loginfo('taxoneditor', '%s %s %s items http://services.tropicos.org/Name/Search name=%s' % (itemcount, tropicosTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)), {}, {})
             if 'GBIF' in sources:
                 gbifTime = time.time()
                 # do GBIF search
@@ -165,9 +164,10 @@ def taxoneditor(request):
                     results['GBIF'].append(r)
                 gbifTime = time.time() - gbifTime
                 elapsedTimes['GBIF'] += gbifTime
-                loginfo('taxoneditor', '%s %s %s items http://api.gbif.org/v1/parser/name/%s' % (itemcount, gbifTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)), {}, {})
+                loginfo('taxoneditor', '%s %s %s items http://api.gbif.org/v1/species/search q=%s' % (itemcount, gbifTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)), {}, {})
             multipleresults.append([taxon, taxon_prefix, results, itemcount])
 
+    timestamp = time.strftime("%b %d %Y %H:%M:%S", time.localtime())
     return render(request, 'taxoneditor.html', {'timestamp': timestamp, 'version': prmz.VERSION, 'fields': formfields,
                                                 'labels': labels, 'multipleresults': multipleresults, 'taxa': determinations,
                                                 'suggestsource': 'solr', 'sources': sources,
@@ -176,19 +176,16 @@ def taxoneditor(request):
                                                 'csrecordtype': 'taxon',
                                                 'apptitle': TITLE})
 
-@login_required()
-def search(request):
-    pass
 
 def load_payload(payload, request, cspace_fields):
     for field in cspace_fields:
         cspace_name = field[0]
         if cspace_name in request.POST.keys():
             if cspace_name == 'termSource':
-                termSource = taxontermsources[request.POST[cspace_name]]
-                payload = payload.replace('{%s}' % cspace_name, termSource)
+                termSourceRefName = taxontermsources[request.POST[cspace_name]]
+                payload = payload.replace('{%s}' % cspace_name, termSourceRefName)
             else:
-                payload = payload.replace('{%s}' % cspace_name, request.POST[cspace_name])
+                payload = payload.replace('{%s}' % cspace_name, html.escape(request.POST[cspace_name]))
 
     # get rid of any unsubstituted items in the template
     payload = re.sub(r'\{.*?\}', '', payload)
@@ -202,7 +199,6 @@ def create_taxon(request):
     payload = load_payload(taxon_template,request,taxonfields)
     uri = 'cspace-services/%s/%s/items' % ('taxonomyauthority', taxon_authority_csid)
 
-    elapsedtime = time.time()
     messages = {}
     # messages.append("posting to %s REST API..." % uri)
     # loginfo('taxoneditor', payload, {}, {})
@@ -216,6 +212,7 @@ def create_taxon(request):
         messages['csid'] = taxonCSID
     except:
         messages['error'] = "got HTTP response %s for POST to %s; don't think it worked. " % (taxonCSID, uri)
+        elapsedtime = 0.0
 
-    messages['elapsedtime'] = time.time() - elapsedtime
+    messages['elapsedtime'] = elapsedtime
     return render(request, 'taxon_save_result.html', messages)
