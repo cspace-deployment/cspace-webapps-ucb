@@ -3,11 +3,17 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc14
-Thu Feb 13 17:18:05 PST 2020
+This is version 5.3.0-rc15
+Tue Feb 18 10:10:18 PST 2020
 
-a111f52 (HEAD -> master) CSW-231: standalone python3 version of 'extractOptions' script
-97f7ac6 (tag: 5.3.0-rc13, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc13
+6aa6556 (HEAD -> master) CSW-250: put UCBG watermark image where it belongs
+6b5cd17 CSW-250: tidy up webapp config files in preparation for v5.3.0
+4fc8eca NOJIRA: fix undetected bug in UCJEPS TaxonEditor: unecoded taxon names from GBIF
+83d1001 CSW-256: repair UCJEPS bMapper config file, ucjeps.xml
+d3efe4e CSW-256: change all anchor links to https to support recent ucjeps ssl change
+98acf45 (tag: 5.3.0-rc14, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc14
+a111f52 CSW-231: standalone python3 version of 'extractOptions' script
+97f7ac6 (tag: 5.3.0-rc13) revise change log and VERSION file for version 5.3.0-rc13
 e8c1dc7 CSW-120: enable grouper for botgarden
 30dd02a CSW-231: allow PAHMA BMU users to create groups
 c67eefa CSW-223: revise CineFiles frontend Solr config (for Portals)
