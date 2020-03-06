@@ -3,7 +3,7 @@ import sys
 import codecs
 import time
 
-CONFIGDIRECTORY = '/var/www/cfgs/'
+CONFIGDIRECTORY = '/var/www/pahma/config/'
 
 from cswaUtils import postxml, relationsPayload, getConfig
 from cswaDB import getCSID
