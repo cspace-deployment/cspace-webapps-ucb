@@ -33,7 +33,7 @@ field	16	maxelevation	Max elevation	maxelevation_s			keyword									x
 field	17	elevationunit	Elevation unit	elevationunit_s			keyword									x
 field	18	habitat	Habitat	habitat_s			keyword	10,2			13				13	x
 field	18.1	habit	Habit	habit_s			dropdown	9,3			11				27	x
-field	18.2	material_type	Material received as	material_type_s			keyword	8,2			47				50	x
+field	18.2	materialtype	Material received as	materialtype_s			keyword	8,2			47				50	x
 field	18.3	sex	Sex	sex_s			dropdown	10,3			48				3	x
 field	19	latlong	LatLong	latlong_p			location								14	x
 field	20	trscoordinates	TRS coordinates	trscoordinates_s			keyword							1		x
