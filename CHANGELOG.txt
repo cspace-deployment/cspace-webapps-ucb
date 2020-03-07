@@ -3,12 +3,14 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc16
-Fri Mar  6 08:33:46 PST 2020
+This is version 5.3.0-rc17
+Fri Mar  6 17:32:36 PST 2020
 
-35c476b (HEAD -> master) Merge branch 'master' of https://github.com/cspace-deployment/cspace-webapps-ucb
+7c16cca (HEAD -> master) CSW-195: make name for 'material_type' consistent
+37bcb3b (tag: 5.3.0-rc16, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc16
+35c476b Merge branch 'master' of https://github.com/cspace-deployment/cspace-webapps-ucb
 ea5e418 CSW-205: update tricoder file upload webapp config for new location
-8f58629 (origin/master, origin/HEAD) CSW-252: update a few webapp config files
+8f58629 CSW-252: update a few webapp config files
 a9b9c13 (tag: 5.3.0-rc15) revise change log and VERSION file for version 5.3.0-rc15
 6aa6556 CSW-250: put UCBG watermark image where it belongs
 6b5cd17 CSW-250: tidy up webapp config files in preparation for v5.3.0
