@@ -3,11 +3,13 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0-rc17
-Fri Mar  6 17:32:36 PST 2020
+This is version 5.3.0-rc18
+Wed Mar 11 10:18:22 PDT 2020
 
-7c16cca (HEAD -> master) CSW-195: make name for 'material_type' consistent
-37bcb3b (tag: 5.3.0-rc16, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc16
+e364ef0 (HEAD -> master) NOJIRA: minor edits to PAHMA toolbox.cfg example file
+06a035c (tag: 5.3.0-rc17, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc17
+7c16cca CSW-195: make name for 'material_type' consistent
+37bcb3b (tag: 5.3.0-rc16) revise change log and VERSION file for version 5.3.0-rc16
 35c476b Merge branch 'master' of https://github.com/cspace-deployment/cspace-webapps-ucb
 ea5e418 CSW-205: update tricoder file upload webapp config for new location
 8f58629 CSW-252: update a few webapp config files
