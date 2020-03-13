@@ -167,8 +167,9 @@ header = """
 cell = """
 <tr>
 <td style="width: 340px; vertical-align: top;">
+<a  class="likeabutton" target="_blank" href="https://%s.cspace.berkeley.edu">
 <h3>%s</h3>
-<img style="max-width: 330px ; max-height: 100px" alt="%s" src="https://webapps.cspace.berkeley.edu/%s_static/cspace_django_site/images/header-logo.png">
+<img style="max-width: 330px ; max-height: 100px" alt="%s" src="https://webapps.cspace.berkeley.edu/%s_static/cspace_django_site/images/header-logo.png"></a>
 </td>
 """
 
@@ -188,6 +189,12 @@ try:
     output_type = sys.argv[1]
 except:
     output_type = 'text'
+
+
+try:
+    deployment = '-' + sys.argv[2]
+except:
+    deployment = ''
 
 tenants = 'bampfa botgarden cinefiles pahma ucjeps'.split(' ')
 
@@ -284,8 +291,7 @@ elif output_type == 'html':
         html += wrap('td', wrap('b', app_type)).replace('<td>', '<td style="width: 300px;">')
     html += '</tr>'
     for tenant in tenants:
-        # html += cell % (tenant, MUSEUMS[tenant][0], MUSEUMS[tenant][0], tenant)
-        html += cell % (MUSEUMS[tenant][0], MUSEUMS[tenant][0], tenant)
+        html += cell % (f'{tenant}{deployment}', MUSEUMS[tenant][0], MUSEUMS[tenant][0], tenant)
         for app_type in 'Public Private'.split(' '):
             html += '<td style="vertical-align: top; padding-top: 20px;">'
             for app in sorted(all_apps.keys()):
