@@ -3,41 +3,43 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 with some human annotation after the fact.
 
-This is version 5.3.0
-Wed Mar 11 10:18:48 PDT 2020
+This is version 6.0.0-rc1
+Wed Mar 18 10:16:19 PDT 2020
 
-acc5788 (HEAD -> master, tag: 5.3.0-rc18, origin/master, origin/HEAD) revise change log and VERSION file for version 5.3.0-rc18
+ef7a771 (HEAD -> master, origin/master, origin/HEAD) CSW-191: the splash page generation script now deploys deployment-specific pages
+73f22f1 (tag: 5.3.0) revise change log and VERSION file for version 5.3.0
+acc5788 revise change log and VERSION file for version 5.3.0-rc18
 e364ef0 NOJIRA: minor edits to PAHMA toolbox.cfg example file
-06a035c (tag: 5.3.0-rc17) revise change log and VERSION file for version 5.3.0-rc17
+06a035c revise change log and VERSION file for version 5.3.0-rc17
 7c16cca CSW-195: make name for 'material_type' consistent
-37bcb3b (tag: 5.3.0-rc16) revise change log and VERSION file for version 5.3.0-rc16
+37bcb3b revise change log and VERSION file for version 5.3.0-rc16
 35c476b Merge branch 'master' of https://github.com/cspace-deployment/cspace-webapps-ucb
 ea5e418 CSW-205: update tricoder file upload webapp config for new location
 8f58629 CSW-252: update a few webapp config files
-a9b9c13 (tag: 5.3.0-rc15) revise change log and VERSION file for version 5.3.0-rc15
+a9b9c13 revise change log and VERSION file for version 5.3.0-rc15
 6aa6556 CSW-250: put UCBG watermark image where it belongs
 6b5cd17 CSW-250: tidy up webapp config files in preparation for v5.3.0
 4fc8eca NOJIRA: fix undetected bug in UCJEPS TaxonEditor: unecoded taxon names from GBIF
 83d1001 CSW-256: repair UCJEPS bMapper config file, ucjeps.xml
 d3efe4e CSW-256: change all anchor links to https to support recent ucjeps ssl change
-98acf45 (tag: 5.3.0-rc14) revise change log and VERSION file for version 5.3.0-rc14
+98acf45 revise change log and VERSION file for version 5.3.0-rc14
 a111f52 CSW-231: standalone python3 version of 'extractOptions' script
-97f7ac6 (tag: 5.3.0-rc13) revise change log and VERSION file for version 5.3.0-rc13
+97f7ac6 revise change log and VERSION file for version 5.3.0-rc13
 e8c1dc7 CSW-120: enable grouper for botgarden
 30dd02a CSW-231: allow PAHMA BMU users to create groups
 c67eefa CSW-223: revise CineFiles frontend Solr config (for Portals)
 b3927dd CSW-231: additional customizations for UCJEPS BMU for revised workflow
-aa23d34 (tag: 5.3.0-rc12) revise change log and VERSION file for version 5.3.0-rc12
+aa23d34 revise change log and VERSION file for version 5.3.0-rc12
 6212169 CSW-226: use correct Solr field names in CineFiles Blacklight demo config
 72fc569 CSW-231: update UCJEPS BMU parameters
-90be88e (tag: 5.3.0-rc11) revise change log and VERSION file for version 5.3.0-rc11
+90be88e revise change log and VERSION file for version 5.3.0-rc11
 31c5545 CSW-231: BMU enhancements to support revised UCJEP workflow
 8aa7479 CSW-229: revise 'demo' config for CineFiles portal
 2267a3a CSW-229: retain original exhaustive Portal config, as possible 'internal' portal config
 3085b55 CSW-229: next iteration of CineFiles portal configuration, 1st edits by MCQ
 165192b NOJIRA: correct a contributor/creator refname, accidently munged
 e254045 NOJIRA: grouper needs CSIDFIELD for CineFiles
-67c8263 (tag: 5.3.0-rc10) revise change log and VERSION file for version 5.3.0-rc10
+67c8263 revise change log and VERSION file for version 5.3.0-rc10
 267c1da CSW-203: repair csvImport to handle authority record updates for UCJEPS
 9614370 CSW-203: improve UCJEPS csvimport configuration (for updates, etc.)
 8019786 CSW-193: revise rendering of habit, sex, material type in UCBG portals
@@ -45,7 +47,7 @@ e254045 NOJIRA: grouper needs CSIDFIELD for CineFiles
 109603f CSW-154: enable django portal for cinefiles (for debugging)
 1ded2e5 CSW-154: next iteration of cinefiles portal config
 16a9db5 CSW-154: use proper portal config for grouper
-5fca35f (tag: 5.3.0-rc9) revise change log and VERSION file for version 5.3.0-rc9
+5fca35f revise change log and VERSION file for version 5.3.0-rc9
 758bb5c CSW-202: correct some calls to loginfo() in csvimport
 0f05691 CSW-202: taxonRank is now a dynamic vocabulary
 629c205 CSW-202: example 'undo' script should point to production
@@ -53,25 +55,25 @@ e254045 NOJIRA: grouper needs CSIDFIELD for CineFiles
 c46faf2 CSW-202: oops, need to include field type in csvimport taxon config
 a7b0019 CSW-202: revise taxon config: field defs and XML template
 0710acd NOJIRA: revisions to curator
-40835ce (tag: 5.3.0-rc8) revise change log and VERSION file for version 5.3.0-rc8
+40835ce revise change log and VERSION file for version 5.3.0-rc8
 48da994 CSW-177: indicate which log messages are errors
-7d4d32b (tag: 5.3.0-rc7) revise change log and VERSION file for version 5.3.0-rc7
+7d4d32b revise change log and VERSION file for version 5.3.0-rc7
 4db2561 CSW-177: straighten out a few more logging inconsistencies
-1649efd (tag: 5.3.0-rc6) revise change log and VERSION file for version 5.3.0-rc6
+1649efd revise change log and VERSION file for version 5.3.0-rc6
 f458541 CSW-177: import loginfo where it is needed in custom webapps
-00028fc (tag: 5.3.0-rc5) revise change log and VERSION file for version 5.3.0-rc5
+00028fc revise change log and VERSION file for version 5.3.0-rc5
 ad3e827 CSW-177: use loginfo for (almost) all console messages
-57af8bf (tag: 5.3.0-rc4) revise change log and VERSION file for version 5.3.0-rc4
+57af8bf revise change log and VERSION file for version 5.3.0-rc4
 e16938b CSW-177: toolbox audit file belongs with django logs
-d6512c9 (tag: 5.3.0-rc3) revise change log and VERSION file for version 5.3.0-rc3
+d6512c9 revise change log and VERSION file for version 5.3.0-rc3
 25164ac CC-831: update tricoder webapp config to put uploaded files where they should go
-d665c70 (tag: 5.3.0-rc2) revise change log and VERSION file for version 5.3.0-rc2
+d665c70 revise change log and VERSION file for version 5.3.0-rc2
 9993661 CSW-192, CSW-193: ucbg portal frontend config no longer internal versioned
 95a12b7 CSW-192, CSW-193: regularize order of fields in ucbg .csv portal downloads
 be654a5 CSW-192, CSW-193: update portal configs to include habit, sex, and material type for botgarden
 0f1fd4f CSW-185: use the latest label for 'scientific name' in ucbg portals
 3b59e17 CSW-185: update presentation of 'all' and 'previous' determinations to 2 ucbg portal configurations
-66b346c (tag: 5.3.0-rc1) revise change log and VERSION file for version 5.3.0-rc1
+66b346c revise change log and VERSION file for version 5.3.0-rc1
 90df1ee CSW-185: add previous determinations to 2 ucbg portal configurations
 ad487bb CSW-191: initial workaround for 'regular UI' links: just eliminate them
 80e369f CSW-165: css improvements to webapps landing page for firefox
@@ -79,23 +81,23 @@ ad487bb CSW-191: initial workaround for 'regular UI' links: just eliminate them
 172965e CSW-179: invalid files in Tricoder queues may cause 'show queue' to fail
 cf25a0e CSW-165: get 'cspace logo' (on webapps landing page) via https
 92a9303 NOJIRA: update README.md
-666bc91 (tag: 5.2.0-rc12, tag: 5.2.0) revise change log and VERSION file for version 5.2.0-rc12
+666bc91 (tag: 5.2.0) revise change log and VERSION file for version 5.2.0-rc12
 4df4ba6 CSW-142: revise example config files for Django webapps #2: new settings for new server
 bc55771 CSW-142: revise example config files for Django webapps #1: eliminate cruft
-3efc994 (tag: 5.2.0-rc11) revise change log and VERSION file for version 5.2.0-rc11
+3efc994 revise change log and VERSION file for version 5.2.0-rc11
 afc14b3 CSW-156: make 'emailable URLs work again in portals
 41ec8b6 CSW-129: revise solr/portal config for new demo cinefiles portals
 3979110 CSW-142: incremental improvements to webapps 'splash page'
 12618c6 CC-25: disable grouper for botgarden, for now
-92a7adb (tag: 5.2.0-rc10) revise change log and VERSION file for version 5.2.0-rc10
+92a7adb revise change log and VERSION file for version 5.2.0-rc10
 1a263ce CSW-135: only try to import etree from xml.etree.ElementTree
-de2447e (tag: 5.2.0-rc9) revise change log and VERSION file for version 5.2.0-rc9
+de2447e revise change log and VERSION file for version 5.2.0-rc9
 7827150 CSW-131: termSource is actually a dynamic list, not a static vocab now
 4229362 CSW-131: minor tweaks to csvImport to improve messaging and reliability
 ea2b0a2 CSW-131: use correct value for 'source' static vocab in csvImport
 2325cda CSW-131: update README.md a bit
 a93c4e4 CSW-131: add 'majorgroup' to taxon definitions, etc.
-ca6b66d (tag: 5.2.0-rc8) revise change log and VERSION file for version 5.2.0-rc8
+ca6b66d revise change log and VERSION file for version 5.2.0-rc8
 e4c53cc CSW-131: further refactoring of csvImport back- and frontends for addn'l record types
 e790845 CSW-131: updates to taxon template for csvImport
 5773da0 CSW-131: further updates to csvImport config files for authorities
@@ -107,30 +109,30 @@ e790845 CSW-131: updates to taxon template for csvImport
 8cfde19 CSW-118: refactor csvImport templates to support multiple record types
 50fc243 CSW-118: refactor csvImport shell scripts to support multiple record types
 3c207e5 CSW-118: raise the proper exception in csvImport
-0dedb98 (tag: 5.2.0-rc7) revise change log and VERSION file for version 5.2.0-rc7
+0dedb98 revise change log and VERSION file for version 5.2.0-rc7
 3d48079 CSW-117: locationdate is not actually a value in the pahma-internal core
-a3045de (tag: 5.2.0-rc6) revise change log and VERSION file for version 5.2.0-rc6
+a3045de revise change log and VERSION file for version 5.2.0-rc6
 205bcef CSW-125: disable 'move object range' tool in bampfa toolbox
 c0806e1 CSW-118: minor ux improvement: redirect correctly after action
 a46b5c0 CSW-118: update csvImport config file for collectionobjects
 c1c6f92 CSW-118: update *.sh files used by csvImport for python3 and venv
-3250e96 (tag: 5.2.0-rc5) revise change log and VERSION file for version 5.2.0-rc5
+3250e96 revise change log and VERSION file for version 5.2.0-rc5
 f0ae93b CSW-38: additional refactoring of ucjeps taxon editor for python3/django2
-9a5fac7 (tag: 5.2.0-rc4) revise change log and VERSION file for version 5.2.0-rc4
+9a5fac7 revise change log and VERSION file for version 5.2.0-rc4
 b6f43c3 CSW-38: use the new refNames for taxontermsource in the taxon editor
 e73f4b2 CSW-101: a few more places where python3 uses bytes and python2.7 uses strings
 ba8f3a9 CSW-101: typo in csvImport usage instructions
 64c7597 CSW-101: request.POST is a different object in Django2.2
-5d6d9f9 (tag: 5.2.0-rc3) revise change log and VERSION file for version 5.2.0-rc3
+5d6d9f9 revise change log and VERSION file for version 5.2.0-rc3
 8735407 CSW-101: urls for tricoder upload have changed a bit with django2
 3ea3df5 CSW-96: change label to 'Named hybrid?' for UCBG portals
 84d1814 CSW-101: tricoder file upload webapp needed some tlc
-2d321f2 (tag: 5.2.0-rc2) revise change log and VERSION file for version 5.2.0-rc2
+2d321f2 revise change log and VERSION file for version 5.2.0-rc2
 39e02d4 CSW-101: a few more places to encode payload
 3fdc742 CSW-101: initial updates to a possible uploadtricoder batch proces
 9ca7101 CSW-101: 'requests' returns a different 'info' object in python3
 81e43d4 CSW-101: 'RequestContext' object is not needed any more in Python3
-036edf6 (tag: 5.2.0-rc1) revise change log and VERSION file for version 5.2.0-rc1
+036edf6 revise change log and VERSION file for version 5.2.0-rc1
 b3d670c CSW-99: a start on updated documentation for the cspace-webapps-ucb repo
 daa4863 CSW-101: tweak templates for 'permalinks' webapps
 d2111c5 CSW-101: correct path in x3dviewer
