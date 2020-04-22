@@ -60,7 +60,7 @@
         </div>
         <form method="get">
             <input type="text" name="kw" value="{{ kw }}">
-            <input type="hidden" name="recType" value="{{ 'loansout' }}">
+            <!-- input type="hidden" name="recType" value="{{ 'loansout' }}" -->
             <input class="prettyBtn" type="submit" value="Search">
         </form>
         <div id="waitingImage" style="display: none">
@@ -73,23 +73,35 @@
         {% endfor %}
         <hr>
 
-        <div id="recordInfo" class="loanInfo">
-            <table>
-                <tr>
-                    <td class="headerLabel">E-loan No.:</td>
-                    <td>{{ loaninfo.0 }}</td>
-                </tr>
-                <tr>
-                    <td class="headerLabel">Borrower:</td>
-                    <td>{{ loaninfo.1 }}</td>
-                </tr>
-                <tr>
-                    <td class="headerLabel">E-loan Date:</td>
-                    <td>{{ loaninfo.2 }}</td>
-                </tr>
-            </table>
-            <hr/>
-        </div>
+        {% if loaninfo.0 %}
+            <div id="recordInfo" class="loanInfo">
+                <table>
+                    <tr>
+                        <td class="headerLabel">E-loan No.:</td>
+                        <td>{{ loaninfo.0 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="headerLabel">Borrower:</td>
+                        <td>{{ loaninfo.1 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="headerLabel">E-loan Date:</td>
+                        <td>{{ loaninfo.2 }}</td>
+                    </tr>
+                    <tr>
+                        <td class="headerLabel">E-loan link:</td>
+                        <td><!-- a href="?kw={{ loaninfo.0 }}">{{ request.build_absolute_uri }}</a  -->
+                         <input style="padding: 7px 8px; width: 440px" id="emailableurl" value="{{ request.build_absolute_uri }}">
+                        <!-- Trigger -->
+                        <button class="cbbtn" data-clipboard-target="#emailableurl">
+                            <img title="copy to clipboard" width="13" src="{% static "cspace_django_site/images/clippy.svg" %}">
+                        </button>
+                        </td>
+                    </tr>
+                </table>
+                <hr/>
+            </div>
+        {% endif %}
 
         <div id="resultsPanel">
             <!-- Results from publicsearch -->
