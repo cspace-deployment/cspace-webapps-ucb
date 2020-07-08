@@ -1,12 +1,20 @@
 CHANGELOG for cspace-webapps-ucb
 
 OK, it is not a *real* change log, but a list of changes resulting from git log
-with some human annotation after the fact.
+sometimes with some human annotation after the fact.
 
-This is version 6.0.0-rc1
-Wed Mar 18 10:16:19 PDT 2020
+This is version 6.0.0-rc2
+Wed Jul  8 10:37:46 PDT 2020
 
-ef7a771 (HEAD -> master, origin/master, origin/HEAD) CSW-191: the splash page generation script now deploys deployment-specific pages
+ae9705f (HEAD -> master, origin/master, origin/HEAD) CSW-334: add more 'creator initials' to botgarden bmu config
+6a8b81f CSW-326: add 'Deaccessioned?' to PAHMA internal portal
+c16fffc CC-1121: update Django webapps configs for new db server
+6c42d03 CSW-307: show a version of the 'emailable link' for UCJEPS eloans
+5f2e47e CSW-265: disable PAHMA 'Object Details' webapp
+97b0482 CSW-270: minor refactoring of this cinefiles pdf helper script
+deb7566 CSW-270: scripts, etc. to create and ingest the 59,000+ cinefiles pdfs
+bea317d (tag: 6.0.0-rc1) revise change log and VERSION file for version 6.0.0-rc1
+ef7a771 CSW-191: the splash page generation script now deploys deployment-specific pages
 73f22f1 (tag: 5.3.0) revise change log and VERSION file for version 5.3.0
 acc5788 revise change log and VERSION file for version 5.3.0-rc18
 e364ef0 NOJIRA: minor edits to PAHMA toolbox.cfg example file
