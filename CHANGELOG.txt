@@ -3,10 +3,13 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 5.4.0-rc1
-Wed Jul  8 12:46:34 PDT 2020
+This is version 5.4.0-rc2
+Fri Jul 17 10:30:34 PDT 2020
 
-3d04daa (HEAD -> master, tag: 6.0.0-rc2, origin/master, origin/HEAD) revise change log and VERSION file for version 6.0.0-rc2
+a59bab0 (HEAD -> master) CSW-341: repair ucjeps taxon config file for csvimport
+9bd403d (origin/master, origin/HEAD) CSW-334: correct one refname in botgarden photographer initials
+ddb72f9 (tag: 5.4.0-rc1) revise change log and VERSION file for version 5.4.0-rc1
+3d04daa (tag: 6.0.0-rc2) revise change log and VERSION file for version 6.0.0-rc2
 ae9705f CSW-334: add more 'creator initials' to botgarden bmu config
 6a8b81f CSW-326: add 'Deaccessioned?' to PAHMA internal portal
 c16fffc CC-1121: update Django webapps configs for new db server
