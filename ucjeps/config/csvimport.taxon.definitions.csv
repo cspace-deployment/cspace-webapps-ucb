@@ -31,7 +31,7 @@
 32		proposed					cspace field only		
 33		taxonAuthor					cspace field only		
 34		taxonAuthorType					cspace field only		
-35		TaxonCitationList/taxonCitation					cspace field only
+35		TaxonCitationList/taxonCitation					cspace field only		
 36		taxonCurrency					cspace field only		
 37		taxonIsNamedHybrid					cspace field only		
 38		taxonomicStatus					cspace field only		
@@ -41,17 +41,17 @@
 43		termName					cspace field only		
 44		termPrefForLang					cspace field only		
 45		termQualifier					cspace field only		
-46	source	termSource		refname		vocabularies/2ef8db1a-d4d6-4c86-b2b4			
+46	source	termSource		refname		vocabularies/2ef8db1a-d4d6-4c86-b2b4	cspace field only		
 47		termSourceDetail					cspace field only		
 48	sourceID	termSourceID		literal			cspace field only		
 49		termSourceNote					cspace field only		
 50		termStatus					cspace field only		
 51		termType					cspace field only		
-52	majorgroup	taxon_ucjeps/taxonMajorGroup		literal
+52	majorgroup	taxon_ucjeps/taxonMajorGroup		literal			cspace field only		
 53		coordUncertaintyUnit							
 78		coordinateSystem							
 79		taxonIdentKind							
-80	basionym	taxon_naturalhistory/taxonBasionym		refname		taxonomyauthority/87036424-e55f-4e39-bd12
+80	basionym	taxon_naturalhistory/taxonBasionym		refname		taxonomyauthority/87036424-e55f-4e39-bd12	cspace field only		
 81		taxonTermSource							
 82		taxonTermStatus							
 83		taxonTermType							
