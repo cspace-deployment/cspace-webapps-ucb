@@ -2,16 +2,20 @@ __author__ = 'jblowe, amywieliczka'
 
 import time, datetime
 from os import path
+import logging
+import json
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, render_to_response, redirect
 from django.template.loader import render_to_string
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django import forms
 from cspace_django_site.main import cspace_django_site
-from common.utils import writeCsv, doSearch, setupGoogleMap, setupBMapper, computeStats, setupCSV, setup4Print, setup4PDF
-from common.utils import setDisplayType, setConstants, loginfo
+from common.utils import writeCsv, doSearch, setConstants, loginfo
+from common.utils import setupGoogleMap, setupBMapper, computeStats, setupCSV, setup4PDF
+from common.utils import setup4Print, setDisplayType
 
 # from common.utils import CSVPREFIX, CSVEXTENSION
 from common.appconfig import loadFields, loadConfiguration
@@ -22,22 +26,22 @@ from cspace_django_site import settings
 
 # read common config file
 prmz = loadConfiguration('common')
-loginfo('searchmedia', 'Configuration for common successfully read', {}, {})
 
 # on startup, setup this webapp layout...
 config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'searchmedia')
-fielddefinitions = config.get('search', 'FIELDDEFINITIONS')
+fielddefinitions = config.get('searchmedia', 'FIELDDEFINITIONS')
 prmz = loadFields(fielddefinitions, prmz)
-
-# Get an instance of a logger, log some startup info
-import logging
-logger = logging.getLogger(__name__)
-logger.info('%s :: %s :: %s' % ('media portal startup', '-', '%s | %s | %s' % (prmz.SOLRSERVER, prmz.IMAGESERVER, prmz.BMAPPERSERVER)))
+loginfo('searchmedia','%s :: %s :: %s' % ('meida portal startup', '-', '%s | %s | %s' % (prmz.SOLRSERVER, prmz.IMAGESERVER, prmz.BMAPPERSERVER)), {}, {})
 
 
 def direct(request):
     return redirect('search/')
 
+
+def accesscontrolalloworigin(stuff2return):
+    response = HttpResponse(stuff2return)
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
 
 def search(request):
     if request.method == 'GET' and request.GET != {}:
@@ -61,8 +65,56 @@ def retrieveResults(request):
             context = {'searchValues': requestObject}
             context = doSearch(context, prmz, request)
 
-        loginfo('searchmedia', 'results.%s' % context['displayType'], context, request)
-        return render(request, 'searchResults.html', context)
+            loginfo('searchmedia', 'results.%s' % context['displayType'], context, request)
+            return render(request, 'ucjeps_searchResults.html', context)
+
+
+@csrf_exempt
+def facetJSON(request):
+    if request.method == 'GET' and request.GET != {}:
+        requestObject = request.GET
+        form = forms.Form(requestObject)
+
+        if form.is_valid():
+            context = {'searchValues': requestObject}
+            context = doSearch(context, prmz, request)
+
+            loginfo('searchmedia', 'results.%s' % context['displayType'], context, request)
+            #del context['FIELDS']
+            #del context['facets']
+            if not 'items' in context:
+                return accesscontrolalloworigin(json.dumps('error'))
+            else:
+                return accesscontrolalloworigin(json.dumps({'facets': context['facets'],'fields': context['fields']}))
+    else:
+        return accesscontrolalloworigin(json.dumps('no data seen'))
+
+
+@csrf_exempt
+def retrieveJSON(request):
+    if request.method == 'GET' and request.GET != {}:
+        requestObject = request.GET
+        form = forms.Form(requestObject)
+
+        if form.is_valid():
+            context = {'searchValues': requestObject}
+            context = doSearch(context, prmz, request)
+
+            loginfo('searchmedia', 'results.%s' % context['displayType'], context, request)
+            #del context['FIELDS']
+            #del context['facets']
+            if not 'items' in context:
+                return accesscontrolalloworigin(json.dumps('error'))
+            else:
+                return accesscontrolalloworigin(json.dumps({'items': context['items'],'labels': context['labels']}))
+    else:
+        return accesscontrolalloworigin(json.dumps('no data seen'))
+
+
+def JSONentry(request): 
+    context = setConstants({}, prmz, request)
+    
+    return render(request, 'json_searchentry.html', context)
 
 
 def bmapper(request):
@@ -72,7 +124,7 @@ def bmapper(request):
 
         if form.is_valid():
             context = {'searchValues': requestObject}
-            context = setupBMapper(requestObject, context, prmz)
+            context = setupBMapper(request, requestObject, context, prmz)
 
             loginfo('searchmedia', 'bmapper', context, request)
             return HttpResponse(context['bmapperurl'])
@@ -85,7 +137,7 @@ def gmapper(request):
 
         if form.is_valid():
             context = {'searchValues': requestObject}
-            context = setupGoogleMap(requestObject, context, prmz)
+            context = setupGoogleMap(request, requestObject, context, prmz)
 
             loginfo('searchmedia', 'gmapper', context, request)
             return render(request, 'maps.html', context)
@@ -97,17 +149,18 @@ def dispatch(request):
         requestObject = request.POST
         form = forms.Form(requestObject)
 
-    if 'csv' in request.POST:
+    if 'csv' in request.POST or 'downloadstats' in request.POST:
 
         if form.is_valid():
             try:
                 context = {'searchValues': requestObject}
-                csvformat, fieldset, csvitems = setupCSV(requestObject, context, prmz)
+                csvformat, fieldset, csvitems = setupCSV(request, requestObject, context, prmz)
                 loginfo('searchmedia', 'csv', context, request)
 
                 # create the HttpResponse object with the appropriate CSV header.
                 response = HttpResponse(content_type='text/csv')
-                response['Content-Disposition'] = 'attachment; filename="%s-%s.%s"' % (prmz.CSVPREFIX, datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S"), prmz.CSVEXTENSION)
+                response['Content-Disposition'] = 'attachment; filename="%s-%s.%s"' % (
+                    prmz.CSVPREFIX, datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S"), prmz.CSVEXTENSION)
                 return writeCsv(response, fieldset, csvitems, writeheader=True, csvFormat=csvformat)
             except:
                 messages.error(request, 'Problem creating .csv file. Sorry!')
@@ -127,9 +180,8 @@ def dispatch(request):
                 context['messages'] = messages
                 return search(request)
 
-
     elif 'preview' in request.POST:
-        messages.error(request, 'Problem creating print version. Sorry!')
+        messages.error(request, 'Problem creating print version. Sorry!', request)
         context = {'messages': messages}
         return search(request)
 
@@ -144,7 +196,7 @@ def statistics(request):
             try:
                 context = {'searchValues': requestObject}
                 loginfo('searchmedia', 'statistics1', context, request)
-                context = computeStats(requestObject, context, prmz)
+                context = computeStats(request, requestObject, context, prmz)
                 loginfo('searchmedia', 'statistics2', context, request)
                 context['summarytime'] = '%8.2f' % (time.time() - elapsedtime)
                 # 'downloadstats' is handled in writeCSV, via post
@@ -154,9 +206,9 @@ def statistics(request):
                 return HttpResponse('Please pick some values!')
 
 
-def loadNewFields(request, fieldfile, prmz):
-    loadFields(fieldfile + '.csv', prmz)
+def loadNewFields(request, fieldfile, prmx):
+    loadFields(fieldfile + '.csv', prmx)
 
-    context = setConstants({}, prmz, request)
+    context = setConstants({}, prmx, request)
     loginfo('searchmedia', 'loaded fields', context, request)
     return render(request, 'ucjeps_searchmedia.html', context)
