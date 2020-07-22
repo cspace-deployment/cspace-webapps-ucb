@@ -3,12 +3,15 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 5.4.0-rc3
-Wed Jul 22 09:09:46 PDT 2020
+This is version 5.4.0-rc4
+Wed Jul 22 14:44:52 PDT 2020
 
-c8efbf5 (HEAD -> master) CSW-343: remove 'mapping' option from ucjeps media search portal
+02634ae (HEAD -> master) CSW-343: ucjeps searchmedia webapp was still showing bits of map html
+77fb58a CSW-344: ucjeps is no longer 'special' when it comes to making groups with the bmu
+e299ccd (tag: 5.4.0-rc3, origin/master, origin/HEAD) revise change log and VERSION file for version 5.4.0-rc3
+c8efbf5 CSW-343: remove 'mapping' option from ucjeps media search portal
 0e5a3ed CSW-344: add bmu 'group making' config to botgarden bmu
-835c906 (tag: 5.4.0-rc2, origin/master, origin/HEAD) revise change log and VERSION file for version 5.4.0-rc2
+835c906 (tag: 5.4.0-rc2) revise change log and VERSION file for version 5.4.0-rc2
 a59bab0 CSW-341: repair ucjeps taxon config file for csvimport
 9bd403d CSW-334: correct one refname in botgarden photographer initials
 ddb72f9 (tag: 5.4.0-rc1) revise change log and VERSION file for version 5.4.0-rc1
