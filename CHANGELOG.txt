@@ -4,9 +4,10 @@ OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
 This is version 5.4.0
-Wed Jul 29 10:56:50 PDT 2020
+Thu Jul 30 09:07:52 PDT 2020
 
-b28a625 (HEAD -> master, tag: 5.4.0-rc4, origin/master, origin/HEAD) revise change log and VERSION file for version 5.4.0-rc4
+cffa005 (HEAD -> master, origin/master, origin/HEAD) revise change log and VERSION file for version 5.4.0
+b28a625 (tag: 5.4.0-rc4) revise change log and VERSION file for version 5.4.0-rc4
 02634ae CSW-343: ucjeps searchmedia webapp was still showing bits of map html
 77fb58a CSW-344: ucjeps is no longer 'special' when it comes to making groups with the bmu
 e299ccd (tag: 5.4.0-rc3) revise change log and VERSION file for version 5.4.0-rc3
