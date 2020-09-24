@@ -19,7 +19,7 @@ INSTALLED_APPS = (
     'suggest',
     'suggestpostgres',
     'suggestsolr',
-    'cinestats',
+    # 'cinestats',
     # 'standard' apps
     # 'asura',
     # 'imagebrowser',
