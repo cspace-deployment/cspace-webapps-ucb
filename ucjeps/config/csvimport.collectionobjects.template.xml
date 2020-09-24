@@ -179,6 +179,10 @@
         <numberType>{oldInstAccNo}</numberType>
         <numberValue>{otherCatalogNumber}</numberValue>
      </otherNumber>
+      <otherNumber>
+        <numberType>{projectRefName}</numberType>
+        <numberValue>{projectNumber}</numberValue>
+     </otherNumber>
     </otherNumberList>
     <objectProductionPeopleGroupList>
       <objectProductionPeopleGroup>

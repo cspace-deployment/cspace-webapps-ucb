@@ -32,6 +32,8 @@
 26	coll_num	fieldCollectionNumber		literal									
 26	otherCatalogNumbers	otherCatalogNumber		literal				7	7	2331	2386		
 27	oldInstAccNo	numberType	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(numbertype09)'Old Institution Accession Number'	constant	otherCatalogNumbers	vocabularies/dad35f58-5112-4485-9a5c						“old instituion accession number”	numbertype??
+	projectNumber	projectNumber		literal									
+27	projectRefName	numberType	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(CSpaceProjectCode1536082165062)'Project Code'	constant		vocabularies/dad35f58-5112-4485-9a5c							
 27	# textual info	##################################											
 28	# kingdom	kingdom					taxon field	2	21				
 29	comments	comment		literal									
