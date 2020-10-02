@@ -3,12 +3,16 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 5.5.0-rc1
-Thu Sep 24 14:55:25 PDT 2020
+This is version 5.5.0-rc2
+Fri Oct  2 13:53:51 PDT 2020
 
-a9f7149 (HEAD -> master) CSW-358: add 'project number' to importable fields in ucjep csvimport config
+5ac916a (HEAD -> master) CSW-175: update pahma csvimport config
+521487e CSW-356: fix workflow pagination for pahma
+5f93a8c CSW-358, CSW-356: add ucjeps 'project code' to csvimport, fix workflow pagination
+5a9fb17 (tag: 5.5.0-rc1, origin/master, origin/HEAD) revise change log and VERSION file for version 5.5.0-rc1
+a9f7149 CSW-358: add 'project number' to importable fields in ucjep csvimport config
 4f5b0d8 CSW-278: retire cinestats webapp
-6d1a710 (origin/master, origin/HEAD) CSW-239: tidy up webapp 'sample' config files
+6d1a710 CSW-239: tidy up webapp 'sample' config files
 80b54a2 (tag: 5.4.0) revise change log and VERSION file for version 5.4.0
 cffa005 revise change log and VERSION file for version 5.4.0
 b28a625 (tag: 5.4.0-rc4) revise change log and VERSION file for version 5.4.0-rc4
