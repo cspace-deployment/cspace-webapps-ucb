@@ -172,17 +172,17 @@
     </assocCulturalContextGroupList>
     <otherNumberList>
       <otherNumber>
+        <numberType>{projectRefName}</numberType>
+        <numberValue>{projectNumber}</numberValue>
+     </otherNumber>
+      <otherNumber>
         <numberType>{symbiotaGUID}</numberType>
         <numberValue>{occurrenceID}</numberValue>
       </otherNumber>
       <otherNumber>
         <numberType>{oldInstAccNo}</numberType>
         <numberValue>{otherCatalogNumber}</numberValue>
-     </otherNumber>
-      <otherNumber>
-        <numberType>{projectRefName}</numberType>
-        <numberValue>{projectNumber}</numberValue>
-     </otherNumber>
+      </otherNumber>
     </otherNumberList>
     <objectProductionPeopleGroupList>
       <objectProductionPeopleGroup>

@@ -28,10 +28,6 @@ def get_entity(request, entitytype, responsemimetype):
     :param responsemimetype:
     :return:
     """
-    #config = cspace_django_site.getConfig()
-    #connection = cspace.connection.create_connection(config, request.user)
-    #(url, data, statusCode) = connection.make_get_request('cspace-services/%s' % image)
-    #return HttpResponse(data, content_type='image/jpeg')
 
     config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'eloan')
     username = config.get('connect', 'username')
@@ -65,12 +61,12 @@ def get_entity(request, entitytype, responsemimetype):
     except urllib.request.URLError as e:
         if hasattr(e, 'reason'):
             loginfo('eloan', 'We failed to reach a server.', {}, {})
-            loginfo('eloan', 'Reason: ', e.reason, {}, {})
+            loginfo('eloan', 'Reason: ', e.reason, {})
+            return HttpResponse(status=e.code)
         else:
             loginfo('eloan', 'The server couldn\'t fulfill the request.', {}, {})
-            loginfo('eloan', 'Error code: ', e.code, {}, {})
+            loginfo('eloan', 'Error code: ', e.code, {})
     else:
-        #return (url,data,elapsedtime)
         return HttpResponse(data, content_type=responsemimetype)
 
 def build_solr_query(solr_server, solr_core, solr_queryparam_key, solr_queryparam_value):

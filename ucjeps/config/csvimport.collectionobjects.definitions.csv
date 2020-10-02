@@ -23,17 +23,17 @@
 20	collectionCode							0	0	2	79328		
 21		numberValue	otherNumber	literal									
 22	basisOfRecord							1	24	1	79328		
-23	occurrenceID	occurrenceID		literal				24	24	79328	79328	symbiota GUID	othernumber??
 23	scientificName	taxon		refname		taxonomyauthority/87036424-e55f-4e39-bd12		16	22	3102	79328		
-24	symbiotaGUID	numberType	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(SymbiotaGUID1533235580178)'Symbiota GUID'	constant	occurrenceID	vocabularies/dad35f58-5112-4485-9a5c						“symbiota GUID”	numbertype??
 24	main_collector	fieldCollectionNumberAssignor		refname		orgauthorities/6d89bda7-867a-4b97-b22f	urn:cspace:ucjeps.cspace.berkeley.edu:orgauthorities:name(organization)'Default Organization Authority'						
 25	catalogNumber	objectNumber		key				23	24	79310	79328		
 25	all_collectors	fieldCollector		refname		orgauthorities/6d89bda7-867a-4b97-b22f							
 26	coll_num	fieldCollectionNumber		literal									
-26	otherCatalogNumbers	otherCatalogNumber		literal				7	7	2331	2386		
-27	oldInstAccNo	numberType	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(numbertype09)'Old Institution Accession Number'	constant	otherCatalogNumbers	vocabularies/dad35f58-5112-4485-9a5c						“old instituion accession number”	numbertype??
-	projectNumber	projectNumber		literal									
-27	projectRefName	numberType	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(CSpaceProjectCode1536082165062)'Project Code'	constant		vocabularies/dad35f58-5112-4485-9a5c							
+27	projectNumber	projectNumber		literal									
+27	projectRefName	projectRefName	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(CSpaceProjectCode1536082165062)'Project Code'	constant	projectNumber	vocabularies/dad35f58-5112-4485-9a5c							
+27	occurrenceID	occurrenceID		literal				24	24	79328	79328	symbiota GUID	othernumber??
+27	symbiotaGUID	numberType	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(SymbiotaGUID1533235580178)'Symbiota GUID'	constant	occurrenceID	vocabularies/dad35f58-5112-4485-9a5c						“symbiota GUID”	numbertype??
+27	otherCatalogNumber	otherCatalogNumber		literal				7	7	2331	2386		
+27	oldInstAccNo	oldInstAccNo	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(numbertype09)'Old Institution Accession Number'	constant	otherCatalogNumber	vocabularies/dad35f58-5112-4485-9a5c						“old instituion accession number”	numbertype??
 27	# textual info	##################################											
 28	# kingdom	kingdom					taxon field	2	21				
 29	comments	comment		literal									
@@ -64,7 +64,7 @@
 44	coll_month	dateLatestMonth	fieldCollectionDateGroup	integer			needswork						
 44	taxonRemarks						taxon field	0	0				
 45	coll_year	dateLatestYear	fieldCollectionDateGroup	integer			needswork						
-45	identificationQualifier							0	0	3	10	ignore for now,  handle by hand if needed	
+45	identificationQualifier							0	0	3	10	ignore for now	  handle by hand if needed
 46	typeStatus			static				0	0	1997	2234	map to “kind of type”	
 47	recordedBy	fieldCollectionNumberAssignor		refname		orgauthorities/6d89bda7-867a-4b97-b22f		15	22	4174	77349		
 47	# location info	##################################											
@@ -94,7 +94,7 @@
 65	dynamicProperties							0	0	923	1040		
 66	# associatedTaxa			refname		taxonomyauthority/87036424-e55f-4e39-bd12		1	1	127	226	will be combined with habitat	
 67	reproductiveCondition	phase		static		phases	unused	0	0	4	7		
-68	establishmentMeans			static		yesNoValues		0	0	1	30149	Cultivated,  yes or no	
+68	establishmentMeans			static		yesNoValues		0	0	1	30149	Cultivated	  yes or no
 69	# family	family					taxon field	10	21	166	78360		
 70	lifeStage						unused	0	0				
 71	sex	sex		static		sexes	unused	0	0	1	8		
@@ -420,9 +420,9 @@
 525		updatedAt					core						
 526		updatedBy					core						
 527		uri					core						
-528		workflowState					core						
+528	workflowState	workflowState		literal			core						
 529	#################################################################												
-530	# special cases, to handle various complicated requirements												
+530	# special cases	 to handle various complicated requirements											
 531	#################################################################												
 532	vdecimalLatitude	vLatitude		literal									
 533	vdecimalLongitude	vLongitude		literal									

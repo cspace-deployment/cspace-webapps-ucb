@@ -7,7 +7,7 @@ How to deploy
 
 1. Set up the webapp the usual way (i.e. follow the instructions for
 deploying Django webapps)
-1. Make the following directories to how the various job files:
+1. Make the following directories to hold the various import files:
 
 ```
 cd
@@ -26,13 +26,13 @@ Download the UI configuration from https://ucjeps.cspace.berkeley.edu/config.
 Then you'll have to get it up to the server somehow, e.g.:
 
 ```
-scp cspace-ui-config.json cspace-prod-01.ist.berkeley.edu:/tmp/cspace-ui-config-ucjeps.json
+scp cspace-ui-config.json webapps.cspace.berkeley.edu:/tmp/csvimport.cspace-ui-config.json
 ```
 
 Note the filename; it is hardcoded in the csvImport program right now!
 
 ```
-cp /tmp/cspace-ui-config-ucjeps.json ~/ucjeps/config
+cp /tmp/csvimport.cspace-ui-config.json ~/ucjeps/config
 ```
 
 You can test / inspect this file using the `extractOptions.py` script in this directory.
@@ -61,27 +61,27 @@ Otherwise:
 1. Clone the two repos you'll need.
 
 ```
-git clone git@github.com:cspace-deployment/django_example_config.git
-git clone git@github.com:cspace-deployment/cspace_django_project.git
+git clone git@github.com:cspace-deployment/cspace-webapps-ucb.git
+git clone git@github.com:cspace-deployment/cspace-webapps-common.git
 ```
 
-2. Set things up (NB: this is not the "full" setup for Django webapps, just enough
-   to get the CLI version of csvimport working.
+2. Install the Django webapps the usual way. See the instructions in cspace-webapps-common
+
+
+3. Several configuration files are needed. (see above)
+You'll need two config file for each record type you wish to support,
+a 'field definitions file' and an XML template. So, for importing
+collectionobjects and taxon authority records, you'd need something like
+the following:
 
 ```
-cd cspace_django_project
-cp -r ../django_example_config/ucjeps/apps/csvimport .
-cp ../django_example_config/ucjeps/config/* ../config
-# you may (or may not) have to install some Python dependencies
-pip install -r requirements.txt
-```
-
-3. Three configuration files are needed. Probably you'll only need to edit `csvimport.cfg`,
-
-```
-../config/csvimport.cfg
-../config/DWC2CSpace-v2.csv
-../config/collectionobject-v2.xml
+config/csvimport.cfg
+config/csvimport.collectionobjects.definitions.csv
+config/csvimport.collectionobjects.template.xml
+config/csvimport.cspace-ui-config.json
+config/csvimport.extra-lists.json
+config/csvimport.taxon.definitions.csv
+config/csvimport.taxon.template.xml
 ```
 
 NB: make sure the hostname in `csvimport` is the one you intend! Dev or Prod!
@@ -116,7 +116,6 @@ Add:
 nohup time python DWC2CSpace.py test_1_commas_unicode.results.csv ../config/csvimport.cfg ../config/DWC2CSpace-v2.csv ../config/collectionobject-v2.xml test_1_commas_unicode.upload.csv /dev/null add
 
 ```
-
 
 Erase what you just uploaded:
 

@@ -18,19 +18,22 @@ from common.utils import deURN, loginfo
 import time
 import re
 
-sys.path.append("../../ucjeps")
-
-from common import cspace  # we use the config file reading function
 from cspace_django_site import settings
 from os import path, listdir
 from os.path import isfile, isdir, join
-
 from csvimport.extractOptions import get_lists
-static_lists = get_lists(path.join(settings.BASE_DIR, 'config/cspace-ui-config-ucjeps.json'))
+from common import cspace
+config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'csvimport')
+
+institution = config.get('info', 'institution')
+sys.path.append(f'../../{institution}')
+
+
+static_lists = get_lists(path.join(settings.BASE_DIR, f'config/csvimport.cspace-ui-config.json'))
 
 # this hack provides a means to 'overlay' existing static lists with other lists.
 # it is specifically implemented to allow the recoding of 'stateProvince' values for UCJEPS
-with open(path.join(settings.BASE_DIR, 'config/extra-lists.json'), 'r', encoding='utf-8') as e:
+with open(path.join(settings.BASE_DIR, f'config/csvimport.extra-lists.json'), 'r', encoding='utf-8') as e:
     extralists = e.read()
     e.close()
 try:
@@ -39,7 +42,6 @@ except:
     loginfo('csvimport', 'could not parse "extra-lists.json". aborting.', {}, {})
     sys.exit(1)
 
-config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'csvimport')
 TITLE = config.get('info', 'apptitle')
 SERVERINFO = {
     'serverlabelcolor': config.get('info', 'serverlabelcolor'),
@@ -402,6 +404,8 @@ def find_keyfield(CSPACE_MAPPING, file_header):
                 return check_both(field[1:], keyfield,file_header)
             else:
                 return check_both(field, keyfield,file_header)
+    # hmmm... we did not find a keyfield at all. not good, can't continue.
+    return keyfield, keyrow
 
 def check_both(field, keyfield,file_header):
     if keyfield in file_header:
