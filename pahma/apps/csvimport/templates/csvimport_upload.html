@@ -1,0 +1,37 @@
+<div id="upload">
+    <h2>
+        Upload a file to import
+    </h2>
+    <form enctype="multipart/form-data" action="{% url 'uploadcsvfile' %}" method="post">
+        {% csrf_token %}
+        {% if status == 'down' %}
+            <h2><span style="color:red">System is down, please standby!</span></h2>
+        {% else %}
+            <table border="1">
+                <tr>
+                    <th>
+                    <input class="prettyBtn" type="submit" name="upload" value="Upload ">
+                    </th>
+                    <td>
+                        <input type="file" name="importfile" value="{{ importfile }}">
+                    </td>
+                    <td>
+                        Choose record type:
+                        <select id="record_type" name="record_type">
+                            <option value="">Please select</option>
+                            {% for displayname, cspace_type in recordtypes %}
+                                <option value="{{ cspace_type }}">{{ displayname }}</option>
+                            {% endfor %}
+                        </select>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            {% if errors|length > 0 %}
+                {% for e in errors %}
+                    <h4><span style="color:red">{{ e }}</span></h4>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    </form>
+</div>
