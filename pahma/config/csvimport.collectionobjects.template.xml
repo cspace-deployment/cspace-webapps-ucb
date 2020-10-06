@@ -176,7 +176,7 @@
     <assocCulturalContextGroupList>
       <assocCulturalContextGroup>
         <assocCulturalContextNote/>
-        <assocCulturalContext/>
+        <assocCulturalContext>{{assocCulturalContext}}</assocCulturalContext>
         <assocCulturalContextType/>
       </assocCulturalContextGroup>
     </assocCulturalContextGroupList>

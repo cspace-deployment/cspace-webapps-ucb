@@ -1,199 +1,48 @@
-1	#################################################################								
-1	# csvImport  field name mapping for PAHMA collectionobjects								
-1	#################################################################								
-4		# Columns							
-5	# 	A	sequence number. Only facultative.						
-6	# 	B	csv column header						
-7	# 	C	Cspace fieldname						
-8	# 	D	Additional Info						
-9	# 	E	datatype of the element						
-10	# 	F	type of check to peform						
-11	# 	G	Cspace authority name (including CSID)						
-12	# 	H	Remarks (ignored by the program)						
-13	# 								
-14	#################################################################								
-6	# v0.9 jbl 9/20/20								
-16	#################################################################								
-17	# Column	Cspace field	Additional Info	data type	if exists	authority	remarks		
-18	# 	##################################							
-18	id	id		literal				24	24
-118	numberOfObjects	numberOfObjects		integer					
-218	value	value		literal					
-318	pahmaObjectID	pahmaObjectID		literal					
-10000	objectNumber	objectNumber		key					
-10100	createdAt	createdAt		literal					
-10200	updatedAt	updatedAt		literal					
-10300	pahmaObjectStatus	pahmaObjectStatus		literal					
-10400	objectName	objectName		literal					
-10500	pahmaFieldLocVerbatim	pahmaFieldLocVerbatim		literal					
-10600	# computedCurrentLocation	# computedCurrentLocation		refName					
-10700	pahmaTmsLegacyDepartment	pahmaTmsLegacyDepartment		literal					
-10800	measurementUnit	measurementUnit		literal					
-10900	materialName	materialName		literal					
-11000	dimension	dimension		literal					
-11100	usage	usage		literal					
-11200	updatedBy	updatedBy		literal					
-11300	responsibleDepartment	responsibleDepartment		literal					
-11400	isComponent	isComponent		literal					
-11500	pahmaNagpraCodeLegacy	pahmaNagpraCodeLegacy		literal					
-11600	nagpraApplicability	nagpraApplicability		literal					
-11700	assocPeopleNote	assocPeopleNote		literal					
-11800	nagpraInventoryName	nagpraInventoryName		literal					
-11900	briefDescription	briefDescription		literal					
-12000	pahmaTms2003DataSource	pahmaTms2003DataSource		literal					
-12100	materialComponentNote	materialComponentNote		literal					
-12200	workflowState	workflowState		literal					
-12300	referenceNote	referenceNote		literal					
-12400	comment	comment		literal					
-12500	objectNameType	objectNameType		literal					
-12600	assocPeople	assocPeople		refname		conceptauthorities/06917b20-1c61-4e11-a0d2			
-12700	pahmaEthnographicFileCode	pahmaEthnographicFileCode		refname		conceptauthorities/9de7a62f-595b-43f8-a795			
-12800	material	material		refname		conceptauthorities/660a70af-001a-49c2-96f2			
-12900	homeLocation	homeLocation		refname		locationauthorities/d65c614a-e70e-441b-8855			
-13000	assocPerson	assocPerson		refname		personauthorities/a106839d-97bf-4e26-be6e			
-13100	fieldCollector	fieldCollector		refname		personauthorities/a106839d-97bf-4e26-be6e			
-13200	pahmaFieldCollectionPlace	pahmaFieldCollectionPlace		refname		placeauthorities/b5ac9f31-eeb1-490f-b57f			
-13300	assocPeopleType	assocPeopleType		refname		vocabularies/df59d4fc-edda-4491-99f4			
-13400	assocPersonType	assocPersonType		refname		vocabularies/02966d2c-7815-4599-9b55			
-13500	contentLanguage	contentLanguage		refname		vocabularies/f5992afc-d5e6-49c2-99d4			
-13600	titleTranslationLanguage	titleTranslationLanguage		refname		vocabularies/f5992afc-d5e6-49c2-99d4			
-13700	objectNameLanguage	objectNameLanguage		refname		vocabularies/f5992afc-d5e6-49c2-99d4			
-13800	collection	collection		refname		vocabularies/bacb9aa5-8eda-40eb-8651			
-13900	pahmaAltNumType	pahmaAltNumType		refname		vocabularies/e76e8549-a4fb-4149-9ef3			
-14000	pahmaAltNum	pahmaAltNum		literal					
-14100	#	#							
-14200	#	#							
-14300	#	#							
-14400	# computedCurrentLocation	# computedCurrentLocation		refname		conceptauthorities/53d6c048-89a2-4fe3-a8d7	urn:cspace:pahma.cspace.berkeley.edu:conceptauthorities:name(archculture)'Archaeological Cultures'    		
-14500	#			refname		conceptauthorities/c2c1dbac-6f03-45da-8799	urn:cspace:pahma.cspace.berkeley.edu:conceptauthorities:name(objectclass)'Object Class'    		
-14600	#			refname		conceptauthorities/f53af507-2456-4faf-be53	urn:cspace:pahma.cspace.berkeley.edu:conceptauthorities:name(activity)'Activities'    		
-14700	#			refname		conceptauthorities/95bb40f6-bf1c-40f6-9b9f	urn:cspace:pahma.cspace.berkeley.edu:conceptauthorities:name(occasion)'Occasion Concepts'    		
-14800	#			refname		conceptauthorities/c3a93262-6292-45ca-a791	urn:cspace:pahma.cspace.berkeley.edu:conceptauthorities:name(objectname)'Object Names'		
-14900	#			refname					
-15000	#			refname		locationauthorities/d65c614a-e70e-441b-8855	urn:cspace:pahma.cspace.berkeley.edu:locationauthorities:name(location)'PAHMA Storage Locations'		
-15100	#			refname		locationauthorities/e8069316-30bf-4cb9-b41d	urn:cspace:pahma.cspace.berkeley.edu:locationauthorities:name(crate)'Crates'		
-15200	#			refname		personauthorities/32494f8b-5c18-427a-b237	urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(person)'PAHMA Person Authority'		
-15300	#			refname		personauthorities/a106839d-97bf-4e26-be6e	urn:cspace:pahma.cspace.berkeley.edu:personauthorities:name(ulan_pa)'ULAN Persons'		
-15400	#			refname					
-15500	#			refname		placeauthorities/b5ac9f31-eeb1-490f-b57f	urn:cspace:pahma.cspace.berkeley.edu:placeauthorities:name(place)'PAHMA Place Authority'		
-15600	#			refname					
-15700	#			refname		vocabularies/95db8e90-493a-482c-b70b	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(acousticalproperties)'Acoustical properties'    		
-15800	#			refname		vocabularies/5f9a6fca-a95c-4585-a645	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(accaquisitionmethod)'Acquisition method'    		
-15900	#			refname		vocabularies/8ff79b1e-e1dd-4d1b-84ac	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(additionalprocesses)'Additional processes'    		
-16000	#			refname		vocabularies/eec52f3b-7627-4855-b28a	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(additionalproperties)'Additional properties'    		
-16100	#			refname		vocabularies/c6263394-1a4d-42f4-b95e	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(addresstype)'Address type'    		
-16200	#			refname		vocabularies/e7c5a7a0-2f8d-42b3-804f	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(agentinfotype)'Agent info type'    		
-16300	#			refname		vocabularies/8c3badac-8bd3-47dd-8d4a	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(agequalifier)'Age qualifier'    		
-16400	#			refname		vocabularies/c2f7229d-19fe-43d1-a7f2	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(annotationtype)'Annotation type'    		
-16500	#			refname		vocabularies/fb4a88d7-025a-4110-9e8e	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(publishto)'A publishing destination'    		
-16600	#			refname		vocabularies/858a5e03-5cdb-42b3-9f02	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(assocorgtype)'Associated organization type'    		
-16700	#			refname		vocabularies/df59d4fc-edda-4491-99f4	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(assocpeople)'Associated people'    		
-16800	#			refname		vocabularies/02966d2c-7815-4599-9b55	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(assocpersontype)'Associated person type'    		
-16900	#			refname		vocabularies/ebe0a934-b782-4811-91fc	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(assocplacetype)'Associated place type'    		
-17000	#			refname		vocabularies/b63c45bd-9a38-4ec0-b5e5	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(castingprocesses)'Casting processes'    		
-17100	#			refname		vocabularies/bafd1e74-1cb7-459c-bfd6	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(citationtermflag)'Citation term flags'    		
-17200	#			refname		vocabularies/04a871e7-7551-4641-b912	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(citationtermtype)'Citation term type'    		
-17300	#			refname		vocabularies/6a572482-e347-41bb-b62c	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(collectionmethod)'Collection method'    		
-17400	#			refname		vocabularies/41870214-7a13-4f85-9a5b	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(concepttermflag)'Concept term flags'    		
-17500	#			refname		vocabularies/537bc5cd-b933-485a-8bc8	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(concepttype)'Concept type'    		
-17600	#			refname		vocabularies/0758ed40-0cb4-4987-a3d2	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(conditioncheckmethod)'Condition check method'    		
-17700	#			refname		vocabularies/d212fa58-8acd-4273-903e	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(conditioncheckreason)'Condition check reason'    		
-17800	#			refname		vocabularies/a66cc22d-de3c-4e0b-94e2	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(conditionfitness)'Condition fitness'    		
-17900	#			refname		vocabularies/692f75d2-cd7e-4159-b3b2	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(conservationstatus)'Conservation status'    		
-18000	#			refname		vocabularies/48d10ec2-19d8-48fe-bb7f	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(contentposition)'Content position'    		
-18100	#			refname		vocabularies/311359cd-1774-4ca4-99a5	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(cranialdeformationcategory)'Cranial deformation category'    		
-18200	#			refname		vocabularies/2e12dbd7-0d81-4b9b-88ce	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(datecertainty)'Date certainty'    		
-18300	#			refname		vocabularies/58310765-3ef2-4f30-b3d2	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(dateera)'Date era'    		
-18400	#			refname		vocabularies/ed530d2e-5e89-411f-a63b	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(datequalifier)'Date qualifier'    		
-18500	#			refname		vocabularies/a55674ce-4f5d-47af-aafa	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(deaccessionapprovalgroup)'Deaccession approval group'    		
-18600	#			refname		vocabularies/71262be6-4c01-4fbc-b08b	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(deaccessionapprovalstatus)'Deaccession approval status'    		
-18700	#			refname		vocabularies/0748ea75-da23-4d77-8947	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(deformingprocesses)'Deforming processes'    		
-18800	#			refname		vocabularies/bf7f3922-5fe0-4948-9206	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(depictedscripttype)'Depicted script type'    		
-18900	#			refname		vocabularies/d719156f-3036-4ef8-b089	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(disposalmethod)'Disposal method'    		
-19000	#			refname		vocabularies/8ae41658-7cb9-4d6f-be29	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(durabilityproperties)'Durability properties'    		
-19100	#			refname		vocabularies/f8d7f94b-2134-434f-b08b	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(ecologicalcertifications)'Ecological certifications'    		
-19200	#			refname		vocabularies/f646c0a3-a102-4842-b77b	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(electricalproperties)'Electrical properties'    		
-19300	#			refname		vocabularies/2a58f7d8-ac5f-467c-9ae3	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(energyunits)'Energy units'    		
-19400	#			refname		vocabularies/82092613-e5e2-4cf3-a293	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(examinationphase)'Examination phase'    		
-19500	#			refname		vocabularies/2544393a-8ca3-4051-abf5	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(exhibitionpersonrole)'Exhibition person role'    		
-19600	#			refname		vocabularies/65c27c49-2b90-463e-b704	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(exhibitionreferencetype)'Exhibition reference type'    		
-19700	#			refname		vocabularies/f7217534-744c-44c7-a466	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(exhibitionstatus)'Exhibition status'    		
-19800	#			refname		vocabularies/dba4cab0-05c6-48ac-add4	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(exhibitiontype)'Exhibition type'    		
-19900	#			refname		vocabularies/f2dfd3b9-ad94-4932-8c35	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(GroupPurpose)'Group purpose'    		
-20000	#			refname		vocabularies/c48cfe65-0564-4793-a7b0	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(humiditylevel)'Humidity level'    		
-20100	#			refname		vocabularies/a851d52b-95d9-4b08-9bfe	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(hygrothermalproperties)'Hygrothermal properties'    		
-20200	#			refname		vocabularies/5540c052-3a35-47c9-9822	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(hygrothermalpropertyunits)'Hygrothermal property units'    		
-20300	#			refname		vocabularies/1c704365-c4b6-4b97-914a	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(inscriptionmethod)'Inscription method'    		
-20400	#			refname		vocabularies/1770fde4-d37f-4dc0-a4d8	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(inscriptionposition)'Inscription position'    		
-20500	#			refname		vocabularies/e90cea58-a37d-4f4f-b12e	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(inscriptiontype)'Inscription type'    		
-20600	#			refname		vocabularies/846b2b5a-ab2f-41eb-bb5a	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(inventorystatus)'Inventory status'    		
-20700	#			refname		vocabularies/d5ea547d-f7a4-42e1-b028	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(joiningprocesses)'Joining processes'    		
-20800	#			refname		vocabularies/f5992afc-d5e6-49c2-99d4	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages)'Languages'    		
-20900	#			refname		vocabularies/11169425-30cc-4871-af41	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(lifecyclecomponents)'Lifecycle components'    		
-21000	#			refname		vocabularies/9c5b0d9c-277b-4924-a128	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(lightlevel)'Light level'    		
-21100	#			refname		vocabularies/ca8a0e6e-0210-470e-93f3	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(loanpurpose)'Loan purpose'    		
-21200	#			refname		vocabularies/3d61a38f-fc56-4370-95ee	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(loanstatus)'Loan status'    		
-21300	#			refname		vocabularies/89f97190-d2bd-4521-8ce4	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(locationtermflag)'Location term flags'    		
-21400	#			refname		vocabularies/10b21d2c-47d8-4bf5-83cc	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(locationtype)'Location type'    		
-21500	#			refname		vocabularies/478d73f2-4569-414d-9ca9	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(machiningprocesses)'Machining processes'    		
-21600	#			refname		vocabularies/8e622bab-f2b5-4f9d-a2ad	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(materialform)'Material form'    		
-21700	#			refname		vocabularies/5ac79b90-2b5f-474f-a3a0	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(materialformtype)'Material form type'    		
-21800	#			refname		vocabularies/9810713c-e936-4f79-8849	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(materialproductionrole)'Material production role'    		
-21900	#			refname		vocabularies/ae450a06-ab04-4891-a54d	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(materialresource)'Material resource'    		
-22000	#			refname		vocabularies/6a947085-d840-4502-a5f4	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(materialtermflag)'Material term flags'    		
-22100	#			refname		vocabularies/7563fab0-dc1a-4cb0-82ab	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(materialtype)'Material type'    		
-22200	#			refname		vocabularies/0be4b6ef-eee4-44cf-a34c	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(materialuse)'Material use'    		
-22300	#			refname		vocabularies/c7182c12-1daa-446b-9cec	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(mechanicalproperties)'Mechanical properties'    		
-22400	#			refname		vocabularies/c281ab02-ffc0-4e11-815b	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(mechanicalpropertyunits)'Mechanical property units'    		
-22500	#			refname		vocabularies/fcb9b3bf-e17d-46da-95c1	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(moldingprocesses)'Molding processes'    		
-22600	#			refname		vocabularies/ff9e88db-a7b1-45e1-ba82	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(movementmethod)'Movement method'    		
-22700	#			refname		vocabularies/9422ad6d-7300-4078-808d	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaApplicabilities)'nagpraPahmaApplicabilities'    		
-22800	#			refname		vocabularies/24bd1ab0-7c5f-424f-8f0b	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(nagpraPahmaInventoryNames)'nagpraPahmaInventoryNames'    		
-22900	#			refname		vocabularies/27c23f62-bba2-4bde-9548	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(entrymethod)'Object entry method'    		
-23000	#			refname		vocabularies/1c7da574-6b4f-4711-8412	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(objentryreason)'Object entry reason'    		
-23100	#			refname		vocabularies/ef13854f-bea4-49b5-b270	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(objexitmethod)'Object exit method'    		
-23200	#			refname		vocabularies/47fdc686-67de-437f-8a3d	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(objexitreason)'Object exit reason'    		
-23300	#			refname		vocabularies/bacb9aa5-8eda-40eb-8651	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(objecttype)'Object type'    		
-23400	#			refname		vocabularies/bc322e92-f2e9-4ced-849d	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(opticalproperties)'Optical properties'    		
-23500	#			refname		vocabularies/15469022-f235-422c-9a03	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(orgtermflag)'Organization term flags'    		
-23600	#			refname		vocabularies/7b367f30-16a5-44fe-82ce	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(organizationtype)'Organization type'    		
-23700	#			refname		vocabularies/e04bc16f-3715-4920-b501	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(otherpartyrole)'Other party role'    		
-23800	#			refname		vocabularies/e76e8549-a4fb-4149-9ef3	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(pahmaaltnumber)'PAHMA alternate number'    		
-23900	#			refname		vocabularies/acfb9171-9de6-4d77-ba2d	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(pahmaNagpraCodeLegacies)'pahmaNagpraCodeLegacies'    		
-24000	#			refname		vocabularies/893d5378-0c8b-4cf8-882c	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(persontermflag)'Person term flags'    		
-24100	#			refname		vocabularies/9b86a456-440f-4d39-85ab	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(persontermtype)'Person term type'    		
-24200	#			refname		vocabularies/3cf788e1-5632-4c0c-9508	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(placeassociation)'Place association'    		
-24300	#			refname		vocabularies/c8b240d0-e67c-4594-b92f	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(placetermflag)'Place term flags'    		
-24400	#			refname		vocabularies/74b20729-1455-441f-afe3	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(PlaceType)'Place type'    		
-24500	#			refname		vocabularies/dc336970-cd0d-46e8-8323	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(prodcultgrouprole)'Production cultural group role'    		
-24600	#			refname		vocabularies/c9464f16-285d-4569-93ca	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(prodpersonrole)'Production person role'    		
-24700	#			refname		vocabularies/963b3ab4-ef77-49be-b3f0	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(productionplacerole)'Production place role'    		
-24800	#			refname		vocabularies/65b924ef-0b76-4424-a9fb	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(rapidprototypingprocesses)'Rapid prototyping processes'    		
-24900	#			refname		vocabularies/6dee019f-ed10-467e-9b1d	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(reasonformove)'Reason for move'    		
-25000	#			refname		vocabularies/e4473c0e-0d82-4028-a9cd	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(recycledcontentqualifiers)'Recycled content qualifiers'    		
-25100	#			refname		vocabularies/523a547b-3a48-4caf-925e	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(relationtypetype)'Relation type type'    		
-25200	#			refname		vocabularies/02af7624-3efc-4866-8239	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(resourceidtype)'Resource ID type'    		
-25300	#			refname		vocabularies/b4bc7f15-0f0b-4771-b4c6	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(sensorialproperties)'Sensorial properties'    		
-25400	#			refname		vocabularies/e85ef13e-2f6e-4e14-804d	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(smartmaterialproperties)'Smart material properties'    		
-25500	#			refname		vocabularies/f47c16f1-4a05-4a9d-b1cd	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(currency)'Standard currency'    		
-25600	#			refname		vocabularies/2c83deac-6fa4-4938-995c	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(surfacingprocesses)'Surfacing processes'    		
-25700	#			refname		vocabularies/e1c7d086-e6f9-4d66-bd59	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(taxonrank)'Taxon rank'    		
-25800	#			refname		vocabularies/f0048590-21c5-495f-9975	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(taxontermflag)'Taxon term flags'    		
-25900	#			refname		vocabularies/f665134f-249b-4a47-bec3	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(taxontype)'Taxon type'    		
-26000	#			refname		vocabularies/d4490629-6d84-481e-a6d4	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(temperaturelevel)'Temperature level'    		
-26100	#			refname		vocabularies/455e3f3c-baa0-4e47-8245	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(treatmentpurpose)'Treatment purpose'    		
-26200	#			refname		vocabularies/25b6cfae-f2c2-4867-891f	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(trepanationcertainty)'Trepanation certainty'    		
-26300	#			refname		vocabularies/5b8271bf-1a28-4389-a3d7	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(trepanationhealing)'Trepanation healing'    		
-26400	#			refname		vocabularies/5b86b3d2-5a91-42a9-bdc5	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(trepanationtechnique)'Trepanation technique'    		
-26500	#			refname		vocabularies/c68a6e51-dc2a-44ec-bf08	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(uocauthorizationstatuses)'Use of Collections authorization status'    		
-26600	#			refname		vocabularies/17d7a5e7-8ca6-47de-96b0	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(uoccollectiontypes)'Use of Collections collections type'    		
-26700	#			refname		vocabularies/3e1cfb51-11b4-4617-9ff1	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(uocprojectid)'Use of Collections project ID'    		
-26800	#			refname		vocabularies/4b4fa19f-f89e-44cf-85b4	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(uocmaterialtypes)'Use of Collections research type'    		
-26900	#			refname		vocabularies/cb60d400-85fc-40f6-8dee	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(uocstaffroles)'Use of Collections staff role'    		
-27000	#			refname		vocabularies/649d4aff-d13e-45ce-ae41	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(uocuserroles)'Use of Collections user role'    		
-27100	#			refname		vocabularies/7b94f452-d5c9-4519-8bd9	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(uocusertypes)'Use of Collections user type'    		
-27200	#			refname		vocabularies/ee2f1196-282a-476d-a410	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(uocmethods)'Use of Collections use type'    		
-27300	#			refname		vocabularies/7e6e4711-28d1-4145-a84f	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(workcreatortype)'Work creator type'    		
-27400	#			refname		vocabularies/157d64fa-5129-48e5-bc80	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(workpublishertype)'Work publisher type'    		
-27500	#			refname		vocabularies/f67715cd-f5fc-4e7e-8d91	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(worktermflag)'Work term flags'    		
-27600	#			refname		vocabularies/5e74626f-572f-4f8f-aed6	urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(worktype)'Work type'		
+1000	#################################################################							
+1010	# csvImport  field name mapping for PAHMA collectionobjects							
+1020	#################################################################							
+1030		# Columns						
+1040	# 	A	sequence number. Only facultative.					
+1050	# 	B	csv column header					
+1060	# 	C	Cspace fieldname					
+1070	# 	D	Additional Info					
+1080	# 	E	datatype of the element					
+1090	# 	F	type of check to peform					
+1100	# 	G	Cspace authority name (including CSID)					
+1110	# 	H	Remarks (ignored by the program)					
+1120	# 							
+1130	#################################################################							
+1140	# v0.9 jbl 10/03/20							
+1150	#################################################################							
+1160	# Column	Cspace field	Additional Info	data type	if exists	authority	remarks	
+1170	# 	##################################						
+1670	#							
+1	musno	objectNumber		key				defined above
+2	dept	pahmaTmsLegacyDepartment		literal				
+3	# type				x			
+4	# count							
+5	# countnote							
+6	# keelingser							
+7	fcpverbatim	pahmaFieldLocVerbatim		literal				lat/long. Not in object record
+8	name	objectName		literal				
+9	altnum	pahmaAltNum		literal				
+9	altnumtype	pahmaAltNumType		refname		vocabularies/e76e8549-a4fb-4149-9ef3		
+10	filecode	pahmaEthnographicFileCode		refname		conceptauthorities/9de7a62f-595b-43f8-a795		
+11	descr	briefDescription		literal				
+12	contextuse	usage		literal				
+13	dimensions	dimension		literal				
+14	materials	material		refname		conceptauthorities/660a70af-001a-49c2-96f2		
+15	# inscrtext							
+16	comment	comment		literal				
+17	#  title							
+18	colldate	dateDisplayDate	productionDateGroup	literal				
+19	proddate	dateDisplayDate	fieldCollectionDateGroup	literal				
+20	collector	fieldCollector		refname		personauthorities/32494f8b-5c18-427a-b237		
+21	accno	accessionNumber		literal				
+22	accdate	dateDisplayDate	accessionDateGroup	literal				
+23	acqdate	dateDisplayDate	aquisitionDateGroup	literal				
+24	assoccult	assocCulturalContext		refname		conceptauthorities/06917b20-1c61-4e11-a0d2		
+25	fcp	pahmaFieldCollectionPlace		refname		placeauthorities/b5ac9f31-eeb1-490f-b57f		
+26	# fcpgeoloc			literal				
+27	fcpelevation	vElevation		literal				
+28	# csid							
