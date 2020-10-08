@@ -3,12 +3,14 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 5.5.0-rc3
-Tue Oct  6 15:17:20 PDT 2020
+This is version 5.5.0-rc4
+Thu Oct  8 13:10:48 PDT 2020
 
-b4de348 (HEAD -> master) CSW-175: update pahma csvimport config
+dd6b409 (HEAD -> master) CSW-356: update query used in workflow
+5343f2c (tag: 5.5.0-rc3, origin/master, origin/HEAD) revise change log and VERSION file for version 5.5.0-rc3
+b4de348 CSW-175: update pahma csvimport config
 5a38704 CSW-356: additional refactoring of workflow: pagination, etc.
-25a8b80 (tag: 5.5.0-rc2, origin/master, origin/HEAD) revise change log and VERSION file for version 5.5.0-rc2
+25a8b80 (tag: 5.5.0-rc2) revise change log and VERSION file for version 5.5.0-rc2
 5ac916a CSW-175: update pahma csvimport config
 521487e CSW-356: fix workflow pagination for pahma
 5f93a8c CSW-358, CSW-356: add ucjeps 'project code' to csvimport, fix workflow pagination
