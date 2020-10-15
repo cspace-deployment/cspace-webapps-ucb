@@ -32,7 +32,7 @@ urlpatterns = [
     # these are user-facing (i.e. present a UI to the caller)
     # path('asura/', include('asura.urls'), name='asura'),
     # path('adhocreports/', include('adhocreports.urls'), name='adhocreports'),
-    path('csvimport/', include('csvimport.urls'), name='csvimport'),
+    # path('csvimport/', include('csvimport.urls'), name='csvimport'),
     # path('curator/', include('curator.urls'), name='curator'),
     path('grouper/', include('grouper.urls'), name='grouper'),
     path('imagebrowser/', include('imagebrowser.urls'), name='imagebrowser'),

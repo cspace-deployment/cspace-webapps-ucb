@@ -16,7 +16,7 @@ INSTALLED_APPS = (
     # 'service',
     # 'service' apps: no UI
     'common',
-    'csvimport',
+    # 'csvimport',
     # 'curator',
     'suggest',
     'suggestpostgres',
