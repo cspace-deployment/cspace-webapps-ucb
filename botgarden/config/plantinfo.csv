@@ -58,7 +58,7 @@ field	38	vouchers	Has Vouchers?	vouchers_s			dropdown	6,3			20				23	x
 field	39	vouchercount	Voucher Count	vouchercount_s			keyword									x
 field	40	fruitingverbatim	Fruiting months (orange = fruiting)	fruitingverbatim_ss			"colors= {""f"":""lightgray"",""t"":""orange""}"				25				26	x
 field	41	keyword	Keyword	text			keyword	1,2								x
-field	42	floweringverbatim	Flowering months (pink = some, red = many)	floweringverbatim_ss			"colors= {""No"":""lightgray"",""Some"":""pink"",""Many"":""red""}"				24				24	x
+field	42	floweringverbatim	Flowering months (pink = some, red = many)	floweringverbatim_ss			"colors= {""x"":""white"",""No"":""lightgray"",""Some"":""pink"",""Many"":""red""}"				24				24	x
 field	43	provenancetype	Provenance Type	provenancetype_s			dropdown	10,1			23				25	x
 field	43	fruiting	Fruiting (months)	fruiting_ss			keyword	5,3								x
 field	44	flowering	Flowering (months)	flowering_ss			keyword	4,3								x
