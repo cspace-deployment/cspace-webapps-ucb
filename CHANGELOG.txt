@@ -3,11 +3,12 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 5.5.0-rc7
-Fri Oct 16 13:42:02 PDT 2020
+This is version 5.5.0
+Fri Oct 16 14:54:07 PDT 2020
 
-e33fc7c (HEAD -> master) CSW-360: merge Null and No in botgarden phenology ('flowering') fields (both lightgray)
-b25ef67 (tag: 5.5.0-rc6, origin/master, origin/HEAD) revise change log and VERSION file for version 5.5.0-rc6
+58a21a9 (HEAD -> master, tag: 5.5.0-rc7, origin/master, origin/HEAD) revise change log and VERSION file for version 5.5.0-rc7
+e33fc7c CSW-360: merge Null and No in botgarden phenology ('flowering') fields (both lightgray)
+b25ef67 (tag: 5.5.0-rc6) revise change log and VERSION file for version 5.5.0-rc6
 dc3c689 CSW-368: remove 'make a group' option from ucjeps media portal
 89f3941 CSW-175: correct configuration of csvimport
 f96cbbc CSW-360: add a 4th value (Null) to botgarden phenology ('flowering') portal display
