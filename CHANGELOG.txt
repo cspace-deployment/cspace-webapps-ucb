@@ -3,10 +3,16 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 5.5.0
-Fri Oct 16 14:54:07 PDT 2020
+This is version 5.6.0-rc1
+Fri Jan 15 11:43:55 PST 2021
 
-58a21a9 (HEAD -> master, tag: 5.5.0-rc7, origin/master, origin/HEAD) revise change log and VERSION file for version 5.5.0-rc7
+0409aaf (HEAD -> master, origin/master, origin/HEAD) CSW-175: update pahma csvimport configuration
+9a9dbdb NOJIRA: minor refactoring of ucjeps media portal webapp
+0387742 NOJIRA: python3/django2 fix missed in osteology view
+2c6b204 CSW-395: add Location to BAMPFA search fields and facets
+861c2eb CSW-385: sample config file for ucjeps authority extract scripts
+464c54e (tag: 5.5.0) revise change log and VERSION file for version 5.5.0
+58a21a9 (tag: 5.5.0-rc7) revise change log and VERSION file for version 5.5.0-rc7
 e33fc7c CSW-360: merge Null and No in botgarden phenology ('flowering') fields (both lightgray)
 b25ef67 (tag: 5.5.0-rc6) revise change log and VERSION file for version 5.5.0-rc6
 dc3c689 CSW-368: remove 'make a group' option from ucjeps media portal
