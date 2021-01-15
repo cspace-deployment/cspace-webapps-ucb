@@ -54,7 +54,7 @@ def direct(request):
 @login_required()
 def search(request):
     if request.method == 'GET' and request.GET != {}:
-        context = {'searchValues': dict(request.GET.iteritems())}
+        context = {'searchValues': request.GET}
         context = doSearch(context, prmz, request)
     else:
         context = setConstants({}, prmz, request)
