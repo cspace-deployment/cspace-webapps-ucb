@@ -5,17 +5,17 @@ from os import path
 import logging
 import json
 
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, render_to_response, redirect
-from django.template.loader import render_to_string
+# from django.template.loader import render_to_string
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django import forms
-from cspace_django_site.main import cspace_django_site
+# from cspace_django_site.main import cspace_django_site
 from common.utils import writeCsv, doSearch, setConstants, loginfo
 from common.utils import setupGoogleMap, setupBMapper, computeStats, setupCSV, setup4PDF
-from common.utils import setup4Print, setDisplayType
+# from common.utils import setup4Print, setDisplayType
 
 # from common.utils import CSVPREFIX, CSVEXTENSION
 from common.appconfig import loadFields, loadConfiguration
@@ -31,7 +31,7 @@ prmz = loadConfiguration('common')
 config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'searchmedia')
 fielddefinitions = config.get('searchmedia', 'FIELDDEFINITIONS')
 prmz = loadFields(fielddefinitions, prmz)
-loginfo('searchmedia','%s :: %s :: %s' % ('meida portal startup', '-', '%s | %s | %s' % (prmz.SOLRSERVER, prmz.IMAGESERVER, prmz.BMAPPERSERVER)), {}, {})
+loginfo('searchmedia','%s :: %s :: %s' % ('media portal startup', '-', '%s | %s | %s' % (prmz.SOLRSERVER, prmz.IMAGESERVER, prmz.BMAPPERSERVER)), {}, {})
 
 
 def direct(request):
