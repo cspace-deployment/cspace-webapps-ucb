@@ -17,9 +17,9 @@
 1160	# Column	Cspace field	Additional Info	data type	if exists	authority	remarks	
 1170	# 	##################################						
 1670	#							
-1	musno	objectNumber		key				defined above
+1	musno	objectNumber		key			nb: required	
 2	dept	pahmaTmsLegacyDepartment		literal				
-3	# type				x			
+3	# type							
 4	# count							
 5	# countnote							
 6	# keelingser							
@@ -33,7 +33,7 @@
 13	dimensions	dimension		literal				
 14	materials	material		refname		conceptauthorities/660a70af-001a-49c2-96f2		
 15	# inscrtext							
-16	comment	comment		literal				
+16	# comment	comment		literal				
 17	#  title							
 18	colldate	dateDisplayDate	productionDateGroup	literal				
 19	proddate	dateDisplayDate	fieldCollectionDateGroup	literal				
@@ -46,3 +46,9 @@
 26	# fcpgeoloc			literal				
 27	fcpelevation	vElevation		literal				
 28	# csid							
+29	nagpraApplicability	nagpraApplicability		refname		/vocabularies/9422ad6d-7300-4078-808d		
+30	nagpraInventoryName	nagpraInventoryName		refname		/vocabularies/24bd1ab0-7c5f-424f-8f0b		
+31	repatriationNote	repatriationNote		literal			“by”	
+32	type	referenceNote		literal			“type”	
+33	reference	reference		refname		/citationauthorities/051cfed5-916a-4f25-9761		
+34	nagpraCulturalDetermination	nagpraCulturalDetermination		literal				

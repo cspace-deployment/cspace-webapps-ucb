@@ -231,9 +231,8 @@
     </contentObjectGroupList>
     <ownershipDateGroupList>
       <ownershipDateGroup>
-        <dateDisplayDate>{{DisplayDate}}</dateDisplayDate>
+        <dateDisplayDate>{{ownershipDisplayDate}}</dateDisplayDate>
       </ownershipDateGroup>
-      <dateDisplayDate>{{DisplayDate}}</dateDisplayDate>
     </ownershipDateGroupList>
     <collection>{{collection}}</collection>
     <technicalAttributeGroupList>
@@ -335,7 +334,13 @@
     <forms>
       <form/>
     </forms>
-  </ns2:collectionobjects_common>
+    <referenceGroupList>
+      <referenceGroup>
+        <reference>{{reference}}</reference>
+        <referenceNote>{{referenceNote}}</referenceNote>
+      </referenceGroup>
+    </referenceGroupList>
+      </ns2:collectionobjects_common>
   <ns2:collectionobjects_accessionuse xmlns:ns2="http://collectionspace.org/services/collectionobject/domain/accessionuse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <accessionUseGroupList/>
   </ns2:collectionobjects_accessionuse>
@@ -401,6 +406,15 @@
     <nagpraInventoryNameList>
       <nagpraInventoryName>{{nagpraInventoryName}}</nagpraInventoryName>
     </nagpraInventoryNameList>
+    <nagpraCulturalDeterminationList>
+    <nagpraCulturalDetermination>{{nagpraCulturalDetermination}}</nagpraCulturalDetermination>
+    </nagpraCulturalDeterminationList>
+    <repatriationNoteList>
+      <repatriationNote>{{repatriationNote}}</repatriationNote>
+    </repatriationNoteList>
+    <nagpraApplicabilityList>
+    <nagpraApplicability>{{nagpraApplicability}}</nagpraApplicability>
+    </nagpraApplicabilityList>
     <culturalCareNoteList>
       <culturalCareNote/>
     </culturalCareNoteList>
@@ -414,17 +428,8 @@
         <accessRestrictionRequestor/>
       </accessRestrictionGroup>
     </accessRestrictionGroupList>
-    <nagpraCulturalDeterminationList>
-      <nagpraCulturalDetermination/>
-    </nagpraCulturalDeterminationList>
-    <homeLocation>{{homeLocation}}</homeLocation>
-    <repatriationNoteList>
-      <repatriationNote/>
-    </repatriationNoteList>
-    <nagpraApplicabilityList>
-      <nagpraApplicability>{{nagpraApplicability}}</nagpraApplicability>
-    </nagpraApplicabilityList>
     <contentWorks/>
+    <homeLocation>{{homeLocation}}</homeLocation>
   </ns2:collectionobjects_anthropology>
   <ns2:collectionobjects_naturalhistory xmlns:ns2="http://collectionspace.org/services/collectionobject/domain/naturalhistory" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <donorDateGroup>
