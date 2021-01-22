@@ -1,7 +1,5 @@
 #	parameter specification spreadsheet for a django portal app															x
 #																x
-date	3/6/17															x
-revision	1.18															x
 title	Collections															x
 #																x
 server	http://localhost:8983/solr															x
@@ -52,10 +50,11 @@ field	39	keyword	Keyword	text			keyword	1,1								x
 field	40	blobs	Blob	blob_ss			blob									x
 field	41	cards	Card	card_ss			card									x
 field	42	primaryimage	Primary Image	primaryimage_s			primaryimage									x
-field	43	imagetypes	Image Type	imagetype_ss			dropdown	5,3								x
-field	44	hasimage	Has image(s)?	hasimages_s			dropdown	6,3								x
-field	45	hascoords	Has coordinates?	hascoords_s			dropdown	7,3								x
+field	43	imagetypes	Image Type	imagetype_ss			dropdown	6,3								x
+field	44	hasimage	Has image(s)?	hasimages_s			dropdown	7,3								x
+field	45	hascoords	Has coordinates?	hascoords_s			dropdown	8,3								x
 field	46	donor	Donor	donor_ss			keyword									x
 field	47	anondonor	Donor	anonymousdonor_ss			keyword	7,1			6	25				x
 field	48	prodplace	Production Place	objpp_ss			keyword					9				x
 field	49	maker	Maker / Artist	objmaker_ss			keyword	3,2				27			32	x
+field	50	loaninfo	Loans	loan_info_ss			keyword	5,3				28			33	x
