@@ -50,8 +50,8 @@ field	39	fcpelevation	Collection Place Elevation	objfcpelevation_s			keyword				
 field	40	crate	Container	computedcrate_s		cr	keyword	7,3				28			32	x
 field	41	exhibitiontitle	Exhibition Title	exhibitiontitle_ss			keyword	9,3				29			33	x
 field	42	exhibitionnumber	Exhibition Number	exhibitionnumber_ss			keyword	9,2				30			34	x
-field	43	group	Group	grouptitle_ss			keyword	10,3				31			35	x
-#field	44	locationdate	Location Date	locationdate_dt			date	8,3				32			36	x
+field	43	group	Group	grouptitle_ss			keyword	11,3				32			35	x
+#field	44	locationdate	Location Date	locationdate_dt			date	8,3				33			36	x
 field	45	keyword	Keyword	text			keyword	1,1							37	x
 field	46	blobs	Blob	blob_ss			blob								38	x
 field	47	cards	Card	card_ss			card								39	x
@@ -63,7 +63,7 @@ field	52	hasrestrictions	Has restrictions?	restrictions_ss			dropdown	10,1						
 field	53	donor	Donor	donor_ss			keyword	5,3			6	25			42	x
 field	54	anondonor	Donor (anonymized)	anonymousdonor_ss			keyword									x
 field	55	prodplace	Production Place	objpp_ss			keyword					9				x
-field	56	maker	Maker / Artist	objmaker_ss			keyword	3,2				33			43	x
-field	57	deaccessioned	Deaccessioned?	deaccessioned_s			dropdown	8,3				34			44	x
-field	58	updatedat	Updated at	updatedat_s			string	11,3				35			45	x
-field	59	loaninfo	Loans	loan_info_ss			keyword	11,2				36			46	x
+field	56	maker	Maker / Artist	objmaker_ss			keyword	3,2				34			43	x
+field	57	deaccessioned	Deaccessioned?	deaccessioned_s			dropdown	8,3				35			44	x
+field	58	updatedat	Updated at	updatedat_s			string	11,2				36			45	x
+field	59	loaninfo	Loans	loan_info_ss			keyword	10,3				31			46	x
