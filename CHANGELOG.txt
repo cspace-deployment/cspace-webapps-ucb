@@ -3,10 +3,13 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 5.6.0-rc1
-Fri Jan 15 11:43:55 PST 2021
+This is version 5.6.0-rc2
+Thu Jan 28 09:31:54 PST 2021
 
-0409aaf (HEAD -> master, origin/master, origin/HEAD) CSW-175: update pahma csvimport configuration
+0960cfe (HEAD -> master, origin/master, origin/HEAD) CSW-386: revise layout of pahma internal portal search fields
+26aa5ff CSW-386: add Loans to search and various result displays for pahma portals
+15eab68 (tag: 5.6.0-rc1) revise change log and VERSION file for version 5.6.0-rc1
+0409aaf CSW-175: update pahma csvimport configuration
 9a9dbdb NOJIRA: minor refactoring of ucjeps media portal webapp
 0387742 NOJIRA: python3/django2 fix missed in osteology view
 2c6b204 CSW-395: add Location to BAMPFA search fields and facets
