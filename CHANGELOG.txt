@@ -3,11 +3,13 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 5.6.0-rc3
-Thu Feb 11 21:55:15 PST 2021
+This is version 5.6.0-rc4
+Thu Feb 18 13:46:25 PST 2021
 
-9331f5c (HEAD -> master) CSW-403: improve directions for BMU media creation
-c81a0d7 (tag: 5.6.0-rc2, origin/master, origin/HEAD) revise change log and VERSION file for version 5.6.0-rc2
+8b97cfe (HEAD -> master) CSW-425: bulletproof ucjeps eloans a bit: check for bad results from cspace and solr queries
+0a288e4 (tag: 5.6.0-rc3, origin/master, origin/HEAD) revise change log and VERSION file for version 5.6.0-rc3
+9331f5c CSW-403: improve directions for BMU media creation
+c81a0d7 (tag: 5.6.0-rc2) revise change log and VERSION file for version 5.6.0-rc2
 0960cfe CSW-386: revise layout of pahma internal portal search fields
 26aa5ff CSW-386: add Loans to search and various result displays for pahma portals
 15eab68 (tag: 5.6.0-rc1) revise change log and VERSION file for version 5.6.0-rc1
