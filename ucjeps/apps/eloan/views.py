@@ -69,10 +69,15 @@ def eloan(request):
         if lolistdata is None:
             errMsg = 'Sorry, I can\'t talk to CSpace so I can\'t help you with your eloan. Please contact the administrator.'
             return render(request, 'eloan.html',
-                            {'results': errMsg, 'displayType': 'error', 'title': TITLE, 'timestamp': TIMESTAMP }
-                    )
+                            {'results': errMsg, 'displayType': 'error', 'title': TITLE, 'timestamp': TIMESTAMP })
         lolistdata = lolistdata.content
-        loanoutlistXML = fromstring(lolistdata)
+        try:
+            loanoutlistXML = fromstring(lolistdata)
+        except:
+            errMsg = 'Sorry, CSpace did not return a valid result for this eloan.'
+            return render(request, 'eloan.html',
+                            {'results': errMsg, 'displayType': 'error', 'title': TITLE, 'timestamp': TIMESTAMP })
+
 
         # To grab everything: loinfo = loanoutlistXML.find('.//list-item')
         # To grab just the Loanout CSID:
@@ -123,15 +128,13 @@ def eloan(request):
         if loitemsXML == []:
             errMsg = 'Error: You have requested a loan that contains no specimens. Please have the herbarium staff check the loan.'
             return render(request, 'eloan.html',
-                            {'loaninfo': loaninfo, 'results': errMsg, 'displayType': 'error', 'title': TITLE, 'timestamp': TIMESTAMP }
-                    )
+                            {'loaninfo': loaninfo, 'results': errMsg, 'displayType': 'error', 'title': TITLE, 'timestamp': TIMESTAMP })
 
         # In case primary repeatable group under Loan Out Items has no value in the object number field
         elif loitemsXML[0].text is None:
             errMsg = 'Error: You have requested a loan that contains a record with no Specimen ID. Please have the herbarium staff check the loan.'
             return render(request, 'eloan.html',
-                            {'loaninfo': loaninfo, 'results': errMsg, 'displayType': 'error', 'title': TITLE, 'timestamp': TIMESTAMP }
-                    )
+                            {'loaninfo': loaninfo, 'results': errMsg, 'displayType': 'error', 'title': TITLE, 'timestamp': TIMESTAMP })
 
         elif loitemsXML[0].text:
             for loitem in loitemsXML:
@@ -171,6 +174,12 @@ def eloan(request):
 
         # Search public search (solr) portal
         results = build_solr_query(solr_server, solr_core, solr_queryparam_key, solr_queryparam_value)
+
+        if 'errormsg' in results:
+            errMsg = results['errormsg']
+            return render(request, 'eloan.html',
+                          {'loaninfo': loaninfo, 'results': errMsg, 'displayType': 'error', 'title': TITLE,
+                           'timestamp': TIMESTAMP})
 
         labels = {}
         for p in PARMS:
