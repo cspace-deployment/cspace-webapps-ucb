@@ -4,7 +4,7 @@ import re
 import time, datetime
 import csv
 import solr
-import cgi
+import html
 from os import path
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -206,7 +206,7 @@ def doSearch(solr_server, solr_core, context):
             searchTerm = ' OR '.join(ORs)
             if ' ' in searchTerm and not '[* TO *]' in searchTerm: searchTerm = ' (' + searchTerm + ') '
             queryterms.append(searchTerm)
-            urlterms.append('%s=%s' % (p, cgi.escape(requestObject[p])))
+            urlterms.append('%s=%s' % (p, html.escape(requestObject[p])))
         querystring = ' AND '.join(queryterms)
         loginfo('publicsearch', querystring, {}, {})
 

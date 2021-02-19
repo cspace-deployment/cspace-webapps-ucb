@@ -1,8 +1,6 @@
 #!/usr/bin/env /usr/bin/python
 
-import time
 import sys
-import cgi
 import psycopg2
 
 reload(sys)
