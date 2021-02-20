@@ -30,9 +30,9 @@ PAGE="""<html lang="en-us">
 <div id="container">
     <div id="content-main" style="max-width: 1000px;">
         <div>
-            <img height="40px" src="https://www.collectionspace.org/wp-content/uploads/2014/11/CSpaceLogo.png">
+            <img height="40px" src="/bampfa_static/cspace_django_site/images/CollectionSpaceLogo.png">
             <span style="font-size: 28px;vertical-align: 35%%;">@</span>
-            <img height="60px" src="https://www.berkeley.edu/brand/berkeley-logo.png">
+            <img height="60px" src="/bampfa_static/cspace_django_site/images/berkeley-logo.png">
         </div>
          <div id="tabs">
             <ul>
@@ -135,7 +135,7 @@ APPS = {
     'imagebrowser': 'Image Browser',
     'imaginator': 'Imaginator',
     'eloan': 'e-Loans',
-    'cinestats': '"CineStats"',
+    # 'cinestats': '"CineStats"',
     'csvimport': 'csvImport',
     'searchmedia': 'Media Search',
     'grouper': 'Grouper',
