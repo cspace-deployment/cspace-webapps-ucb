@@ -3,10 +3,11 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 5.6.0
-Sat Feb 20 18:53:53 PST 2021
+This is version 6.1.2-rc1
+Sat Feb 20 18:54:44 PST 2021
 
-34dd148 (HEAD -> master, tag: 5.6.0-rc5, origin/master, origin/HEAD) revise change log and VERSION file for version 5.6.0-rc5
+2a278bf (HEAD -> master, tag: 5.6.0, origin/master, origin/HEAD) revise change log and VERSION file for version 5.6.0
+34dd148 (tag: 5.6.0-rc5) revise change log and VERSION file for version 5.6.0-rc5
 15a5aa6 CSW-428: use static content in webapps for the UCB and CSpace logos
 53a1128 CSW-425: ucjeps eloan and publicsearch webapps need to use html module, not now removed cgi module
 b5ce828 (tag: 5.6.0-rc4) revise change log and VERSION file for version 5.6.0-rc4
