@@ -3,60 +3,61 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.2-rc1
-Sat Feb 20 18:54:44 PST 2021
+This is version 6.1.2
+Thu Mar 18 17:15:34 PDT 2021
 
-2a278bf (HEAD -> master, tag: 5.6.0, origin/master, origin/HEAD) revise change log and VERSION file for version 5.6.0
-34dd148 (tag: 5.6.0-rc5) revise change log and VERSION file for version 5.6.0-rc5
+2ed826b (HEAD -> master, tag: 6.1.2-rc1, origin/master, origin/HEAD) revise change log and VERSION file for version 6.1.2-rc1
+2a278bf (tag: 5.6.0) revise change log and VERSION file for version 5.6.0
+34dd148 revise change log and VERSION file for version 5.6.0-rc5
 15a5aa6 CSW-428: use static content in webapps for the UCB and CSpace logos
 53a1128 CSW-425: ucjeps eloan and publicsearch webapps need to use html module, not now removed cgi module
-b5ce828 (tag: 5.6.0-rc4) revise change log and VERSION file for version 5.6.0-rc4
+b5ce828 revise change log and VERSION file for version 5.6.0-rc4
 8b97cfe CSW-425: bulletproof ucjeps eloans a bit: check for bad results from cspace and solr queries
-0a288e4 (tag: 5.6.0-rc3) revise change log and VERSION file for version 5.6.0-rc3
+0a288e4 revise change log and VERSION file for version 5.6.0-rc3
 9331f5c CSW-403: improve directions for BMU media creation
-c81a0d7 (tag: 5.6.0-rc2) revise change log and VERSION file for version 5.6.0-rc2
+c81a0d7 revise change log and VERSION file for version 5.6.0-rc2
 0960cfe CSW-386: revise layout of pahma internal portal search fields
 26aa5ff CSW-386: add Loans to search and various result displays for pahma portals
-15eab68 (tag: 5.6.0-rc1) revise change log and VERSION file for version 5.6.0-rc1
+15eab68 revise change log and VERSION file for version 5.6.0-rc1
 0409aaf CSW-175: update pahma csvimport configuration
 9a9dbdb NOJIRA: minor refactoring of ucjeps media portal webapp
 0387742 NOJIRA: python3/django2 fix missed in osteology view
 2c6b204 CSW-395: add Location to BAMPFA search fields and facets
 861c2eb CSW-385: sample config file for ucjeps authority extract scripts
 464c54e (tag: 5.5.0) revise change log and VERSION file for version 5.5.0
-58a21a9 (tag: 5.5.0-rc7) revise change log and VERSION file for version 5.5.0-rc7
+58a21a9 revise change log and VERSION file for version 5.5.0-rc7
 e33fc7c CSW-360: merge Null and No in botgarden phenology ('flowering') fields (both lightgray)
-b25ef67 (tag: 5.5.0-rc6) revise change log and VERSION file for version 5.5.0-rc6
+b25ef67 revise change log and VERSION file for version 5.5.0-rc6
 dc3c689 CSW-368: remove 'make a group' option from ucjeps media portal
 89f3941 CSW-175: correct configuration of csvimport
 f96cbbc CSW-360: add a 4th value (Null) to botgarden phenology ('flowering') portal display
 6bbf086 NOJIRA: remove unused ucjeps config file 'databasing.cfg'
-a656cbf (tag: 5.5.0-rc5) revise change log and VERSION file for version 5.5.0-rc5
-b96d204 (tag: 5.5.0-rc4) revise change log and VERSION file for version 5.5.0-rc4
+a656cbf revise change log and VERSION file for version 5.5.0-rc5
+b96d204 revise change log and VERSION file for version 5.5.0-rc4
 dd6b409 CSW-356: update query used in workflow
-5343f2c (tag: 5.5.0-rc3) revise change log and VERSION file for version 5.5.0-rc3
+5343f2c revise change log and VERSION file for version 5.5.0-rc3
 b4de348 CSW-175: update pahma csvimport config
 5a38704 CSW-356: additional refactoring of workflow: pagination, etc.
-25a8b80 (tag: 5.5.0-rc2) revise change log and VERSION file for version 5.5.0-rc2
+25a8b80 revise change log and VERSION file for version 5.5.0-rc2
 5ac916a CSW-175: update pahma csvimport config
 521487e CSW-356: fix workflow pagination for pahma
 5f93a8c CSW-358, CSW-356: add ucjeps 'project code' to csvimport, fix workflow pagination
-5a9fb17 (tag: 5.5.0-rc1) revise change log and VERSION file for version 5.5.0-rc1
+5a9fb17 revise change log and VERSION file for version 5.5.0-rc1
 a9f7149 CSW-358: add 'project number' to importable fields in ucjep csvimport config
 4f5b0d8 CSW-278: retire cinestats webapp
 6d1a710 CSW-239: tidy up webapp 'sample' config files
 80b54a2 (tag: 5.4.0) revise change log and VERSION file for version 5.4.0
 cffa005 revise change log and VERSION file for version 5.4.0
-b28a625 (tag: 5.4.0-rc4) revise change log and VERSION file for version 5.4.0-rc4
+b28a625 revise change log and VERSION file for version 5.4.0-rc4
 02634ae CSW-343: ucjeps searchmedia webapp was still showing bits of map html
 77fb58a CSW-344: ucjeps is no longer 'special' when it comes to making groups with the bmu
-e299ccd (tag: 5.4.0-rc3) revise change log and VERSION file for version 5.4.0-rc3
+e299ccd revise change log and VERSION file for version 5.4.0-rc3
 c8efbf5 CSW-343: remove 'mapping' option from ucjeps media search portal
 0e5a3ed CSW-344: add bmu 'group making' config to botgarden bmu
-835c906 (tag: 5.4.0-rc2) revise change log and VERSION file for version 5.4.0-rc2
+835c906 revise change log and VERSION file for version 5.4.0-rc2
 a59bab0 CSW-341: repair ucjeps taxon config file for csvimport
 9bd403d CSW-334: correct one refname in botgarden photographer initials
-ddb72f9 (tag: 5.4.0-rc1) revise change log and VERSION file for version 5.4.0-rc1
+ddb72f9 revise change log and VERSION file for version 5.4.0-rc1
 3d04daa revise change log and VERSION file for version 6.0.0-rc2
 ae9705f CSW-334: add more 'creator initials' to botgarden bmu config
 6a8b81f CSW-326: add 'Deaccessioned?' to PAHMA internal portal
