@@ -187,7 +187,8 @@ def getRecords(rawFile):
             if len(row) != len(header):
                 bad_rows[1] += 1
                 bad_rows[2].append(rowNumber + 1)
-                raise Exception('row and header have different number of columns %s' % str(rowNumber + 1))
+                print(row)
+                raise Exception('row and header have different number of columns %s cols in row %s' % (len(row), str(rowNumber + 1)))
             for col_number, cell in enumerate(row):
                 if cell == "#": continue  # skip comments
                 col_name = header[col_number]
@@ -304,13 +305,13 @@ def check_cell_in_cspace(mapping_key, key, value):
             int(value)
             return 0, 'an integer', str(int(value))
         except:
-            return 1, '"%s" is not an integer. ' % value
+            return 1, '"%s" is not an integer. ' % value, value
     elif mapping_key[2] == 'float':
         try:
             float(value)
             return 0, 'a float', str(float(value))
         except:
-            return 1, '"%s" is not a float. ' % value
+            return 1, '"%s" is not a float. ' % value, value
     else:
         return 0, 'unvalidated', value
 
@@ -326,9 +327,9 @@ def validate_cell(CSPACE_MAPPING, key, values):
                 isaproblem, message, validated_value = check_cell_in_cspace(CSPACE_MAPPING[key], key, v)
             except Exception as inst:
                 loginfo('csvimport', inst, {}, {})
-                loginfo('csvimport', "problem key", key, {}, {})
-                loginfo('csvimport', "problem value", v.encode('utf-8'), {}, {})
-                loginfo('csvimport', "mapping", CSPACE_MAPPING[key], {}, {})
+                loginfo('csvimport', "problem key " + key, {}, {})
+                loginfo('csvimport', "problem value" + v.encode('utf-8'), {}, {})
+                loginfo('csvimport', "mapping" + CSPACE_MAPPING[key], {}, {})
                 isaproblem, message, validated_value = 1, 'exception', v
                 raise
 
