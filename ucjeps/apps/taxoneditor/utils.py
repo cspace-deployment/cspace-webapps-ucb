@@ -31,6 +31,7 @@ taxonfields = [
 ]
 
 taxontermsources = {
+    "COL": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource05)'Accession sheet'",
     "GBIF": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource53)'GBIF'",
     # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource23)'Index Fungorum'",
     # xxx": "urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(taxontermsource):item:name(taxontermsource24)'Index Herbariorum Index to Collectors'",

@@ -47,17 +47,17 @@ def taxoneditor(request):
     sources = []
     determinations = ''
     multipleresults = []
-    sources = ['CSpace', 'GBIF', 'Tropicos']
+    sources = ['COL','CSpace', 'GBIF', 'Tropicos']
 
     if request.method == 'POST':
         determinations = request.POST[formfield]
         taxa = determinations.split('\n')
         if 'source' in request.POST:
-            sources = request.POST.getlist('source')
+            checked_sources = request.POST.getlist('source')
         # do search
         itemcount = 0
         sequence_number = 0
-        elapsedTimes = {'CollectionSpace': 0.0, 'GBIF': 0.0, 'Tropicos': 0.0}
+        elapsedTimes = {'COL': 0.0, 'CollectionSpace': 0.0, 'GBIF': 0.0, 'Tropicos': 0.0}
         for taxon in taxa:
             itemcount += 1
             # remove leading and trailing white space
@@ -67,9 +67,9 @@ def taxoneditor(request):
             # extract just latin name (= "Genus species"
             taxon_prefix = re.sub(r'([A-Z][a-z\-]+) ([a-z\-]+).*',r'\1 \2', taxon_prefix)
             if taxon == '': continue
-            results = {'CollectionSpace': [], 'GBIF': [], 'Tropicos': []}
+            results = {'COL': [], 'CollectionSpace': [], 'GBIF': [], 'Tropicos': []}
             # '() NameId Family ScientificNameWithAuthors ScientificName () NameId'
-            if 'CSpace' in sources:
+            if 'CSpace' in checked_sources:
                 cspaceTime = time.time()
                 connection = cspace.connection.create_connection(config, request.user)
                 requestURL = 'cspace-services/taxonomyauthority/%s/items?pt=%s&wf_deleted=false&pgSz=%s' % (taxon_authority_csid, urllib.parse.quote_plus(taxon_prefix), numberWanted)
@@ -105,7 +105,7 @@ def taxoneditor(request):
                 cspaceTime = time.time() - cspaceTime
                 elapsedTimes['CollectionSpace'] += cspaceTime
                 loginfo('taxoneditor', '%s %s %s items %s' % (itemcount, cspaceTime, numberofitems, url), {}, {})
-            if 'Tropicos' in sources:
+            if 'Tropicos' in checked_sources:
                 tropicosTime = time.time()
                 # do Tropicos search
                 # params = urllib.urlencode({'name': taxon})
@@ -138,7 +138,7 @@ def taxoneditor(request):
                 tropicosTime = time.time() - tropicosTime
                 elapsedTimes['Tropicos'] += tropicosTime
                 loginfo('taxoneditor', '%s %s %s items http://services.tropicos.org/Name/Search name=%s' % (itemcount, tropicosTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)), {}, {})
-            if 'GBIF' in sources:
+            if 'GBIF' in checked_sources:
                 gbifTime = time.time()
                 # do GBIF search
                 # params = urllib.urlencode({'name': taxon_prefix})
@@ -165,12 +165,56 @@ def taxoneditor(request):
                 gbifTime = time.time() - gbifTime
                 elapsedTimes['GBIF'] += gbifTime
                 loginfo('taxoneditor', '%s %s %s items http://api.gbif.org/v1/species/search q=%s' % (itemcount, gbifTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)), {}, {})
+            if 'COL' in checked_sources:
+                colTime = time.time()
+                # do COL search
+                # https://api.catalogueoflife.org/nameusage/search?q=Orthodontium%20gracile&offset=0&limit=10
+                response = requests.get('https://api.catalogueoflife.org/nameusage/search', params={'q': taxon_prefix})
+                response.encoding = 'utf-8'
+
+                names2use = response.json()
+                names2use = names2use['result']
+                numberofitems = len(names2use)
+                if len(names2use) > numberWanted:
+                    names2use = names2use[:numberWanted]
+                for name in names2use:
+                    sequence_number += 1
+                    # get phylum from both?!
+                    r = []
+                    x = {'family': '', 'phylum': ''}
+                    name_list = name['classification']
+                    for n in name_list:
+                        for p in x:
+                            if p in n['rank']:
+                                x[p] = n['name']
+                    for i,fieldname in enumerate('X family majorgroup termDisplayName termName CommonName termSource termSourceID'.split(' ')):
+                        for name_part in name_list:
+                            if fieldname in name_part['rank']:
+                                found = name_part['name']
+                            else:
+                                found = ''
+                        r.append([fieldname, found])
+                    r[1][1] = x['family']
+                    r[2][1] = x['phylum']
+                    r[2][1] = lookupMajorGroup(r[2][1])
+                    r[3][1] = name['usage']['labelHtml']
+                    r[4][1] = name['usage']['name']['scientificName']
+                    r[0] = ['id', sequence_number]
+                    r[6] = ['termSource','COL']
+                    r[7] = ['termSourceID', name['id']]
+                    results['COL'].append(r)
+                colTime = time.time() - colTime
+                elapsedTimes['COL'] += colTime
+                loginfo('taxoneditor', '%s %s %s items https://api.catalogueoflife.org/nameusage/search q=%s' % (itemcount, colTime, numberofitems, urllib.parse.quote_plus(taxon_prefix)), {}, {})
+
             multipleresults.append([taxon, taxon_prefix, results, itemcount])
 
     timestamp = time.strftime("%b %d %Y %H:%M:%S", time.localtime())
     return render(request, 'taxoneditor.html', {'timestamp': timestamp, 'version': prmz.VERSION, 'fields': formfields,
                                                 'labels': labels, 'multipleresults': multipleresults, 'taxa': determinations,
-                                                'suggestsource': 'solr', 'sources': sources,
+                                                'suggestsource': 'solr',
+                                                'sources': sources,
+                                                'checked_sources': sources,
                                                 'institution': tenant,
                                                 'cspaceserver': cspaceserver,
                                                 'csrecordtype': 'taxon',

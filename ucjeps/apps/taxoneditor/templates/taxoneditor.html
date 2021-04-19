@@ -34,9 +34,9 @@
 
         <hr/>
         <button class="prettyBtn" type="submit" name="search-list" value="Search" id="search-list">Search</button>
-        <input type="checkbox" name="source" value="CSpace" {% if "CSpace" in sources %}checked{% endif %}>CSpace
-        <input type="checkbox" name="source" value="GBIF" {% if "GBIF" in sources %}checked{% endif %}>GBIF
-        <input type="checkbox" name="source" value="Tropicos" {% if "Tropicos" in sources %}checked{% endif %}>Tropicos
+        {% for s in sources %}
+            <input type="checkbox" name="source" value="{{ s }}" {% if s in checked_sources %}checked{% endif %}>{{ s }}
+        {% endfor %}
 
     </form>
 

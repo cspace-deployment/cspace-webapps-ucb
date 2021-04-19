@@ -39,9 +39,9 @@
                             {% for cell in row %}
                                 <td class="{{ cell.0 }}">
                                     {% if cell.1 == taxon %}
-                                        <span style="color:green">{{ cell.1 }}</span>
+                                        <span style="color:green">{{ cell.1|safe }}</span>
                                     {% else %}
-                                        {{ cell.1 }}
+                                        {{ cell.1|safe }}
                                     {% endif %}
                                 </td>
                             {% endfor %}
