@@ -1,0 +1,39 @@
+{% extends "cspace_django_site/base_site.html" %}
+{% load i18n admin_static %}
+{% load staticfiles %}
+
+{% block content %}
+    <div id="content-main">
+        <div id="copy">
+            Being an experiment in visualizing the locations of things.
+        </div>
+    <div id="grid" class="clearfix">
+    {{ html|safe }}
+    </div> <!-- #container -->
+    <script type='text/javascript'>
+      var grid = new Masonry('#grid', {
+        itemSelector: '.box',
+        columnWidth: 100,
+        isAnimated: true
+      });
+      $(".show").click(function (event) {
+        event.preventDefault();
+        // var ele = document.getElementById($(this));
+        var loc = this.dataset.loc;
+        var ele = document.getElementById(loc);
+        if (ele.style.display == 'none') {
+          ele.style.display = 'block';
+          var thisw = ele.offsetWidth;
+          var p = ele.parentElement;
+          p.style.width = thisw;
+        } else {
+          ele.style.display = 'none';
+        }
+        grid.layout();
+      });
+    </script>
+    <footer id="site-footer">Written by <a href="http://johnblowe.com">John B. Lowe</a>, October 2012,
+        using <a href="http://masonry.desandro.com/">jQuery Masonry</a>
+    </footer>
+    </div>
+{% endblock %}
