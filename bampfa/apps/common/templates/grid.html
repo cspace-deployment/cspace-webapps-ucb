@@ -3,13 +3,18 @@
     {% for item in items %}
     <div class="grid">
         <div class="tiny" style="padding-bottom: 4px;">
-            <input type="checkbox" name="item-{{ item.counter }}" value="{{ item.csid }}" checked>
+            <input type="checkbox" class="sel-item" name="item-{{ item.counter }}" value="{{ item.csid }}" data-grouper="{{ item.accession }}" checked>
             <a href="?maxresults=1&displayType=full&{{ item.accessionfield }}={{ item.accession }}">{{ item.accession }}</a>
         </div>
         {% if item.blobs %}
             <div>
                 {% for t in item.blobs %}
-                    <a target="image" href="{{ imageserver }}/blobs/{{ t }}/derivatives/Medium/content"><img style="max-height:{{ sizegrid }}; padding: 0px 4px 4px 0px;" src="{{ imageserver }}/blobs/{{ t }}/derivatives/{{ derivativegrid }}/content"/></a>
+                    {% if forloop.counter <= 4 %}
+                        <a target="image" href="{{ imageserver }}/blobs/{{ t }}/derivatives/Medium/content"><img style="max-height:{{ sizegrid }}; padding: 0px 4px 4px 0px;" src="{{ imageserver }}/blobs/{{ t }}/derivatives/{{ derivativegrid }}/content"/></a>
+                    {% elif forloop.counter == 5 %}
+                        <p class="tiny">[ ... {{ forloop.counter }} more images]</p>
+                    {% endif %}
+                {% endfor %}
                 {% endfor %}
             </div>
         {% else %}
