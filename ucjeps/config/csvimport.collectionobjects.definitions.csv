@@ -24,16 +24,17 @@
 21		numberValue	otherNumber	literal									
 22	basisOfRecord							1	24	1	79328		
 23	scientificName	taxon		refname		taxonomyauthority/87036424-e55f-4e39-bd12		16	22	3102	79328		
-24	main_collector	fieldCollectionNumberAssignor		refname		orgauthorities/6d89bda7-867a-4b97-b22f	'urn:cspace:ucjeps.cspace.berkeley.edu:orgauthorities:name(organization)''Default Organization Authority'''						
+24	main_collector	fieldCollectionNumberAssignor		refname		orgauthorities/6d89bda7-867a-4b97-b22f	urn:cspace:ucjeps.cspace.berkeley.edu:orgauthorities:name(organization)'Default Organization Authority'						
 25	catalogNumber	objectNumber		key				23	24	79310	79328		
 25	all_collectors	fieldCollector		refname		orgauthorities/6d89bda7-867a-4b97-b22f							
 26	coll_num	fieldCollectionNumber		literal									
 27	projectNumber	projectNumber		literal									
-27	projectRefName	projectRefName	'urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(CSpaceProjectCode1536082165062)''Project Code'''	constant	projectNumber	vocabularies/dad35f58-5112-4485-9a5c							
+27	projectRefName	projectRefName	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(CSpaceProjectCode1536082165062)'Project Code'	constant	projectNumber	vocabularies/dad35f58-5112-4485-9a5c							
 27	occurrenceID	occurrenceID		literal				24	24	79328	79328	symbiota GUID	othernumber??
-27	symbiotaGUID	symbiotaGUID	'urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(SymbiotaGUID1533235580178)''Symbiota GUID'''	literal								“symbiota GUID”	numbertype??
-27	otherCatalogNumbers	otherCatalogNumber		literal				7	7	2331	2386		
-27	oldInstAccNo	oldInstAccNo	'urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(numbertype09)''Old Institution Accession Number'''	constant	otherCatalogNumber	vocabularies/dad35f58-5112-4485-9a5c						“old instituion accession number”	numbertype??
+27	symbiotaGUID	symbiotaGUID		literal								“symbiota GUID”	numbertype??
+27	symbiotaGUIDrefName	symbiotaGUIDrefName	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(SymbiotaGUID1533235580178)'Symbiota GUID'	constant	symbiotaGUID							“symbiota GUID”	numbertype??
+27	otherCatalogNumbers	otherCatalogNumbers		literal				7	7	2331	2386		
+27	oldInstAccNo	oldInstAccNo	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(numbertype09)'Old Institution Accession Number'	constant	otherCatalogNumbers	vocabularies/dad35f58-5112-4485-9a5c						“old instituion accession number”	numbertype??
 27	# textual info	##################################											
 28	# kingdom	kingdom					taxon field	2	21				
 29	comments	comment		literal									
@@ -73,7 +74,7 @@
 50	recordNumber	fieldCollectionNumber		literal				13	22	21888	58160		
 51	eventDate	fieldCollectionDateScalar		date									
 51	# determination info	##################################											
-52	determinedby	identBy		refname		orgauthorities/751023ec-d953-45f9-a0a8	'urn:cspace:ucjeps.cspace.berkeley.edu:orgauthorities:name(determination)''Determination Organization Authority'''						
+52	determinedby	identBy		refname		orgauthorities/751023ec-d953-45f9-a0a8	urn:cspace:ucjeps.cspace.berkeley.edu:orgauthorities:name(determination)'Determination Organization Authority'						
 52	year						redundant	15	20				
 53	det_day	dateLatestDay	identDateGroup	integer									
 54	det_month	dateLatestMonth	identDateGroup	integer			needswork						

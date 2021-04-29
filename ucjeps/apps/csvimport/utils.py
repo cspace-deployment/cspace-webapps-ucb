@@ -285,7 +285,7 @@ def check_cell_in_cspace(mapping_key, key, value):
     elif mapping_key[2] == 'key':
         return 0, 'key', value
     elif mapping_key[2] == 'refname':
-        refname = rest_query(value, '%s/items' % mapping_key[5])
+        refname = rest_query(value, '%s/items' % mapping_key[5], 'fullsearch')
         if refname[0] != 'OK':
             return 1, "refname for '%s' not found" % value, refname
         else:
@@ -456,7 +456,7 @@ def check_key(key_checks, action, uri, in_progress):
             result_keys[k] = key_checks[k][1]
             result_keys[key_checks[k][3]] = key_checks[k][1]
         else:
-            refname = rest_query(k, uri)
+            refname = rest_query(k, uri , 'kwonly')
             if recordsprocessed % 1000 == 0:
                 in_progress.write("%s keys checked of %s, %s\n" % (recordsprocessed, len(key_checks.keys()), time.strftime("%b %d %Y %H:%M:%S", time.localtime())))
                 in_progress.flush()
@@ -570,7 +570,7 @@ def extract_refname(xml, term, pgSz, record_type):
         return 'xmlParseFailed X X X X'.split(' '), totalItems
 
 
-def rest_query(term, record_type):
+def rest_query(term, record_type, query_type):
     pgSz = 100
     search_term = normalize(term)
     response = do_query('kw', search_term, record_type, pgSz)
@@ -581,7 +581,7 @@ def rest_query(term, record_type):
     if totalitems > pgSz and refname_result[0] != 'OK':
         loginfo('csvimport', '%s term %s (=%s) returned %s for kw search, only %s examined. status is %s.' % (record_type, term, search_term, totalitems, pgSz, refname_result[0]), {}, {})
     # hail mary: do a pt search if kw fails (but not in vocabularies -- doesn't work)
-    if refname_result[0] != 'OK' and (refname_result[0] != 'ZeroResults' or refname_result[0] != 'NoMatch') and 'vocabularies' not in record_type:
+    if refname_result[0] != 'OK' and (refname_result[0] != 'ZeroResults' or refname_result[0] != 'NoMatch') and 'vocabularies' not in record_type and query_type != 'kwonly':
         loginfo('csvimport', 'fallback: %s term %s (=%s) trying pt search.' % (record_type, term, search_term), {}, {})
         # TODO: seems any authority search will only bring back 100...
         response = do_query('pt', term, record_type, 100)
