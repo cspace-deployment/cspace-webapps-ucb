@@ -48,6 +48,7 @@ def taxoneditor(request):
     determinations = ''
     multipleresults = []
     sources = ['COL','CSpace', 'GBIF', 'Tropicos']
+    checked_sources = sources
 
     if request.method == 'POST':
         determinations = request.POST[formfield]
@@ -178,15 +179,21 @@ def taxoneditor(request):
                 if len(names2use) > numberWanted:
                     names2use = names2use[:numberWanted]
                 for name in names2use:
+                    # skip names without an id -- the are 'defective' for this purpose
+                    if 'id' not in name:
+                        continue
                     sequence_number += 1
                     # get phylum from both?!
                     r = []
                     x = {'family': '', 'phylum': ''}
-                    name_list = name['classification']
-                    for n in name_list:
-                        for p in x:
-                            if p in n['rank']:
-                                x[p] = n['name']
+                    if 'classification' in name:
+                        name_list = name['classification']
+                        for n in name_list:
+                            for p in x:
+                                if p in n['rank']:
+                                    x[p] = n['name']
+                    else:
+                        name_list = []
                     for i,fieldname in enumerate('X family majorgroup termDisplayName termName CommonName termSource termSourceID'.split(' ')):
                         for name_part in name_list:
                             if fieldname in name_part['rank']:
@@ -214,7 +221,7 @@ def taxoneditor(request):
                                                 'labels': labels, 'multipleresults': multipleresults, 'taxa': determinations,
                                                 'suggestsource': 'solr',
                                                 'sources': sources,
-                                                'checked_sources': sources,
+                                                'checked_sources': checked_sources,
                                                 'institution': tenant,
                                                 'cspaceserver': cspaceserver,
                                                 'csrecordtype': 'taxon',
@@ -252,6 +259,8 @@ def create_taxon(request):
     taxonCSID = ''
     try:
         (url, data, taxonCSID, elapsedtime) = connection.postxml(uri=uri, payload=payload, requesttype='POST')
+        if data is None:
+            messages['error'] = "got HTTP response %s for POST to %s; don't think it worked. " % (taxonCSID, uri)
         messages['item'] = request.POST['item']
         messages['csid'] = taxonCSID
     except:
