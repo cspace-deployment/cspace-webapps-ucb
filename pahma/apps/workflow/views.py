@@ -76,7 +76,7 @@ def workflow(request):
                     else:
                         objectNumber = 'No object number'
                     hostname = '%s://%s' % (connection.protocol, connection.hostname)
-                    link = '%s/collectionspace/ui/%s/html/cataloging.html?csid=%s' % (hostname, connection.tenant, csid)
+                    link = '%s/cspace/%s/all/%s' % (hostname, connection.tenant, csid)
                     outputrow.append(link)
                     outputrow.append(objectNumber)
                     additionalfields = []
