@@ -3,15 +3,20 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.3-rc2
-Thu Apr 29 13:40:45 PDT 2021
+This is version 6.1.3-rc3
+Wed May 12 05:46:37 PDT 2021
 
-0fe897e (HEAD -> master) CSW-445: minor updates to csvimport for upcoming ucjeps imports
+0b971b0 (HEAD -> master) CSW-460: use 'modern' cspace urls for webapp outlinks
+7b56882 (origin/master, origin/HEAD) CSW-459: handle exception CoL API data conditions in taxon editor
+5163774 CSW-431: code reformat only
+a0b0113 CSW-431: close template form loop properly
+47ba40f (tag: 6.1.3-rc2) revise change log and VERSION file for version 6.1.3-rc2
+0fe897e CSW-445: minor updates to csvimport for upcoming ucjeps imports
 7033036 CSW-449: adjust fields in ucbg csv export, adjust search forms
 35a47fa CSW-431: add class="sel-item" where it is needed to make grouper work
 07c93a7 CC-1646: additional code for visualizing locations
 e9d22b6 CSW-459: initial scaffolding for adding 'col' to taxon editor
-2a9b6f2 (tag: 6.1.3-rc1, origin/master, origin/HEAD) revise change log and VERSION file for version 6.1.3-rc1
+2a9b6f2 (tag: 6.1.3-rc1) revise change log and VERSION file for version 6.1.3-rc1
 7a356d0 CSW-451: revise validation configs for ucjeps csvimport
 12bccf6 CSW-451: revise validation of integer and float checking in csvimport
 b01f467 CSW-449: add 'short' provenance type to ucbg portal parms
