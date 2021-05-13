@@ -95,7 +95,7 @@ def doQuery(request, context):
             chunk['items'] = items
             table.append(chunk)
 
-    elif appname in 'objdetails objinfo'.split(' '):
+    elif appname == 'objinfo':
         pass
 
     elif appname in 'grpinfo grpmove'.split(' '):

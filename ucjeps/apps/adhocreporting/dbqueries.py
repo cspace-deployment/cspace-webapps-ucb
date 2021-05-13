@@ -486,42 +486,6 @@ WHERE pog.anthropologyplaceowner LIKE '""" + refname + "%'"
     cursor.execute(query)
     return cursor.fetchone()
 
-def getObjDetailsByOwner(config, owner):
-
-    query = """SELECT DISTINCT cc.objectnumber AS "Museum No.",
-    cp.sortableobjectnumber AS "sort number",
-    cc.numberofobjects AS "pieces",
-    ong.objectname AS "object name",
-    fcd.datedisplaydate AS "collection date",
-    STRING_AGG(DISTINCT(ac.acquisitionreferencenumber), ', ') AS "Acc. No.",
-    REGEXP_REPLACE(fcp.item, '^.*\)''(.*)''$', '\\1') AS "site",
-    REGEXP_REPLACE(pog.anthropologyplaceowner, '^.*\)''(.*)''$', '\\1') AS "site owner",
-    pog.anthropologyplaceownershipnote AS "ownership note", pc.placenote AS "place note"
-FROM collectionobjects_common cc
-JOIN collectionobjects_pahma cp ON (cc.id = cp.id)
-JOIN collectionobjects_pahma_pahmafieldcollectionplacelist fcp ON (fcp.id = cc.id)
-JOIN misc ms ON (ms.id = cc.id AND ms.lifecyclestate <> 'deleted')
-JOIN places_common pc ON (pc.refname = fcp.item)
-JOIN hierarchy h1 ON (h1.parentid = pc.id AND h1.name = 'places_anthropology:anthropologyPlaceOwnerGroupList')
-JOIN anthropologyplaceownergroup pog ON (pog.id = h1.id)
-FULL OUTER JOIN hierarchy h2 ON (h2.parentid = cc.id AND h2.name = 'collectionobjects_common:objectNameList' AND h2.pos = 0)
-FULL OUTER JOIN objectnamegroup ong ON (ong.id = h2.id)
-FULL OUTER JOIN hierarchy h3 ON (h3.id = cc.id)
-FULL OUTER JOIN relations_common rc ON (rc.subjectcsid = h3.name AND rc.objectdocumenttype = 'Acquisition')
-FULL OUTER JOIN hierarchy h4 ON (h4.name = rc.objectcsid)
-FULL OUTER JOIN acquisitions_common ac ON (ac.id = h4.id)
-FULL OUTER JOIN hierarchy h5 ON (h5.parentid = cc.id AND h5.pos = 0 AND h5.name = 'collectioncursor_pahma:pahmaFieldCollectionDateGroupList')
-FULL OUTER JOIN structureddategroup fcd ON (fcd.id = h5.id)
-WHERE REGEXP_REPLACE(pog.anthropologyplaceowner, '^.*\)''(.*)''$', '\\1') ILIKE '%""" + owner + """%'
-OR (pog.anthropologyplaceowner IS NULL AND pog.anthropologyplaceownershipnote ILIKE '%""" + owner + """%')
-GROUP BY cc.objectnumber, cp.sortableobjectnumber, cc.numberofobjects, ong.objectname, fcd.datedisplaydate, fcp.item, pog.anthropologyplaceowner, pog.anthropologyplaceownershipnote, pc.placenote
-ORDER BY REGEXP_REPLACE(fcp.item, '^.*\)''(.*)''$', '\\1'), pog.anthropologyplaceownershipnote, cp.sortableobjectnumber
-"""
-
-    cursor.execute(query)
-    # return cursor.fetchall()
-    return [list(item) for item in cursor.fetchall()]
-
 
 if __name__ == "__main__":
 

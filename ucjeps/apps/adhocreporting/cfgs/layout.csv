@@ -81,11 +81,7 @@
 78	moveobject	move	Move objects	start	button	end			
 79	moveobject	start	Search	start	button	movecheck			
 80	moveobject	movecheck	Move objects	start	button	move			
-81	#								
-82	objdetails	objectnumber	Museum Number	start	text	40	ob	1	1
-83	objdetails	enumerate	Search	start	button	end			
-84	objdetails	start	Search	start	button	enumerate			
-85	#								
+85	#
 86	objinfo	object.start	Start Object	start	text	32	ob	1	1
 87	objinfo	object.end	End Object	start	text	32	ob	1	2
 88	objinfo	fieldset	Fieldset	start	dropdown	fieldset		1	3
