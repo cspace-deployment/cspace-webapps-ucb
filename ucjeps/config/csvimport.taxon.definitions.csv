@@ -16,8 +16,8 @@
 16	phylum	phylum		literal			taxon field	3	21
 17	class	class		literal			taxon field	3	21
 18	family	taxon_naturalhistory/family		refname		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	10	21
-19	scientificName	taxon		refname		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	16	22
-52	scientificName	taxon		key		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	16	22
+19	taxon	termDisplayName		literal			taxon field	13	21
+52	scientificName	key		key		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	16	22
 20	majorgroup	taxon_ucjeps/taxonMajorGroup		literal			cspace field only		
 21	taxonID						taxon field	15	21
 22	scientificNameAuthorship	taxonAuthor		literal			taxon field	13	21

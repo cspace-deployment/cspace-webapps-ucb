@@ -7,13 +7,13 @@ import requests
 import urllib
 from collections import Counter
 from requests.auth import HTTPBasicAuth
-from xml.etree.ElementTree import tostring, fromstring
+from xml.etree.ElementTree import tostring, fromstring, Element
 
 import configparser
 from copy import deepcopy
 from xml.sax.saxutils import escape
 
-from common.utils import deURN, loginfo
+from common.utils import deURN
 
 import time
 import re
@@ -28,8 +28,24 @@ config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'csvimport')
 institution = config.get('info', 'institution')
 sys.path.append(f'../../{institution}')
 
-
 static_lists = get_lists(path.join(settings.BASE_DIR, f'config/csvimport.cspace-ui-config.json'))
+
+
+def loginfo(webapp, infotype, context, request):
+    if webapp: pass
+    logdata = ''
+    if 'count' in context:
+        count = context['count']
+    else:
+        count = '-'
+    if 'querystring' in context:
+        logdata = context['querystring']
+    if 'url' in context:
+        logdata += ' url: %s' % context['url']
+    if 'elapsed_time' in context:
+        logdata += ' elapsed_time: %s' % context['elapsed_time']
+    print('%s :: %s :: %s :: %s' % (webapp, infotype, count, logdata))
+
 
 # this hack provides a means to 'overlay' existing static lists with other lists.
 # it is specifically implemented to allow the recoding of 'stateProvince' values for UCJEPS
@@ -887,17 +903,26 @@ def DWC2CSPACE(action, xmlTemplate, input_dataDict, config, uri):
 
 def update_xml(payload, input_dataDict, INSTITUTION, action):
     xml = fromstring(payload)
+    #xmlRoot = xml.getroot()
     for tag in input_dataDict:
         # skip unwanted fields...
+        xml_path = tag.split('/')
         if tag in 'key csid unmapped'.split(' '): continue
-        element = xml.find('.//%s' % tag)
+        element = xml.find('.//%s' % xml_path[-1:][0])
         value = input_dataDict[tag]
         if element is None:
             if value == '':
                 pass
             else:
-                loginfo('csvimport', 'tag %s not found, no update made' % tag, {}, {})
-                loginfo('csvimport', 'wanted to insert: %s' % value, {}, {})
+                add_element = Element(xml_path[0])
+                leaf = Element(xml_path[0])
+                # extend element if necessary
+                for i, t in enumerate(xml_path[1:]):
+                    leaf = Element(t)
+                    add_element.append(leaf)
+                leaf.text = value
+                xml.append(add_element)
+                # loginfo('csvimport', 'tag %s added' % tag, {}, {})
         else:
             if value != '':
                 element.text = value
