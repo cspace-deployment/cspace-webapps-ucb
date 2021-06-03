@@ -66,4 +66,4 @@ field	55	prodplace	Production Place	objpp_ss			keyword					9				x
 field	56	maker	Maker / Artist	objmaker_ss			keyword	3,2				34			43	x
 field	57	deaccessioned	Deaccessioned?	deaccessioned_s			dropdown	8,3				35			44	x
 field	58	updatedat	Updated at	updatedat_s			string	11,2				36			45	x
-field	59	loaninfo	Loans	loan_info_ss			keyword	10,3				31			46	x
+field	59	loaninfo	Loans	loan_info_all_ss			keyword	10,3				31			46	x
