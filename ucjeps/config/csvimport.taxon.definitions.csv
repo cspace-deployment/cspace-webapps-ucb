@@ -1,60 +1,32 @@
-1	#################################################################								
-2	# DWC to Cspace field name mapping								
-3	# being a specification of how to match DarwinCore fields to UCJEPS Cspace fields								
-4	# Columns								
-5	# 	A	sequence number. Only facultative.						
-6	# 	B	DWC field name						
-7	# 	C	Cspace fieldname						
-8	# 	D	Additional Info						
-9	# 	E	datatype of the element						
-10	# 	F	type of check to peform						
-11	# 	G	Cspace authority name (including CSID)						
-12	# 	H	Remarks (ignored by the program)						
-13	#################################################################								
-14	# Darwin Core field name	Cspace taxon field	Additional Info	data type	if exists	authority	remarks		
-15	kingdom	kingdom		literal			taxon field	2	21
-16	phylum	phylum		literal			taxon field	3	21
-17	class	class		literal			taxon field	3	21
-18	family	taxon_naturalhistory/family		refname		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	10	21
-19	taxon	termDisplayName		literal			taxon field	13	21
-52	scientificName	key		key		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	16	22
-20	majorgroup	taxon_ucjeps/taxonMajorGroup		literal			cspace field only		
-21	taxonID						taxon field	15	21
-22	scientificNameAuthorship	taxonAuthor		literal			taxon field	13	21
-23	genus						taxon field	15	21
-24	specificEpithet						taxon field	11	14
-25	taxonRank	taxonRank		refname		vocabularies/3db08631-78ed-4294-a3dc	taxon field	0	0
-26	infraspecificEpithet						taxon field	0	0
-27	taxonRemarks						taxon field	0	0
-28		taxonomicIdentHybridName					cspace field only		
-29		taxonomicIdentHybridParent					cspace field only		
-31		taxonomicIdentHybridParentQualifier					cspace field only		
-32		taxonomicRange					cspace field only		
-33		proposed					cspace field only		
-34		taxonAuthor					cspace field only		
-35		taxonAuthorType					cspace field only		
-36		TaxonCitationList/taxonCitation					cspace field only		
-37		taxonCurrency					cspace field only		
-38		taxonIsNamedHybrid					cspace field only		
-39		taxonomicStatus					cspace field only		
-41		taxonRecordTypes					cspace field only		
-42		termFlag					cspace field only		
-43		termLanguage					cspace field only		
-44		termName					cspace field only		
-45		termPrefForLang					cspace field only		
-46		termQualifier					cspace field only		
-47	source	termSource		refname		vocabularies/2ef8db1a-d4d6-4c86-b2b4	cspace field only		
-48		termSourceDetail					cspace field only		
-49	sourceID	termSourceID		literal			cspace field only		
-50		termSourceNote					cspace field only		
-51		termStatus					cspace field only		
-52		termType					cspace field only		
-78		coordUncertaintyUnit							
-79		coordinateSystem							
-80		taxonIdentKind							
-81	basionym	taxon_naturalhistory/taxonBasionym		refname		taxonomyauthority/87036424-e55f-4e39-bd12	cspace field only		
-82		taxonTermSource							
-83		taxonTermStatus							
-84		taxonTermType							
-85		taxonomicStatus							
-86		typeSpecimenKind							
+1	#################################################################									x
+2	# DWC to Cspace field name mapping									x
+3	# being a specification of how to match DarwinCore fields to UCJEPS Cspace fields									x
+4	# Columns									x
+5	# 	A	sequence number. Only facultative.							x
+6	# 	B	DWC field name							x
+7	# 	C	Cspace fieldname							x
+8	# 	D	Additional Info							x
+9	# 	E	datatype of the element							x
+10	# 	F	type of check to peform							x
+11	# 	G	Cspace authority name (including CSID)							x
+12	# 	H	Remarks (ignored by the program)							x
+13	#################################################################									x
+14	# Darwin Core field name	Cspace taxon field	Additional Info	data type	if exists	authority	remarks			x
+15	kingdom	kingdom		literal			taxon field	2	21	x
+16	phylum	phylum		literal			taxon field	3	21	x
+17	class	class		literal			taxon field	3	21	x
+18	family	taxon_naturalhistory/family		refname		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	10	21	x
+19	taxon	termDisplayName		literal			taxon field	13	21	x
+52	scientificName	key		key		taxonomyauthority/87036424-e55f-4e39-bd12	taxon field	16	22	x
+20	majorgroup	taxon_ucjeps/taxonMajorGroup		literal			cspace field only			x
+21	taxonID			literal			taxon field	15	21	x
+22	scientificNameAuthorship	taxonAuthor		literal			taxon field	13	21	x
+23	genus			literal			taxon field	15	21	x
+24	specificEpithet			literal			taxon field	11	14	x
+25	taxonRank	taxonRank		refname		vocabularies/3db08631-78ed-4294-a3dc	taxon field	0	0	x
+26	infraspecificEpithet			literal			taxon field	0	0	x
+27	taxonRemarks			literal			taxon field	0	0	x
+81	basionym	taxon_naturalhistory/taxonBasionym		refname		taxonomyauthority/87036424-e55f-4e39-bd12	cspace field only			x
+47	source	termSource		refname		vocabularies/2ef8db1a-d4d6-4c86-b2b4	cspace field only			x
+49	sourceID	termSourceID		literal			cspace field only			x
+										x
