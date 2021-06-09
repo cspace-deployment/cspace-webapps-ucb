@@ -3,10 +3,12 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.3-rc5
-Wed Jun  2 17:37:19 PDT 2021
+This is version 6.1.3
+Wed Jun  9 08:46:21 PDT 2021
 
-4f1cf77 (HEAD -> master, origin/master, origin/HEAD) CSW-466: update taxon records properly (add fields if they don't exist)
+e77af9f (HEAD -> master, origin/master, origin/HEAD) CSW-478: the internal portal has to use the new value loan_info_all_ss
+8ec6baa (tag: 6.1.3-rc5) revise change log and VERSION file for version 6.1.3-rc5
+4f1cf77 CSW-466: update taxon records properly (add fields if they don't exist)
 9013bf3 CSW-464: update csvimport taxon definitions
 5f22aaa NOJIRA: eliminate cruft in the legacy 'ad hoc reporting' webapp
 7eedfff (tag: 6.1.3-rc4) revise change log and VERSION file for version 6.1.3-rc4
