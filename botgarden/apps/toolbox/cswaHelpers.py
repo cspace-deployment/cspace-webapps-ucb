@@ -41,7 +41,7 @@ def makeObjectLink(config, csid, objectnumber):
     institution = config.get('info', 'institution')
     port = ''
     protocol = 'https'
-    link = protocol + '://' + hostname + port + '/cspace/' + institution + '/record/all/%s' % csid
+    link = protocol + '://' + hostname + port + '/cspace/' + institution.replace('botgarden', 'ucbg') + '/record/all/%s' % csid
     return """<a target="cspace" href="%s">%s</a>""" % (link, objectnumber)
 
 
