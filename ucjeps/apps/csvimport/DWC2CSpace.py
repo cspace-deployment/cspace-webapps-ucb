@@ -196,7 +196,7 @@ def main():
 
         validating_items, nonvalidating_items, stats, number_check= validate_items(mapping, constants,
                                                                                           inputRecords, file_header, uri,
-                                                                                          in_progress, action, keyrow)
+                                                                                          in_progress, action, keyrow, keyfield)
 
         ok_count, bad_count, bad_values = count_stats(stats, mapping)
         not_found, found, total = count_numbers(number_check)
@@ -209,10 +209,9 @@ def main():
             x = not_found
             found = not_found
             not_found = x
-            bad_count == 0
+            bad_count = 0
 
         if bad_count != 0:
-            print
             print("validation failed (%s field(s) had %s value(s) in error)" % (bad_count, bad_values))
             # print("cowardly refusal to write invalid output file")
             # sys.exit(1)

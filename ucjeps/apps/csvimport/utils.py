@@ -32,19 +32,7 @@ static_lists = get_lists(path.join(settings.BASE_DIR, f'config/csvimport.cspace-
 
 
 def loginfo(webapp, infotype, context, request):
-    if webapp: pass
-    logdata = ''
-    if 'count' in context:
-        count = context['count']
-    else:
-        count = '-'
-    if 'querystring' in context:
-        logdata = context['querystring']
-    if 'url' in context:
-        logdata += ' url: %s' % context['url']
-    if 'elapsed_time' in context:
-        logdata += ' elapsed_time: %s' % context['elapsed_time']
-    print('%s :: %s :: %s :: %s' % (webapp, infotype, count, logdata))
+    print('%s :: %s' % (webapp, infotype))
 
 
 # this hack provides a means to 'overlay' existing static lists with other lists.
@@ -414,7 +402,7 @@ def find_keyfield(CSPACE_MAPPING, file_header):
     keyrow = -1
     keyfield = None
     for field in CSPACE_MAPPING:
-        if CSPACE_MAPPING[field][2] == 'key':
+        if 'key' in CSPACE_MAPPING[field][2]:
             keyfield = CSPACE_MAPPING[field][0]
             # handle specical case: 'aliases'
             if field[0] == '=':
@@ -436,7 +424,7 @@ def check_both(field, keyfield,file_header):
         return None, -1
 
 
-def validate_items(CSPACE_MAPPING, constants, input_data, file_header, uri, in_progress, action, keyrow):
+def validate_items(CSPACE_MAPPING, constants, input_data, file_header, uri, in_progress, action, keyrow, keyfield):
 
     stats = validate_columns(CSPACE_MAPPING, input_data, file_header, in_progress)
 
@@ -445,7 +433,11 @@ def validate_items(CSPACE_MAPPING, constants, input_data, file_header, uri, in_p
 
 
     # first, check the key field to see if records with these keys exist in cspace
-    key_checks = check_key(stats[0][keyrow][7], action, uri, in_progress)
+    if uri != 'collectionobjects':
+        uri2 = f'{CSPACE_MAPPING[keyfield][5]}/items'
+    else:
+        uri2 = uri
+    key_checks = check_key(stats[0][keyrow][7], action, uri2, in_progress)
 
     for i,row in enumerate(input_data):
         output_row = []
@@ -454,7 +446,7 @@ def validate_items(CSPACE_MAPPING, constants, input_data, file_header, uri, in_p
             validation_status, mapped_row = map2cspace(CSPACE_MAPPING,cell, j, stats, file_header)
             validated += validation_status
             output_row.append(mapped_row)
-        output_row += extract_constants(constants, row, file_header)
+        # output_row += extract_constants(constants, row, file_header)
         if not record_existence_check(key_checks, row, keyrow, action):
             validated += 1
         if validated == 0:
@@ -468,18 +460,17 @@ def check_key(key_checks, action, uri, in_progress):
     result_keys = {}
     for recordsprocessed, k in enumerate(key_checks):
         if action == 'validate-update' and uri == 'taxon':
-            # TODO: we shouldn't need both the refname and the display name as keys here.
-            result_keys[k] = key_checks[k][1]
-            result_keys[key_checks[k][3]] = key_checks[k][1]
+            query_depth = ''
         else:
-            refname = rest_query(k, uri , 'kwonly')
-            if recordsprocessed % 1000 == 0:
-                in_progress.write("%s keys checked of %s, %s\n" % (recordsprocessed, len(key_checks.keys()), time.strftime("%b %d %Y %H:%M:%S", time.localtime())))
-                in_progress.flush()
-            if refname[0] != 'ZeroResults':
-                result_keys[k] = refname[1]
-            else:
-                result_keys[k] = ''
+            query_depth = 'kwonly'
+        refname = rest_query(k, uri , query_depth)
+        if recordsprocessed % 1000 == 0:
+            in_progress.write("%s keys checked of %s, %s\n" % (recordsprocessed, len(key_checks.keys()), time.strftime("%b %d %Y %H:%M:%S", time.localtime())))
+            in_progress.flush()
+        if refname[0] != 'ZeroResults':
+            result_keys[k] = refname[1]
+        else:
+            result_keys[k] = ''
     return result_keys
 
 
@@ -594,23 +585,23 @@ def rest_query(term, record_type, query_type):
         error_msg = "HTTP%s X X X X" % response.status_code
         return error_msg.split(' ')
     refname_result, totalitems = extract_refname(response.content, term, pgSz, record_type)
-    if totalitems > pgSz and refname_result[0] != 'OK':
-        loginfo('csvimport', '%s term %s (=%s) returned %s for kw search, only %s examined. status is %s.' % (record_type, term, search_term, totalitems, pgSz, refname_result[0]), {}, {})
+    #if totalitems > pgSz and refname_result[0] != 'OK':
+    #    loginfo('csvimport', '%s term %s (=%s) returned %s for kw search, only %s examined. status is %s.' % (record_type, term, search_term, totalitems, pgSz, refname_result[0]), {}, {})
     # hail mary: do a pt search if kw fails (but not in vocabularies -- doesn't work)
     if refname_result[0] != 'OK' and (refname_result[0] != 'ZeroResults' or refname_result[0] != 'NoMatch') and 'vocabularies' not in record_type and query_type != 'kwonly':
-        loginfo('csvimport', 'fallback: %s term %s (=%s) trying pt search.' % (record_type, term, search_term), {}, {})
+        # loginfo('csvimport', 'fallback: %s term %s (=%s) trying pt search.' % (record_type, term, search_term), {}, {})
         # TODO: seems any authority search will only bring back 100...
         response = do_query('pt', term, record_type, 100)
-        refname_result, totalitems = extract_refname(response.content, term, pgSz, record_type)
-        if totalitems > 100:
-            loginfo('csvimport', '%s term %s returned %s for pt search, only %s examined. status is %s.' % (record_type, term, totalitems, pgSz, refname_result[0]), {}, {})
+        #if totalitems > 100:
+        #    loginfo('csvimport', '%s term %s returned %s for pt search, only %s examined. status is %s.' % (record_type, term, totalitems, pgSz, refname_result[0]), {}, {})
         if response.status_code != 200:
             error_msg = "HTTP%s X X X X" % response.status_code
             return error_msg.split(' ')
-        if refname_result[0] == 'OK':
-            loginfo('csvimport', 'fallback for %s worked!' % term, {}, {})
-        else:
-            loginfo('csvimport', 'fallback for %s failed: %s' % (term, refname_result[0]), {}, {})
+        refname_result, totalitems = extract_refname(response.content, term, pgSz, record_type)
+        #if refname_result[0] == 'OK':
+        #    loginfo('csvimport', 'fallback for %s worked!' % term, {}, {})
+        #else:
+        #    loginfo('csvimport', 'fallback for %s failed: %s' % (term, refname_result[0]), {}, {})
     return refname_result
 
 
@@ -684,15 +675,9 @@ def write_intermediate_files(stats, validating_items, nonvalidating_items, const
                 term_extra += ('OK', s[7][t], '', '', '')
             termsfh.writerow(tuple(term_row) + term_extra)
 
-    cspace_header = ['csid']
-    for h in file_header:
-        if h in mapping:
-            cspace_header.append(mapping[h][0])
-        else:
-            cspace_header.append('unmapped')
+    cspace_header = ['csid'] + file_header
 
-    outputfh.writerow(cspace_header + [c[0] for c in constants])
-    outputfh.writerow(['csid'] + file_header + [c[0] for c in constants])
+    outputfh.writerow(cspace_header)
     for input_data in validating_items:
         try:
             outputfh.writerow([number_check[input_data[keyrow]]] + input_data)
@@ -720,10 +705,6 @@ def write_intermediate_files(stats, validating_items, nonvalidating_items, const
                 loginfo('csvimport', ('|').join(input_data), {}, {})
                 recordsprocessed += 1
                 failures += 1
-                # try:
-                #    loginfo('csvimport', 'could not write: ', number_check[input_data[keyrow]], {}, {})
-                # except:
-                #    pass
 
     return recordsprocessed, successes, failures
 
