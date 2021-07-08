@@ -645,6 +645,50 @@ def getgrouplist(group, num2ret, config):
         ORDER BY storageLocation,objectnumber,hx2.name asc
         limit """ + str(num2ret)
 
+    elif institution == 'botgarden':
+        getobjects = """
+            select distinct on (to_number(objectnumber,'9999.9999'))
+            regexp_replace(mc.currentlocation, '^.*\\)''(.*)''$', '\\1') as storageLocation,
+            '' shortgardenlocation,
+            '' as locationtype,
+            cc.recordstatus,
+            findhybridaffinname(tig.id) as determination,
+            cc.objectnumber,
+            '' as family,
+            hx2.name as objectcsid,
+            '' as rare,
+            '' as deadflag,
+            ''as family,
+            '' as actiondate,
+            '' actionreason,
+            '' as previouslocation,
+            '' as alldeterminations_ss,
+            '' as movementnote,
+            '' as locality_s
+
+
+            FROM groups_common gc
+            JOIN misc mc1 ON (gc.id = mc1.id AND mc1.lifecyclestate <> 'deleted')
+
+            JOIN hierarchy h1 ON (gc.id=h1.id)
+            JOIN relations_common rc1 ON (h1.name=rc1.subjectcsid)
+            JOIN hierarchy hx2 ON (rc1.objectcsid=hx2.name)
+            JOIN collectionobjects_common cc ON (hx2.id=cc.id)
+            
+            left outer join hierarchy htig
+            on (cc.id = htig.parentid and htig.pos = 0 and htig.name = 'collectionobjects_naturalhistory:taxonomicIdentGroupList')
+            left outer join taxonomicIdentGroup tig on (tig.id = htig.id)
+            
+            join relations_common r1 on (hx2.name=r1.subjectcsid and r1.objectdocumenttype='Movement') 
+            join hierarchy h2 on (r1.objectcsid=h2.name) 
+            join movements_common mc on (mc.id=h2.id) 
+
+            WHERE
+            gc.title='""" + group + """'
+            ORDER BY to_number(objectnumber,'9999.9999') asc
+            limit """ + str(num2ret)
+
+
     elif institution == 'ucjeps':
         getobjects =  """
                 select hrc.name,

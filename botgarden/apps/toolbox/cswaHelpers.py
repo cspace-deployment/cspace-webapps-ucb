@@ -545,9 +545,13 @@ def starthtml(form, updateType, config):
             <tr><th><span class="cell">group:</span></th>
             <th><input id="gr.group" class="cell" type="text" size="40" name="gr.group" value="''' + grpinfo + '''" class="xspan"></th>
             <th><span class="cell">to location:</span></th>
-            <th><input id="lo.location" class="cell" type="text" size="40" name="lo.location" value="''' + location + '''" class="xspan"></th></tr>
-            <tr><th><span class="cell">reason:</span></th><th>''' + reasons + '''</th>
-            <th><span class="cell">contact:</span></th><th>''' + handlers + '''</th></tr>'''
+            <th><input id="lo.location" class="cell" type="text" size="40" name="lo.location" value="''' + location + '''" class="xspan"></th></tr>'''
+
+        note = str(form.get("note")) if form.get("note") else ''
+        otherfields += '''<tr>
+        <th><span class="cell">note:</span></th>
+        <th><input id="note" class="cell" type="text" size="40" name="note" value="''' + note + '''" class="xspan"></th>
+        </tr>'''
 
 
     elif updateType == 'powermove':

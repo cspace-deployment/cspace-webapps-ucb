@@ -552,7 +552,7 @@ def doCheckPowerMove(form, config):
     #sys.stderr.write('%-13s:: %-18s:: %s\n' % (updateType, 'toRefName', toRefname))
 
     try:
-        # NB: the movecrate webapp uses the bedlist query for botgarden!
+        # NB: the powermove webapp uses the bedlist query for botgarden!
         objects = cswaDB.getlocations(form.get("lo.location1"), '', 1, config, 'bedlist',institution)
     except:
         raise
@@ -564,7 +564,6 @@ def doCheckPowerMove(form, config):
     totalobjects = 0
     totallocations = 0
 
-    #sys.stderr.write('%-13s:: %s :: %-18s:: %s\n' % (updateType, crate, 'objects', len(objects)))
     for r in objects:
         locationheader = formatRow({'rowtype': 'subheader', 'data': r}, form, config)
         if locationheader in locations:
