@@ -104,6 +104,12 @@ PAGE="""<html lang="en-us">
     </div>
     <br class="clear">
 </div>
+<span style="font-family: Arial; color: #222222;">
+    Committed to
+    <a href="https://dac.berkeley.edu/web-accessibility">accessibility</a>,
+    <a href="https://ophd.berkeley.edu/policies-and-procedures/nondiscrimination-policy-statement">nondiscrimination</a> &amp;
+    <a href="https://security.berkeley.edu/policy/privacy-statement-uc-berkeley-website">privacy</a>
+<span>
 <!-- END Content -->
 <div id="footer"></div>
 <!-- END Container -->
