@@ -174,7 +174,10 @@ def taxoneditor(request):
                 response.encoding = 'utf-8'
 
                 names2use = response.json()
-                names2use = names2use['result']
+                try:
+                    names2use = names2use['result']
+                except:
+                    names2use = []
                 numberofitems = len(names2use)
                 if len(names2use) > numberWanted:
                     names2use = names2use[:numberWanted]
@@ -233,8 +236,11 @@ def load_payload(payload, request, cspace_fields):
         cspace_name = field[0]
         if cspace_name in request.POST.keys():
             if cspace_name == 'termSource':
-                termSourceRefName = taxontermsources[request.POST[cspace_name]]
-                payload = payload.replace('{%s}' % cspace_name, termSourceRefName)
+                try:
+                    termSourceRefName = taxontermsources[request.POST[cspace_name]]
+                    payload = payload.replace('{%s}' % cspace_name, termSourceRefName)
+                except:
+                    payload = payload.replace('{%s}' % cspace_name, 'unrecognized')
             else:
                 payload = payload.replace('{%s}' % cspace_name, html.escape(request.POST[cspace_name]))
 
