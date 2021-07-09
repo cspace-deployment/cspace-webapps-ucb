@@ -108,7 +108,7 @@ PAGE="""<html lang="en-us">
     Committed to
     <a href="https://dac.berkeley.edu/web-accessibility">accessibility</a>,
     <a href="https://ophd.berkeley.edu/policies-and-procedures/nondiscrimination-policy-statement">nondiscrimination</a> &amp;
-    <a href="https://security.berkeley.edu/policy/privacy-statement-uc-berkeley-website">privacy</a>
+    <a href="https://security.berkeley.edu/policy/privacy-statement-uc-berkeley-websites">privacy</a>
 <span>
 <!-- END Content -->
 <div id="footer"></div>
