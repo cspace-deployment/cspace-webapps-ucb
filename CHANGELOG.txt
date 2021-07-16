@@ -3,10 +3,27 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.3
-Wed Jun  9 08:46:21 PDT 2021
+This is version 6.1.4-rc1
+Fri Jul 16 13:51:07 PDT 2021
 
-e77af9f (HEAD -> master, origin/master, origin/HEAD) CSW-478: the internal portal has to use the new value loan_info_all_ss
+b0a957a (HEAD -> master) CSW-463: include csid in input dict for updates
+d49a428 (origin/master, origin/HEAD) CSW-463: remove 'othernumbers' elements in csvimport adds
+1102c11 CSW-463: revise csvimport configuration for 'othernumbers' for ucjeps
+264603e CSW-463: revisions to csvimport configuration files for ucjeps
+d5f2b3a CSW-463: further revisions to csvImport for ucjeps use
+1a21f87 CSW-485: use correct server and CoL URN in taxon editor
+61b8b3e CSW-485: taxon editor no longer bleats when name not found in any resource
+b601306 CSW-486: fix typo in privacy url
+ec44b3a CSW-486: add 3 required links to webapps landing page
+59defe1 CSW-464: further improvements to ucjeps csvimport
+f43ad44 CSW-475: update botgarden toolbox example config file
+c52bea9 CSW-475: add move group to botgarden toolbox
+0858e64 CSW-475: use correct outlinks in botgarden webapps
+e033f7d CSW-475: improvement formatting in botgarden powermove
+a0e5e8c CSW-475: add customized power move modules to botgarden toolbox
+7044606 CSW-475: add power move to botgarden toolbox
+1e4789e (tag: 6.1.3) revise change log and VERSION file for version 6.1.3
+e77af9f CSW-478: the internal portal has to use the new value loan_info_all_ss
 8ec6baa (tag: 6.1.3-rc5) revise change log and VERSION file for version 6.1.3-rc5
 4f1cf77 CSW-466: update taxon records properly (add fields if they don't exist)
 9013bf3 CSW-464: update csvimport taxon definitions
