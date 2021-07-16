@@ -96,7 +96,7 @@ def dump_row(row, error_type, message):
 def load_mapping_file(mapping_file):
     mapping_file = path.join(path.join(settings.BASE_DIR, 'config'), mapping_file)
     delim = '\t'
-    cspace_mapping = {}
+    cspace_mapping = {'csid' : ['csid', 'csid', 'literal', '', 0, '']}
     constants = []
     dump_row('Row InputField CSpaceField X DataType X X'.split(' '), 'Status', 'Message')
     with open(mapping_file, 'r', encoding='utf-8') as f1:
