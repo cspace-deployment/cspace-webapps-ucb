@@ -231,7 +231,7 @@ def main():
         keyfield, keyrow = find_keyfield(mapping, file_header)
         recordtypes = get_recordtypes()
         service = recordtypes[uri][2]
-        recordsprocessed, successes, failures = send_to_cspace(action, inputRecords, file_header, xmlTemplate, outputfh, service, in_progress, keyrow)
+        recordsprocessed, successes, failures = send_to_cspace(action, mapping, inputRecords, recordtypes[uri], file_header, xmlTemplate, outputfh, service, in_progress, keyrow)
 
     print("FINISHED %s records: %s processed, %s successful, %s failures" % (action, recordsprocessed, successes, failures))
     print

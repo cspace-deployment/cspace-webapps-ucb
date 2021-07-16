@@ -110,26 +110,27 @@ def load_mapping_file(mapping_file):
                     dump_row(row, 'Error', 'not enough columns in this row')
                     errors += 1
                     continue
-                row_id, input_field, cspace_field, additional_info, data_type, check_exists, authority, remarks = row[:8]
+                row_id, input_field, cspace_field, additional_info, data_types, check_exists, authority, remarks = row[:8]
                 if input_field == '' or cspace_field == '':
                     #dump_row(row, 'Warning', 'need both an input field name and a cspace field name')
                     continue
                 #input_field = input_field.lower()
-                if not data_type in 'constant static literal refname float integer date key'.split(' '):
-                    dump_row(row, 'Error', 'unrecognized datatype: "%s"' % data_type)
-                    errors += 1
-                    continue
-                if data_type == 'refname' and authority == '':
-                    dump_row(row, 'Error', 'refname specified but no authority provided')
-                    errors += 1
-                    continue
-                if data_type == 'constant':
-                    constants.append([input_field, cspace_field, additional_info, data_type, check_exists, int(row_id), authority])
-                # if the field already exists, make an 'alias' so it can be mapped multiple times
-                if input_field in cspace_mapping:
-                    cspace_mapping['=%s' % cspace_field] = [input_field, additional_info, data_type, check_exists, int(row_id), authority]
-                else:
-                    cspace_mapping[input_field] = [cspace_field, additional_info, data_type, check_exists, int(row_id), authority]
+                for data_type in data_types.split(','):
+                    if not data_type in 'constant static literal refname float integer date key'.split(' '):
+                        dump_row(row, 'Error', 'unrecognized datatype: "%s"' % data_type)
+                        errors += 1
+                        continue
+                    if data_type == 'refname' and authority == '':
+                        dump_row(row, 'Error', 'refname specified but no authority provided')
+                        errors += 1
+                        continue
+                    if data_type == 'constant':
+                        constants.append([input_field, cspace_field, additional_info, data_type, check_exists, int(row_id), authority])
+                    # if the field already exists, make an 'alias' so it can be mapped multiple times
+                    if input_field in cspace_mapping:
+                        cspace_mapping['=%s' % cspace_field] = [input_field, additional_info, data_type, check_exists, int(row_id), authority]
+                    else:
+                        cspace_mapping[input_field] = [cspace_field, additional_info, data_type, check_exists, int(row_id), authority]
             except:
                 dump_row(row, 'Error', 'unknown exception in mapping file')
                 errors += 1
@@ -352,7 +353,7 @@ def validate_cell(CSPACE_MAPPING, key, values):
     return valid_label, num_problems, '; '.join(messages), validated_values
 
 
-def map2cspace(CSPACE_MAPPING, cell, j, stats, header):
+def map2cspace(CSPACE_MAPPING, keyrow, action, cell, j, stats, header):
     stat = stats[0][j]
     value_dict = stat[7]
     result = cell
@@ -361,9 +362,11 @@ def map2cspace(CSPACE_MAPPING, cell, j, stats, header):
         if type(value_dict[cell]) == type([]):
             if value_dict[cell][0] == 'OK':
                 result = value_dict[cell][3]
+            elif keyrow == j and 'add' in action:
+                result = cell
             else:
                 OK = 1
-                result = ''
+                result = cell
         else:
             result = value_dict[cell]
     return OK, result
@@ -390,10 +393,22 @@ def validate_columns(CSPACE_MAPPING, matrix, header, in_progress):
     return stats, 'column types tokens status problems messages types valid_values'.split(' ')
 
 
-def map_items(input_data, file_header, keyrow):
+def map_items(input_data, mapping, recordtypes, file_header, keyrow):
     data_dict = {'key': input_data[keyrow]}
     for i,cell in enumerate(input_data):
-        data_dict[file_header[i]] = cell
+        try:
+            column_name = file_header[i]
+            template_filler = recordtypes[3][0][column_name][0]
+            data_dict[template_filler] = cell
+            # map ambiguous (i.e. repeatable) elements redundantly
+            if recordtypes[3][0][column_name][3] != '':
+                data_dict[recordtypes[3][0][column_name][3]] = cell
+        # this code allows columns to be mapped to more than one cspace field
+            if f'={template_filler}' in mapping:
+                data_dict[mapping[f'={template_filler}'][0]] = cell
+        except:
+            pass
+    add_constants(mapping, data_dict)
     return data_dict
 
 
@@ -406,7 +421,7 @@ def find_keyfield(CSPACE_MAPPING, file_header):
             keyfield = CSPACE_MAPPING[field][0]
             # handle specical case: 'aliases'
             if field[0] == '=':
-                return check_both(field[1:], keyfield,file_header)
+                return check_both(field[1:], keyfield, file_header)
             else:
                 return check_both(field, keyfield,file_header)
     # hmmm... we did not find a keyfield at all. not good, can't continue.
@@ -443,12 +458,13 @@ def validate_items(CSPACE_MAPPING, constants, input_data, file_header, uri, in_p
         output_row = []
         validated = 0
         for j,cell in enumerate(row):
-            validation_status, mapped_row = map2cspace(CSPACE_MAPPING,cell, j, stats, file_header)
+            validation_status, mapped_row = map2cspace(CSPACE_MAPPING, keyrow, action, cell, j, stats, file_header)
             validated += validation_status
             output_row.append(mapped_row)
-        # output_row += extract_constants(constants, row, file_header)
+        ## output_row += extract_constants(constants, row, file_header)
         if not record_existence_check(key_checks, row, keyrow, action):
             validated += 1
+
         if validated == 0:
             validated_items.append(output_row)
         else:
@@ -495,21 +511,12 @@ def record_existence_check(key_checks, row, keyrow, action):
     return record_check
 
 
-def extract_constants(constants, row, file_header):
-    constant_field_values = []
-    for fld in constants:
-        assoc_field_name = fld[4]
-        constant_value = fld[2]
-        if assoc_field_name == '':
-            constant_field_value = constant_value
-        else:
-            constant_field_value = ''
-            if assoc_field_name in file_header:
-                constant_field_index = file_header.index(assoc_field_name)
-                if row[constant_field_index] != '':
-                    constant_field_value = constant_value
-        constant_field_values.append(constant_field_value)
-    return constant_field_values
+def add_constants(mapping, data_dict):
+    for fld in mapping:
+        if mapping[fld][2] == 'constant':
+            assoc_field_name = mapping[fld][0]
+            constant_value = mapping[fld][1]
+            data_dict[fld] = constant_value
 
 
 def check_columns(labels, header, field_map):
@@ -652,7 +659,7 @@ def count_stats(stats, mapping):
                             label = items[item_key][0]
                         else:
                             label = 'invalid value:'
-                    loginfo('csvimport', '  %15s: %s' % (label, item_key), {}, {})
+                    # loginfo('csvimport', '  %15s: %s' % (label, item_key), {}, {})
                     bad_values += 1
 
     return ok_count, bad_count, bad_values
@@ -680,7 +687,7 @@ def write_intermediate_files(stats, validating_items, nonvalidating_items, const
     outputfh.writerow(cspace_header)
     for input_data in validating_items:
         try:
-            outputfh.writerow([number_check[input_data[keyrow]]] + input_data)
+            outputfh.writerow([number_check[deURN(input_data[keyrow])]] + input_data)
             recordsprocessed += 1
             successes += 1
         except:
@@ -691,7 +698,7 @@ def write_intermediate_files(stats, validating_items, nonvalidating_items, const
     nonvalidfh.writerow(['csid'] + file_header)
     for input_data in nonvalidating_items:
         try:
-            nonvalidfh.writerow([number_check[input_data[keyrow]]] + input_data)
+            nonvalidfh.writerow([number_check[deURN(input_data[keyrow])]] + input_data)
             recordsprocessed += 1
             failures += 1
         except:
@@ -708,7 +715,7 @@ def write_intermediate_files(stats, validating_items, nonvalidating_items, const
 
     return recordsprocessed, successes, failures
 
-def send_to_cspace(action, inputRecords, file_header, xmlTemplate, outputfh, uri, in_progress, keyrow):
+def send_to_cspace(action, mapping, inputRecords, recordtypes, file_header, xmlTemplate, outputfh, uri, in_progress, keyrow):
     recordsprocessed = 0
     successes = 0
     failures = 0
@@ -722,7 +729,7 @@ def send_to_cspace(action, inputRecords, file_header, xmlTemplate, outputfh, uri
         cspaceElements = ['', '']
         elapsedtimetotal = time.time()
         try:
-            input_dict = map_items(input_data, file_header, keyrow)
+            input_dict = map_items(input_data, mapping, recordtypes, file_header, keyrow)
             cspaceElements = DWC2CSPACE(action, xmlTemplate, input_dict, config, uri)
             del cspaceElements[2]
             cspaceElements.append('%8.2f' % (time.time() - elapsedtimetotal))
