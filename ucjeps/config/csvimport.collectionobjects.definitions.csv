@@ -21,20 +21,20 @@
 19	# identifying details												
 20	barcodenumber	objectNumber		literal									
 20	collectionCode							0	0	2	79328		
-21		numberValue	otherNumber	literal									
+21	# 	numberValue	otherNumber	literal									
 22	basisOfRecord							1	24	1	79328		
 23	scientificName	taxon		refname		taxonomyauthority/87036424-e55f-4e39-bd12		16	22	3102	79328		
 24	main_collector	fieldCollectionNumberAssignor		refname		orgauthorities/6d89bda7-867a-4b97-b22f	urn:cspace:ucjeps.cspace.berkeley.edu:orgauthorities:name(organization)'Default Organization Authority'						
 25	catalogNumber	objectNumber		key				23	24	79310	79328		
 25	all_collectors	fieldCollector		refname		orgauthorities/6d89bda7-867a-4b97-b22f							
 26	coll_num	fieldCollectionNumber		literal									
-27	projectNumber	projectNumber		literal									
-27	projectRefName	projectRefName	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(CSpaceProjectCode1536082165062)'Project Code'	constant	projectNumber	vocabularies/dad35f58-5112-4485-9a5c							
+27	projectNumber	numberValue	otherNumberList/otherNumber	literal	projectNumber								
+27	projectRefName	numberType	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(CSpaceProjectCode1536082165062)'Project Code'	constant	projectRefName	projectNumber							
+27	symbiotaGUID	numberValue	otherNumberList/otherNumber	literal	symbiotaGUID							“symbiota GUID”	numbertype??
+27	symbiotaGUIDrefName	numberType	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(SymbiotaGUID1533235580178)'Symbiota GUID'	constant	symbiotaGUIDrefName	symbiotaGUID						“symbiota GUID”	numbertype??
+27	otherCatalogNumber	numberValue	otherNumberList/otherNumber	literal	otherCatalogNumbers			7	7	2331	2386		
+27	oldInstAccNo	numberType	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(numbertype09)'Old Institution Accession Number'	constant	oldInstAccNo	otherCatalogNumber						“old instituion accession number”	numbertype??
 27	occurrenceID	occurrenceID		literal				24	24	79328	79328	symbiota GUID	othernumber??
-27	symbiotaGUID	symbiotaGUID		literal								“symbiota GUID”	numbertype??
-27	symbiotaGUIDrefName	symbiotaGUIDrefName	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(SymbiotaGUID1533235580178)'Symbiota GUID'	constant	symbiotaGUID							“symbiota GUID”	numbertype??
-27	otherCatalogNumbers	otherCatalogNumbers		literal				7	7	2331	2386		
-27	oldInstAccNo	oldInstAccNo	urn:cspace:ucjeps.cspace.berkeley.edu:vocabularies:name(numbertype):item:name(numbertype09)'Old Institution Accession Number'	constant	otherCatalogNumbers	vocabularies/dad35f58-5112-4485-9a5c						“old instituion accession number”	numbertype??
 27	# textual info	##################################											
 28	# kingdom	kingdom					taxon field	2	21				
 29	comments	comment		literal									

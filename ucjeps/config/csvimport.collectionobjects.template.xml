@@ -124,6 +124,7 @@
     <briefDescriptions>
       <briefDescription>{briefDescription}</briefDescription>
     </briefDescriptions>
+    <sex>{sex}</sex>
     <fieldCollectionNumber>{fieldCollectionNumber}</fieldCollectionNumber>
     <contentLanguages>
       <contentLanguage>{contentLanguage}</contentLanguage>
