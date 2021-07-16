@@ -1,28 +1,27 @@
+import configparser
 import csv
-import sys
-import traceback
 import json
 import logging
-import requests
+import re
+import sys
+import time
+import traceback
 import urllib
 from collections import Counter
-from requests.auth import HTTPBasicAuth
-from xml.etree.ElementTree import tostring, fromstring, Element
-
-import configparser
 from copy import deepcopy
+from os import path
+from os.path import isdir
+from xml.etree.ElementTree import tostring, fromstring, Element
 from xml.sax.saxutils import escape
 
-from common.utils import deURN
+import requests
+from requests.auth import HTTPBasicAuth
 
-import time
-import re
-
-from cspace_django_site import settings
-from os import path, listdir
-from os.path import isfile, isdir, join
-from csvimport.extractOptions import get_lists
 from common import cspace
+from common.utils import deURN
+from cspace_django_site import settings
+from csvimport.extractOptions import get_lists
+
 config = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'csvimport')
 
 institution = config.get('info', 'institution')
@@ -513,7 +512,7 @@ def record_existence_check(key_checks, row, keyrow, action):
 
 def add_constants(mapping, data_dict):
     for fld in mapping:
-        if mapping[fld][2] == 'constant':
+        if mapping[fld][2] == 'constant' and mapping[fld][5] in data_dict:
             assoc_field_name = mapping[fld][0]
             constant_value = mapping[fld][1]
             data_dict[fld] = constant_value
@@ -829,6 +828,10 @@ def createXMLpayload(template, values, institution):
         payload = payload.replace('{' + v + '}', escape(values[v]))
     # get rid of remaining unsubstituted template variables
     payload = re.sub('(<.*?>){(.*)}(<.*>)', r'\1\3', payload)
+    # TODO: fix this ucjeps hack someday...
+    payload = payload.replace('<numberValue></numberValue>', '')
+    payload = payload.replace('<numberType></numberType>', '')
+    payload = re.sub(r'<otherNumber>\s+</otherNumber>', '', payload)
     return payload
 
 
