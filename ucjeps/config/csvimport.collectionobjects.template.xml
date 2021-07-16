@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document name="collectionobjects">
   <ns2:collectionspace_core xmlns:ns2="http:/collectionspace.org/collectionspace_core/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <createdAt>{createdAt}</createdAt>
     <updatedBy>{updatedBy}</updatedBy>
     <createdBy>{createdBy}</createdBy>
-    <workflowState>{workflowState}</workflowState>
-    <tenantId>{tenantId}</tenantId>
-    <refName>{refName}</refName>
-    <uri>{uri}</uri>
     <updatedAt>{updatedAt}</updatedAt>
   </ns2:collectionspace_core>
   <ns2:collectionobjects_common xmlns:ns2="http:/collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -58,7 +53,6 @@
         <objectNameType>{objectNameType}</objectNameType>
         <objectNameSystem>{objectNameSystem}</objectNameSystem>
         <objectName>{objectName}</objectName>
-        <objectNameCurrency>{objectNameCurrency}</objectNameCurrency>
         <objectNameNote>{objectNameNote}</objectNameNote>
         <objectNameLevel>{objectNameLevel}</objectNameLevel>
         <objectNameLanguage>{objectNameLanguage}</objectNameLanguage>
@@ -178,7 +172,7 @@
       </otherNumber>
       <otherNumber>
         <numberType>{oldInstAccNo}</numberType>
-        <numberValue>{otherCatalogNumbers}</numberValue>
+        <numberValue>{otherCatalogNumber}</numberValue>
       </otherNumber>
       <otherNumber>
         <numberType>{projectRefName}</numberType>
