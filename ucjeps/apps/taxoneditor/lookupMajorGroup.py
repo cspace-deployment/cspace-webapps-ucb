@@ -22,7 +22,9 @@ def lookupMajorGroup(phylum):
         'Anthocerotophyta': 'Bryophytes',
         'Psilophyta': 'Pteridophytes',
         'Cyanidiophyta': 'Algae',
-        'Glaucophyta': 'Algae'
+        'Glaucophyta': 'Algae',
+        'placeholder': 'Lichen',
+        'placeholder': 'Fungi'
     }
     if phylum == 'allgroups':
         majorgroups = {}
