@@ -11,7 +11,7 @@ from collections import Counter
 from copy import deepcopy
 from os import path
 from os.path import isdir
-from xml.etree.ElementTree import tostring, fromstring, Element
+from lxml.etree import tostring, fromstring, Element, ElementTree
 from xml.sax.saxutils import escape
 
 import requests
@@ -160,23 +160,7 @@ def get_import_file(filename):
 
 def getRecords(rawFile):
     rawFile.seek(0)
-    delimiters = '\t ,'.split(' ')
-    try:
-        # see if the sniffer can figger out the csv dialect
-        sample = rawFile.read(4096)
-        dialect = csv.Sniffer().sniff(sample, delimiters = ',\t')
-        rawFile.seek(0)
-        csvfile = csv.reader(rawFile, dialect)
-    except IOError as e:
-        loginfo('csvimport', "item%s " % e, {}, {})
-        sys.exit(1)
-    except:
-        # nope, can't sniff: try a brute force approach, look for tabs, then commas...
-        for delimiter in delimiters:
-            if delimiter in sample:
-                rawFile.seek(0)
-                csvfile = csv.reader(rawFile, delimiter=delimiter)
-                break
+    csvfile = csv.reader(rawFile, delimiter='\t')
 
     try:
         rows = []
@@ -714,7 +698,7 @@ def write_intermediate_files(stats, validating_items, nonvalidating_items, const
 
     return recordsprocessed, successes, failures
 
-def send_to_cspace(action, mapping, inputRecords, recordtypes, file_header, xmlTemplate, outputfh, uri, in_progress, keyrow):
+def add_to_cspace(action, mapping, inputRecords, recordtypes, file_header, xmlTemplate, xmlTemplateTree, outputfh, uri, in_progress, keyrow):
     recordsprocessed = 0
     successes = 0
     failures = 0
@@ -729,7 +713,7 @@ def send_to_cspace(action, mapping, inputRecords, recordtypes, file_header, xmlT
         elapsedtimetotal = time.time()
         try:
             input_dict = map_items(input_data, mapping, recordtypes, file_header, keyrow)
-            cspaceElements = DWC2CSPACE(action, xmlTemplate, input_dict, config, uri)
+            cspaceElements = DWC2CSPACE(action, xmlTemplate, xmlTemplateTree, input_dict, config, uri)
             del cspaceElements[2]
             cspaceElements.append('%8.2f' % (time.time() - elapsedtimetotal))
             # loginfo('csvimport', "item created: %s, csid: %s %s" % tuple(cspaceElements), {}, {})
@@ -747,7 +731,7 @@ def send_to_cspace(action, mapping, inputRecords, recordtypes, file_header, xmlT
             loginfo('csvimport', "-"*60, {}, {})
             traceback.print_exc(file=sys.stdout)
             loginfo('csvimport', "-"*60, {}, {})
-            loginfo('csvimport', "item create/update failed for object number '%s', %8.2f" % (cspaceElements[0], (time.time() - elapsedtimetotal)), {}, {})
+            loginfo('csvimport', "item create failed for object number '%s', %8.2f" % (cspaceElements[0], (time.time() - elapsedtimetotal)), {}, {})
             failures += 1
         recordsprocessed += 1
     return recordsprocessed, successes, failures
@@ -835,7 +819,7 @@ def createXMLpayload(template, values, institution):
     return payload
 
 
-def DWC2CSPACE(action, xmlTemplate, input_dataDict, config, uri):
+def DWC2CSPACE(action, xmlTemplate, xmlTemplateTree, input_dataDict, config, uri):
     try:
         realm = config.get('connect', 'realm')
         hostname = config.get('connect', 'hostname')
@@ -882,7 +866,7 @@ def DWC2CSPACE(action, xmlTemplate, input_dataDict, config, uri):
                     itemCSID = ''
                 else:
                     # update the xml...
-                    payload = update_xml(payload, input_dataDict, INSTITUTION, action)
+                    payload = update_xml(payload, xmlTemplateTree, input_dataDict, INSTITUTION, action)
                     (url, data, dummyCSID, elapsedtime) = postxml('PUT', '%s/%s' % (uri, itemCSID), realm, protocol, hostname, port, username, password, payload.decode('utf-8'))
                     pass
             except:
@@ -892,7 +876,7 @@ def DWC2CSPACE(action, xmlTemplate, input_dataDict, config, uri):
 
     return [itemNumber, itemCSID, messages]
 
-def update_xml(payload, input_dataDict, INSTITUTION, action):
+def update_xml(payload, xmlTemplateTree, input_dataDict, INSTITUTION, action):
     xml = fromstring(payload)
     #xmlRoot = xml.getroot()
     for tag in input_dataDict:
@@ -905,6 +889,12 @@ def update_xml(payload, input_dataDict, INSTITUTION, action):
             if value == '':
                 pass
             else:
+                xelement = xmlTemplateTree.find('.//*[.="{%s}"]' % xml_path[-1:][0])
+                #xelement = xmlTemplateTree.find('.//*/%s' % xml_path[-1:][0])
+                if xelement is not None:
+                    xx = tostring(xelement)
+                    p = xmlTemplateTree.getpath(xelement)
+                    p2 = './/' + '/'.join(p.split('/')[3:])
                 add_element = Element(xml_path[0])
                 leaf = Element(xml_path[0])
                 # extend element if necessary

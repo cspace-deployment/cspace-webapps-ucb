@@ -123,7 +123,14 @@ def getJoblist(request):
         jobkey = parts[0]
         if not jobkey in jobdict: jobdict[jobkey] = []
         jobdict[jobkey].append([f, file_type, linecount, records, date_uploaded])
-    joblist = [[jobkey, jobdict[jobkey], jobsummary(jobdict[jobkey])] for jobkey in sorted(jobdict.keys()) if jobkey != '']
+    date_dict = {}
+    for jobkey in jobdict.keys():
+        max_date = ''
+        for j in jobdict[jobkey]:
+            if j[4] > max_date:
+                max_date = j[4]
+        date_dict[max_date] = jobkey
+    joblist = [[date_dict[date], jobdict[date_dict[date]], jobsummary(jobdict[date_dict[date]])] for date in sorted(date_dict, reverse=True) if jobkey != '']
     num_jobs = len(joblist)
     return joblist[0:num2display], errors, num_jobs, len(errors)
 
