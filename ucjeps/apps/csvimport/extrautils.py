@@ -36,7 +36,8 @@ def getJobfile(jobnumber):
     return JOBDIR % jobnumber
 
 priority =   'input counted validated added updated undo inprogress'.split(' ')
-adjustments = {'input': 1, 'count': 1, 'validate': 2, 'valid': 1, 'invalid': 1, 'add': 2, 'update': 2, 'both': 2, 'undo': 1, 'terms': 0}
+# we need to adjust certain line counts to account for headers
+adjustments = {'input': 1, 'count': 1, 'validate': 2, 'valid': 1, 'invalid': 1, 'add': 1, 'update': 2, 'both': 2, 'undo': 1, 'terms': 0}
 next_steps = 'count,validate,import,undo,undo,none,in progress'.split(',')
 
 def jobsummary(jobstats):
