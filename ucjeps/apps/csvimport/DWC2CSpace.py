@@ -10,8 +10,7 @@ sys.path.append("../../ucjeps")
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 
 from utils import load_mapping_file, validate_items, count_columns, getRecords, write_intermediate_files
-from utils import add_to_cspace, count_stats, count_numbers, getConfig, find_keyfield, fixup, get_recordtypes
-from update_cspace import update_cspace
+from utils import send_to_cspace, count_stats, count_numbers, getConfig, find_keyfield, fixup, get_recordtypes
 
 CONFIGDIRECTORY = ''
 
@@ -163,6 +162,10 @@ def main():
     successes = 0
     failures = 0
 
+    keyfield, keyrow = find_keyfield(mapping, file_header)
+    recordtypes = get_recordtypes()
+    service = recordtypes[uri][2]
+
     if action == 'count':
         stats = count_columns(inputRecords, file_header)
         print
@@ -226,13 +229,13 @@ def main():
         if action == 'validate-add':
             print('since this is an "add",')
             if found > 0:
-                print(f'the{found} found keys represent *invalid* records: they already exist in CSpace')
+                print(f'the {found} found keys represent *invalid* records: they already exist in CSpace')
             if not_found > 0:
                 print(f'the records referring to the {not_found} keys will be added to CSpace')
         elif action == 'validate-update':
             print('since this is an "update",')
             if found > 0:
-                print(f'the records referring to the {found} keys will be updated CSpace')
+                print(f'the records referring to the {found} keys will be updated in CSpace')
             if not_found > 0:
                 print(f'the {not_found} keys represent *invalid* records: we could not find the records to update')
         print(100 * '*')
@@ -242,18 +245,8 @@ def main():
                                                                          constants, file_header, mapping,
                                                                          outputfh, nonvalidfh, termsfh, number_check,
                                                                          keyrow)
-
-    elif action == 'add':
-        keyfield, keyrow = find_keyfield(mapping, file_header)
-        recordtypes = get_recordtypes()
-        service = recordtypes[uri][2]
-        recordsprocessed, successes, failures = add_to_cspace(action, mapping, inputRecords, recordtypes[uri], file_header, xmlTemplate, xmlTemplateTree, outputfh, service, in_progress, keyrow)
-
-    elif action == 'update':
-        keyfield, keyrow = find_keyfield(mapping, file_header)
-        recordtypes = get_recordtypes()
-        service = recordtypes[uri][2]
-        recordsprocessed, successes, failures = update_cspace(action, mapping, inputRecords, recordtypes, file_header, outputfh, service, in_progress, keyrow)
+    elif action == 'add' or action == 'update':
+        recordsprocessed, successes, failures = send_to_cspace(action, mapping, inputRecords, recordtypes[uri], file_header, xmlTemplate, xmlTemplateTree, outputfh, service, in_progress, keyrow)
 
     print("FINISHED %s records: %s processed, %s successful, %s failures" % (action, recordsprocessed, successes, failures))
     print()

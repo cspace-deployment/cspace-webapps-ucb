@@ -698,7 +698,7 @@ def write_intermediate_files(stats, validating_items, nonvalidating_items, const
 
     return recordsprocessed, successes, failures
 
-def add_to_cspace(action, mapping, inputRecords, recordtypes, file_header, xmlTemplate, xmlTemplateTree, outputfh, uri, in_progress, keyrow):
+def send_to_cspace(action, mapping, inputRecords, recordtypes, file_header, xmlTemplate, xmlTemplateTree, outputfh, uri, in_progress, keyrow):
     recordsprocessed = 0
     successes = 0
     failures = 0
@@ -851,6 +851,7 @@ def DWC2CSPACE(action, xmlTemplate, xmlTemplateTree, input_dataDict, config, uri
             messages.append("cspace REST API post failed...")
 
     elif action == 'update':
+
         messages.append("PUTting (update) to cspace REST API...")
         itemCSID = input_dataDict['csid']
         if itemCSID == '':
