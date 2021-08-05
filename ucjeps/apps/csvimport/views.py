@@ -203,7 +203,10 @@ def nextstep(request, step, filename):
         record_type, uri = get_file_type(JOBDIR % filename)
         if file_is_OK:
             script = path.join(CODEPATH, '%s.sh' % step)
-            p_object = subprocess.Popen([script, JOBDIR % filename, uri])
+            # TODO: fix this desperate hack someday... only 'undo' is keyed to the uri
+            if CODEPATH == 'undo':
+                record_type = uri
+            p_object = subprocess.Popen([script, JOBDIR % filename, record_type])
             if p_object._child_created:
                 pid = p_object.pid
                 loginfo('csvimport process', filename + ": Child returned %s" % p_object.returncode, context, request)
