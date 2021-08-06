@@ -3,12 +3,18 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.4-rc2
-Wed Aug  4 16:34:56 PDT 2021
+This is version 6.1.4-rc3
+Fri Aug  6 10:37:21 PDT 2021
 
-70c2640 (HEAD -> master) CSW-452: continue refactor 'add' vs 'update' in csvimport
+bbfdf43 (HEAD -> master, origin/master, origin/HEAD) CSW-452: update csvimport config files for latest changes to collectors
+74d980f CSW-452: csvimport 'undo' is a special case
+3a9191e CSW-452: csvimport counts corrected for 'add'
+7c75e59 CSW-452: csvimport 'undo' needs to use correct uri
+48de331 CSW-452: more refactoring for csvimport 'update'
+6375270 (tag: 6.1.4-rc2) revise CHANGELOG.txt and bump version to 6.1.4-rc2
+70c2640 CSW-452: continue refactor 'add' vs 'update' in csvimport
 9ae6f75 CSW-452: in csvimport, ensure collector names are mapped correctly
-8f84766 (origin/master, origin/HEAD) CSW-491: add lichen and fungi to major group dropdown in taxon editor so they work
+8f84766 CSW-491: add lichen and fungi to major group dropdown in taxon editor so they work
 d958d60 CSW-491: add lichen and fungi to major group dropdown in taxon editor
 69a6c94 (tag: 6.1.4-rc1) revise CHANGELOG.txt and bump version to 6.1.4-rc1
 b0a957a CSW-463: include csid in input dict for updates
