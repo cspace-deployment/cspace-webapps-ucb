@@ -461,7 +461,7 @@ def check_key(key_checks, action, uri, in_progress):
         if action == 'validate-update' and uri == 'taxon':
             query_depth = ''
         else:
-            query_depth = 'kwonly'
+            query_depth = 'ptonly'
         refname = rest_query(k, uri , query_depth)
         if recordsprocessed % 1000 == 0:
             in_progress.write("%s keys checked of %s, %s\n" % (recordsprocessed, len(key_checks.keys()), time.strftime("%b %d %Y %H:%M:%S", time.localtime())))
@@ -572,7 +572,7 @@ def extract_refname(xml, term, pgSz, record_type):
 def rest_query(term, record_type, query_type):
     pgSz = 100
     search_term = normalize(term)
-    response = do_query('kw', search_term, record_type, pgSz)
+    response = do_query('pt', search_term, record_type, pgSz)
     if response.status_code != 200:
         error_msg = "HTTP%s X X X X" % response.status_code
         return error_msg.split(' ')
@@ -580,10 +580,10 @@ def rest_query(term, record_type, query_type):
     #if totalitems > pgSz and refname_result[0] != 'OK':
     #    loginfo('csvimport', '%s term %s (=%s) returned %s for kw search, only %s examined. status is %s.' % (record_type, term, search_term, totalitems, pgSz, refname_result[0]), {}, {})
     # hail mary: do a pt search if kw fails (but not in vocabularies -- doesn't work)
-    if refname_result[0] != 'OK' and (refname_result[0] != 'ZeroResults' or refname_result[0] != 'NoMatch') and 'vocabularies' not in record_type and query_type != 'kwonly':
+    if refname_result[0] != 'OK' and (refname_result[0] != 'ZeroResults' or refname_result[0] != 'NoMatch') and 'vocabularies' not in record_type and query_type != 'ptonly':
         # loginfo('csvimport', 'fallback: %s term %s (=%s) trying pt search.' % (record_type, term, search_term), {}, {})
         # TODO: seems any authority search will only bring back 100...
-        response = do_query('pt', term, record_type, 100)
+        response = do_query('kw', term, record_type, 100)
         #if totalitems > 100:
         #    loginfo('csvimport', '%s term %s returned %s for pt search, only %s examined. status is %s.' % (record_type, term, totalitems, pgSz, refname_result[0]), {}, {})
         if response.status_code != 200:
