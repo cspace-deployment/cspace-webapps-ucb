@@ -543,7 +543,9 @@ def extract_refname(xml, term, pgSz, record_type):
                 updated_at = extract_tag(i, 'updatedAt')
                 if record_type == 'collectionobjects':
                     try:
-                        termDisplayName = deURN(refName)
+                        termDisplayName = extract_tag(i,'objectNumber')
+                        if termDisplayName == '':
+                            raise
                     except:
                         raise
                 else:
