@@ -386,7 +386,7 @@ def map_items(input_data, mapping, recordtypes, file_header, keyrow):
             # map ambiguous (i.e. repeatable) elements redundantly
             if recordtypes[3][0][column_name][3] != '':
                 data_dict[recordtypes[3][0][column_name][3]] = cell
-        # this code allows columns to be mapped to more than one cspace field
+            # this code allows columns to be mapped to more than one cspace field
             if f'={template_filler}' in mapping:
                 data_dict[mapping[f'={template_filler}'][0]] = cell
         except:
@@ -458,10 +458,10 @@ def validate_items(CSPACE_MAPPING, constants, input_data, file_header, uri, in_p
 def check_key(key_checks, action, uri, in_progress):
     result_keys = {}
     for recordsprocessed, k in enumerate(key_checks):
-        if action == 'validate-update' and uri == 'taxon':
-            query_depth = ''
+        if uri == 'collectionobjects':
+            query_depth = 'kwonly'
         else:
-            query_depth = 'ptonly'
+            query_depth = ''
         refname = rest_query(k, uri , query_depth)
         if recordsprocessed % 1000 == 0:
             in_progress.write("%s keys checked of %s, %s\n" % (recordsprocessed, len(key_checks.keys()), time.strftime("%b %d %Y %H:%M:%S", time.localtime())))
@@ -572,18 +572,16 @@ def extract_refname(xml, term, pgSz, record_type):
 def rest_query(term, record_type, query_type):
     pgSz = 100
     search_term = normalize(term)
-    response = do_query('pt', search_term, record_type, pgSz)
+    response = do_query('kw', search_term, record_type, pgSz)
     if response.status_code != 200:
         error_msg = "HTTP%s X X X X" % response.status_code
         return error_msg.split(' ')
     refname_result, totalitems = extract_refname(response.content, term, pgSz, record_type)
-    #if totalitems > pgSz and refname_result[0] != 'OK':
-    #    loginfo('csvimport', '%s term %s (=%s) returned %s for kw search, only %s examined. status is %s.' % (record_type, term, search_term, totalitems, pgSz, refname_result[0]), {}, {})
     # hail mary: do a pt search if kw fails (but not in vocabularies -- doesn't work)
-    if refname_result[0] != 'OK' and (refname_result[0] != 'ZeroResults' or refname_result[0] != 'NoMatch') and 'vocabularies' not in record_type and query_type != 'ptonly':
+    if refname_result[0] != 'OK' and (refname_result[0] != 'ZeroResults' or refname_result[0] != 'NoMatch') and 'vocabularies' not in record_type and query_type != 'kwonly':
         # loginfo('csvimport', 'fallback: %s term %s (=%s) trying pt search.' % (record_type, term, search_term), {}, {})
         # TODO: seems any authority search will only bring back 100...
-        response = do_query('kw', term, record_type, 100)
+        response = do_query('pt', term, record_type, pgSz)
         #if totalitems > 100:
         #    loginfo('csvimport', '%s term %s returned %s for pt search, only %s examined. status is %s.' % (record_type, term, totalitems, pgSz, refname_result[0]), {}, {})
         if response.status_code != 200:
@@ -626,9 +624,9 @@ def count_stats(stats, mapping):
     ok_count = 0
     bad_count = 0
     bad_values = 0
-    print
+    print()
     loginfo('csvimport', '%-35s %10s %10s  %-10s %10s' % tuple(stats[1][:5]), {}, {})
-    print
+    print()
     for s in stats[0]:
         if s[3] == 'OK':
             ok_count += 1
