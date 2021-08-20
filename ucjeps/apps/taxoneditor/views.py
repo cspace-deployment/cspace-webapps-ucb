@@ -256,7 +256,7 @@ def create_taxon(request):
     payload = load_payload(taxon_template,request,taxonfields)
     uri = 'cspace-services/%s/%s/items' % ('taxonomyauthority', taxon_authority_csid)
 
-    messages = {}
+    messages = {'cspaceserver': cspaceserver}
     # messages.append("posting to %s REST API..." % uri)
     # loginfo('taxoneditor', payload, {}, {})
     # messages.append(payload)
