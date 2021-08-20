@@ -1286,6 +1286,24 @@ WHERE pc.refname ILIKE '%""" + arg.replace("'", "''") + "%%'"
     objects = setupcursor(config, query)
     return objects.fetchone()
 
+def getMovementCSID(objectCSID, location, config):
+    location = location.replace("'", "''")
+    query = f'''SELECT
+           h1.name as movement_csid_s
+
+        FROM relations_common rc
+        JOIN hierarchy h1 ON (h1.name = rc.objectcsid)
+        JOIN movements_common mc ON (mc.id = h1.id)
+        JOIN hierarchy h2 ON (h2.name = rc.subjectcsid)
+        JOIN collectionobjects_common cc ON (cc.id = h2.id)
+
+        WHERE h2.name = '{objectCSID}' AND
+        h1.isversion IS NOT TRUE AND
+        mc.currentlocation = '{location}'
+        '''
+    objects = setupcursor(config, query)
+    return objects.fetchall()[0]
+
 
 def getCSIDs(argType, arg, config):
 

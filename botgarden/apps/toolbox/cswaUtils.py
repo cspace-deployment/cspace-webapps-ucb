@@ -547,7 +547,7 @@ def doCheckPowerMove(form, config):
         return html
 
     toLocRefname = cswaDB.getrefname('locations_common', toLocation, config)
-    fromRefname = cswaDB.getrefname('locations_common', fromLocation, config)
+    fromLocRefname = cswaDB.getrefname('locations_common', fromLocation, config)
 
     #sys.stderr.write('%-13s:: %-18s:: %s\n' % (updateType, 'toRefName', toRefname))
 
@@ -589,6 +589,7 @@ def doCheckPowerMove(form, config):
 
     html += "\n</table>"
     html += '<input type="hidden" name="toRefname" value="%s">' % toLocRefname
+    html += '<input type="hidden" name="fromRefname" value="%s">' % fromLocRefname
 
     return html
 
@@ -991,14 +992,21 @@ def doUpdateLocations(form, config):
         cells = object.split('|')
         updateItems['objectStatus'] = cells[0]
         updateItems['objectCsid'] = cells[1]
+        updateItems['fromLocation'] = cells[2]
         objectCsid = cells[1]
-        updateItems['locationRefname'] = form.get('toRefname')
+        updateItems['toRefname'] = form.get('toRefname')
+        updateItems['fromRefname'] = form.get('fromRefname')
         updateItems['subjectCsid'] = '' # cells[3] is actually the csid of the movement record for the current location; the updated value gets inserted later
         updateItems['objectNumber'] = cells[4]
         updateItems['crate'] = cells[5]
         updateItems['inventoryNote'] = note
         updateItems['locationDate'] = Now
         updateItems['computedSummary'] = updateItems['locationDate'][0:10]
+
+
+        if updateItems['objectStatus'] != 'do not move':
+            movementCsid = cswaDB.getMovementCSID(updateItems['objectCsid'], updateItems['fromRefname'], config)
+            updateItems['movementCsid'] = movementCsid[0]
 
         # ugh...this logic is in fact rather complicated...
         msg = 'location updated.'
@@ -1594,8 +1602,7 @@ def doUploadUpdateLocs(data, line, id2ref, form, config):
     else:
         raise Exception("<span style='color:red'>Error encountered in malformed line '%s':\nMove codes are M, C, or R!</span>" % line)
 
-    updateItems[
-        'subjectCsid'] = '' # cells[3] is actually the csid of the movement record for the current location; the updated value gets inserted later
+    updateItems['subjectCsid'] = '' # cells[3] is actually the csid of the movement record for the current location; the updated value gets inserted later
     updateItems['inventoryNote'] = ''
     # if reason is a refname (e.g. bampfa), extract just the displayname
     reason = form.get('reason')
