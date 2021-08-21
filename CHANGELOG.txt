@@ -3,11 +3,14 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.4-rc4
-Fri Aug 20 09:51:24 PDT 2021
+This is version 6.1.4-rc5
+Fri Aug 20 17:55:03 PDT 2021
 
-95e9576 (HEAD -> master) CSW-489: disable 'move group' tool for botgarden
-4db9dcb (origin/master, origin/HEAD) CSW-489: botgarden moves should reuse existing movement records for moves in power move
+1a3f219 (HEAD -> master, origin/master, origin/HEAD) CSW-489: use correct version of cswaUpdateCSpace.py for botgarden power move
+e3b0685 CSW-505: pass cspaceserver value to template in ucjeps taxon editor
+f2e5ab5 (tag: 6.1.4-rc4) revise CHANGELOG.txt and bump version to 6.1.4-rc4
+95e9576 CSW-489: disable 'move group' tool for botgarden
+4db9dcb CSW-489: botgarden moves should reuse existing movement records for moves in power move
 734e608 CSW-452: further refactoring of term searching for kw and pt searches in csvimport
 4b6bb1e CSW-452: refactor term searching for kw and pt searches in csvimport
 1cec552 CSW-499: fix validation of collectionobjects with defective objectnumber refnames
