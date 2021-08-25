@@ -178,6 +178,10 @@ def updateMHXML(updateItems, xml):
 
     try:
         movementNote = root.find('.//movementNote')
+        if movementNote is None:
+            new_Element = root.find('{http://collectionspace.org/services/movement}movements_common')
+            movementNote = etree.Element('movementNote')
+            new_Element.append(movementNote)
         movementNote.text = updateItems['inventoryNote']
     except:
         pass
