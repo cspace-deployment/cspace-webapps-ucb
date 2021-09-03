@@ -3,10 +3,15 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.4-rc6
-Wed Aug 25 12:18:39 PDT 2021
+This is version 6.1.4-rc7
+Fri Sep  3 15:49:09 PDT 2021
 
-b3b6b4c (HEAD -> master, origin/master, origin/HEAD) CSW-506: ensure note is added to all movement records in ucbg powermove
+3c34e7a (HEAD -> master, origin/master, origin/HEAD) test_3_easy_project_codes.csv is again a decent test file for csvimport
+6906f1c CSW-369: the test_3_easy_3rows.csv is again a decent test file for csvimport
+8dc1d65 CSW-452: correct elevationUnits config in ucjeps csvimport
+cc47cf4 CSW-507: generate correct (new-style) url in bampfa portals
+e59ed9b (tag: 6.1.4-rc6) revise CHANGELOG.txt and bump version to 6.1.4-rc6
+b3b6b4c CSW-506: ensure note is added to all movement records in ucbg powermove
 c3752f8 (tag: 6.1.4-rc5) revise CHANGELOG.txt and bump version to 6.1.4-rc5
 1a3f219 CSW-489: use correct version of cswaUpdateCSpace.py for botgarden power move
 e3b0685 CSW-505: pass cspaceserver value to template in ucjeps taxon editor
