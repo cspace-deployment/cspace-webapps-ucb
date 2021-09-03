@@ -44,7 +44,7 @@
 31	order						taxon field	9	21	1	263		
 32	habitat	fieldCollectionNote		literal				6	7	3057	4191	will be combined with habitat	
 33	elevation	vElevation		literal									
-34	elevation_units	elevationUnit		static									
+34	elevation_units	elevationUnit		static		elevationUnits							
 34	taxonID						taxon field	15	21				
 35	latitude	decimalLatitude		float									
 35	scientificNameAuthorship						taxon field	13	21				
@@ -169,7 +169,7 @@
 158	Locality	fieldLocVerbatim		literal									
 159	Habitat	fieldCollectionNote		literal									
 160	Elevation	vElevation		integer									
-161	Elevation_Units	elevationUnit		static									
+161	Elevation_Units	elevationUnit		static		elevationUnits							
 162	Latitude	decimalLatitude		float									
 163	Longitude	decimalLongitude		float									
 164	Coordinate_Source	localitySource		literal									
