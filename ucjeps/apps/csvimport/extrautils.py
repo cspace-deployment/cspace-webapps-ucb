@@ -93,35 +93,44 @@ def jobsummary(jobstats):
         pass
     return results
 
+def getJobParts(job_filename):
+    parts = job_filename.split('.')
+    try:
+        file_type = parts[1]
+    except:
+        file_type = 'unknown'
+    return (parts[0], file_type)
 
 def getJoblist(request):
-
     if 'num2display' in request.POST:
         num2display = int(request.POST['num2display'])
     else:
-        num2display = 50
+        num2display = 300
 
     jobpath = JOBDIR % ''
-    #filelist = [f for f in listdir(jobpath) if isfile(join(jobpath, f)) and ('.csv' in f or 'trace.log' in f)]
     filelist = [f for f in listdir(jobpath) if isfile(join(jobpath, f))]
+    archived = [getJobParts(f)[0] for f in filelist if 'archived' in f]
     jobdict = {}
+    archive_dict = {}
     errors = []
     for f in sorted(filelist):
+
+        (jobkey, file_type) = getJobParts(f)
+
+        if jobkey in archived:
+            linecount, records, date_uploaded = checkFile(join(jobpath, f), 'archived')
+            archive_dict[jobkey] = [f, date_uploaded]
+            continue
+
         if len(jobdict.keys()) > num2display:
             records = []
         else:
             # we only need to count lines if the file is within range...
             try:
-                linecount, records, date_uploaded = checkFile(join(jobpath, f))
+                linecount, records, date_uploaded = checkFile(join(jobpath, f), 'current')
             except:
                 # TODO: we skip files altogether if there is any problem processing them, probably we should do something better...
                 continue
-        parts = f.split('.')
-        try:
-            file_type = parts[1]
-        except:
-            file_type = 'unknown'
-        jobkey = parts[0]
         if not jobkey in jobdict: jobdict[jobkey] = []
         jobdict[jobkey].append([f, file_type, linecount, records, date_uploaded])
     date_dict = {}
@@ -133,15 +142,16 @@ def getJoblist(request):
         date_dict[max_date] = jobkey
     joblist = [[date_dict[date], jobdict[date_dict[date]], jobsummary(jobdict[date_dict[date]])] for date in sorted(date_dict, reverse=True) if jobkey != '']
     num_jobs = len(joblist)
-    return joblist[0:num2display], errors, num_jobs, len(errors)
+    return joblist[0:num2display], errors, num_jobs, len(errors), archive_dict
 
 
-def checkFile(filename):
+def checkFile(filename, check_type):
     file_handle = open(filename, 'r', encoding='utf-8')
     date_uploaded  = datetime.datetime.fromtimestamp(path.getmtime(filename)).strftime("%Y-%m-%d %H:%M:%S")
-    lines = [l for l in file_handle.read().splitlines()]
-    #specimens = [f.split("\t")[0] for f in lines]
-    #specimens = [f.split("|")[0] for f in specimens]
+    if check_type == 'archived':
+        lines = []
+    else:
+        lines = [l for l in file_handle.read().splitlines()]
     return len(lines), [], date_uploaded
 
 

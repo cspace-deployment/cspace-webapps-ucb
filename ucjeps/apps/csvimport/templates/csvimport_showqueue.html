@@ -1,3 +1,14 @@
+
+<script>
+  $(document).ready(function () {
+    $('#archiveListing').tablesorter({
+      theme: 'blue',
+      headers: {
+        1: {sorter: 'sortkey'}
+      }
+    });
+  });
+</script>
 <div id="queue">
     <h3>{{ jobcount }} file{{ jobcount|pluralize }} in the queue.
         {% if jobcount > jobs|length %}
@@ -78,6 +89,29 @@
                         {% endfor %}
                     </td>
                 {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Archived Jobs</h2>
+
+    <table cellspace="1" id="archiveListing" class="tablesorter">
+        <thead>
+        <tr>
+            <th>Job number</th>
+            <th>Date last updated</th>
+            <th>Unarchive</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for job in archive.items %}
+            <tr>
+                <td>{{ job.0 }}</td>
+                <td>{{ job.1.1}}</td>
+                <td>
+                    <a class="button" href="nextcsvstep/unarchive/{{ job.0 }}"><span style="color: crimson">unarchive</span></a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

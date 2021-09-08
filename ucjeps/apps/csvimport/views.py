@@ -162,7 +162,7 @@ def deletejob(request, jobname):
 def showqueue(request):
     elapsedtime = time.time()
     context = setConstants(request)
-    jobs, errors, jobcount, errorcount = getJoblist(request)
+    jobs, errors, jobcount, errorcount, archive = getJoblist(request)
     display_type = 'checkjobs'
     if 'checkjobs' in request.POST:
         display_type = 'checkjobs'
@@ -173,6 +173,7 @@ def showqueue(request):
     context['errors'] = errors
     context['jobcount'] = jobcount
     context['errorcount'] = errorcount
+    context['archive'] = archive
     elapsedtime = time.time() - elapsedtime
     context = setContext(context, elapsedtime)
     context['fileview'] = 'none'
