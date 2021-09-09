@@ -1,4 +1,3 @@
-
 <script>
   $(document).ready(function () {
     $('#archiveListing').tablesorter({
@@ -10,6 +9,7 @@
   });
 </script>
 <div id="queue">
+    <h2>Current, Active Jobs</h2>
     <h3>{{ jobcount }} file{{ jobcount|pluralize }} in the queue.
         {% if jobcount > jobs|length %}
             Only the most recent {{ jobs|length }} jobs displayed.

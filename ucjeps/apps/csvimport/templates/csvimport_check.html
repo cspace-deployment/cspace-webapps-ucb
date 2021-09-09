@@ -1,7 +1,4 @@
 <div id="check">
-    <h2>
-        Check on or advance recent uploads
-    </h2>
     <form action="{% url 'showcsvqueue' %}" method="post">
         {% csrf_token %}
         {% if display == 'showerrors' %}
