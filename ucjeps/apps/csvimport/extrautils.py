@@ -105,7 +105,7 @@ def getJoblist(request):
     if 'num2display' in request.POST:
         num2display = int(request.POST['num2display'])
     else:
-        num2display = 300
+        num2display = 100
 
     jobpath = JOBDIR % ''
     filelist = [f for f in listdir(jobpath) if isfile(join(jobpath, f))]
