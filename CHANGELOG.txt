@@ -3,12 +3,13 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.4-rc8
-Thu Sep  9 16:36:50 PDT 2021
+This is version 6.1.4
+Fri Sep 10 11:08:52 PDT 2021
 
-33b8a29 (HEAD -> master) CSW-468: minor refactoring of csvimport ux
+99640c8 (HEAD -> master, tag: 6.1.4-rc8, origin/master, origin/HEAD) revise CHANGELOG.txt and bump version to 6.1.4-rc8
+33b8a29 CSW-468: minor refactoring of csvimport ux
 45966f9 CSW-468: limit active jobs displayed by csvimport to 100
-e38b890 (origin/master, origin/HEAD) CSW-468: handle archived imports more efficiently in displays
+e38b890 CSW-468: handle archived imports more efficiently in displays
 914766f (tag: 6.1.4-rc7) revise CHANGELOG.txt and bump version to 6.1.4-rc7
 3c34e7a test_3_easy_project_codes.csv is again a decent test file for csvimport
 6906f1c CSW-369: the test_3_easy_3rows.csv is again a decent test file for csvimport
