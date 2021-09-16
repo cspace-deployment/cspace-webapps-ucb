@@ -713,7 +713,7 @@ def send_to_cspace(action, mapping, inputRecords, recordtypes, file_header, xmlT
         elapsedtimetotal = time.time()
         try:
             input_dict = map_items(input_data, mapping, recordtypes, file_header, keyrow)
-            cspaceElements = DWC2CSPACE(action, xmlTemplate, xmlTemplateTree, input_dict, config, uri)
+            cspaceElements = DWC2CSPACE(action, mapping, xmlTemplate, xmlTemplateTree, input_dict, config, uri)
             del cspaceElements[2]
             cspaceElements.append('%8.2f' % (time.time() - elapsedtimetotal))
             # loginfo('csvimport', "item created: %s, csid: %s %s" % tuple(cspaceElements), {}, {})
@@ -819,7 +819,7 @@ def createXMLpayload(template, values, institution):
     return payload
 
 
-def DWC2CSPACE(action, xmlTemplate, xmlTemplateTree, input_dataDict, config, uri):
+def DWC2CSPACE(action, mapping, xmlTemplate, xmlTemplateTree, input_dataDict, config, uri):
     try:
         realm = config.get('connect', 'realm')
         hostname = config.get('connect', 'hostname')
@@ -867,7 +867,7 @@ def DWC2CSPACE(action, xmlTemplate, xmlTemplateTree, input_dataDict, config, uri
                     itemCSID = ''
                 else:
                     # update the xml...
-                    payload = update_xml(payload, xmlTemplateTree, input_dataDict, INSTITUTION, action)
+                    payload = update_xml(payload, mapping, xmlTemplateTree, input_dataDict, INSTITUTION, action)
                     (url, data, dummyCSID, elapsedtime) = postxml('PUT', '%s/%s' % (uri, itemCSID), realm, protocol, hostname, port, username, password, payload.decode('utf-8'))
                     pass
             except:
@@ -877,10 +877,32 @@ def DWC2CSPACE(action, xmlTemplate, xmlTemplateTree, input_dataDict, config, uri
 
     return [itemNumber, itemCSID, messages]
 
-def update_xml(payload, xmlTemplateTree, input_dataDict, INSTITUTION, action):
+def handle_numbers(xml, mapping, input_dataDict):
+    element = xml.find('.//otherNumberList')
+    numbers = [('projectNumber','projectRefName'),('symbiotaGUID','symbiotaGUIDrefName'),('otherCatalogNumber','oldInstAccNo')]
+    for pair in numbers:
+        if pair[0] in input_dataDict:
+            otherNumber = Element('otherNumber')
+            numberValue = Element('numberValue')
+            numberValue.text = input_dataDict[pair[0]]
+            otherNumber.insert(0, numberValue)
+            numberType = Element('numberType')
+            numberType.text = input_dataDict[pair[1]]
+            otherNumber.insert(0, numberType)
+            element.append(otherNumber)
+        else:
+            pass
+
+
+def update_xml(payload, mapping, xmlTemplateTree, input_dataDict, INSTITUTION, action):
     xml = fromstring(payload)
     #xmlRoot = xml.getroot()
+    handle_numbers(xml, mapping, input_dataDict)
     for tag in input_dataDict:
+        # skip the 'special' ucjeps numbers: the are handled elsewhere
+        if 'symbiota' in tag: continue
+        if 'otherCatalogNumber' in tag or 'oldInstAccNo' in tag: continue
+        if 'project' in tag: continue
         # skip unwanted fields...
         xml_path = tag.split('/')
         if tag in 'key csid unmapped'.split(' '): continue
