@@ -3,24 +3,29 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.4
-Fri Sep 10 11:08:52 PDT 2021
+This is version 6.1.5-rc1
+Fri Oct  8 10:54:49 PDT 2021
 
-99640c8 (HEAD -> master, tag: 6.1.4-rc8, origin/master, origin/HEAD) revise CHANGELOG.txt and bump version to 6.1.4-rc8
+f3005c1 (HEAD -> master, origin/master, origin/HEAD) CSW-511: remove stray line in csvimport undo.sh
+bb22ca8 CSW-511: csvimport undo.sh now uses credentials set in csvimport.cfg
+0c2071e CSW-521: repair 'other number' updating functionality in csvImport
+c3f99cb CSW-377: django logs and toolbox audit logs now go in /var/cspace/django
+3d4bf01 (tag: 6.1.4) revise CHANGELOG.txt and bump version to 6.1.4
+99640c8 revise CHANGELOG.txt and bump version to 6.1.4-rc8
 33b8a29 CSW-468: minor refactoring of csvimport ux
 45966f9 CSW-468: limit active jobs displayed by csvimport to 100
 e38b890 CSW-468: handle archived imports more efficiently in displays
-914766f (tag: 6.1.4-rc7) revise CHANGELOG.txt and bump version to 6.1.4-rc7
+914766f revise CHANGELOG.txt and bump version to 6.1.4-rc7
 3c34e7a test_3_easy_project_codes.csv is again a decent test file for csvimport
 6906f1c CSW-369: the test_3_easy_3rows.csv is again a decent test file for csvimport
 8dc1d65 CSW-452: correct elevationUnits config in ucjeps csvimport
 cc47cf4 CSW-507: generate correct (new-style) url in bampfa portals
-e59ed9b (tag: 6.1.4-rc6) revise CHANGELOG.txt and bump version to 6.1.4-rc6
+e59ed9b revise CHANGELOG.txt and bump version to 6.1.4-rc6
 b3b6b4c CSW-506: ensure note is added to all movement records in ucbg powermove
-c3752f8 (tag: 6.1.4-rc5) revise CHANGELOG.txt and bump version to 6.1.4-rc5
+c3752f8 revise CHANGELOG.txt and bump version to 6.1.4-rc5
 1a3f219 CSW-489: use correct version of cswaUpdateCSpace.py for botgarden power move
 e3b0685 CSW-505: pass cspaceserver value to template in ucjeps taxon editor
-f2e5ab5 (tag: 6.1.4-rc4) revise CHANGELOG.txt and bump version to 6.1.4-rc4
+f2e5ab5 revise CHANGELOG.txt and bump version to 6.1.4-rc4
 95e9576 CSW-489: disable 'move group' tool for botgarden
 4db9dcb CSW-489: botgarden moves should reuse existing movement records for moves in power move
 734e608 CSW-452: further refactoring of term searching for kw and pt searches in csvimport
@@ -29,18 +34,18 @@ f2e5ab5 (tag: 6.1.4-rc4) revise CHANGELOG.txt and bump version to 6.1.4-rc4
 7f13dc6 CSW-452: correct config for 'geoRefencedBy' in csvImport for UCJEPS
 0bd689b CSW-452: counts corrected for 'update'
 4ed2939 CSW-452: further csvimport config file changes for collectors
-9a5db29 (tag: 6.1.4-rc3) revise CHANGELOG.txt and bump version to 6.1.4-rc3
+9a5db29 revise CHANGELOG.txt and bump version to 6.1.4-rc3
 bbfdf43 CSW-452: update csvimport config files for latest changes to collectors
 74d980f CSW-452: csvimport 'undo' is a special case
 3a9191e CSW-452: csvimport counts corrected for 'add'
 7c75e59 CSW-452: csvimport 'undo' needs to use correct uri
 48de331 CSW-452: more refactoring for csvimport 'update'
-6375270 (tag: 6.1.4-rc2) revise CHANGELOG.txt and bump version to 6.1.4-rc2
+6375270 revise CHANGELOG.txt and bump version to 6.1.4-rc2
 70c2640 CSW-452: continue refactor 'add' vs 'update' in csvimport
 9ae6f75 CSW-452: in csvimport, ensure collector names are mapped correctly
 8f84766 CSW-491: add lichen and fungi to major group dropdown in taxon editor so they work
 d958d60 CSW-491: add lichen and fungi to major group dropdown in taxon editor
-69a6c94 (tag: 6.1.4-rc1) revise CHANGELOG.txt and bump version to 6.1.4-rc1
+69a6c94 revise CHANGELOG.txt and bump version to 6.1.4-rc1
 b0a957a CSW-463: include csid in input dict for updates
 d49a428 CSW-463: remove 'othernumbers' elements in csvimport adds
 1102c11 CSW-463: revise csvimport configuration for 'othernumbers' for ucjeps
@@ -59,28 +64,28 @@ a0e5e8c CSW-475: add customized power move modules to botgarden toolbox
 7044606 CSW-475: add power move to botgarden toolbox
 1e4789e (tag: 6.1.3) revise change log and VERSION file for version 6.1.3
 e77af9f CSW-478: the internal portal has to use the new value loan_info_all_ss
-8ec6baa (tag: 6.1.3-rc5) revise change log and VERSION file for version 6.1.3-rc5
+8ec6baa revise change log and VERSION file for version 6.1.3-rc5
 4f1cf77 CSW-466: update taxon records properly (add fields if they don't exist)
 9013bf3 CSW-464: update csvimport taxon definitions
 5f22aaa NOJIRA: eliminate cruft in the legacy 'ad hoc reporting' webapp
-7eedfff (tag: 6.1.3-rc4) revise change log and VERSION file for version 6.1.3-rc4
-b71e30f (tag: 6.1.3-rc3) revise change log and VERSION file for version 6.1.3-rc3
+7eedfff revise change log and VERSION file for version 6.1.3-rc4
+b71e30f revise change log and VERSION file for version 6.1.3-rc3
 0b971b0 CSW-460: use 'modern' cspace urls for webapp outlinks
 7b56882 CSW-459: handle exception CoL API data conditions in taxon editor
 5163774 CSW-431: code reformat only
 a0b0113 CSW-431: close template form loop properly
-47ba40f (tag: 6.1.3-rc2) revise change log and VERSION file for version 6.1.3-rc2
+47ba40f revise change log and VERSION file for version 6.1.3-rc2
 0fe897e CSW-445: minor updates to csvimport for upcoming ucjeps imports
 7033036 CSW-449: adjust fields in ucbg csv export, adjust search forms
 35a47fa CSW-431: add class="sel-item" where it is needed to make grouper work
 07c93a7 CC-1646: additional code for visualizing locations
 e9d22b6 CSW-459: initial scaffolding for adding 'col' to taxon editor
-2a9b6f2 (tag: 6.1.3-rc1) revise change log and VERSION file for version 6.1.3-rc1
+2a9b6f2 revise change log and VERSION file for version 6.1.3-rc1
 7a356d0 CSW-451: revise validation configs for ucjeps csvimport
 12bccf6 CSW-451: revise validation of integer and float checking in csvimport
 b01f467 CSW-449: add 'short' provenance type to ucbg portal parms
 14a86d5 (tag: 6.1.2) revise change log and VERSION file for version 6.1.2
-2ed826b (tag: 6.1.2-rc1) revise change log and VERSION file for version 6.1.2-rc1
+2ed826b revise change log and VERSION file for version 6.1.2-rc1
 2a278bf (tag: 5.6.0) revise change log and VERSION file for version 5.6.0
 34dd148 revise change log and VERSION file for version 5.6.0-rc5
 15a5aa6 CSW-428: use static content in webapps for the UCB and CSpace logos
