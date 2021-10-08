@@ -12,7 +12,6 @@ export CSPACEUSER="${username}:${password}"
 
 rm -f $1.runlog.out
 touch $1.inprogress.log
-source set-config-ucjeps-prod.sh
 if [ -e $1.*-audit.csv ]; then
     # create a list of csids, then use the delete script to delete them
     cut -f2 $1.*-audit.csv > $1.csids.csv
