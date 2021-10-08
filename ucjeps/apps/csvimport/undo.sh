@@ -1,6 +1,15 @@
 #!/bin/bash
 set -x
 cd $( dirname "${BASH_SOURCE[0]}" )
+
+# use the credentials set for the csvimport front end
+eval `grep username ../config/csvimport.cfg | perl -pe 's/ //g'`
+eval `grep password ../config/csvimport.cfg | perl -pe 's/ //g'`
+eval `grep hostname ../config/csvimport.cfg | perl -pe 's/ //g'`
+
+export CSPACEURL="${hostname}"
+export CSPACEUSER="${username}:${password}"
+
 rm -f $1.runlog.out
 touch $1.inprogress.log
 source set-config-ucjeps-prod.sh
