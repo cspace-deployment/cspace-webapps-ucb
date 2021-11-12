@@ -54,7 +54,7 @@ field	34	conservationinfo	Conservation Information	conservationinfo_ss			keyword
 field	35	conserveorg	Conservation Organization	conserveorg_ss			dropdown	12,2	11							x
 field	36	conservecat	Conservation Category	conservecat_ss			dropdown	13,2								x
 field	37	voucherlist	Voucher Institution	voucherlist_ss			keyword	3,2			24				23	x
-field	38	vouchers	Has Vouchers?	vouchers_s			dropdown	2,2			23				24	x
+field	38	vouchers	Has Vouchers?	vouchers_s			dropdown	2,2			23	11			24	x
 field	39	vouchercount	Voucher Count	vouchercount_s			keyword									x
 field	40	fruitingverbatim	Fruiting months (orange = fruiting)	fruitingverbatim_ss			"colors= {""f"":""lightgray"",""t"":""orange""}"				28				26	x
 field	41	keyword	Keyword	text			keyword	13,3								x
@@ -79,7 +79,7 @@ field	59	accessrestrictions	Access Restrictions	accessrestrictions_s			dropdown	
 field	60	commonname	Common Name	commonname_s			keyword	2,1			2				42	x
 field	61	accessionnotes	Accession Notes	accessionnotes_s			keyword				44				13	x
 field	62	blobs	Images	blob_ss			blob								43	x
-field	63	hasimage	Has image(s)?	blob_ss			present	11,3								x
+field	63	hasimage	Has image(s)?	blob_ss			present	11,3				12				x
 field	64	hascoords	Has coordinates?	latlong_p			present	12,3								x
 field	65	source	Source	source_s			keyword	7,2			7				44	x
 field	66	group	Group	grouptitle_ss			keyword	14,2			45				45	x
