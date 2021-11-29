@@ -3,10 +3,16 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.5-rc1
-Fri Oct  8 10:54:49 PDT 2021
+This is version 6.1.5-rc2
+Mon Nov 29 09:28:39 PST 2021
 
-f3005c1 (HEAD -> master, origin/master, origin/HEAD) CSW-511: remove stray line in csvimport undo.sh
+15d5e7a (HEAD -> master) CSW-553: ucjeps bmu should capture imagemagick output in log
+4e24e93 (origin/master, origin/HEAD) CSW-553: ucjeps bmu now handles CR2 format media
+3bdd5c5 CSW-528: update ucbg portal config for 'has vouchers' and 'has images'
+916d474 CSW-532: override path element for cspace link in both ucjeps portals
+3951283 CSW-468: relocate 'show queue' button in csvimport form
+3d1b96d (tag: 6.1.5-rc1) revise CHANGELOG.txt and bump version to 6.1.5-rc1
+f3005c1 CSW-511: remove stray line in csvimport undo.sh
 bb22ca8 CSW-511: csvimport undo.sh now uses credentials set in csvimport.cfg
 0c2071e CSW-521: repair 'other number' updating functionality in csvImport
 c3f99cb CSW-377: django logs and toolbox audit logs now go in /var/cspace/django
