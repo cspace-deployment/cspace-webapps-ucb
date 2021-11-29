@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# this better be here!
+# these better be here!
+source ~/.profile
 source /var/www/venv/bin/activate
 
 # three arguments required:
@@ -60,8 +61,8 @@ grep -i '\.CR2' $INPUTFILE | cut -f1 -d"|" > CR2file
 for CR2 in `cat CR2file`
 do
    F=$(echo "$CR2" | sed "s/\.CR2/_CR2/i")
-   echo "converting ${CR2} to ${F}" >> $TRACELOG
-   convert -verbose ${CR2} ${F}.PNG >> $TRACELOG
+   echo "converting ${CR2} to ${F}.PNG" >> $TRACELOG
+   convert -verbose ${IMGDIR}/${CR2} ${IMGDIR}/${F}.PNG >> $TRACELOG 2>&1
 done
 # change the file names in the bmu job file so that it will upload the PNGs
 perl -i -pe 's/\.CR2/_CR2.PNG/i' $INPUTFILE
