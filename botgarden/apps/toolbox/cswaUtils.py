@@ -1547,7 +1547,7 @@ def doListGovHoldings(form, config):
         for field in site:
             if not field:
                 field = ''
-        html += '<td align="left"><a href="' + link + str(cswaDB.getCSID('placeName',site[0], config)[0]) + '&vocab=place">' + site[0] + '</td>'
+        html += '<td align="left"><a href="' + link + str(cswaDB.getCSID('placeName',site[0], config)[0]) + '">' + site[0] + '</td>'
         html += '<td align="left">' + (site[2] or '') + "</td>"
         html += '<td align="left">' + (site[3] or '') + "</td>"
         html += '</tr>'
