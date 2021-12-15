@@ -3,11 +3,14 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.5-rc3
-Fri Dec  3 09:50:50 PST 2021
+This is version 6.1.5
+Wed Dec 15 12:28:24 PST 2021
 
-e2d1c90 (HEAD -> master) CSW-553: ucjeps bmu converts cr2s to jpgs, not pngs, for now
-7fb9592 (tag: 6.1.5-rc2, origin/master, origin/HEAD) revise CHANGELOG.txt and bump version to 6.1.5-rc2
+dccfa11 (HEAD -> master, origin/master, origin/HEAD) NOJIRA: outlink to cspace objects from workflow webapps weren't working
+d894ea4 CSW-583: fix incorrect link in government holdings
+f0a84b2 (tag: 6.1.5-rc3) revise CHANGELOG.txt and bump version to 6.1.5-rc3
+e2d1c90 CSW-553: ucjeps bmu converts cr2s to jpgs, not pngs, for now
+7fb9592 (tag: 6.1.5-rc2) revise CHANGELOG.txt and bump version to 6.1.5-rc2
 15d5e7a CSW-553: ucjeps bmu should capture imagemagick output in log
 4e24e93 CSW-553: ucjeps bmu now handles CR2 format media
 3bdd5c5 CSW-528: update ucbg portal config for 'has vouchers' and 'has images'
