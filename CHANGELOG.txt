@@ -3,10 +3,12 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.5
-Wed Dec 15 12:28:24 PST 2021
+This is version 6.1.6-rc1
+Fri Dec 17 15:29:52 PST 2021
 
-dccfa11 (HEAD -> master, origin/master, origin/HEAD) NOJIRA: outlink to cspace objects from workflow webapps weren't working
+e5004bd (HEAD -> main) CSW-574: change 'master' to 'main' in this repo
+9c4e64b (tag: 6.1.5, origin/main) revise CHANGELOG.txt and bump version to 6.1.5
+dccfa11 NOJIRA: outlink to cspace objects from workflow webapps weren't working
 d894ea4 CSW-583: fix incorrect link in government holdings
 f0a84b2 (tag: 6.1.5-rc3) revise CHANGELOG.txt and bump version to 6.1.5-rc3
 e2d1c90 CSW-553: ucjeps bmu converts cr2s to jpgs, not pngs, for now
