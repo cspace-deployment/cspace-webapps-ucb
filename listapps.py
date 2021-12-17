@@ -85,7 +85,7 @@ PAGE="""<html lang="en-us">
                  </ul>
                  <p>There are two basic types of applications:</p>
                  <ul>
-                 <li>Webapps written using the <a target="new" href="https://github.com/cspace-deployment/cspace-webapps-common/blob/master/README.md">CollectionSpace Django Project</a></li>
+                 <li>Webapps written using the <a target="new" href="https://github.com/cspace-deployment/cspace-webapps-common/blob/main/README.md">CollectionSpace Django Project</a></li>
                  <li>The <a target="new" href="">"regular UIs"</a>, which require authentication.</li>
                 </ul>
             </div>
