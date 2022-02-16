@@ -2,8 +2,8 @@
 #																x
 title	Search															x
 #																x
-revision	1.9															x
-date	05/24/18															x
+revision	see github															x
+date	see github															x
 #																x
 server	http://localhost:8983/solr															x
 core	ucjeps-public															x
@@ -50,7 +50,7 @@ field	36	localname	Local Name	localname_s			keyword					3			32	x
 field	37	briefdescription	Description	briefdescription_s			keyword					23			33	x
 field	38	associatedtaxa	Associated Taxa	associatedtaxa_ss			keyword	3,2				24			34	x
 field	39	typeassertions	Type Assertions	typeassertions_ss			keyword					37			35	x
-field	40	othernumber	Other Numbers	othernumber_s			keyword					31			36	x
+field	40	othernumber	Other Numbers	othernumber_ss			keyword	6,2				31			36	x
 field	41	ucbgaccessionnumber	UCBG Accession Number	ucbgaccessionnumber_s			keyword					32			37	x
 field	42	loanstatus	Loan Status	loanstatus_s			dropdown					33			38	x
 field	43	loannumber	Loan Number	loannumber_s			keyword					34			39	x
