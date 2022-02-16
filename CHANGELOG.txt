@@ -3,10 +3,11 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.6-rc3
-Wed Feb 16 08:24:17 PST 2022
+This is version 6.1.6
+Wed Feb 16 14:31:12 PST 2022
 
-93b6a0b (HEAD -> main, tag: 6.1.6-rc2, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.1.6-rc2
+1fc90b0 (HEAD -> main, tag: 6.1.6-rc3, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.1.6-rc3
+93b6a0b (tag: 6.1.6-rc2) revise CHANGELOG.txt and bump version to 6.1.6-rc2
 416f8be CSW-593: add project code to ucjeps portal
 acca3e8 CSW-596: add 3 photo creators to ucbg bmu
 a9b5182 (tag: 6.1.6-rc1) revise CHANGELOG.txt and bump version to 6.1.6-rc1
