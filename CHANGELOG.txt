@@ -3,11 +3,14 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.6-rc1
-Fri Dec 17 15:29:52 PST 2021
+This is version 6.1.6-rc2
+Wed Feb 16 08:12:40 PST 2022
 
-e5004bd (HEAD -> main) CSW-574: change 'master' to 'main' in this repo
-9c4e64b (tag: 6.1.5, origin/main) revise CHANGELOG.txt and bump version to 6.1.5
+416f8be (HEAD -> main) CSW-593: add project code to ucjeps portal
+acca3e8 (origin/main, origin/HEAD) CSW-596: add 3 photo creators to ucbg bmu
+a9b5182 (tag: 6.1.6-rc1) revise CHANGELOG.txt and bump version to 6.1.6-rc1
+e5004bd CSW-574: change 'master' to 'main' in this repo
+9c4e64b (tag: 6.1.5) revise CHANGELOG.txt and bump version to 6.1.5
 dccfa11 NOJIRA: outlink to cspace objects from workflow webapps weren't working
 d894ea4 CSW-583: fix incorrect link in government holdings
 f0a84b2 (tag: 6.1.5-rc3) revise CHANGELOG.txt and bump version to 6.1.5-rc3
