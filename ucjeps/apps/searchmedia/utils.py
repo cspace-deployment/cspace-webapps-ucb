@@ -521,7 +521,7 @@ def doSearch(context):
     except Exception as inst:
         # raise
         loginfo('searchmedia', 'Solr search failed: %s' % str(inst), {}, {})
-        context['errormsg'] = 'Solr4 query failed'
+        context['errormsg'] = 'Solr query failed'
         return context
 
     results = response.results

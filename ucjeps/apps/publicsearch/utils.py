@@ -248,7 +248,7 @@ def doSearch(solr_server, solr_core, context):
                            rows=context['maxresults'], facet_limit=MAXFACETS,
                            facet_mincount=1)
     except:
-        context['errormsg'] = 'Solr4 query failed'
+        context['errormsg'] = 'Solr query failed'
         return context
 
     facetflds = getfacets(response)

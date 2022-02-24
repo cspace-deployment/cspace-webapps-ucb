@@ -85,7 +85,7 @@ def do_location_search(context, prmz, querystring, searchterm):
     except Exception as inst:
         # raise
         loginfo('locationhistory', 'Solr search failed: %s' % str(inst), {}, {})
-        context['errormsg'] = 'Solr4 query failed'
+        context['errormsg'] = 'Solr query failed'
         return context
 
     results = []
