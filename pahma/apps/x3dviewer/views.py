@@ -24,8 +24,9 @@ size_limit = 60
 page = 0
 
 
-def make_x3d_url(md5):
-    return "https://cspace-prod-02.ist.berkeley.edu/pahma_nuxeo/data/%s/%s/%s" % (md5[0:2], md5[2:4], md5)
+def make_x3d_url(blobcsid):
+    return f'https://webapps.cspace.berkeley.edu/pahma/imageserver/blobs/{blobcsid}/content'
+    # return "https://cspace-prod-02.ist.berkeley.edu/pahma_nuxeo/data/%s/%s/%s" % (md5[0:2], md5[2:4], md5)
 
 
 def getblobs(request):
@@ -39,19 +40,19 @@ def getblobs(request):
         (url, b, statusCode, elapsedtime) = connection.make_get_request(f'cspace-services/blobs/{blob_csid.text}')
         blob_record = ET.fromstring(b.decode("utf-8"))
         x3d_info = [blob_record.find('.//%s' % x).text for x in 'digest name uri digest length updatedAt'.split(' ')]
-        x3d_info = x3d_info + [make_x3d_url(blob_record.find('.//digest').text)]
+        x3d_info = x3d_info + [make_x3d_url(blob_csid.text), blob_csid.text]
         md5_keys.append(x3d_info)
     return md5_keys
 
 
 @login_required()
 def x3dviewer(request):
-    if 'md5' in request.GET:
-        md5_key = request.GET['md5']
+    if 'csid' in request.GET:
+        csid = request.GET['csid']
         name = request.GET['name']
-        x3d_url = make_x3d_url(md5_key)
-        logger.info('%s :: x3d %s' % ('x3dviewer', md5_key))
-        return render(request, 'x3dviewer.html', {'apptitle': TITLE, 'md5': md5_key, 'name': name, 'x3d_url': x3d_url})
+        x3d_url = make_x3d_url(csid)
+        logger.info('%s :: x3d %s' % ('x3dviewer', csid))
+        return render(request, 'x3dviewer.html', {'apptitle': TITLE, 'csid': csid, 'name': name, 'x3d_url': x3d_url})
 
     else:
         labels = 'X3D rendering,Blob Record,MD5 key,Size,Updated At,Raw X3D file'.split(',')

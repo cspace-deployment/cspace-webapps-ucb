@@ -16,7 +16,7 @@
             {% endfor %}
 
             <div id="content-main">
-                {% if md5 %}
+                {% if csid %}
                     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
                     <title>{{ name }}</title>
                     <script type='text/javascript' src='https://www.x3dom.org/download/1.7.2/x3dom.js'></script>
@@ -43,7 +43,7 @@
                         <tbody>
                         {% for row in md5_keys %}
                             <tr>
-                                <td><a href="?md5={{ row.0 }}&name={{ row.1 }}" target="x3d">{{ row.1 }}</a>
+                                <td><a href="?csid={{ row.7 }}&name={{ row.1 }}" target="x3d">{{ row.1 }}</a>
                                 <td><a href="https://pahma.cspace.berkeley.edu/cspace-services{{ row.2 }}" target="x3d">XML blob
                                     record</a>
                                 <td>{{ row.3 }}
