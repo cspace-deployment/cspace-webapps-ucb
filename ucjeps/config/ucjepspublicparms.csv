@@ -70,7 +70,7 @@ field	56	determinationdetails	Determination Details	determinationdetails_s			key
 field	58	hastypeassertions	Type Assertions?	hastypeassertions_s			dropdown	5,2				39			46	x
 field	60	comments	Comments	comments_ss			keyword					45			51	x
 field	61	blobs	Images	blob_ss			blob								50	x
-field	62	comment	email a comment	mailto:ucjeps-collections@lists.berkeley.edu?Subject=Accession 			constant					46				x
+field	62	comment	email a comment	mailto:ucjeps-collections@berkeley.edu?Subject=Accession 			constant					46				x
 #	63	these two fields are placeholders used to create needed empty columns in the bMapper file														x
 field	64	collnumprefix	Collector Num Prefix	na			constant			5						x
 field	65	collnumsuffix	Collector Num Suffix	na			constant			7						x
