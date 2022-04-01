@@ -3,27 +3,33 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.1.6
-Wed Feb 16 14:31:12 PST 2022
+This is version 6.2.0-rc1
+Fri Apr  1 08:51:26 PDT 2022
 
-1fc90b0 (HEAD -> main, tag: 6.1.6-rc3, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.1.6-rc3
-93b6a0b (tag: 6.1.6-rc2) revise CHANGELOG.txt and bump version to 6.1.6-rc2
+e046dbf (HEAD -> main, origin/main, origin/HEAD) CSC-1956: add Division to searchable and displayable ucbg portal fields
+709e64c CSW-627: correct email address used to collect comments in ucjeps portal
+0d0fa76 CSW-606: initial georeference revisions to ucjeps portal
+d006250 CSW-620: x3d viewer now uses imageserver for 3d images
+e161a59 NOJIRA: update a few messages about solr in webapps
+ab816fd (tag: 6.1.6) revise CHANGELOG.txt and bump version to 6.1.6
+1fc90b0 revise CHANGELOG.txt and bump version to 6.1.6-rc3
+93b6a0b revise CHANGELOG.txt and bump version to 6.1.6-rc2
 416f8be CSW-593: add project code to ucjeps portal
 acca3e8 CSW-596: add 3 photo creators to ucbg bmu
-a9b5182 (tag: 6.1.6-rc1) revise CHANGELOG.txt and bump version to 6.1.6-rc1
+a9b5182 revise CHANGELOG.txt and bump version to 6.1.6-rc1
 e5004bd CSW-574: change 'master' to 'main' in this repo
 9c4e64b (tag: 6.1.5) revise CHANGELOG.txt and bump version to 6.1.5
 dccfa11 NOJIRA: outlink to cspace objects from workflow webapps weren't working
 d894ea4 CSW-583: fix incorrect link in government holdings
-f0a84b2 (tag: 6.1.5-rc3) revise CHANGELOG.txt and bump version to 6.1.5-rc3
+f0a84b2 revise CHANGELOG.txt and bump version to 6.1.5-rc3
 e2d1c90 CSW-553: ucjeps bmu converts cr2s to jpgs, not pngs, for now
-7fb9592 (tag: 6.1.5-rc2) revise CHANGELOG.txt and bump version to 6.1.5-rc2
+7fb9592 revise CHANGELOG.txt and bump version to 6.1.5-rc2
 15d5e7a CSW-553: ucjeps bmu should capture imagemagick output in log
 4e24e93 CSW-553: ucjeps bmu now handles CR2 format media
 3bdd5c5 CSW-528: update ucbg portal config for 'has vouchers' and 'has images'
 916d474 CSW-532: override path element for cspace link in both ucjeps portals
 3951283 CSW-468: relocate 'show queue' button in csvimport form
-3d1b96d (tag: 6.1.5-rc1) revise CHANGELOG.txt and bump version to 6.1.5-rc1
+3d1b96d revise CHANGELOG.txt and bump version to 6.1.5-rc1
 f3005c1 CSW-511: remove stray line in csvimport undo.sh
 bb22ca8 CSW-511: csvimport undo.sh now uses credentials set in csvimport.cfg
 0c2071e CSW-521: repair 'other number' updating functionality in csvImport
