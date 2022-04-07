@@ -74,4 +74,6 @@ trace "Media record and relations created."
 mv $INPUTFILE $JOB.original.csv
 mv $JOB.step3.csv $JOB.processed.csv
 
+rm CR2file
+
 trace "**** END OF RUN ******************** `date` **************************"
