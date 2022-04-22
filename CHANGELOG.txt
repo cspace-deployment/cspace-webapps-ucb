@@ -3,10 +3,13 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.2.0-rc1
-Fri Apr  1 08:51:26 PDT 2022
+This is version 6.2.0-rc2
+Thu Apr 21 17:11:35 PDT 2022
 
-e046dbf (HEAD -> main, origin/main, origin/HEAD) CSC-1956: add Division to searchable and displayable ucbg portal fields
+7715697 (HEAD -> main, origin/main, origin/HEAD) CSW-553: remove temp file used in bmu processing of CR2s
+a97d08e CSC-1956: add Division to searchable and displayable ucbg internal portal fields
+5c73311 (tag: 6.2.0-rc1) revise CHANGELOG.txt and bump version to 6.2.0-rc1
+e046dbf CSC-1956: add Division to searchable and displayable ucbg portal fields
 709e64c CSW-627: correct email address used to collect comments in ucjeps portal
 0d0fa76 CSW-606: initial georeference revisions to ucjeps portal
 d006250 CSW-620: x3d viewer now uses imageserver for 3d images
