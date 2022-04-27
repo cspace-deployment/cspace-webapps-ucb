@@ -3,10 +3,12 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.2.0-rc2
-Thu Apr 21 17:11:35 PDT 2022
+This is version 6.2.0-rc3
+Wed Apr 27 09:16:06 PDT 2022
 
-7715697 (HEAD -> main, origin/main, origin/HEAD) CSW-553: remove temp file used in bmu processing of CR2s
+a48800e (HEAD -> main) CSW-634: correct unnoticed problem in cinefiles portal config
+478dffd (tag: 6.2.0-rc2, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.2.0-rc2
+7715697 CSW-553: remove temp file used in bmu processing of CR2s
 a97d08e CSC-1956: add Division to searchable and displayable ucbg internal portal fields
 5c73311 (tag: 6.2.0-rc1) revise CHANGELOG.txt and bump version to 6.2.0-rc1
 e046dbf CSC-1956: add Division to searchable and displayable ucbg portal fields
