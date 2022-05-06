@@ -3,10 +3,13 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.2.0-rc4
-Sun May  1 09:50:02 PDT 2022
+This is version 6.2.0
+Fri May  6 13:43:24 PDT 2022
 
-dcdb64b (HEAD -> main, origin/main, origin/HEAD) CSW-641: update toolbox.cfg for object class
+eb9484b (HEAD -> main, origin/main, origin/HEAD) CSW-634: disable defunct csvimport webapp for ucjeps
+9136968 CSW-634: update django webapp config for bmu's
+4fc36ab (tag: 6.2.0-rc4) revise CHANGELOG.txt and bump version to 6.2.0-rc4
+dcdb64b CSW-641: update toolbox.cfg for object class
 b03cce4 (tag: 6.2.0-rc3) revise CHANGELOG.txt and bump version to 6.2.0-rc3
 a48800e CSW-634: correct unnoticed problem in cinefiles portal config
 478dffd (tag: 6.2.0-rc2) revise CHANGELOG.txt and bump version to 6.2.0-rc2
