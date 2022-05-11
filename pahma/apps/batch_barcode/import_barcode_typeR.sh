@@ -381,5 +381,5 @@ do
     sleep 0s
 done
 
-/usr/bin/mail -s "${SUBJECT}" "${EMAIL}" < ${ELEMENT_LOG}
+/usr/bin/mail -r "cspace-support@lists.berkeley.edu" -s "${SUBJECT}" "${EMAIL}" < ${ELEMENT_LOG}
 exit 0

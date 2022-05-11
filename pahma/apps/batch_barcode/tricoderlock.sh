@@ -1,8 +1,9 @@
 #!/bin/bash
 LOCKFILE=/tmp/tricoderlock
-RUNDIR=/var/cspace/pahma/tricoder/batch_barcode
+RUNDIR=/cspace/batch_barcode
 SUBJECT="Tricoder Batch Script still running on `hostname`"
-EMAIL="pahma-tricoder@lists.berkeley.edu,cspace-support@lists.berkeley.edu"
+# EMAIL="pahma-tricoder@lists.berkeley.edu,cspace-support@lists.berkeley.edu"
+EMAIL="jblowe@berkeley.edu"
 
 if mkdir $LOCKFILE; then
   echo "Locking succeeded" >&2
@@ -13,6 +14,6 @@ if mkdir $LOCKFILE; then
   echo "Unlocking succeeded" >&2
 else
   echo "Lock failed - exit" >&2
-  echo " The Tricoder Batch script tried to run but found an existing lock. This situation should clear up by itself but if it persists, please notify RIT staff." | mail -s "${SUBJECT}" "${EMAIL}"
+  echo " The Tricoder Batch script tried to run but found an existing lock. This situation should clear up by itself but if it persists, please notify RIT staff." | mail -r "cspace-support@lists.berkeley.edu" -s "${SUBJECT}" "${EMAIL}"
   exit 1
 fi
