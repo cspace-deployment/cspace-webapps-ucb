@@ -2,8 +2,7 @@
 LOCKFILE=/tmp/tricoderlock
 RUNDIR=/cspace/batch_barcode
 SUBJECT="Tricoder Batch Script still running on `hostname`"
-# EMAIL="pahma-tricoder@lists.berkeley.edu,cspace-support@lists.berkeley.edu"
-EMAIL="jblowe@berkeley.edu"
+EMAIL="pahma-tricoder@lists.berkeley.edu,cspace-support@lists.berkeley.edu"
 
 if mkdir $LOCKFILE; then
   echo "Locking succeeded" >&2
