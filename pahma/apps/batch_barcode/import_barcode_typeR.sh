@@ -11,7 +11,7 @@
 #
 # 10/3/2013 new barcode file type "R" (move crate) have 5 fields:
 #            Type, "Handler", "Timestamp", "Crate", "New location"
-#    Using "checkinput_mvCrate_typeR.sh" to check handler/crate/loc 
+#    Using "checkinput_mvCrate_typeR.sh" to check handler/crate/loc
 #    to make sure they exists in CSpace.
 #
 # As before, this allows multiple runs at the same time (close together) ---
@@ -20,7 +20,7 @@
 #      "/tmp/ProcessMvCrate_"+TalendDate.getDate("CCYY-MM-DD")+"-"+context.infile_min+".barcode"
 #      and output filenames (all appending date w/ the "-"+context.infile_min)
 #   2. The DATE-TIME is also passed to the "checkinput_mvCrate_typeR.sh" as the 3rd
-#      argument, so the intermediate files used for checking are distinguishable 
+#      argument, so the intermediate files used for checking are distinguishable
 #      among the runs
 #   3. The DATE-TIME is also passed to "talendinput.sh" so it can generate
 #      the tab-delimited file with the date/time stamp.
@@ -43,7 +43,7 @@ DATE=${y}-${m}-${d}
 TIME=`date +%H%M`        # this will keep leading zero on the hour
 
 
-# PS1 (the prompt variable) is set and $- includes i if bash is interactive, allowing a 
+# PS1 (the prompt variable) is set and $- includes i if bash is interactive, allowing a
 # shell script or a startup file to test this state.
 # test using if [ "$PS1" ] reported "interactive" in "cron" job & on command-line
 # test using if [ -z "$PS1" ] reported "non-interactive" in "cron" job
@@ -112,7 +112,7 @@ do
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # examine "handler", "museum number", "location" in scanned file w/ 5 fields & 6 fields
     # "$?" is the exit code from previous script (the one immediate before calling $?)
-    # note: passing {$DATE}-${TIME} as the 3rd arg for creating time-embedded 
+    # note: passing {$DATE}-${TIME} as the 3rd arg for creating time-embedded
     #       tab-delimited file for Talend jobs later
     if [ -s /tmp/Process5_${DATE}-${TIME}.barcode ]; then
         ${ROOT_PATH}/checkinput_5fld.sh /tmp/Process5_${DATE}-${TIME}.barcode ${ELEMENT_LOG} ${DATE}-${TIME}
@@ -133,7 +133,7 @@ do
         # error) to get all the objects associated w/ the crate.
         # The output from this call is "/tmp/all_crateObj.tab.${TIMESTAMP}"
         # (fields: objectnumber, computedcrate, computedcurrentlocation), Talend will
-        # need to match the crate to know which objects to move to where 
+        # need to match the crate to know which objects to move to where
         # ${ROOT_PATH}/findObject_inCrate_typeR.sh /tmp/ProcessMvCrate_${DATE}-${TIME}.barcode ${DATE}-${TIME}
         # Passing pre-processed crate locations from the previous step
         # 4/30/2014 --- keep missing objects that are just put into the crate (ran from last file),
@@ -184,20 +184,20 @@ do
     fi        # end of ERRCODE checking interactive/not
 
     # echo "ERRCODE=$ERRCODE, gotit=$gotit"
-    cat ${ELEMENT_LOG} >> $LOGFILE 
+    cat ${ELEMENT_LOG} >> $LOGFILE
     cat ${ELEMENT_LOG} >> $TMPLOG
 
     if [ $skip -eq 0 ]; then
 
         # 12/11/2013 Move the original file to temporary holding directory,
-        #            so if Talend job run & "import" portion takes longer 
+        #            so if Talend job run & "import" portion takes longer
         #               then the cron job spaced duration (currently 1hr).
         mv $SINGLEFL ${ROOT_PATH}/holding
         SINGLEFLNM=$(basename $SINGLEFL)
         echo "moving $SINGLEFLNM to holding directory" | tee -a $LOGFILE $TMPLOG
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        # prepare files for Talend jobs (now use external tab-delimited files for 
+        # prepare files for Talend jobs (now use external tab-delimited files for
         # handler, object, loc & crate, so Talend job don't need to load all
         # records in the database)
         ${ROOT_PATH}/talendinput_typeR.sh ${DATE}-${TIME} $NOCRATE
@@ -213,8 +213,8 @@ do
         echo "----- Running Talend job (type 'M')..."
         cd ${ROOT_PATH}/TMSlocation_barcode_5fld
         TALEND5_PATH=${ROOT_PATH}/TMSlocation_barcode_5fld
-        # java -Xms256M -Xmx1024M -cp classpath.jar: pahma_etl.tmslocation_barcode_5fld_1_0.TMSlocation_barcode_5fld --context=Default --context_param infile_min="${TIME}" 
-        java -Xms256M -Xmx1024M -cp $TALEND5_PATH/../lib/advancedPersistentLookupLib-1.0.jar:$TALEND5_PATH/../lib/commons-collections-3.2.jar:$TALEND5_PATH/../lib/dom4j-1.6.1.jar:$TALEND5_PATH/../lib/external_sort.jar:$TALEND5_PATH/../lib/jaxen-1.1.1.jar:$TALEND5_PATH/../lib/jboss-serialization.jar:$TALEND5_PATH/../lib/log4j-1.2.15.jar:$TALEND5_PATH/../lib/talendcsv.jar:$TALEND5_PATH/../lib/talend_file_enhanced_20070724.jar:$TALEND5_PATH/../lib/trove.jar:$TALEND5_PATH:$TALEND5_PATH/../lib/systemRoutines.jar:$TALEND5_PATH/../lib/userRoutines.jar::.:$TALEND5_PATH/tmslocation_barcode_5fld_1_2.jar: pahma.tmslocation_barcode_5fld_1_2.TMSlocation_barcode_5fld --context=Default --context_param infile_min="${TIME}" 
+        # java -Xms256M -Xmx1024M -cp classpath.jar: pahma_etl.tmslocation_barcode_5fld_1_0.TMSlocation_barcode_5fld --context=Default --context_param infile_min="${TIME}"
+        java -Xms256M -Xmx1024M -cp $TALEND5_PATH/../lib/advancedPersistentLookupLib-1.0.jar:$TALEND5_PATH/../lib/commons-collections-3.2.jar:$TALEND5_PATH/../lib/dom4j-1.6.1.jar:$TALEND5_PATH/../lib/external_sort.jar:$TALEND5_PATH/../lib/jaxen-1.1.1.jar:$TALEND5_PATH/../lib/jboss-serialization.jar:$TALEND5_PATH/../lib/log4j-1.2.15.jar:$TALEND5_PATH/../lib/talendcsv.jar:$TALEND5_PATH/../lib/talend_file_enhanced_20070724.jar:$TALEND5_PATH/../lib/trove.jar:$TALEND5_PATH:$TALEND5_PATH/../lib/systemRoutines.jar:$TALEND5_PATH/../lib/userRoutines.jar::.:$TALEND5_PATH/tmslocation_barcode_5fld_1_2.jar: pahma.tmslocation_barcode_5fld_1_2.TMSlocation_barcode_5fld --context=Default --context_param infile_min="${TIME}"
 
         echo "----- Running Talend job (type 'C')..."
         cd ${ROOT_PATH}/TMSlocation_barcode_6fld
@@ -255,7 +255,7 @@ do
              if [ ! -s $PREDATA ]; then
                  continue
              fi
- 
+
              ROOT=${PREDATA%\.*}
              DATA=${ROOT}.fixed.xml
              CURLOUT=${DATA}.curl.out
@@ -275,7 +275,7 @@ do
                  fi
              done
              echo "END Import barcode file=$DATA `date +%H%M%S`" | tee -a $LOGFILE $TMPLOG
- 
+
              # Cout number of import records read by "curl" and append to a log file.
              echo "Barcode movement --- Counting $DATA ---" >> $LOGFILE
              grep READ ${CURLOUT} | wc -l >> $LOGFILE
@@ -304,7 +304,7 @@ do
              if [ ! -s $PREDATA ]; then
                  continue
              fi
- 
+
              ROOT=${PREDATA%\.*}
              DATA=${ROOT}.fixed.xml
              CURLOUT=${DATA}.curl.out
@@ -325,11 +325,11 @@ do
                  fi
              done
              echo "END Import move-obj relationship file=$DATA  `date +%H%M%S`" | tee -a $LOGFILE $TMPLOG
- 
+
              # Count number of import records read by "curl" and append to a log file.
              echo "Barcode LMI-Obj relationship --- Counting $DATA ---" >> $LOGFILE
              grep READ ${CURLOUT} | wc -l >> $LOGFILE
- 
+
             # 1/28/2014 Also send import count to user email (for debugging)
             DATAFILE=$(basename "$DATA")
             echo "Barcode LMI-Obj relationship --- Counting $DATAFILE ---" >> ${ELEMENT_LOG}
@@ -347,7 +347,7 @@ do
         mv /tmp/Process6_${DATE}-${TIME}.barcode ${ROOT_PATH}/processed
         mv /tmp/ProcessMvCrate_${DATE}-${TIME}.barcode ${ROOT_PATH}/processed
 
-        # Need to move the XML files away so they don't get processed again as part of 
+        # Need to move the XML files away so they don't get processed again as part of
         # new run (if multi-runs in a day, wild card will include older files)
         for LMIDONE in $LMI5_IMPORTS $LMI6_IMPORTS $LMIMVCRATE_IMPORTS $LMI_CURLOUT; do
             gzip $LMIDONE
@@ -367,7 +367,7 @@ do
 
     # clean up the files used for checking handlers/objects/locations/crates
     if [ -f ${ROOT_PATH}/processed/Process5_${DATE}-${TIME}.barcode ]; then
-        rm /tmp/handler5.*.${DATE}-${TIME} /tmp/obj5.*.${DATE}-${TIME} /tmp/loc5.*.${DATE}-${TIME}  
+        rm /tmp/handler5.*.${DATE}-${TIME} /tmp/obj5.*.${DATE}-${TIME} /tmp/loc5.*.${DATE}-${TIME}
     fi
     if [ -f ${ROOT_PATH}/processed/Process6_${DATE}-${TIME}.barcode ]; then
         rm /tmp/handler6.*.${DATE}-${TIME} /tmp/obj6.*.${DATE}-${TIME} /tmp/loc6.*.${DATE}-${TIME} /tmp/crate6.*.${DATE}-${TIME}
