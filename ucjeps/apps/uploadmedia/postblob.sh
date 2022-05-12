@@ -2,7 +2,7 @@
 
 # these better be here!
 source ~/.profile
-source /var/www/venv/bin/activate
+source ${HOME}/venv/bin/activate
 
 # three arguments required:
 #
