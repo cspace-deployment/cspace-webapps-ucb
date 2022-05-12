@@ -3,19 +3,27 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.2.0
-Fri May  6 13:43:24 PDT 2022
+This is version 6.3.0-rc1
+Thu May 12 15:20:49 PDT 2022
 
-eb9484b (HEAD -> main, origin/main, origin/HEAD) CSW-634: disable defunct csvimport webapp for ucjeps
+874b3e7 (HEAD -> main, origin/main, origin/HEAD) CSW-634: update barcode print webapp audit file location for AWS/EC2
+da316ae CSW-634: update runtime path for ucjeps version of bmu postblob.sh
+eec3fee CSW-461: handle new pahma 'ma1' locations in code, for now
+3b27eeb CSW-461: whitespace fix only in the legacy batch_barcode script; no code change
+f2eef00 CSW-657: further updates to pahma tricoder for aws/ec2
+7c4c8a7 CSW-657: initial tweaks to pahma tricoder for aws/ec2
+4446bdf CSW-657: move pahma tricoder ('batch_barcode') into django ucb webapps dir
+2137fdf (tag: 6.2.0) revise CHANGELOG.txt and bump version to 6.2.0
+eb9484b CSW-634: disable defunct csvimport webapp for ucjeps
 9136968 CSW-634: update django webapp config for bmu's
-4fc36ab (tag: 6.2.0-rc4) revise CHANGELOG.txt and bump version to 6.2.0-rc4
+4fc36ab revise CHANGELOG.txt and bump version to 6.2.0-rc4
 dcdb64b CSW-641: update toolbox.cfg for object class
-b03cce4 (tag: 6.2.0-rc3) revise CHANGELOG.txt and bump version to 6.2.0-rc3
+b03cce4 revise CHANGELOG.txt and bump version to 6.2.0-rc3
 a48800e CSW-634: correct unnoticed problem in cinefiles portal config
-478dffd (tag: 6.2.0-rc2) revise CHANGELOG.txt and bump version to 6.2.0-rc2
+478dffd revise CHANGELOG.txt and bump version to 6.2.0-rc2
 7715697 CSW-553: remove temp file used in bmu processing of CR2s
 a97d08e CSC-1956: add Division to searchable and displayable ucbg internal portal fields
-5c73311 (tag: 6.2.0-rc1) revise CHANGELOG.txt and bump version to 6.2.0-rc1
+5c73311 revise CHANGELOG.txt and bump version to 6.2.0-rc1
 e046dbf CSC-1956: add Division to searchable and displayable ucbg portal fields
 709e64c CSW-627: correct email address used to collect comments in ucjeps portal
 0d0fa76 CSW-606: initial georeference revisions to ucjeps portal
