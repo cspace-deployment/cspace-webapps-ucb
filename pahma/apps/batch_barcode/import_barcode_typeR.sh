@@ -106,9 +106,9 @@ do
 
     wc -l $SINGLEFL | tee -a $LOGFILE $TMPLOG
     # TODO: remove the "MA1" hack below when and if all the location barcodes are fixed
-    grep '^"M",' $SINGLEFL | sort | uniq | perl -pe 's/^Kroeber/MA1/' > /tmp/Process5_${DATE}-${TIME}.barcode
-    grep '^"C",' $SINGLEFL | sort | uniq | perl -pe 's/^Kroeber/MA1/' > /tmp/Process6_${DATE}-${TIME}.barcode
-    grep '^"R",' $SINGLEFL | sort | uniq | perl -pe 's/^Kroeber/MA1/' > /tmp/ProcessMvCrate_${DATE}-${TIME}.barcode
+    grep '^"M",' $SINGLEFL | sort | uniq | perl -pe 's/Kroeber, /MA1, /g' > /tmp/Process5_${DATE}-${TIME}.barcode
+    grep '^"C",' $SINGLEFL | sort | uniq | perl -pe 's/Kroeber, /MA1, /g' > /tmp/Process6_${DATE}-${TIME}.barcode
+    grep '^"R",' $SINGLEFL | sort | uniq | perl -pe 's/Kroeber, /MA1, /g' > /tmp/ProcessMvCrate_${DATE}-${TIME}.barcode
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # examine "handler", "museum number", "location" in scanned file w/ 5 fields & 6 fields
