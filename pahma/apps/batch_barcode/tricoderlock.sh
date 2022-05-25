@@ -10,6 +10,8 @@ if mkdir $LOCKFILE; then
   # alas, clean_temp.sh only works if invoked from the 'home' directory; not worth refactoring to do better yet...
   cd ${RUNDIR}; ./clean_temp.sh
   rm -rf $LOCKFILE
+  # tidy up messes left by the script
+  cd /tmp ; ls /tmp | perl -ne "print if /^\d+$/" | xargs rm > /dev/null 2>&1
   echo "Unlocking succeeded" >&2
 else
   echo "Lock failed - exit" >&2
