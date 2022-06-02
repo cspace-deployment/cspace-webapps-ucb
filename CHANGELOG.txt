@@ -3,10 +3,16 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.3.0-rc1
-Thu May 12 15:20:49 PDT 2022
+This is version 6.3.0-rc2
+Wed Jun  1 17:05:10 PDT 2022
 
-874b3e7 (HEAD -> main, origin/main, origin/HEAD) CSW-634: update barcode print webapp audit file location for AWS/EC2
+d3062a5 (HEAD -> main) CSW-687: aws s3 helper script for barcode printing
+c9d804e CSW-657: tricoder now cleans up after itself each hourly run
+0907d3d (origin/main, origin/HEAD) CSW-461: revise batch_barcode/import_barcode_typeR.sh to handle new MA1 locations
+42d4c3b CSW-659: increase number of items in eloan from 50 to 2000
+08c32d1 CSW-634: add a nice batch_barcode test file
+e1a6903 (tag: 6.3.0-rc1) revise CHANGELOG.txt and bump version to 6.3.0-rc1
+874b3e7 CSW-634: update barcode print webapp audit file location for AWS/EC2
 da316ae CSW-634: update runtime path for ucjeps version of bmu postblob.sh
 eec3fee CSW-461: handle new pahma 'ma1' locations in code, for now
 3b27eeb CSW-461: whitespace fix only in the legacy batch_barcode script; no code change
