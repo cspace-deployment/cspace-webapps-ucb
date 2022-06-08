@@ -3,12 +3,13 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.3.0-rc2
-Wed Jun  1 17:05:10 PDT 2022
+This is version 6.3.0-rc3
+Tue Jun  7 19:06:12 HST 2022
 
-d3062a5 (HEAD -> main) CSW-687: aws s3 helper script for barcode printing
+b2b7bac (HEAD -> main, tag: 6.3.0-rc2, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.3.0-rc2
+d3062a5 CSW-687: aws s3 helper script for barcode printing
 c9d804e CSW-657: tricoder now cleans up after itself each hourly run
-0907d3d (origin/main, origin/HEAD) CSW-461: revise batch_barcode/import_barcode_typeR.sh to handle new MA1 locations
+0907d3d CSW-461: revise batch_barcode/import_barcode_typeR.sh to handle new MA1 locations
 42d4c3b CSW-659: increase number of items in eloan from 50 to 2000
 08c32d1 CSW-634: add a nice batch_barcode test file
 e1a6903 (tag: 6.3.0-rc1) revise CHANGELOG.txt and bump version to 6.3.0-rc1
