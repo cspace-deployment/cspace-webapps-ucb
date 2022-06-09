@@ -16,7 +16,6 @@ import toolbox.cswaDB as cswaDB
 import toolbox.cswaConstants as cswaConstants
 import toolbox.cswaGetAuthorityTree as cswaGetAuthorityTree
 import toolbox.cswaConceptutils as concept
-import toolbox.cswaSMBclient as cswaSMBclient
 from toolbox.cswaHelpers import *
 # these are the three functions that do updates
 from toolbox.cswaUpdateCSpace import updateCspace, createObject, updateLocations
@@ -34,24 +33,6 @@ def serverCheck(form, config):
     result += '<tr><td class="zcell">SQL check</td><td class="zcell">' + cswaDB.testDB(config) + "</td></tr>"
     elapsedtime = time.time() - elapsedtime
     result += '<tr><td class="zcell">SQL time</td><td class="zcell">' + ('%8.2f' % elapsedtime) + " seconds</td></tr>"
-
-    # if we are configured for barcodes, try that...
-    try:
-        config.get('files', 'cmdrfileprefix') + config.get('files', 'cmdrauditfile')
-        try:
-            elapsedtime = time.time()
-            result += '<tr><td class="zcell">barcode audit file</td><td class="zcell">' + config.get('files', 'cmdrauditfile') + "</td></tr>"
-            result += '<tr><td class="zcell">trying...</td><td class="zcell"> to write empty test files to commanderWatch directory</td></tr>'
-            printers, selected, printerlist = cswaConstants.getPrinters(form)
-            for printer in printerlist:
-                result += ('<tr><td class="zcell">location labels @ %s</td><td class="zcell">' % printer[1]) + writeCommanderFile('test', printer[1], 'locationLabels', 'locations',  [], config) + "</td></tr>"
-                result += ('<tr><td class="zcell">object labels @ %s</td><td class="zcell">' % printer[1]) + writeCommanderFile('test', printer[1], 'objectLabels', 'objects', [], config) + "</td></tr>"
-            elapsedtime = time.time() - elapsedtime
-            result += '<tr><td class="zcell">barcode check time</td><td class="zcell">' + ('%8.2f' % elapsedtime) + " seconds</td></tr>"
-        except:
-            result += '<tr><td class="zcell">barcode functionality check</td><td class="zcell"><span class="error">FAILED.</span></td></tr>'
-    except:
-        result += '<tr><td class="zcell">barcode functionality check</td><td class="zcell">skipped, not configured in config file.</td></tr>'
 
     elapsedtime = time.time()
     # rest check...
@@ -1558,15 +1539,7 @@ def doListGovHoldings(form, config):
 
 
 def writeCommanderFile(location, printerDir, dataType, filenameinfo, data, config):
-    # slugify the location
-    slug = re.sub('[^\w-]+', '_', location).strip().lower()
-    barcodeFile = config.get('barcodeprint', 'cmdrfmtstring') % (
-        dataType, printerDir, slug,
-        datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S"), filenameinfo)
-
-    newName = cswaSMBclient.uploadCmdrWatch(barcodeFile, dataType, data, config)
-
-    return newName
+    return ''
 
 
 def doUploadUpdateLocs(data, line, id2ref, form, config):
