@@ -3,10 +3,11 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.3.0-rc4
-Wed Jun  8 17:08:45 PDT 2022
+This is version 6.3.0
+Wed Jun  8 17:18:32 PDT 2022
 
-b7a3eb9 (HEAD -> main, tag: 6.3.0-rc3, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.3.0-rc3
+2853d93 (HEAD -> main, tag: 6.3.0-rc4, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.3.0-rc4
+b7a3eb9 (tag: 6.3.0-rc3) revise CHANGELOG.txt and bump version to 6.3.0-rc3
 b2b7bac (tag: 6.3.0-rc2) revise CHANGELOG.txt and bump version to 6.3.0-rc2
 d3062a5 CSW-687: aws s3 helper script for barcode printing
 c9d804e CSW-657: tricoder now cleans up after itself each hourly run
