@@ -8,9 +8,6 @@ PAGE="""<html lang="en-us">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <!-- link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.22.custom.css"/>
-    <script type="text/javascript" src="js/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script -->
     <!-- link rel="stylesheet" type="text/css" href="css/base.css" -->
     <style>
     li {margin: 10px 0;}
@@ -36,18 +33,18 @@ PAGE="""<html lang="en-us">
         </div>
          <div id="tabs">
             <ul>
-                <li><a href="#prodtab">Applications</a></li>
+                <li><a href="#applicationstab">Applications</a></li>
                 <li><a href="#documentstab">Help!</a></li>
                 <li><a href="#analyticstab">Analytics</a></li>
                 <li><a href="#otheruserstab">Other Public Portals</a></li>
                 <li><a href="#newstab">News</a></li>
             </ul>
-            <div id="prodtab">
+            <div id="applicationstab">
                 <p>
                     Servers:
                     <a href="https://webapps.cspace.berkeley.edu"><span class="servers" style="color: red">Production</span></a>
                     <a href="https://webapps-qa.cspace.berkeley.edu"><span class="servers" style="color: blue">QA</span></a>
-                    <a href="https://webapps-dev.cspace.berkeley.edu"><span class="servers" style="color: green">Development</span></a>
+                    <!-- a href="https://webapps-dev.cspace.berkeley.edu"><span class="servers" style="color: green">Development</span></a -->
                     <span class="servers" style="font-size: 10pt;">(pick the server you wish to work with)</span>
                 </p>
                 <hr/>
@@ -60,6 +57,7 @@ PAGE="""<html lang="en-us">
                          <li><a href="#djangotab">Django Webapp Usage</a></li>
                          <li><a href="#toolboxtab">Toolbox Webapp Usage</a></li>
                          <li><a href="#solrcoretab">Contents of Public Solr Cores</a></li>
+                         <li><a href="#assortedmetricstab">Assorted other metrics</a></li>
                      </ul>
                      <div id="djangotab">
                          <iframe style="width: 100%%; height: 1000px;" src="summary.html"></iframe>
@@ -69,6 +67,9 @@ PAGE="""<html lang="en-us">
                      </div>
                      <div id="solrcoretab">
                          <iframe style="width: 100%%; height: 1000px;" src="corestats.html"></iframe>
+                     </div>
+                     <div id="assortedmetricstab">
+                         <iframe style="width: 100%%; height: 1000px;" src="metrics.html"></iframe>
                      </div>
                  </div>
              </div>
@@ -81,7 +82,7 @@ PAGE="""<html lang="en-us">
                  <ul>
                      <li>The <span style="color: red">Production</span> deployment, where "real work" should be done;</li>
                      <li>The <span style="color: blue">QA</span> deployment, where formal testing gets done;</li>
-                     <li>The <span style="color: green">Development</span>  deployment, where development, experimentation, and training should be done.</li>
+                     <!-- li>The <span style="color: green">Development</span>  deployment, where development, experimentation, and training should be done.</li -->
                  </ul>
                  <p>There are two basic types of applications:</p>
                  <ul>
