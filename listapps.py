@@ -78,12 +78,13 @@ PAGE="""<html lang="en-us">
                  <p>There is no one single place to find information and links to the various services and websites
                  associated with CollectionSpace@UCB.  This is probably as close as you will get to such a place.</p>
                  <p>This webpage and its various panes provide links to web-accessible CSpace applications at UCB.</p>
-                 <p>For each set of applications, are three "deployments" (i.e. installations) of the code:</p>
+                 <p>For each set of applications, are two "deployments" (i.e. installations) of the code:</p>
                  <ul>
                      <li>The <span style="color: red">Production</span> deployment, where "real work" should be done;</li>
                      <li>The <span style="color: blue">QA</span> deployment, where formal testing gets done;</li>
                      <!-- li>The <span style="color: green">Development</span>  deployment, where development, experimentation, and training should be done.</li -->
                  </ul>
+                 <p>NB: there is no longer a development deployment.</p>
                  <p>There are two basic types of applications:</p>
                  <ul>
                  <li>Webapps written using the <a target="new" href="https://github.com/cspace-deployment/cspace-webapps-common/blob/main/README.md">CollectionSpace Django Project</a></li>
