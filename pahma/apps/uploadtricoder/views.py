@@ -65,12 +65,16 @@ def prepareFiles(request, validateonly):
             if not validateonly:
                 loginfo('tricoder start', get_tricoder_file('input',tricoder_filenumber), {}, request, {}, {})
                 try:
-                    retcode = subprocess.call(
-                        [POSTBLOBPATH, get_tricoder_file('input',tricoder_filenumber)])
-                    if retcode < 0:
-                        loginfo('tricoder ERROR: process', tricoder_filenumber + " Child was terminated by signal %s" % -retcode, {}, request, {}, {})
+                    p_object = subprocess.Popen(
+                        # 'fire and forget' the batch job
+                        [POSTBLOBPATH, get_tricoder_file('input',tricoder_filenumber)],
+                        shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+                    pid = ''
+                    if p_object._child_created:
+                        pid = p_object.pid
+                        loginfo('tricoder online job submitted:', f': Child returned {p_object.returncode}, pid {pid}', {}, request)
                     else:
-                        loginfo('tricode process', tricoder_filenumber + ": Child returned %s" % retcode, {}, request, {}, {})
+                        loginfo('tricoder online job FAILED:', f': Child returned {p_object.returncode}, pid {pid}', {}, request)
                 except OSError as e:
                     loginfo('tricoder', "ERROR: Execution failed: %s" % e, {}, request, {}, {})
                 loginfo('tricoder finish', get_tricoder_file('input',tricoder_filenumber), {}, request, {}, {})
