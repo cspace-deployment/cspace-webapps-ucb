@@ -25,7 +25,7 @@ PAGE="""<html lang="en-us">
 </head>
 <body class="">
 <div id="container">
-    <div id="content-main" style="max-width: 1000px;">
+    <div id="content-main" style="max-width: 1200px;">
         <div>
             <img height="40px" src="/bampfa_static/cspace_django_site/images/CollectionSpaceLogo.png">
             <span style="font-size: 28px;vertical-align: 35%%;">@</span>
@@ -96,7 +96,7 @@ PAGE="""<html lang="en-us">
                  <p>The following is a list of other deployments of the Search Portal software that we know about.</p>
                  <p>Please let us know if you find others:</p>
                  <ul>
-                     <li>Bolinas Museum <a target="_new" href="http://collection.bolinasmuseum.org/webapp/search">http://collection.bolinasmuseum.org/webapp/search</a></li>
+                     <li>Oakland Museum <a target="_new" href="https://museumca.org">https://museumca.org</a> (no public apps yet)</li>
                      <li>Watermill Center <a target="_new" href="http://collection.watermillcenter.org/search">http://collection.watermillcenter.org/search</a></li>
                  </ul>
             </div>
