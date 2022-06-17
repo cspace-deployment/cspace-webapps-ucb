@@ -3,18 +3,25 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.3.0
-Wed Jun  8 17:18:32 PDT 2022
+This is version 6.4.0-rc1
+Fri Jun 17 12:54:45 PDT 2022
 
-2853d93 (HEAD -> main, tag: 6.3.0-rc4, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.3.0-rc4
-b7a3eb9 (tag: 6.3.0-rc3) revise CHANGELOG.txt and bump version to 6.3.0-rc3
-b2b7bac (tag: 6.3.0-rc2) revise CHANGELOG.txt and bump version to 6.3.0-rc2
+d356257 (HEAD -> main) CSW-700: use correct 'fire and forget' logic for tricoder online batch job
+059389e CSW-692: further revisions to webapps splash page
+b8508d7 CSW-692: add some content to webapps splash page.
+68ad040 CSW-692: get rid of 'dev' links in webapps splash page, etc.
+e6c8ef0 CSW-687: temp directory for barcode print webapp
+06a7d1e (tag: 6.3.0, origin/main, origin/HEAD) CSW-634: remove SMB client code from UCBG toolbox
+9ef211e revise CHANGELOG.txt and bump version to 6.3.0
+2853d93 revise CHANGELOG.txt and bump version to 6.3.0-rc4
+b7a3eb9 revise CHANGELOG.txt and bump version to 6.3.0-rc3
+b2b7bac revise CHANGELOG.txt and bump version to 6.3.0-rc2
 d3062a5 CSW-687: aws s3 helper script for barcode printing
 c9d804e CSW-657: tricoder now cleans up after itself each hourly run
 0907d3d CSW-461: revise batch_barcode/import_barcode_typeR.sh to handle new MA1 locations
 42d4c3b CSW-659: increase number of items in eloan from 50 to 2000
 08c32d1 CSW-634: add a nice batch_barcode test file
-e1a6903 (tag: 6.3.0-rc1) revise CHANGELOG.txt and bump version to 6.3.0-rc1
+e1a6903 revise CHANGELOG.txt and bump version to 6.3.0-rc1
 874b3e7 CSW-634: update barcode print webapp audit file location for AWS/EC2
 da316ae CSW-634: update runtime path for ucjeps version of bmu postblob.sh
 eec3fee CSW-461: handle new pahma 'ma1' locations in code, for now
