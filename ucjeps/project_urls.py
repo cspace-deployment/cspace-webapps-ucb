@@ -31,7 +31,6 @@ urlpatterns = [
 
     # these are user-facing (i.e. present a UI to the caller)
     # path('asura/', include('asura.urls'), name='asura'),
-    # path('csvimport/', include('csvimport.urls'), name='csvimport'),
     path('grouper/', include('grouper.urls'), name='grouper'),
     path('imagebrowser/', include('imagebrowser.urls'), name='imagebrowser'),
     path('imaginator/', include('imaginator.urls'), name='imaginator'),
