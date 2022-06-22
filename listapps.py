@@ -27,9 +27,9 @@ PAGE="""<html lang="en-us">
 <div id="container">
     <div id="content-main" style="max-width: 1200px;">
         <div>
-            <img height="40px" src="/bampfa_static/cspace_django_site/images/CollectionSpaceLogo.png">
+            <img height="40px" src="CollectionSpaceLogo.png">
             <span style="font-size: 28px;vertical-align: 35%%;">@</span>
-            <img height="60px" src="/bampfa_static/cspace_django_site/images/berkeley-logo.png">
+            <img height="60px" src="berkeley-logo.png">
         </div>
          <div id="tabs">
             <ul>
@@ -140,8 +140,8 @@ MUSEUMS = {
 }
 
 APPS = {
-    'imagebrowser': 'Image Browser',
-    'imaginator': 'Imaginator',
+    # 'imagebrowser': 'Image Browser',
+    # 'imaginator': 'Imaginator',
     'eloan': 'e-Loans',
     # 'cinestats': '"CineStats"',
     'csvimport': 'csvImport',
@@ -172,12 +172,23 @@ header = """
     </style>
 """
 
+blacklight_portals = {'bampfa': ('collection.bampfa.berkeley.edu', 'bampfa_tiny.png'),
+                      'botgarden': ('', 'https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png'),
+                      'cinefiles': ('cinefiles.bampfa.berkeley.edu', 'cinefiles_tiny.png'),
+                      'pahma': ('portal.hearstmuseum.berkeley.edu', 'pahma_tiny.png'),
+                      'ucjeps': ('', 'https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png')}
+
 cell = """
 <tr>
 <td style="width: 340px; vertical-align: top;">
 <a  class="likeabutton" target="_blank" href="https://%s.cspace.berkeley.edu">
 <h3>%s</h3>
 <img style="max-width: 330px ; max-height: 100px" alt="%s" src="https://webapps.cspace.berkeley.edu/%s_static/cspace_django_site/images/header-logo.png"></a>
+</td>
+<td style="width: 180px; vertical-align: top;">
+<a  class="likeabutton" target="_blank" href="https://%s">
+<img style="max-width: 180px ; max-height: 160px" alt="%s" src="%s">
+</a>
 </td>
 """
 
@@ -295,17 +306,20 @@ elif output_type == 'table-html':
 elif output_type == 'html':
     html = '<table>'
     html += '<tr><th>%s' % ''
-    for app_type in 'Public Private'.split(' '):
+    for app_type in 'Blacklight Portal,Public,Private'.split(','):
         html += wrap('td', wrap('b', app_type)).replace('<td>', '<td style="width: 300px;">')
     html += '</tr>'
     for tenant in tenants:
-        html += cell % (f'{tenant}{deployment}', MUSEUMS[tenant][0], MUSEUMS[tenant][0], tenant)
+        html += cell % (f'{tenant}{deployment}', MUSEUMS[tenant][0], MUSEUMS[tenant][0], tenant, blacklight_portals[tenant][0], tenant, blacklight_portals[tenant][1])
         for app_type in 'Public Private'.split(' '):
             html += '<td style="vertical-align: top; padding-top: 20px;">'
             for app in sorted(all_apps.keys()):
                 if tenant in all_apps[app]:
                     if all_apps[app][tenant] == app_type:
-                        app_name = APPS[app] if app in APPS else app
+                        if app in APPS:
+                            app_name = APPS[app]
+                        else:
+                            continue
                         html += wrap('p', app_anchor(app_name, tenant, app, 'DEPLOYMENT'))
                 else:
                     pass
