@@ -3,15 +3,21 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.0-rc1
-Fri Jun 17 12:54:45 PDT 2022
+This is version 6.4.0-rc2
+Wed Jun 22 13:42:05 PDT 2022
 
-d356257 (HEAD -> main) CSW-700: use correct 'fire and forget' logic for tricoder online batch job
+8725b27 (HEAD -> main) CSW-634: example batch_barcode (tricoder) config file
+90848bd CSC-1932: add static media for webapps splash page revisions
+b855dab CSW-634: revise example config files for webapps
+95e0171 CSW-634: remove legacy csvimport webapp from repo
+c2c7cb2 CSW-634: remove legacy csvimport webapp from repo
+9611cb1 (tag: 6.4.0-rc1, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.0-rc1
+d356257 CSW-700: use correct 'fire and forget' logic for tricoder online batch job
 059389e CSW-692: further revisions to webapps splash page
 b8508d7 CSW-692: add some content to webapps splash page.
 68ad040 CSW-692: get rid of 'dev' links in webapps splash page, etc.
 e6c8ef0 CSW-687: temp directory for barcode print webapp
-06a7d1e (tag: 6.3.0, origin/main, origin/HEAD) CSW-634: remove SMB client code from UCBG toolbox
+06a7d1e (tag: 6.3.0) CSW-634: remove SMB client code from UCBG toolbox
 9ef211e revise CHANGELOG.txt and bump version to 6.3.0
 2853d93 revise CHANGELOG.txt and bump version to 6.3.0-rc4
 b7a3eb9 revise CHANGELOG.txt and bump version to 6.3.0-rc3
