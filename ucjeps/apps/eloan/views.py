@@ -3,7 +3,7 @@ __author__ = 'jblowe, rjaffe'
 
 import re
 import time
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, redirect
 import urllib
 from cspace_django_site.main import cspace_django_site
 from eloan.eloanutils import get_entity, build_solr_query, getInstitutionCodefromDisplayName, getShortIdfromRefName

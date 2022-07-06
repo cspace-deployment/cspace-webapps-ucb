@@ -6,7 +6,7 @@ import logging
 import json
 
 # from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, redirect
 # from django.template.loader import render_to_string
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
