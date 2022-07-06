@@ -3,12 +3,14 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.0-rc3
-Wed Jul  6 15:26:45 PDT 2022
+This is version 6.4.0-rc4
+Wed Jul  6 16:04:05 PDT 2022
 
-cd14e92 (HEAD -> main) CSW-706: changes to support django v4.0
+efa1320 (HEAD -> main) CSW-706: update static file handling to support django v4.0
+2a8414e (tag: 6.4.0-rc3, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.0-rc3
+cd14e92 CSW-706: changes to support django v4.0
 fc9891c CSW-349: render_to_response is deprecated in django 2.x will be gone in 3.x
-09a3955 (tag: 6.4.0-rc2, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.0-rc2
+09a3955 (tag: 6.4.0-rc2) revise CHANGELOG.txt and bump version to 6.4.0-rc2
 8725b27 CSW-634: example batch_barcode (tricoder) config file
 90848bd CSC-1932: add static media for webapps splash page revisions
 b855dab CSW-634: revise example config files for webapps
