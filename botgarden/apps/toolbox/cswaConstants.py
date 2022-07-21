@@ -431,7 +431,6 @@ def selectWebapp(form, webappconfig):
             continue
         try:
             # check to see that all the needed values are available...
-            logo = webappconfig.get('info','logo')
             schemacolor1 = webappconfig.get('info','schemacolor1')
             institution = webappconfig.get('info','institution')
             serverlabel = webappconfig.get('info','serverlabel')
