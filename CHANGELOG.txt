@@ -3,10 +3,12 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.0-rc5
-Fri Jul  8 13:23:47 PDT 2022
+This is version 6.4.0-rc6
+Wed Aug 17 14:14:17 PDT 2022
 
-c9841c1 (HEAD -> main, tag: 6.4.0-rc4, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.0-rc4
+275a882 (HEAD -> main, origin/main, origin/HEAD) CSW-716: customization for ucbg toolbox missing an update
+85d6cdc (tag: 6.4.0-rc5) revise CHANGELOG.txt and bump version to 6.4.0-rc5
+c9841c1 (tag: 6.4.0-rc4) revise CHANGELOG.txt and bump version to 6.4.0-rc4
 efa1320 CSW-706: update static file handling to support django v4.0
 2a8414e (tag: 6.4.0-rc3) revise CHANGELOG.txt and bump version to 6.4.0-rc3
 cd14e92 CSW-706: changes to support django v4.0
