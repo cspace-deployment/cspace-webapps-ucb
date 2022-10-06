@@ -3,10 +3,11 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.0-rc8
-Wed Oct  5 16:13:13 PDT 2022
+This is version 6.4.0
+Wed Oct  5 19:29:25 PDT 2022
 
-9e41677 (HEAD -> main, tag: 6.4.0-rc7, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.0-rc7
+dd7157f (HEAD -> main, tag: 6.4.0-rc8, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.0-rc8
+9e41677 (tag: 6.4.0-rc7) revise CHANGELOG.txt and bump version to 6.4.0-rc7
 c9206d9 CSW-723: batch_barcode should tidy up its files in /tmp after running
 0aee4fe (tag: 6.4.0-rc6) revise CHANGELOG.txt and bump version to 6.4.0-rc6
 275a882 CSW-716: customization for ucbg toolbox missing an update
