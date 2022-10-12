@@ -4,26 +4,29 @@ OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
 This is version 6.4.0
-Wed Oct  5 19:29:25 PDT 2022
+Wed Oct 12 15:51:01 PDT 2022
 
-dd7157f (HEAD -> main, tag: 6.4.0-rc8, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.0-rc8
-9e41677 (tag: 6.4.0-rc7) revise CHANGELOG.txt and bump version to 6.4.0-rc7
+2e07b00 (HEAD -> main, origin/main, origin/HEAD) CSW-753: revise hierarchy outlink for concept records in hierarchy viewer
+6f47b6c CSW-752: use correct outlink urls in ucjeps taxon editor
+599eff9 revise CHANGELOG.txt and bump version to 6.4.0
+dd7157f revise CHANGELOG.txt and bump version to 6.4.0-rc8
+9e41677 revise CHANGELOG.txt and bump version to 6.4.0-rc7
 c9206d9 CSW-723: batch_barcode should tidy up its files in /tmp after running
-0aee4fe (tag: 6.4.0-rc6) revise CHANGELOG.txt and bump version to 6.4.0-rc6
+0aee4fe revise CHANGELOG.txt and bump version to 6.4.0-rc6
 275a882 CSW-716: customization for ucbg toolbox missing an update
-85d6cdc (tag: 6.4.0-rc5) revise CHANGELOG.txt and bump version to 6.4.0-rc5
-c9841c1 (tag: 6.4.0-rc4) revise CHANGELOG.txt and bump version to 6.4.0-rc4
+85d6cdc revise CHANGELOG.txt and bump version to 6.4.0-rc5
+c9841c1 revise CHANGELOG.txt and bump version to 6.4.0-rc4
 efa1320 CSW-706: update static file handling to support django v4.0
-2a8414e (tag: 6.4.0-rc3) revise CHANGELOG.txt and bump version to 6.4.0-rc3
+2a8414e revise CHANGELOG.txt and bump version to 6.4.0-rc3
 cd14e92 CSW-706: changes to support django v4.0
 fc9891c CSW-349: render_to_response is deprecated in django 2.x will be gone in 3.x
-09a3955 (tag: 6.4.0-rc2) revise CHANGELOG.txt and bump version to 6.4.0-rc2
+09a3955 revise CHANGELOG.txt and bump version to 6.4.0-rc2
 8725b27 CSW-634: example batch_barcode (tricoder) config file
 90848bd CSC-1932: add static media for webapps splash page revisions
 b855dab CSW-634: revise example config files for webapps
 95e0171 CSW-634: remove legacy csvimport webapp from repo
 c2c7cb2 CSW-634: remove legacy csvimport webapp from repo
-9611cb1 (tag: 6.4.0-rc1) revise CHANGELOG.txt and bump version to 6.4.0-rc1
+9611cb1 revise CHANGELOG.txt and bump version to 6.4.0-rc1
 d356257 CSW-700: use correct 'fire and forget' logic for tricoder online batch job
 059389e CSW-692: further revisions to webapps splash page
 b8508d7 CSW-692: add some content to webapps splash page.
