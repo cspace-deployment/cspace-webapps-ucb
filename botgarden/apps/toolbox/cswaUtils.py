@@ -1466,7 +1466,7 @@ def doHierarchyView(form, config):
     elif query == 'places':
         link = protocol + '://' + hostname + port + '/cspace/' + institution.replace('botgarden', 'ucbg') +  '/record/all/%s'
     else:
-        link = protocol + '://' + hostname + port + '/cspace/' + institution.replace('botgarden', 'ucbg') +  '/record/all/%s&vocab=' + query
+        link = protocol + '://' + hostname + port + '/cspace/' + institution.replace('botgarden', 'ucbg') +  '/record/all/%s'
     for row in res:
         prettyName = row[0].replace('"', "'")
         if len(prettyName) > 0 and prettyName[0] == '@':
