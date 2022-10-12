@@ -27,7 +27,7 @@
                         <tr>
                             {% if source == "CollectionSpace" %}
                                 <td>
-                                    <a target="cspace" href="{{ cspaceserver }}/collectionspace/ui/{{ institution }}/html/{{ csrecordtype }}.html?csid={{ row.7.1 }}">
+                                    <a target="cspace" href="{{ cspaceserver }}/cspace/{{ institution }}/record/{{ csrecordtype }}/local/{{ row.7.1 }}">
                                     <img src="{% static 'common/images/open_cspace.png' %}" class="cspaceLink"></a>
                                 </td>
                             {% else %}
