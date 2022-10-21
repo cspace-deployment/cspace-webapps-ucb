@@ -3,10 +3,12 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.0
-Wed Oct 12 15:51:01 PDT 2022
+This is version 6.5.0-rc1
+Fri Oct 21 09:10:33 PDT 2022
 
-2e07b00 (HEAD -> main, origin/main, origin/HEAD) CSW-753: revise hierarchy outlink for concept records in hierarchy viewer
+0e06056 (HEAD -> main) CSW-713: revise webapps / portal splash page
+09162de (tag: 6.4.0, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.0
+2e07b00 CSW-753: revise hierarchy outlink for concept records in hierarchy viewer
 6f47b6c CSW-752: use correct outlink urls in ucjeps taxon editor
 599eff9 revise CHANGELOG.txt and bump version to 6.4.0
 dd7157f revise CHANGELOG.txt and bump version to 6.4.0-rc8
