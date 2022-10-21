@@ -25,7 +25,7 @@ PAGE="""<html lang="en-us">
 </head>
 <body class="">
 <div id="container">
-    <div id="content-main" style="max-width: 1200px;">
+    <div id="content-main" style="max-width: 1400px;">
         <div>
             <img height="40px" src="CollectionSpaceLogo.png">
             <span style="font-size: 28px;vertical-align: 35%%;">@</span>
@@ -144,7 +144,7 @@ APPS = {
     # 'imaginator': 'Imaginator',
     'eloan': 'e-Loans',
     # 'cinestats': '"CineStats"',
-    'csvimport': 'csvImport',
+    # 'csvimport': 'csvImport',
     'searchmedia': 'Media Search',
     'grouper': 'Grouper',
     'internal': 'Internal Portal',
@@ -178,18 +178,20 @@ blacklight_portals = {'bampfa': ('collection.bampfa.berkeley.edu', 'bampfa_tiny.
                       'pahma': ('portal.hearstmuseum.berkeley.edu', 'pahma_tiny.png'),
                       'ucjeps': ('', 'https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png')}
 
-cell = """
-<tr>
-<td style="width: 340px; vertical-align: top;">
-<a  class="likeabutton" target="_blank" href="https://%s.cspace.berkeley.edu">
-<h3>%s</h3>
-<img style="max-width: 330px ; max-height: 100px" alt="%s" src="https://webapps.cspace.berkeley.edu/%s_static/cspace_django_site/images/header-logo.png"></a>
-</td>
+cell1 = """
+<td style="width: 300px; vertical-align: top;">
+<h4>%s</h4></td>"""
+
+cell2 = """
+<td><a class="likeabutton" target="_blank" href="https://%s.collectionspace.org">
+<img style="max-width: 300px ; max-height: 100px" alt="%s" src="https://webapps.cspace.berkeley.edu/%s_static/cspace_django_site/images/header-logo.png"></a>
+</td>"""
+
+cell3 = """
 <td style="width: 180px; vertical-align: top;">
 <a  class="likeabutton" target="_blank" href="https://%s">
 <img style="max-width: 180px ; max-height: 160px" alt="%s" src="%s">
 </a>
-</td>
 """
 
 def wrap(tag, value):
@@ -304,14 +306,26 @@ elif output_type == 'table-html':
     print(html)
 
 elif output_type == 'html':
-    html = '<table>'
-    html += '<tr><th>%s' % ''
-    for app_type in 'Blacklight Portal,Public,Private'.split(','):
-        html += wrap('td', wrap('b', app_type)).replace('<td>', '<td style="width: 300px;">')
-    html += '</tr>'
+    html = '<table><tr>'
     for tenant in tenants:
-        html += cell % (f'{tenant}{deployment}', MUSEUMS[tenant][0], MUSEUMS[tenant][0], tenant, blacklight_portals[tenant][0], tenant, blacklight_portals[tenant][1])
-        for app_type in 'Public Private'.split(' '):
+        pass
+        # html += '<th>%s</th>' % tenant
+        #for app_type in 'Blacklight Portal,Public,Private'.split(','):
+        #    html += wrap('td', wrap('b', app_type)).replace('<td>', '<td style="width: 300px;">')
+    # html += '</tr><tr>'
+    for tenant in tenants:
+        html += cell1 % MUSEUMS[tenant][0]
+    html += '</tr><tr>'
+    for tenant in tenants:
+        html += cell2 % (f'{tenant.replace("botgarden","ucbg")}{deployment.replace("-",".")}',
+            MUSEUMS[tenant][0], tenant)
+    html += '</tr><tr>'
+    for tenant in tenants:
+        html += cell3 % (blacklight_portals[tenant][0], tenant, blacklight_portals[tenant][1])
+    html += '</tr>'
+    for app_type in 'Public Private'.split(' '):
+        html += '<tr>'
+        for tenant in tenants:
             html += '<td style="vertical-align: top; padding-top: 20px;">'
             for app in sorted(all_apps.keys()):
                 if tenant in all_apps[app]:
