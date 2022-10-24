@@ -89,4 +89,4 @@ field	68	latitude	Latitude	latitude_f			keyword								48	x
 field	69	longitude	Longitude	longitude_f			keyword								49	x
 field	70	hybridflag	Named hybrid?	hybridflag_s			dropdown	16,1			33					x
 field	71	provenancetypeshort	Provenance Type (short)	provenancetype_short_s			dropdown								3	x
-field	66	deaddate	Dead Date	deaddate_dt			keyword	16,2			48	13			50	x
+field	72	deaddate	Dead Date	deaddate_s			keyword				48	13			50	x
