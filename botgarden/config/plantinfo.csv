@@ -84,4 +84,4 @@ field	62	source	Source	source_s			keyword									x
 field	63	hybridflag	Named hybrid?	hybridflag_s			dropdown	10,1			27					x
 field	64	provenancetypeshort	Provenance Type (short)	provenancetype_short_s			dropdown								3	x
 field	65	determination	Determination	determination_s			keyword									x
-field	66	deaddate	Dead Date	deaddate_s			keyword				30	13			34	x
+field	66	deaddate	Dead Date	deaddate_s			keyword									x

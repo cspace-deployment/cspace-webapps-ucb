@@ -16,7 +16,7 @@ field	1	id	id	id			id									x
 field	2	csid	CSID	csid_s			csid									x
 field	3	accessionnumber	Accession Number	accessionnumber_s		ob	objectno,accession,string,sortkey	8,3		1		1	1		1	x
 field	4	determination	Determination	determination_s			keyword,mainentry			2		2			2	x
-field	4.1	previousdeterminations	Previously Applied Names	previousdeterminations_ss			keyword				21				30	x
+field	4.1	previousdeterminations	Previously Applied Names	previousdeterminations_ss			keyword				23				30	x
 field	4.2	alldeterminations	Scientific Name	alldeterminations_ss		ta	keyword	1,1								x
 field	5	collector	Collector	collector_s		pe	keyword	4,2	1		5	6	2		10	x
 field	6	collectornumber	Collector Number	collectornumber_s			keyword	5,2	2		1	7	3		11	x
@@ -33,8 +33,8 @@ field	16	maxelevation	Max elevation	maxelevation_s			keyword									x
 field	17	elevationunit	Elevation unit	elevationunit_s			keyword									x
 field	18	habitat	Habitat	habitat_s			keyword	10,2			13				14	x
 field	18.1	habit	Habit	habit_s			dropdown	9,3			11				28	x
-field	18.2	materialtype	Material received as	materialtype_s			keyword	8,2			48				50	x
-field	18.3	sex	Sex	sex_s			dropdown	10,3			49				4	x
+field	18.2	materialtype	Material received as	materialtype_s			keyword	8,2			50				50	x
+field	18.3	sex	Sex	sex_s			dropdown	10,3			51				4	x
 field	19	latlong	LatLong	latlong_p			location								15	x
 field	20	trscoordinates	TRS coordinates	trscoordinates_s			keyword							1		x
 field	21	datum	Datum	datum_s			dropdown							2		x
@@ -47,46 +47,46 @@ field	26	gardenlocation	Garden Location	gardenlocation_s			keyword	1,2	8		16	4	6
 field	27	dataquality	Data Quality	dataquality_s			keyword				17					x
 field	28	locality	Geographic Place Name	locality_s		pl	keyword	11,2			18	5			18	x
 field	29	rare	Rare?	rare_s			dropdown	14,1	9		19	8	7		19	x
-field	30	deadflag	Dead?	deadflag_s			dropdown,default=no	13,1	10		20	9	8		20	x
-field	31	flowercolor	Flower Color	flowercolor_s			keyword	10,1	11		21	10	9		21	x
-field	32	determinationnoauth	Determination	determinationnoauth_s			keyword				22					x
-field	33	reasonformove	Reason for Move	reasonformove_s			keyword				23					x
-field	34	conservationinfo	Conservation Information	conservationinfo_ss			keyword				27				23	x
-field	35	conserveorg	Conservation Organization	conserveorg_ss			dropdown	12,2	12		50					x
-field	36	conservecat	Conservation Category	conservecat_ss			dropdown	13,2			51					x
-field	37	voucherlist	Voucher Institution	voucherlist_ss			keyword	3,2			25				24	x
-field	38	vouchers	Has Vouchers?	vouchers_s			dropdown	2,2			24	11			25	x
-field	39	vouchercount	Voucher Count	vouchercount_s			keyword				52					x
-field	40	fruitingverbatim	Fruiting months (orange = fruiting)	fruitingverbatim_ss			"colors= {""f"":""lightgray"",""t"":""orange""}"				29				27	x
+field	30	deadflag	Dead?	deadflag_s			dropdown,default=no	13,1	10		20		8		20	x
+field	30.1	deaddate	Dead Date	deaddate_s			string	16,2			21	9			21	x
+field	31	flowercolor	Flower Color	flowercolor_s			keyword	10,1	11		22	10	9		22	x
+field	32	determinationnoauth	Determination	determinationnoauth_s			keyword				24					x
+field	33	reasonformove	Reason for Move	reasonformove_s			keyword				25					x
+field	34	conservationinfo	Conservation Information	conservationinfo_ss			keyword				29				23	x
+field	35	conserveorg	Conservation Organization	conserveorg_ss			dropdown	12,2	12		52					x
+field	36	conservecat	Conservation Category	conservecat_ss			dropdown	13,2			53					x
+field	37	voucherlist	Voucher Institution	voucherlist_ss			keyword	3,2			27				24	x
+field	38	vouchers	Has Vouchers?	vouchers_s			dropdown	2,2			26	11			25	x
+field	39	vouchercount	Voucher Count	vouchercount_s			keyword				54					x
+field	40	fruitingverbatim	Fruiting months (orange = fruiting)	fruitingverbatim_ss			"colors= {""f"":""lightgray"",""t"":""orange""}"				31				27	x
 field	41	keyword	Keyword	text			keyword	13,3								x
-field	42	floweringverbatim	Flowering months (pink = some, red = many)	floweringverbatim_ss			"colors= {""x"":""lightgray"",""No"":""lightgray"",""Some"":""pink"",""Many"":""red""}"				28				26	x
-field	43	provenancetype	Provenance Type	provenancetype_s			dropdown	15,1			26					x
+field	42	floweringverbatim	Flowering months (pink = some, red = many)	floweringverbatim_ss			"colors= {""x"":""lightgray"",""No"":""lightgray"",""Some"":""pink"",""Many"":""red""}"				30				26	x
+field	43	provenancetype	Provenance Type	provenancetype_s			dropdown	15,1			28					x
 field	44	fruiting	Fruiting (months)	fruiting_ss			keyword	12,1								x
 field	45	flowering	Flowering (months)	flowering_ss			keyword	11,1								x
-field	46	authorsParsed	Authors (parsed)	authorsParsed_s			keyword				30				29	x
-field	47	authorship	Authorship	authorship_s			keyword	2,3			31				31	x
-field	48	bracketAuthorship	Bracket Authorship	bracketAuthorship_s			keyword	1,3			32				32	x
-field	49	canonicalName	Canonical Name	canonicalName_s			keyword				34				33	x
-field	50	canonicalNameComplete	Canonical Name Complete	canonicalNameComplete_s			keyword				35				34	x
-field	51	canonicalNameWithMarker	Scientific Name	canonicalNameWithMarker_s			keyword				36				34	x
-field	52	genusOrAbove	Genus or above	genusOrAbove_s			keyword	5,1			37				35	x
-field	53	infraSpecificEpithet	Infraspecific Epithet	infraSpecificEpithet_s			keyword	3,3			38				38	x
-field	54	rankMarker	Rank Marker	rankMarker_s			keyword	4,3			39				39	x
-field	55	scientificNameGBIF	Scientific Name (GBIF)	scientificName_s			keyword				40				40	x
-field	56	specificEpithet	Specific Epithet	specificEpithet_s			keyword	5,3			41				36	x
-field	57	cultivarEpithet	Cultivar Epithet	cultivarEpithet_s			keyword	6,3			42				37	x
-field	58	type	Type	type_s			dropdown				43				41	x
-field	59	accessrestrictions	Access Restrictions	accessrestrictions_s			dropdown	7,3			44				42	x
+field	46	authorsParsed	Authors (parsed)	authorsParsed_s			keyword				32				29	x
+field	47	authorship	Authorship	authorship_s			keyword	2,3			33				31	x
+field	48	bracketAuthorship	Bracket Authorship	bracketAuthorship_s			keyword	1,3			34				32	x
+field	49	canonicalName	Canonical Name	canonicalName_s			keyword				36				33	x
+field	50	canonicalNameComplete	Canonical Name Complete	canonicalNameComplete_s			keyword				37				34	x
+field	51	canonicalNameWithMarker	Scientific Name	canonicalNameWithMarker_s			keyword				38				34	x
+field	52	genusOrAbove	Genus or above	genusOrAbove_s			keyword	5,1			39				35	x
+field	53	infraSpecificEpithet	Infraspecific Epithet	infraSpecificEpithet_s			keyword	3,3			40				38	x
+field	54	rankMarker	Rank Marker	rankMarker_s			keyword	4,3			41				39	x
+field	55	scientificNameGBIF	Scientific Name (GBIF)	scientificName_s			keyword				42				40	x
+field	56	specificEpithet	Specific Epithet	specificEpithet_s			keyword	5,3			43				36	x
+field	57	cultivarEpithet	Cultivar Epithet	cultivarEpithet_s			keyword	6,3			44				37	x
+field	58	type	Type	type_s			dropdown				45				41	x
+field	59	accessrestrictions	Access Restrictions	accessrestrictions_s			dropdown	7,3			46				42	x
 field	60	commonname	Common Name	commonname_s			keyword	2,1			2				43	x
-field	61	accessionnotes	Accession Notes	accessionnotes_s			keyword				45				13	x
+field	61	accessionnotes	Accession Notes	accessionnotes_s			keyword				47				13	x
 field	62	blobs	Images	blob_ss			blob								44	x
 field	63	hasimage	Has image(s)?	blob_ss			present	11,3				12				x
 field	64	hascoords	Has coordinates?	latlong_p			present	12,3								x
 field	65	source	Source	source_s			keyword	7,2			7				45	x
-field	66	group	Group	grouptitle_ss			keyword	14,2			46				46	x
-field	67	researcher	Researcher Name	researcher_s			keyword	15,2			47				47	x
+field	66	group	Group	grouptitle_ss			keyword	14,2			48				46	x
+field	67	researcher	Researcher Name	researcher_s			keyword	15,2			49				47	x
 field	68	latitude	Latitude	latitude_f			keyword								48	x
 field	69	longitude	Longitude	longitude_f			keyword								49	x
-field	70	hybridflag	Named hybrid?	hybridflag_s			dropdown	16,1			33					x
+field	70	hybridflag	Named hybrid?	hybridflag_s			dropdown	16,1			35					x
 field	71	provenancetypeshort	Provenance Type (short)	provenancetype_short_s			dropdown								3	x
-field	72	deaddate	Dead Date	deaddate_s			keyword				48	13			50	x
