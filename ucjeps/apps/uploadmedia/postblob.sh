@@ -66,18 +66,10 @@ for CR2 in `cat CR2file`
     echo "${RUNDIR}/cps3.sh \"$CR2\" ucjeps from" >> $TRACELOG
     ${RUNDIR}/cps3.sh "$CR2" ucjeps from >> $TRACELOG 2>&1
     # make a jpg and a tif for each cr2
+    ${RUNDIR}/convertCR2.sh "/tmp/${CR2}" >> $TRACELOG 2>&1
+    # put the converted file back into S3
     for FORMAT in JPG TIF
     do
-      echo "converting ${CR2} to ${F}.${FORMAT}" >> $TRACELOG
-      convert -verbose "/tmp/${CR2}" "/tmp/${F}.${FORMAT}" >> $TRACELOG 2>&1
-      # if the image (TIF or JPG) is still landscape, rotate it 90 CCW
-      if [[ `convert "/tmp/${F}.${FORMAT}" -format "%[fx:(w/h>1)?1:0]" info:` ]]
-      then
-         echo "/tmp/${F}.${FORMAT}" is Landscape, rotating 90 CCW >> $TRACELOG
-         echo convert -rotate -90 "/tmp/${F}.${FORMAT}" "/tmp/${F}.${FORMAT}" >> $TRACELOG
-         convert -rotate -90 "/tmp/${F}.${FORMAT}" "/tmp/${F}.${FORMAT}"
-      fi
-      # put the converted file back into S3
       echo "${RUNDIR}/cps3.sh \"${F}.${FORMAT}\" ucjeps to" >> $TRACELOG
       ${RUNDIR}/cps3.sh "${F}.${FORMAT}" ucjeps to >> $TRACELOG 2>&1
     done

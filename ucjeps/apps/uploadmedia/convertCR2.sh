@@ -21,6 +21,7 @@ do
   # if the image (TIF or JPG) is still landscape, rotate it 90 CCW
   if [[ "1" == `convert "${F}.${FORMAT}" -format "%[fx:(w/h>1)?1:0]" info:` ]]
   then
+    # try to figure out which way to rotate the landscape image
      ROTATION="-90"
      if [[ `exiftool "${CR2}" | grep "Rotate 90 CW"` ]]
      then
