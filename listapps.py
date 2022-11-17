@@ -8,6 +8,9 @@ PAGE="""<html lang="en-us">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.22.custom.css"/>
+    <script type="text/javascript" src="js/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script -->
     <!-- link rel="stylesheet" type="text/css" href="css/base.css" -->
     <style>
     li {margin: 10px 0;}
@@ -25,7 +28,7 @@ PAGE="""<html lang="en-us">
 </head>
 <body class="">
 <div id="container">
-    <div id="content-main" style="max-width: 1400px;">
+    <div id="content-main" style="max-width: 1000px;">
         <div>
             <img height="40px" src="CollectionSpaceLogo.png">
             <span style="font-size: 28px;vertical-align: 35%%;">@</span>
@@ -40,14 +43,14 @@ PAGE="""<html lang="en-us">
                 <li><a href="#newstab">News</a></li>
             </ul>
             <div id="applicationstab">
-                <p>
+                <p style="margin-bottom: 12px;">
                     Servers:
                     <a href="https://webapps.cspace.berkeley.edu"><span class="servers" style="color: red">Production</span></a>
                     <a href="https://webapps-qa.cspace.berkeley.edu"><span class="servers" style="color: blue">QA</span></a>
                     <!-- a href="https://webapps-dev.cspace.berkeley.edu"><span class="servers" style="color: green">Development</span></a -->
                     <span class="servers" style="font-size: 10pt;">(pick the server you wish to work with)</span>
                 </p>
-                <hr/>
+                <!-- hr/ -->
                 %s
             </div>
 
@@ -56,20 +59,20 @@ PAGE="""<html lang="en-us">
                      <ul>
                          <li><a href="#djangotab">Django Webapp Usage</a></li>
                          <li><a href="#toolboxtab">Toolbox Webapp Usage</a></li>
-                         <li><a href="#solrcoretab">Contents of Public Solr Cores</a></li>
-                         <li><a href="#assortedmetricstab">Assorted other metrics</a></li>
+                         <li><a href="#solrcoretab">Public Solr Core Stats</a></li>
+                         <li><a href="#assortedmetricstab">Other metrics</a></li>
                      </ul>
                      <div id="djangotab">
-                         <iframe style="width: 100%%; height: 1000px;" src="summary.html"></iframe>
+                         <iframe style="width: 100%%; height: 900px;" src="summary.html"></iframe>
                      </div>
                      <div id="toolboxtab">
-                         <iframe style="width: 100%%; height: 1000px;" src="webappuse.html"></iframe>
+                         <iframe style="width: 100%%; height: 900px;" src="webappuse.html"></iframe>
                      </div>
                      <div id="solrcoretab">
-                         <iframe style="width: 100%%; height: 1000px;" src="corestats.html"></iframe>
+                         <iframe style="width: 100%%; height: 900px;" src="corestats.html"></iframe>
                      </div>
                      <div id="assortedmetricstab">
-                         <iframe style="width: 100%%; height: 1000px;" src="metrics.html"></iframe>
+                         <iframe style="width: 100%%; height: 900px;" src="metrics.html"></iframe>
                      </div>
                  </div>
              </div>
@@ -96,8 +99,8 @@ PAGE="""<html lang="en-us">
                  <p>The following is a list of other deployments of the Search Portal software that we know about.</p>
                  <p>Please let us know if you find others:</p>
                  <ul>
-                     <li>Oakland Museum <a target="_new" href="https://museumca.org">https://museumca.org</a> (no public apps yet)</li>
                      <li>Watermill Center <a target="_new" href="http://collection.watermillcenter.org/search">http://collection.watermillcenter.org/search</a></li>
+                     <li>Oakland Museum <a target="_new" href="https://museumca.org">https://museumca.org</a> (no public apps yet)</li>
                  </ul>
             </div>
             <div id="newstab">
@@ -180,15 +183,15 @@ blacklight_portals = {'bampfa': ('collection.bampfa.berkeley.edu', 'bampfa_tiny.
 
 cell1 = """
 <td style="width: 300px; vertical-align: top;">
-<h4>%s</h4></td>"""
+<h4>%s</h4>"""
 
 cell2 = """
-<td><a class="likeabutton" target="_blank" href="https://%s.collectionspace.org">
+<a class="likeabutton" target="_blank" href="https://%s.collectionspace.org">
 <img style="max-width: 300px ; max-height: 100px" alt="%s" src="https://webapps.cspace.berkeley.edu/%s_static/cspace_django_site/images/header-logo.png"></a>
 </td>"""
 
 cell3 = """
-<td style="width: 180px; vertical-align: top;">
+<td style="width: 180px; vertical-align: top; text-align: center; ">
 <a  class="likeabutton" target="_blank" href="https://%s">
 <img style="max-width: 180px ; max-height: 160px" alt="%s" src="%s">
 </a>
@@ -248,6 +251,7 @@ for tenant in tenants:
             # check if an app is marked Public but is listed as hidden
             if token == 'Public':
                 token = 'Error!'
+                print(f'Error in app marking: {tenant} {app} is marked both Public and Hidden')
             token = 'Hidden'
         all_apps[app][tenant] = token
 
@@ -306,27 +310,16 @@ elif output_type == 'table-html':
     print(html)
 
 elif output_type == 'html':
-    html = '<table><tr>'
-    for tenant in tenants:
-        pass
-        # html += '<th>%s</th>' % tenant
-        #for app_type in 'Blacklight Portal,Public,Private'.split(','):
-        #    html += wrap('td', wrap('b', app_type)).replace('<td>', '<td style="width: 300px;">')
-    # html += '</tr><tr>'
+    html = '<table border="1"><tr><th>"regular UI"<th>Blacklight Portals'
+    for app_type in 'Public Private'.split(' '):
+        html += wrap('td', wrap('b', app_type + ' webapps')).replace('<td>', '<td style="width: 300px;">')
+    html += '</tr>'
     for tenant in tenants:
         html += cell1 % MUSEUMS[tenant][0]
-    html += '</tr><tr>'
-    for tenant in tenants:
-        html += cell2 % (f'{tenant.replace("botgarden","ucbg")}{deployment.replace("-",".")}',
-            MUSEUMS[tenant][0], tenant)
-    html += '</tr><tr>'
-    for tenant in tenants:
+        html += cell2 % (f'{tenant.replace("botgarden", "ucbg")}{deployment.replace("-", ".")}', MUSEUMS[tenant][0], tenant)
         html += cell3 % (blacklight_portals[tenant][0], tenant, blacklight_portals[tenant][1])
-    html += '</tr>'
-    for app_type in 'Public Private'.split(' '):
-        html += '<tr>'
-        for tenant in tenants:
-            html += '<td style="vertical-align: top; padding-top: 20px;">'
+        for app_type in 'Public Private'.split(' '):
+            html += '<td style="vertical-align: top; padding-top: 5px;">'
             for app in sorted(all_apps.keys()):
                 if tenant in all_apps[app]:
                     if all_apps[app][tenant] == app_type:
@@ -343,3 +336,4 @@ elif output_type == 'html':
     html += '</table>'
 
     print(PAGE % html)
+
