@@ -3,10 +3,17 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.1
-Thu Nov  3 13:22:39 PDT 2022
+This is version 6.4.2-rc1
+Thu Dec  1 14:38:25 PST 2022
 
-34f71e0 (HEAD -> main, tag: 2.4.1, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 2.4.1
+e37a9b9 (HEAD -> main) CSW-774: incremental improvements to UCJEPS CR2 handling
+bc53a35 (origin/main, origin/HEAD) NOJIRA: remove config file for defunct webapp 'cinestats'
+eecec90 CSW-712: refactor orientation handling for UCJEPS CR2s
+4dfe48b CSW-713: further revisions to landing page: migration, etc.
+c6295a0 CSW-739: revise org attribution in django webapps
+23b7536 CSW-725: handle several special (orientation) cases in ucjeps bmu
+8e2fba0 (tag: 6.4.1) revise CHANGELOG.txt and bump version to 6.4.1
+34f71e0 revise CHANGELOG.txt and bump version to 2.4.1
 5ad960a CSW-728: 'dead date' searchable in botgarden internal portal, invisible in public
 419c224 CSW-728: 'dead date' is not searchable (yet)
 2a43789 CSW-728: add 'dead date' to botgarden solr cores
