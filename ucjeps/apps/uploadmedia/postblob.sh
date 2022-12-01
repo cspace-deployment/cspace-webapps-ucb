@@ -66,7 +66,7 @@ for CR2 in `cat CR2file`
     echo "${RUNDIR}/cps3.sh \"$CR2\" ucjeps from" >> $TRACELOG
     ${RUNDIR}/cps3.sh "$CR2" ucjeps from >> $TRACELOG 2>&1
     # make a jpg and a tif for each cr2
-    ${RUNDIR}/convertCR2.sh "/tmp/${CR2}" >> $TRACELOG 2>&1
+    ${RUNDIR}/convertCR2.sh "/tmp/${CR2}" "${IMGDIR}" "bmu" >> $TRACELOG 2>&1
     # put the converted file back into S3
     for FORMAT in JPG TIF
     do
