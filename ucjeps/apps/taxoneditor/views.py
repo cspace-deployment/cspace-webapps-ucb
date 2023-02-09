@@ -182,7 +182,7 @@ def taxoneditor(request):
                 if len(names2use) > numberWanted:
                     names2use = names2use[:numberWanted]
                 for name in names2use:
-                    # skip names without an id -- the are 'defective' for this purpose
+                    # skip names without an id -- they are 'defective' for this purpose
                     if 'id' not in name:
                         continue
                     sequence_number += 1
@@ -193,13 +193,13 @@ def taxoneditor(request):
                         name_list = name['classification']
                         for n in name_list:
                             for p in x:
-                                if p in n['rank']:
+                                if p in n['rank'] and 'name' in n:
                                     x[p] = n['name']
                     else:
                         name_list = []
                     for i,fieldname in enumerate('X family majorgroup termDisplayName termName CommonName termSource termSourceID'.split(' ')):
                         for name_part in name_list:
-                            if fieldname in name_part['rank']:
+                            if fieldname in name_part['rank'] and 'name' in name_part:
                                 found = name_part['name']
                             else:
                                 found = ''
