@@ -65,7 +65,7 @@ field	53	donor	Donor	donor_ss			keyword	5,3			6	26			42	x
 field	54	anondonor	Donor (anonymized)	anonymousdonor_ss			keyword									x
 field	55	prodplace	Production Place	objpp_ss			keyword					9				x
 field	56	maker	Maker / Artist	objmaker_ss			keyword	3,2				35			43	x
-field	57	deaccessioned	Deaccessioned?	deaccessioned_s			dropdown	12,3				36			44	x
+field	57	deaccessioned	Deaccessioned?	deaccessioned_s			dropdown	8,3				36			44	x
 field	58	updatedat	Updated at	updatedat_s			string	11,2				37			45	x
 field	59	loaninfo	Loans	loan_info_all_ss			keyword	10,3				32			46	x
 field	60	anthropologyplaceowner	Place Owner	anthropologyplaceowner_s			keyword	12,1				37			41	x
