@@ -3,12 +3,13 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.2-rc3
-Thu Feb  9 08:56:23 PST 2023
+This is version 6.4.2
+Thu Feb  9 13:17:37 PST 2023
 
-a2299bf (HEAD -> main) CSW-800: minor reordering of 3rd column of fields in PAHMA internal portal
+a807187 (HEAD -> main, tag: 6.4.2-rc3, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.2-rc3
+a2299bf CSW-800: minor reordering of 3rd column of fields in PAHMA internal portal
 e2d911e CSW-806: taxon editor should not fail when COL records without names are returned
-a382af5 (tag: 6.4.2-rc2, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.2-rc2
+a382af5 (tag: 6.4.2-rc2) revise CHANGELOG.txt and bump version to 6.4.2-rc2
 2a52eb4 CSW-800: pahma portal configuration changes adding nagpra filter fields
 17fbf1d (tag: 6.4.2-rc1) revise CHANGELOG.txt and bump version to 6.4.2-rc1
 e37a9b9 CSW-774: incremental improvements to UCJEPS CR2 handling
