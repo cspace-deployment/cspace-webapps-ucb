@@ -164,7 +164,7 @@ LIMIT 30000"""
             searchkey = 'tig.taxon'
 
         queryTemplate = """
-select distinct on (to_number(objectnumber,'9999.9999'))
+select distinct on (determination, to_number(objectnumber,'9999.9999'))
 case when (mc.currentlocation is not null and mc.currentlocation <> '') then regexp_replace(mc.currentlocation, '^.*\\)''(.*)''$', '\\1') end as gardenlocation,
 lct.termname shortgardenlocation,
 case when (lc.locationtype is not null and lc.locationtype <> '') then regexp_replace(lc.locationtype, '^.*\\)''(.*)''$', '\\1') end as locationtype,
@@ -219,9 +219,10 @@ left outer join hierarchy hlg
 left outer join localitygroup lg on (lg.id = hlg.id)
 join locations_common lc on (mc.currentlocation=lc.refname)
 where %s  %s = '%s'
-ORDER BY to_number(objectnumber,'9999.9999')
+ORDER BY determination, to_number(objectnumber,'9999.9999')
+-- ORDER BY to_number(objectnumber,'9999.9999')
 LIMIT 6000"""
-            
+
         if qualifier == 'alive':
             queryPart1 = " regexp_replace(mc.reasonformove, '^.*\\)''(.*)''$', '\\1') != 'Dead' and "
             queryPart2 = """join misc misc1 on (misc1.id = mc.id and misc1.lifecyclestate <> 'deleted') -- movement not deleted
@@ -1357,7 +1358,7 @@ order by level""" % refname.replace("'", "''")
         return [["findparents error"]]
 
 def getCSIDDetail(config, csid, detail):
-    
+
     if detail == 'fieldcollectionplace':
         query = """SELECT substring(pfc.item, position(')''' IN pfc.item)+2, LENGTH(pfc.item)-position(')''' IN pfc.item)-2)
 AS fieldcollectionplace
