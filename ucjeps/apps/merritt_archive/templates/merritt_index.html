@@ -1,0 +1,58 @@
+{% extends "cspace_django_site/base_site.html" %}
+{% load i18n static %}
+{% load static %}
+
+{% block content %}
+    <div id="content-main">
+        <div id="tabs">
+            <ul>
+                <li><a href="#queue">Job Queue</a></li>
+                <li><a href="#images">Image Search</a></li>
+                <li><a href="#createjobs">Create Jobs</a></li>
+            </ul>
+            <div id="queue">
+                <form action="{% url 'merritt_archive' %}" method="POST">
+                    {% csrf_token %}
+                    <input class="prettyBtn" type="submit" name="checkjobs" value="Refresh">
+                    (display the most recent
+                    <select id="num2display" name="num2display">
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="1000">500</option>
+                    </select> jobs.)
+                    <input class="prettyBtn" type="submit" name="schedulejobs" value="Start Jobs">
+                </form>
+
+                {% if filecontent %}
+                    <hr/>
+                    <h2>{{ filename }} (status: {{ status }})</h2>
+                    <pre>{{ filecontent|safe }}</pre>
+                    {%  %}
+                {% endif %}
+            </div>
+            <div id="images">
+                {% include "merritt_search.html" %}
+            </div>
+            <div id="createjobs">
+                <form action="{% url 'merritt_archive' %}" method="POST">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>Number of jobs to create</td>
+                            <td><input type="text" name="num_jobs"></td>
+                        </tr>
+                        <tr>
+                            <td>Images in each jobs</td>
+                            <td><input type="text" name="job_size"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input class="prettyBtn" type="submit" name="createjobs"
+                                                   value="Create job(s)">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

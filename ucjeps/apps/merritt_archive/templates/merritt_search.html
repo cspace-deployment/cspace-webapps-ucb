@@ -1,0 +1,20 @@
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td><input type="text" name="accession_number" value="{{ accession_number }}"></td>
+            <td><input class="prettyBtn" type="submit" value="Search"></td>
+        </tr>
+        <tr>
+            <td>
+                <hr/>
+            </td>
+        </tr>
+    </table>
+    {% for field in form.hidden_fields %}
+        <div style="display:none;">{{ field }}</div>
+    {% endfor %}
+</form>
