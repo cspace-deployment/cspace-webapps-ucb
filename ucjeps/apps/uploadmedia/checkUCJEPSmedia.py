@@ -105,6 +105,9 @@ if __name__ == "__main__":
     seen = {}
     for i, r in enumerate(records1):
         ok_to_archive = True
+        if len(r) < 1:
+            print(f'skipping record {i}, empty')
+            continue
         filepath  = r[0]
         filename = filepath.split('/')[-1]
         # normalize filename before check for accession number
