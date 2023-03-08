@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django import forms
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 import json
 from django.conf import settings
 from os import path, listdir
@@ -31,6 +32,21 @@ SOURCE_BUCKET = archiveConfig.get('archive', 'source_bucket')
 TARGET_BUCKET = archiveConfig.get('archive', 'target_bucket')
 PAGE_SIZE = int(archiveConfig.get('archive', 'page_size'))
 JOB_DIR = archiveConfig.get('archive', 'job_dir')
+
+# see https://merritt.cdlib.org/d/ark%3A%2F13030%2Fm55t8dtz/0/producer%2FMerritt-ingest-service-latest.pdf
+@csrf_exempt
+def callback(request):
+    if request.method == 'POST':
+        details = forms.Form(request.POST)
+        if details.is_valid():
+            for k,v in details.data.items():
+                print(f'{k}: {v}')
+            print(details.data)
+    else:
+        pass
+
+    return HttpResponse()
+
 
 def archive_detail(request, pk):
     appList = [app for app in settings.INSTALLED_APPS if not "django" in app and not app in SOURCE_BUCKET]
