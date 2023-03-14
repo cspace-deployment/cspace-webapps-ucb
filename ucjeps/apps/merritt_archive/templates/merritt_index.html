@@ -24,7 +24,7 @@
                 </form>
                 {% if filecontent %}
                     <hr/>
-                    <h2>{{ filename }} (status: {{ status }})</h2>
+                    <h2>{{ filename }}</h2>
                     <pre>{{ filecontent|safe }}</pre>
                 {% else %}
                     {% include "show_archive_queue.html" %}
