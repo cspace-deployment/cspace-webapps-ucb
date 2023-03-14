@@ -38,7 +38,6 @@ urlpatterns = [
     path('imaginator/', include('imaginator.urls'), name='imaginator'),
     path('internal/', include('internal.urls'), name='internal'),
     path('ireports/', include('ireports.urls'), name='ireports'),
-    path('landing/', include('landing.urls'), name='landing'),
     path('locationhistory/', include('locationhistory.urls'), name='locationhistory'),
     path('osteology/', include('osteology.urls'), name='osteology'),
     path('search/', include('search.urls'), name='search'),

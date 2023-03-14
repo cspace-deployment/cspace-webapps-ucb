@@ -36,7 +36,6 @@ urlpatterns = [
     path('imaginator/', include('imaginator.urls'), name='imaginator'),
     # path('internal/', include('internal.urls'), name='internal'),
     # path('ireports/', include('ireports.urls'), name='ireports'),
-    path('landing/', include('landing.urls'), name='landing'),
     path('search/', include('search.urls'), name='search'),
     path('eloan/', include('eloan.urls'), name='eloan'),
     path('searchmedia/', include('searchmedia.urls'), name='searchmedia'),
