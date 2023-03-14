@@ -17,6 +17,7 @@ from cspace_django_site.main import cspace_django_site
 from common import cspace
 from common import appconfig
 from uploadmedia.utils import rendermedia, reformat
+from uploadmedia.getNumber import getNumber
 from common.utils import loginfo
 # read common config file, just for the version info
 from common.appconfig import loadConfiguration
@@ -42,25 +43,32 @@ def callback(request, rest):
         loginfo('merritt_archive', f'merrit jobid: {rest}', {}, {})
         try:
             body_unicode = request.body.decode('utf-8')
-            try:
-                body = json.loads(body_unicode)
-            except:
-                print(f'could not decode body as JSON: {body_unicode}')
-                body = {"job:persistentURL": "http://n2t.net/ark:/99999/fk41n9pp14"}
+            body = json.loads(body_unicode)
             loginfo('merritt_archive', f'merrit body: {body_unicode}', {}, {})
             primaryID = body['job:jobState']['job:primaryID']
             completionDate = body['job:jobState']['job:completionDate']
             localID = body['job:jobState']['job:localID']
             objectTitle = body['job:jobState']['job:objectTitle']
             packageName = body['job:jobState']['job:packageName']
-            job_name = packageName.replace('.checkm', '')
-            job_file = open(path.join(JOB_DIR, localID, '.completed.csv'), 'a+')
+            # if the package name is the name of the manifest, use it as the 'completed' file name
+            if '.checkm' in packageName:
+                job_name = packageName.replace('.checkm', '')
+            else:
+                job_name = time.strftime("%Y-%m-%d", time.localtime())
+            # for now, we use 'today' as the job_name, until merritt updates the package name
+            # to use the manifest file name
+            job_file = open(path.join(JOB_DIR, f'{job_name}.completed.csv'), 'a+')
             job_writer = csv.writer(job_file, delimiter="\t")
             job_writer.writerow([localID, primaryID, objectTitle, completionDate])
             job_file.close()
-            loginfo('merritt_archive', f'object archived: {localID} / {primaryID} / {packageName} / {objectTitle} / {completionDate}', {}, {})
+            transaction = Transaction(status='archived',
+                                      accession_number=getNumber(localID,'ucjeps')[1],
+                                      transaction_date=completionDate,
+                                      transaction_detail=primaryID,
+                                      image_filename=localID)
+            transaction.save()
+            loginfo('merritt_archive', f'object archived: {packageName} / {primaryID} / {localID} / {objectTitle} / {completionDate}', {}, {})
         except:
-            raise
             loginfo('merritt_archive', f'callback could not be processed {body_unicode}', {}, {})
     else:
         loginfo('merritt_archive', f'callback received, but was not a POST', {}, {})
@@ -195,7 +203,7 @@ def createJobs(num_jobs, job_size):
     #images = Transaction.objects.filter()
     jobnumber = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
     for n in range(num_jobs):
-        job_name = f"{jobnumber}_{n:02d}.new.csv"
+        job_name = f"{jobnumber}_{n:02d}.input.csv"
         jf = open(path.join(JOB_DIR, job_name), 'w')
         n = 0
         for s in images:
@@ -215,6 +223,7 @@ def add_transaction(s, new_status):
         # transaction_date
         transaction = Transaction(status=new_status,
                         accession_number = s.accession_number,
+                        transaction_date = s.transaction_date,
                         transaction_detail = s.transaction_detail,
                         image_filename = s.image_filename)
         transaction.save()
