@@ -2,6 +2,21 @@
 
 The following assortment of command lines may be of use.
 ```bash
+# how to deploy the pipeline from github
+cd ~/cspace-webapps-ucb/
+git pull -v
+
+# make directories for the code and jobs
+rm -rf /cspace/merritt/batch
+rm -rf /cspace/merritt/web
+mkdir /cspace/merritt
+mkdir /cspace/merritt/jobs
+
+cp -r ~/cspace-webapps-ucb/ucjeps/apps/merritt_archive/code/* /cspace/merritt
+cd /var/www/static/
+rm thumbs
+ln -s /cspace/merritt/web thumbs
+
 # steps to make the pipeline go.
 
 # edit credentials
@@ -11,7 +26,7 @@ vi step1_set_env.sh
 # set env vars
 source step1_set_env.sh
 
-# you name made a test file containing the full path
+# you made a test file containing the full path
 # of some files in the merritt s3 bucket right?
 # it has to be named like "something.input.csv"
 
