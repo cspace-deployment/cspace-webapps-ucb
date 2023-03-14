@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('accession_number', models.TextField()),
                 ('image_filename', models.TextField()),
-                ('status', models.CharField(choices=[('start', 'start'), ('metadata', 'metadata'), ('verified', 'verified'), ('queued', 'queued'), ('archived', 'archived'), ('tidied', 'tidied')], default='start', max_length=10000)),
+                ('status', models.TextField()),
                 ('job', models.TextField()),
                 ('transaction_date', models.DateTimeField(auto_now_add=True)),
                 ('transaction_detail', models.TextField()),
