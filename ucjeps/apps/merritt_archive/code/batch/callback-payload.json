@@ -1,0 +1,14 @@
+{"job:jobState":{"xmlns:job":"http://uc3.cdlib.org/ontology/mrt/ingest/job",
+"job:persistentURL":"http://n2t.net/ark:/99999/fk43f6bn9g",
+"job:submissionDate":"2023-03-13T19:32:39-07:00",
+"job:jobStatus":"COMPLETED",
+"job:localID":"UC2004299.TIF",
+"job:versionID":10,
+"job:objectCreator":"UCJEPS",
+"job:objectTitle":"Ochrolechia oregonensis H. Magn. / Lichen / Judith Robertson / 4801 / cd07c37e-c5d6-419a-84fd-b8d406186f85 (Symbiota GUID)",
+"job:jobID":"jid-9aa506ed-3f57-475d-b4d5-03abc1f303cd",
+"job:primaryID":"ark:/99999/fk43f6bn9g",
+"job:retainTargetURL":false,
+"job:completionDate":"2023-03-13T19:32:44-07:00",
+"job:packageName":"UC2004299.TIF"}
+}
