@@ -42,8 +42,6 @@ wc -l ${TIFFS_ERRORS}
 wc -l ${MANIFEST}
 echo "submitting to merritt, `date`"
 
-exit
-
 # -F "profile=ucjeps_img_archive" \
 # -F "profile=merritt_demo_content" \
 #curl --verbose -u jblowe:2t0L59PRB472 \
