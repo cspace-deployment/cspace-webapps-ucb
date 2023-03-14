@@ -20,13 +20,14 @@
                         <option value="100">100</option>
                         <option value="1000">500</option>
                     </select> jobs.)
-                    <input class="prettyBtn" type="submit" name="schedulejobs" value="Start Jobs">
+                    <!-- input class="prettyBtn" type="submit" name="schedulejobs" value="Start Jobs" -->
                 </form>
-
                 {% if filecontent %}
                     <hr/>
                     <h2>{{ filename }} (status: {{ status }})</h2>
                     <pre>{{ filecontent|safe }}</pre>
+                {% else %}
+                    {% include "show_archive_queue.html" %}
                 {% endif %}
             </div>
             <div id="images">

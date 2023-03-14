@@ -22,7 +22,7 @@ th, td {
     <div style="float:right">
 <form action="{% url 'merritt_archive' %}" method="POST">
     {% csrf_token %}
-    <input class="prettyBtn" type="submit" name="queuejobs" value="Queue All Jobs">
+    <!-- input class="prettyBtn" type="submit" name="queuejobs" value="Queue All Jobs" -->
 </form>
     </div>
 {% endif %}
@@ -39,7 +39,7 @@ th, td {
     <tbody>
     {% for jobinfo in jobs %}
         <tr>
-            <td><a href="?filename={{ jobinfo.0 }}.new.csv&status=new">{{ jobinfo.0 }}</a></td>
+            <td><a href="?filename={{ jobinfo.0 }}.input.csv&status=ready">{{ jobinfo.0 }}</a></td>
             <td>
                 {% if jobinfo.1 == 'ready' %}
                     <span style="color: orange;">{{ jobinfo.1 }}</span>
@@ -53,7 +53,7 @@ th, td {
                 <td>
                     {% for key, value in jobinfo.2.items %}
                         {% if s == key %}
-                            {{ value.1 }}
+                            <a href="?filename={{ value.0 }}&status=ready">{{ value.1 }}</a>
                         {% endif %}
                     {% endfor %}
                 </td>

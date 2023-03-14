@@ -1,3 +1,4 @@
+from collections import defaultdict
 from django.shortcuts import render
 from django import forms
 from django.http import HttpResponse
@@ -7,6 +8,7 @@ from django.conf import settings
 from os import path, listdir
 from os.path import isfile, isdir, join
 import time
+import csv
 from .models import Transaction
 from .models import STATUSES
 JOB_STATUSES = 'new,ok,deferred,queued,archived,tidied'.split(',')
@@ -15,6 +17,7 @@ from cspace_django_site.main import cspace_django_site
 from common import cspace
 from common import appconfig
 from uploadmedia.utils import rendermedia, reformat
+from common.utils import loginfo
 # read common config file, just for the version info
 from common.appconfig import loadConfiguration
 prmz = loadConfiguration('common')
@@ -26,7 +29,6 @@ hostname = cspace.getConfigOptionWithSection(config,
 
 TITLE = 'Image Archiving Pipeline'
 
-
 archiveConfig = cspace.getConfig(path.join(settings.BASE_DIR, 'config'), 'merritt_archive')
 SOURCE_BUCKET = archiveConfig.get('archive', 'source_bucket')
 TARGET_BUCKET = archiveConfig.get('archive', 'target_bucket')
@@ -35,15 +37,33 @@ JOB_DIR = archiveConfig.get('archive', 'job_dir')
 
 # see https://merritt.cdlib.org/d/ark%3A%2F13030%2Fm55t8dtz/0/producer%2FMerritt-ingest-service-latest.pdf
 @csrf_exempt
-def callback(request):
+def callback(request, rest):
     if request.method == 'POST':
-        details = forms.Form(request.POST)
-        if details.is_valid():
-            for k,v in details.data.items():
-                print(f'{k}: {v}')
-            print(details.data)
+        loginfo('merritt_archive', f'merrit jobid: {rest}', {}, {})
+        try:
+            body_unicode = request.body.decode('utf-8')
+            try:
+                body = json.loads(body_unicode)
+            except:
+                print(f'could not decode body as JSON: {body_unicode}')
+                body = {"job:persistentURL": "http://n2t.net/ark:/99999/fk41n9pp14"}
+            loginfo('merritt_archive', f'merrit body: {body_unicode}', {}, {})
+            primaryID = body['job:jobState']['job:primaryID']
+            completionDate = body['job:jobState']['job:completionDate']
+            localID = body['job:jobState']['job:localID']
+            objectTitle = body['job:jobState']['job:objectTitle']
+            packageName = body['job:jobState']['job:packageName']
+            local_id = packageName.replace('.checkm', '')
+            job_file = open(f'{JOB_DIR}/{localID}.completed.csv', 'a+')
+            job_writer = csv.writer(job_file, delimiter="\t")
+            job_writer.writerow([localID, primaryID, objectTitle, completionDate])
+            job_file.close()
+            loginfo('merritt_archive', f'object archived: {localID} / {primaryID} / {packageName} / {objectTitle} / {completionDate}', {}, {})
+        except:
+            raise
+            loginfo('merritt_archive', f'callback could not be processed {body_unicode}', {}, {})
     else:
-        pass
+        loginfo('merritt_archive', f'callback received, but was not a POST', {}, {})
 
     return HttpResponse()
 
@@ -62,7 +82,7 @@ def index(request):
     context['labels'] = 'name file'.split(' ')
     context['apptitle'] = TITLE
     context['timestamp'] = time.strftime("%b %d %Y %H:%M:%S", time.localtime())
-    context['statuses'] = JOB_STATUSES
+    # context['statuses'] = JOB_STATUSES
 
     if request.method == 'POST' or request.method == 'GET':
         details = forms.Form(request.POST)
@@ -97,16 +117,18 @@ def index(request):
 
 def showqueue(request, context):
     elapsedtime = time.time()
-    jobs, stats = getJoblist(request)
+    jobs, stats, job_types, job_counts = getJoblist(request)
     context['jobs'] = jobs
     context['stats'] = stats
     context['jobcount'] = len(jobs)
-    elapsedtime = time.time() - elapsedtime
+    context['counts_by_type'] = job_counts
+    context['statuses'] = job_types
+    context['elapsedtime'] = time.time() - elapsedtime
     return context
 
 def startjobs(request, context):
     elapsedtime = time.time()
-    jobs, stats = getJoblist(request, 'ready')
+    jobs, stats, job_types, job_counts = getJoblist(request, 'ready')
     context['jobs'] = jobs
     context['stats'] = stats
     context['jobmessage'] = 'jobs started'
@@ -142,21 +164,24 @@ def getJoblist(request, job_filter=None):
         for i,j in enumerate(joblist):
             if j[1] != job_filter:
                 del joblist[i]
-    # count progress
-    for i,j in enumerate(joblist):
+    # first, make a list of all the types of job files
+    job_file_counts = defaultdict(int)
+    for i,job in enumerate(joblist):
+        for j in job[2]:
+            job_file_counts[j] += job[2][j][1]
+    job_file_types = job_file_counts.keys()
+    for i, job in enumerate(joblist):
         stats['jobs'] += 1
-        stats[j[1]] += j[2]['new'][1]
-        stats['total images'] += j[2]['new'][1]
 
-    return joblist, stats
+    return joblist, stats, job_file_types, job_file_counts
 
 def determine_status(jobdict):
     job_status = 'in progress'
     for j in jobdict:
-        if j == 'archived':
+        if j == 'completed':
             job_status = 'done'
             break
-    if j == 'new' and len(jobdict) == 1:
+    if j == 'input' and len(jobdict) == 1:
             job_status = 'ready'
     return job_status
 
