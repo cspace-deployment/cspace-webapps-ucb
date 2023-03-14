@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     # 'internal',
     # 'ireports',
     'landing',
+    'merritt_archive',
     'search',
     'eloan',
     'searchmedia',
