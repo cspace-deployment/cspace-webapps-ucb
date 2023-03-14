@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.conf import settings
 from os import path, listdir
-from os.path import isfile, isdir, join
+from os.path import isfile, isdir
 import time
 import csv
 from .models import Transaction
@@ -53,8 +53,8 @@ def callback(request, rest):
             localID = body['job:jobState']['job:localID']
             objectTitle = body['job:jobState']['job:objectTitle']
             packageName = body['job:jobState']['job:packageName']
-            local_id = packageName.replace('.checkm', '')
-            job_file = open(f'{JOB_DIR}/{localID}.completed.csv', 'a+')
+            job_name = packageName.replace('.checkm', '')
+            job_file = open(path.join(JOB_DIR, localID, '.completed.csv'), 'a+')
             job_writer = csv.writer(job_file, delimiter="\t")
             job_writer.writerow([localID, primaryID, objectTitle, completionDate])
             job_file.close()
@@ -142,8 +142,7 @@ def getJoblist(request, job_filter=None):
     else:
         num2display = 50
 
-    jobpath = JOB_DIR % ''
-    filelist = [f for f in listdir(jobpath) if isfile(join(jobpath, f)) and ('.csv' in f)]
+    filelist = [f for f in listdir(JOB_DIR) if isfile(path.join(JOB_DIR, f)) and ('.csv' in f)]
     jobdict = {}
     for f in sorted(filelist, reverse=True):
         if len(jobdict.keys()) > num2display:
@@ -151,7 +150,7 @@ def getJoblist(request, job_filter=None):
             imagefilenames = []
         else:
             # we only need to count lines if the file is within range...
-            linecount = checkFile(join(jobpath, f))
+            linecount = checkFile(path.join(JOB_DIR, f))
         parts = f.split('.')
         status = parts[1]
         jobkey = parts[0]
@@ -197,8 +196,7 @@ def createJobs(num_jobs, job_size):
     jobnumber = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
     for n in range(num_jobs):
         job_name = f"{jobnumber}_{n:02d}.new.csv"
-        jobpath = JOB_DIR % job_name
-        jf = open(jobpath, 'w')
+        jf = open(path.join(JOB_DIR, job_name), 'w')
         n = 0
         for s in images:
             # skip images that are already queued
@@ -226,7 +224,7 @@ def add_transaction(s, new_status):
 def show_archive_results(request, context):
     context['display'] = 'jobinfo'
     job = request.GET['filename']
-    jobfile = JOB_DIR % job
+    jobfile = path.join(JOB_DIR, job)
     elapsedtime = 0.0
     try:
         status = request.GET['status']
