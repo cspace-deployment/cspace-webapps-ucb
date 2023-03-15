@@ -7,6 +7,8 @@ select status,count(*) from merritt_archive_transaction group by status;
 select * from merritt_archive_transaction where accession_number = 'JEPS58820';
 select * from merritt_archive_transaction where accession_number = 'UC1058162';
 select * from merritt_archive_transaction where accession_number = 'UC995170';
+select * from merritt_archive_transaction where accession_number = 'UC119079';
+select * from merritt_archive_transaction where accession_number = 'UC1152579';
 
 HERE
 

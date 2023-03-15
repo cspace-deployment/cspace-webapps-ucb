@@ -1,16 +1,9 @@
 #!/usr/bin/env bash
 
 echo "extracting metadata from 4solr file..."
-cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
-gunzip -f 4solr.ucjeps.public.csv.gz
 cut -f3,4,8,9,10,52 4solr.ucjeps.public.csv | perl -pe 's#\t# / #g;s# / #\t\tmetadata\t\t\t#;s/\|/, /g' > metadata.csv
-rm 4solr.ucjeps.public.csv
 
 echo "extracting media info from 4solr file..."
-cp /cspace/solr_cache/4solr.ucjeps.allmedia.csv.gz .
-gunzip -f 4solr.ucjeps.allmedia.csv.gz
-# remove the last line, for now
-sed '$d' 4solr.ucjeps.allmedia.csv > temp.txt ; mv temp.txt 4solr.ucjeps.allmedia.csv
 
 export RUN_DATE=`date +%Y-%m-%dT%H:%M`
 cut -f2,5 4solr.ucjeps.allmedia.csv > m1.csv
@@ -18,7 +11,7 @@ cut -f8 4solr.ucjeps.allmedia.csv > m2.csv
 perl -ne 'chomp;print "media\t\t$ENV{'RUN_DATE'}\n"' m2.csv > filler
 paste m1.csv filler m2.csv > media.csv
 
-rm 4solr.ucjeps.allmedia.csv m1.csv m2.csv filler
+rm m1.csv m2.csv filler
 
 ./make_backup.sh
 

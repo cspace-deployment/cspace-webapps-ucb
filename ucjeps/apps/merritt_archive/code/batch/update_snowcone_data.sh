@@ -27,13 +27,34 @@ paste ans fns filler s3_filenames.csv > ${FILENAME}
 
 echo "updating sqlite3 database..."
 sqlite3 merritt_archive.sqlite3  << HERE
--- clean out old data, if any, for this snowcone
-delete from merritt_archive_transaction where status = 'snowcone' and job = '${SNOWCONE}';
+-- refresh temp table
+DROP TABLE IF EXISTS merritt_temp;
+CREATE TABLE IF NOT EXISTS "merritt_temp" (
+  "accession_number" text NOT NULL,
+  "image_filename" text NOT NULL,
+  "status" text NOT NULL,
+  "job" text NOT NULL,
+  "transaction_date" datetime NOT NULL,
+  "transaction_detail" text);
+
+-- clean out old data, if any, for *this* snowcone
+DELETE FROM merritt_archive_transaction WHERE status = 'snowcone' AND job = '${SNOWCONE}';
+
 -- import new rows
 .mode tabs
-.import ${FILENAME} merritt_archive_transaction
+.import ${FILENAME} merritt_temp
+
+insert into merritt_archive_transaction
+  (accession_number, image_filename, status, job, transaction_date, transaction_detail)
+  select * from merritt_temp;
+
+-- check database contents
 select status,count(*) from merritt_archive_transaction group by status;
 select status,job,count(*) from merritt_archive_transaction where status = 'snowcone' group by status, job;
+
+-- tidy up
+DROP TABLE IF EXISTS merritt_temp;
+VACUUM;
 HERE
 
 rm ans fns filler s3_filenames.csv
