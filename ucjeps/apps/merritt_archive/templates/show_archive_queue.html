@@ -1,15 +1,15 @@
 <hr/>
 
-<h1>Queue Summary</h1>
-<!-- h3>{{ jobcount }} job{{ jobcount|pluralize }} in the queue</h3 -->
+<!-- h1>Queue Summary</h1>
 <table style="border: 1px solid;">
     {% for k,v in stats.items %}
     <tr>
        <td>{{ k }}</td><td>{{ v }}</td>
     </tr>
     {% endfor %}
-</table>
-<h1>Job Queue</h1>
+</table -->
+<h2>Job Queue</h2>
+<h4>{{ jobcount }} job{{ jobcount|pluralize }} in the queue</h4>
 {% if jobcount > jobs|length %}
     Only the most recent {{ jobs|length }} jobs displayed.
 {% endif %}
@@ -34,7 +34,7 @@
     <tbody>
     {% for jobinfo in jobs %}
         <tr>
-            <td><a href="?filename={{ jobinfo.0 }}.input.csv&status=ready">{{ jobinfo.0 }}</a></td>
+            <td>{{ jobinfo.0 }}</td>
             <td>
                 {% if jobinfo.1 == 'ready' %}
                     <span style="color: orange;">{{ jobinfo.1 }}</span>
