@@ -10,8 +10,8 @@ from os.path import isfile, isdir
 import time
 import csv
 from .models import Transaction
-from .models import STATUSES
-JOB_STATUSES = 'new,ok,deferred,queued,archived,tidied'.split(',')
+#from .models import STATUSES
+# JOB_STATUSES = 'new,ok,deferred,queued,archived,tidied'.split(',')
 
 from cspace_django_site.main import cspace_django_site
 from common import cspace
@@ -66,7 +66,7 @@ def callback(request, rest):
                                       transaction_date=completionDate,
                                       transaction_detail=primaryID,
                                       image_filename=localID)
-            transaction.save()
+            save_db(transaction)
             loginfo('merritt_archive', f'object archived: {packageName} / {primaryID} / {localID} / {objectTitle} / {completionDate}', {}, {})
         except:
             loginfo('merritt_archive', f'callback could not be processed {body_unicode}', {}, {})
@@ -74,6 +74,10 @@ def callback(request, rest):
         loginfo('merritt_archive', f'callback received, but was not a POST', {}, {})
 
     return HttpResponse()
+
+
+def save_db(transaction):
+    transaction.save(using = 'merritt_archive')
 
 
 def archive_detail(request, pk):
@@ -226,7 +230,7 @@ def add_transaction(s, new_status):
                         transaction_date = s.transaction_date,
                         transaction_detail = s.transaction_detail,
                         image_filename = s.image_filename)
-        transaction.save()
+        save_db(transaction)
     except:
         raise
 

@@ -1,11 +1,12 @@
 from django.db import models
 
-STATUSES = [(s, s) for s in 'new,ok,deferred,queued,archived,tidied'.split(',')]
+# STATUSES = [(s, s) for s in 'new,ok,deferred,queued,archived,tidied'.split(',')]
 
 class Transaction(models.Model):
     accession_number = models.TextField()
     image_filename = models.TextField()
-    status = models.CharField(choices=STATUSES, default='start', max_length=10000)
+    status = models.TextField()
+    #status = models.CharField(choices=STATUSES, default='start', max_length=10000)
     job = models.TextField()
     transaction_date = models.DateTimeField(auto_now_add=True)
     transaction_detail = models.TextField()
