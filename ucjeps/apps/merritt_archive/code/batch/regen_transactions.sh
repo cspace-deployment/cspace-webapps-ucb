@@ -1,5 +1,4 @@
-#echo "extracting test filenames from s3..."
-#aws s3 ls --recursive s3://blacklight-qa/bmu/ucjeps | perl -pe 's/ +/\t/g' > allBMU.csv
+#!/usr/bin/env bash
 
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 

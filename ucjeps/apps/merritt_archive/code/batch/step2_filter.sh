@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # extract only CR2s from input list of image files
 IMAGE_FILE="$1"
 
+echo "extracting CR2s from ${IMAGE_FILE}..."
 if [[ ! -e "${IMAGE_FILE}" ]]; then
   echo "${IMAGE_FILE} does not exist; exiting."
   exit 1

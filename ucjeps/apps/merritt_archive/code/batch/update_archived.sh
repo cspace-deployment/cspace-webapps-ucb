@@ -8,6 +8,7 @@ export RUN_DATE=`date +%Y-%m-%dT%H:%M`
 export ARCHIVED="$1"
 
 if [[ ! -e "${ARCHIVED}" ]]; then
+  echo "usage: $0 <archived.csv>"
   echo "file '${ARCHIVED}' does not exist; exiting."
   exit 1
 fi

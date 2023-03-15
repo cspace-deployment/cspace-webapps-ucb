@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # credentials, etc. required to make the ucjeps merritt archiving pipeline work
 
 # used to retrieve signed urls for the images in merritt's s3 bucket
@@ -15,6 +13,8 @@ export COLLECTION_PASSWORD="<getfrommerritt>"
 export S3BUCKET="https://cspace-merritt-in-transit-qa.s3.us-west-2.amazonaws.com"
 export SUBMITTER="jblowe"
 
+# location of job files used by archiving pipeline
 export JOB_DIRECTORY="/cspace/merritt/jobs"
 
+# database of pipeline transactions
 export SQLITE3_DB="mxrritt_archive.sqlite3"

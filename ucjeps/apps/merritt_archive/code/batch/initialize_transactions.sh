@@ -7,7 +7,7 @@ read -r -p "This will erase all transactions, OK? [y/N] " response
 if [[ ! "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
 then
     echo
-    echo "Quitting, leaving deployed code alone!"
+    echo "Quitting, leaving transactions table in ${SQLITE3_DB} alone!"
     exit 1
 fi
 
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS "merritt_archive_transaction" (
   "status" text NOT NULL,
   "job" text NOT NULL,
   "transaction_date" datetime NOT NULL,
-  "transaction_detail" text NOT NULL
+  "transaction_detail" text
  );
 
 CREATE INDEX mat_accession_number on merritt_archive_transaction(accession_number);
@@ -30,4 +30,4 @@ CREATE INDEX mat_status on merritt_archive_transaction(status);
 CREATE INDEX mat_job on merritt_archive_transaction(job);
 
 HERE
-echo 'merritt_archive_transaction table created'
+echo 'merritt_archive_transaction table (re)created'

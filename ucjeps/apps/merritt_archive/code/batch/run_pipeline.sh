@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -o errexit
 
@@ -9,8 +9,8 @@ if [[ ! -e "${INPUT_FILE}" ]]; then
   echo "${INPUT_FILE} does not exist; exiting."
   exit 1
 fi
-# remove 'suffix' from filename if one was provided
-INPUT_PREFIX="${INPUT_FILE/input.csv}"
+# remove 'suffix' from input filename if one was provided
+INPUT_PREFIX="${INPUT_FILE/.input.csv}"
 
 time ./step2_filter.sh ${INPUT_PREFIX}.input.csv
 RUN_DATE=`date +%Y-%m-%dT%H-%M`

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # copy cr2 file from merritt s3 bucket to local /tmp, convert to tiff, place in rtl 'in transit' bucket
 # along the way, make a thumbnail and place it where it can be viewed from the web
@@ -14,6 +14,8 @@ QUEUE_ERRORS="${IMAGE_FILE/cr2s/not_queued}"
 rm -f ${QUEUE_FILE} ; touch ${QUEUE_FILE}
 rm -f ${QUEUE_ERRORS} ; touch ${QUEUE_ERRORS}
 
+echo "converting CR2s in ${IMAGE_FILE}..."
+
 SOURCE="archive"
 OUTPUTPATH=${WEBDIR}/${SOURCE}/${OUTPUTDIR}
 SIDEBAR=${OUTPUTPATH}/sidebar.html
@@ -26,6 +28,7 @@ CSS='<head><link rel="stylesheet" href="/thumbs/specimen.css" type="text/css"></
 if [ ! -d ${OUTPUTPATH} ]
 then
   mkdir ${OUTPUTPATH}
+  echo "creating ${OUTPUTPATH}..."
 fi
 
 # make index.html, wrapper for sidebar and image pages
