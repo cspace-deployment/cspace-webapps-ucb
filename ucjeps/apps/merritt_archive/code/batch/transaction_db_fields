@@ -1,1 +1,1 @@
-id, accession_number, status, job, transaction_date, transaction_detail
+id, accession_number, image_filename, status, job, transaction_date, transaction_detail
