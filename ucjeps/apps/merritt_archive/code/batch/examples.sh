@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-sqlite3 merritt_archive.sqlite3  << HERE
+source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
+sqlite3 ${SQLITE3_DB}  << HERE
 
 select status,count(*) from merritt_archive_transaction group by status;
 

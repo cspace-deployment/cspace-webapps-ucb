@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# s3 image transfer script for ucjeps archiving project
+# s3 image transfer script for ucjeps archiving project. goes both ways.
 
 if [[ $# -ne 5 ]] ; then
   echo "five arguments required: filepath museum direction (from/to) username:password merritbucket"
@@ -24,7 +24,7 @@ MERRITT_TRANSIT="cspace-merritt-in-transit-${BL_ENVIRONMENT}"
 SOURCE_BUCKET="https://${CREDENTIALS}@${MERRITT_BUCKET}"
 #example: curl -S -L "https://user:pwd@jepson-snowcone.uc3dev.cdlib.org/UC99999.TIF > /tmp/UC99999.TIF"
 
-echo "copying ${FILENAME} ${DIRECTION} S3 ..." 
+echo "copying ${FILENAME} ${DIRECTION} S3 ..."
 
 #exit 0
 

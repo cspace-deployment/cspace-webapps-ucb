@@ -1,13 +1,14 @@
 #!/bin/bash
 
+# extract only CR2s from input list of image files
 IMAGE_FILE="$1"
 
 if [[ ! -e "${IMAGE_FILE}" ]]; then
-  echo "${IMAGE_FILE} does not exist"
+  echo "${IMAGE_FILE} does not exist; exiting."
   exit 1
 fi
 
-if [[ ! "${IMAGE_FILE}" =~ ".input.csv" ]]; then
+if [[ ! "${IMAGE_FILE}" =~ .input.csv ]]; then
   echo "${IMAGE_FILE}: name must be of the form 'foobar.input.csv"
   exit 1
 fi
@@ -20,7 +21,7 @@ rm -f ${IMAGE_CR2S} ; touch ${IMAGE_CR2S}
 
 while read -r IMAGE
   do
-    if [[ ! "${IMAGE}" =~ ".CR2" ]]; then
+    if [[ ! "${IMAGE}" =~ .CR2 ]]; then
       echo "'${IMAGE}' does not have .CR2 in it; diverting to error queue"
       echo -e "${IMAGE}\t${RUN_DATE}" >> ${IMAGE_DIVERTED}
     else

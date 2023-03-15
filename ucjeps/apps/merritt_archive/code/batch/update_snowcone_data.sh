@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# update transaction database with latest data from snowcone
+# update transaction database with latest data from a snowcone
+
+source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 
 export RUN_DATE=`date +%Y-%m-%dT%H:%M`
 export SNOWCONE="$1"
@@ -26,7 +28,7 @@ paste ans fns filler s3_filenames.csv > ${FILENAME}
 #cat transaction_db_header.csv mrt > ${FILENAME}
 
 echo "updating sqlite3 database..."
-sqlite3 merritt_archive.sqlite3  << HERE
+sqlite3 ${SQLITE3_DB}  << HERE
 -- refresh temp table
 DROP TABLE IF EXISTS merritt_temp;
 CREATE TABLE IF NOT EXISTS "merritt_temp" (

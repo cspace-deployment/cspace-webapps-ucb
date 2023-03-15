@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# update metadata from cspace in transaction database
+
+source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
+
 echo "extracting metadata from 4solr file..."
 cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
 gunzip -f 4solr.ucjeps.public.csv.gz
@@ -23,7 +27,7 @@ rm 4solr.ucjeps.allmedia.csv m1.csv m2.csv filler
 ./make_backup.sh
 
 echo "updating sqlite3 database..."
-sqlite3 merritt_archive.sqlite3 << HERE
+sqlite3 ${SQLITE3_DB} << HERE
 -- clear out old rows
 DELETE FROM merritt_archive_transaction WHERE status = 'metadata';
 DELETE FROM merritt_archive_transaction WHERE status = 'media';

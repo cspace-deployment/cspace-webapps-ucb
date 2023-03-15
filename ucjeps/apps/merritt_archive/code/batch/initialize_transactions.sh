@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-SQLITE3_DB="merritt_archive.sqlite3"
+source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
+SQLITE3_DB="${SQLITE3_DB}"
 
 read -r -p "This will erase all transactions, OK? [y/N] " response
 if [[ ! "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
@@ -10,7 +11,7 @@ then
     exit 1
 fi
 
-sqlite3 merritt_archive.sqlite3  << HERE
+sqlite3 ${SQLITE3_DB}  << HERE
 DROP TABLE IF EXISTS merritt_archive_transaction ;
 
 CREATE TABLE IF NOT EXISTS "merritt_archive_transaction" (

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
 
-SQL="sqlite3 merritt_archive.sqlite3"
+source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
+SQL="sqlite3 ${SQLITE3_DB}"
 
 IMAGE_FILE_NAME="$1"
 TRANSACTION_TYPE="$2"

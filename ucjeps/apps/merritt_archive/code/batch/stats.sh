@@ -4,9 +4,14 @@ if [[ ! "$2" == "" ]]
 then
     echo $2
 fi
-exiftool $1 | grep Orient | perl -pe 's/             //' | head -1
-exiftool $1 | grep "Camera Orient" | perl -pe 's/             //' | head -1
-exiftool $1 | grep "Image Width" | perl -pe 's/             //' | head -1
-exiftool $1 | grep "Image Height" | perl -pe 's/             //' | head -1
-exiftool $1 | grep "Camera Model Name" | perl -pe 's/             //' | head -1 
 
+tmpfile=$(mktemp /tmp/ucjeps-archiving.XXXXXX)
+
+exiftool $1 > ${tmpfile}
+grep Orient ${tmpfile} | perl -pe 's/             //' | head -1
+grep "Camera Orient" ${tmpfile} | perl -pe 's/             //' | head -1
+grep "Image Width" ${tmpfile} | perl -pe 's/             //' | head -1
+grep "Image Height" ${tmpfile} | perl -pe 's/             //' | head -1
+grep "Camera Model Name" ${tmpfile} | perl -pe 's/             //' | head -1
+
+rm "$tmpfile"

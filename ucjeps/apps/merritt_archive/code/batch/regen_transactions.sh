@@ -1,6 +1,8 @@
 #echo "extracting test filenames from s3..."
 #aws s3 ls --recursive s3://blacklight-qa/bmu/ucjeps | perl -pe 's/ +/\t/g' > allBMU.csv
 
+source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
+
 echo "extracting filenames from snowcone1.txt..."
 perl -pe 's#Transfer//##' snowcone1.txt > s3_filenames.csv
 
@@ -18,7 +20,7 @@ echo "extracting metadata from 4solr file..."
 cut -f3,4,8,9,10,52 4solr.ucjeps.public.csv | perl -pe 's#\t# / #g;s# / #\t\tmetadata\t\t\t#;s/\|/, /g' > metadata.csv
 
 echo "regenerating sqlite3 database..."
-sqlite3 merritt_archive.sqlite3  < regen_transactions.sql
+sqlite3 ${SQLITE3_DB}  < regen_transactions.sql
 
 rm ans fns mrt filler
 
