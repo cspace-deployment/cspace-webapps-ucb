@@ -101,5 +101,10 @@ select * from merritt_archive_transaction where merritt_archive_transaction.imag
 
 # import a test file
 COPY merrit_archive (accession_number, image_filename, status, job, transaction_date, transaction_detail) FROM '/home/app_cspace/merritt/merritt_archive.csv' DELIMITER E'\t' CSV
+
+# find the accession number / image name mismatches
+perl -ne '@x = split("\t"); $x[4] =~ s/.JPG//i; $x[4] =~ s/_\d+//; $x[4] =~ s/[acb]$// ; next if ($x[1] eq ""); next if / deleted/ ; if ($x[1] ne $x[4]) {print $_ }' 4solr.ucjeps.allmedia.csv > number_image_mismatch.csv
+
+
 ```
 
