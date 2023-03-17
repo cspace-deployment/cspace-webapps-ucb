@@ -12,6 +12,7 @@ import csv
 from .models import Transaction
 #from .models import STATUSES
 # JOB_STATUSES = 'new,ok,deferred,queued,archived,tidied'.split(',')
+JOB_STATUSES = 'input diverted cr2s queued not_queued tiffs not_tiffs completed'.split(' ')
 
 from cspace_django_site.main import cspace_django_site
 from common import cspace
@@ -134,7 +135,8 @@ def showqueue(request, context):
     context['stats'] = stats
     context['jobcount'] = len(jobs)
     context['counts_by_type'] = job_counts
-    context['statuses'] = job_types
+    # context['statuses'] = job_types
+    context['statuses'] = JOB_STATUSES
     context['elapsedtime'] = time.time() - elapsedtime
     return context
 
