@@ -10,6 +10,7 @@ select * from merritt_archive_transaction where accession_number = 'UC1058162';
 select * from merritt_archive_transaction where accession_number = 'UC995170';
 select * from merritt_archive_transaction where accession_number = 'UC119079';
 select * from merritt_archive_transaction where accession_number = 'UC1152579';
+select * from merritt_archive_transaction where accession_number = 'UC1177704';
 
 HERE
 
