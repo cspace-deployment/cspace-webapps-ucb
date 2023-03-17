@@ -33,7 +33,7 @@
             <div id="images">
                 {% include "merritt_search.html" %}
             </div>
-            <div id="createjobs">
+            <!-- div id="createjobs">
                 <form action="{% url 'merritt_archive' %}" method="POST">
                     {% csrf_token %}
                     <table>
@@ -46,13 +46,12 @@
                             <td><input type="text" name="job_size"></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><input class="prettyBtn" type="submit" name="createjobs"
-                                                   value="Create job(s)">
+                            <td colspan="2"><input class="prettyBtn" type="submit" name="createjobs" value="Create job(s)">
                             </td>
                         </tr>
                     </table>
                 </form>
-            </div>
+            </div -->
         </div>
     </div>
 {% endblock %}
