@@ -9,30 +9,32 @@
             <td><input class="prettyBtn" type="submit" name="search" value="Search"></td>
         </tr>
     </table>
-    <table cellspace="1" id="transactionListing" class="tablesorter">
-        <thead>
-        <tr>
-            <th>Accession number</th>
-            <th>Image filename</th>
-            <th>Status</th>
-            <th>Job</th>
-            <th>Date</th>
-            <th>Details</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for t in transactions %}
+    {% if transactions %}
+        <table cellspace="1">
+            <thead>
             <tr>
-                <td>{{ t.accession_number }}</td>
-                <td>{{ t.image_filename }}</td>
-                <td>{{ t.status }}</td>
-                <td>{{ t.job }}</td>
-                <td>{{ t.transaction_date }}</td>
-                <td>{{ t.transaction_detail }}</td>
+                <th>Accession number</th>
+                <th>Image filename</th>
+                <th>Status</th>
+                <th>Job</th>
+                <th>Date</th>
+                <th>Details</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for t in transactions %}
+                <tr>
+                    <td>{{ t.accession_number }}</td>
+                    <td>{{ t.image_filename }}</td>
+                    <td>{{ t.status }}</td>
+                    <td>{{ t.job }}</td>
+                    <td>{{ t.transaction_date }}</td>
+                    <td>{{ t.transaction_detail }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
     {% for field in form.hidden_fields %}
         <div style="display:none;">{{ field }}</div>
     {% endfor %}
