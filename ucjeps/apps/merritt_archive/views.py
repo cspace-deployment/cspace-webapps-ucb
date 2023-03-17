@@ -103,8 +103,9 @@ def index(request):
             #post = details.save(commit=False)
             #post.save()
             # return HttpResponse("data submitted successfully")
-            showqueue(request, context)
-            if 'checkjobs' in details.data:
+            if 'search' in details.data:
+                find_transactions(request, context)
+            elif 'checkjobs' in details.data:
                 context['display'] = 'checkjobs'
             elif 'schedulejobs' in details.data:
                 context['display'] = 'schedulejobs'
@@ -120,6 +121,8 @@ def index(request):
                     raise
                     context['error'] = 'Please enter number of jobs and job size'
                     # raise
+
+            showqueue(request, context)
             return render(request, 'merritt_index.html', context)
         else:
             # return render(request, 'merrit_archive.html', context)
@@ -261,3 +264,17 @@ def show_archive_results(request, context):
     context['elapsedtime'] = time.time() - elapsedtime
 
     return render(request, 'uploadmedia.html', context)
+
+def find_transactions(request, context):
+    accession_number = request.POST['accession_number']
+    elapsedtime = 0.0
+    try:
+        transactions = Transaction.objects.filter(accession_number=accession_number)
+    except:
+        context['error'] = f'{accession_number} not found'
+    n = len(transactions)
+    context['transactions'] = transactions
+    context['elapsedtime'] = time.time() - elapsedtime
+
+    return
+
