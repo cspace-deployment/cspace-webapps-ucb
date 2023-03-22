@@ -3,10 +3,55 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.2
-Thu Feb  9 13:17:37 PST 2023
+This is version 6.4.3
+Wed Mar 22 16:44:06 PDT 2023
 
-a807187 (HEAD -> main, tag: 6.4.2-rc3, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.2-rc3
+d710972 (HEAD -> main, origin/main, origin/HEAD) CSW-817: add update date for titles to transactions db for ucjeps archiving
+2f3ae15 CSW-817: further refactoring of image search functionality in ucjeps archiving webapp
+6ffebf0 CSW-817: improve image search functionality in ucjeps archiving webapp
+62beaca CSW-817: add 'blocked' images to transaction db
+257012d CSW-817: update README.md -- how to find image filename mismatches
+0bd2bf7 CSW-817: order the ucjeps archiving pipeline stages properly
+75dd8af CSW-817: add parameter to ucjeps archiving pipeline env. vars
+0d4d07f CSW-817: reformat only: callback-payload.json
+01afbca CSW-817: use consistent bash directive in ucjeps archiving scripts; other minor refactoring
+9e4de6f CSW-817: add sqlite3 db location parameter to all ucjeps archiving scripts; other bulletproofing
+7669c5e CSW-817: remove experimental ucjeps archiving script
+50b4645 CSW-817: add transaction db as a separate django orm component
+623b74f CSW-817: ucjeps archiving webapp template ux improvements
+5e51ab6 CSW-817: ucjeps archiving workflow statuses are no longer an enumerated list
+d3ce5ab CSW-817: correct spacing in html directive in ucjep portal header
+30c6796 CSW-817: location of sqlite3 db is now a settable parameter
+f4b188b CSW-817: correct list of fields in transaction db
+1e567e5 CSW-817: minor refactoring of ucjep archiving backend scripts
+b936e48 CSW-817: write callback info to transaction db for ucjeps archiving
+34a2c32 CSW-817: tidy up css in ucjeps archiving job queue display
+41623ed CSW-817: revise schema for ucjeps archiving transactions db
+3d957f7 CSW-817: revise test json payload for merritt callback
+646bc8f CSW-817: tidy up job file display
+70bb0e2 CSW-817: handle job file paths consistently
+aa96607 CSW-817: add a sample merritt_archive.cfg file
+5f2bfe4 CSW-817: add merritt_archive webapps to ucjeps
+0b4123f CSW-817: update README.md for merrit_archive
+6b6296f NOJIRA: remove redundant weppapp specification
+c0446f4 CSW-815: a sample merrit callback payload (json), for testing
+493cf92 CSW-815: further revisions to ucjeps archving backend
+acc3e63 CSW-815: revise job queue display in ucjeps archiving webapp
+42c4bfd CSW-815: delete unwanted test image file
+b803900 CSW-815: 'backend' code for processing cr2s, etc. for ucjeps archiving project
+1d6243f CSW-815: initial commit of django test.py for ucjep merritt_archive webapp
+2cacced CSW-799: add callback endpoint for merritt ingest to notify us with
+8a3edd3 CSW-810: update pahma toolbox config to use correct db role
+8759b53 CSW-820: update ucjeps 'image checking script' checkUCJEPSmedia.py to handle some bad data
+a84bfa4 CSW-815: intial commit of ucjeps version of 'archive title-making script'
+fd169e3 CSW-815: intial commit of webapp side of ucjeps archiving system
+2afd145 CSW-787: update ucjeps 'image file evaluation' script
+4701771 CSW-810: update pahma toolbox config after migration
+90ba40c CSW-810: update pahma toolbox config after migration
+8aef86b CSW-811: display accessions in order by scientific name in ucbg power move webapp
+83874e7 CSW-810: update ucbg toolbox config for power move
+fc2ceca (tag: 6.4.2) revise CHANGELOG.txt and bump version to 6.4.2
+a807187 (tag: 6.4.2-rc3) revise CHANGELOG.txt and bump version to 6.4.2-rc3
 a2299bf CSW-800: minor reordering of 3rd column of fields in PAHMA internal portal
 e2d911e CSW-806: taxon editor should not fail when COL records without names are returned
 a382af5 (tag: 6.4.2-rc2) revise CHANGELOG.txt and bump version to 6.4.2-rc2
