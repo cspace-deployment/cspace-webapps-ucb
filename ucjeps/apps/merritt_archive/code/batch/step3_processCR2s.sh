@@ -60,7 +60,7 @@ while IFS=$'\t' read -r CR2 DATE
     F=$(echo "${CR2_FILENAME}" | sed "s/\.CR2//i")
     # fetch the CR2 from S3
     echo "./ucjeps_cps3.sh \"$CR2\" ucjeps from <USER> <PASSWORD>"
-    ./ucjeps_cps3.sh "${CR2}" ucjeps from "${MERRITT_USER}:${MERRITT_PASSWORD}" ${MERRIT_BUCKET} 2>&1
+    ./ucjeps_cps3.sh "${CR2}" ucjeps from "${MERRITT_USER}:${MERRITT_PASSWORD}" ${MERRITT_BUCKET} 2>&1
     # make a jpg and a tif for each cr2
     ./convertCR2.sh "/tmp/${CR2_FILENAME}" "${OUTPUTPATH}" "${SOURCE}"> ${OUTPUTPATH}/${F}.convert.txt 2>&1
     ./stats.sh "/tmp/${CR2_FILENAME}" "${CR2_FILENAME}" > ${OUTPUTPATH}/${F}.stats.txt &
