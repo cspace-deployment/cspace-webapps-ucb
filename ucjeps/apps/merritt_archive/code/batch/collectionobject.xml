@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document name="collectionobjects">
+  <ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <objectNumber>#objectnumber#</objectNumber>
+  </ns2:collectionobjects_common>
+  <ns2:collectionobjects_naturalhistory xmlns:ns2="http://collectionspace.org/services/collectionobject/domain/naturalhistory">
+    <taxonomicIdentGroupList>
+      <taxonomicIdentGroup>
+        <taxonomicIdentHybridName>Fungi, skeletal not databased</taxonomicIdentHybridName>
+        <taxon>urn:cspace:ucjeps.cspace.berkeley.edu:taxonomyauthority:name(taxon):item:name(Fungiskeletalnotdatabased1665078817252)'Fungi, skeletal not databased'</taxon>
+      </taxonomicIdentGroup>
+    </taxonomicIdentGroupList>
+  </ns2:collectionobjects_naturalhistory>
+</document>
