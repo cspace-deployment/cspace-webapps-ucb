@@ -12,10 +12,12 @@ MANIFEST="${TIFFS/tiffs.csv/checkm}"
 rm -f ${TIFFS_ERRORS} ; touch ${TIFFS_ERRORS}
 rm -f ${TIFFS_QUEUED} ; touch ${TIFFS_QUEUED}
 rm -f ${MANIFEST} ; touch ${MANIFEST}
+
+# these are set outside the script (i.e. by step1_set_env.sh)
+# as environment variables
 S3BUCKET="${S3BUCKET}"
 SUBMITTER="${SUBMITTER}"
-
-# these must be set as environment variables
+MERRITT_INGEST=${MERRITT_INGEST}
 collection_username="${COLLECTION_USERNAME}"
 collection_password="${COLLECTION_PASSWORD}"
 
@@ -34,7 +36,7 @@ for TIFF in `cut -f1 ${TIFFS}`
     # get rid of all vertical bars in the data
     TITLE=${TITLE/|/, }
     echo "${TITLE}"
-    echo "${S3BUCKET}/${TIFF} | | | | | | | ${TIFF} | UCJEPS | ${TITLE} |" >> ${MANIFEST}
+    echo "${S3BUCKET}/${TIFF} | | | | | | | ${TIFF} | UC/JEPS Herbaria | ${TITLE} |" >> ${MANIFEST}
     echo "${TIFF}\t${RUN_DATE}" >> ${TIFFS_QUEUED}
 done
 echo "#%eof" >> ${MANIFEST}
@@ -54,5 +56,5 @@ curl --verbose -u ${collection_username}:${collection_password} \
 -F "submitter=${SUBMITTER}" \
 -F "responseForm=xml" \
 -F "profile=ucjeps_img_archive_content" \
-${MERRIT_INGEST}
+${MERRITT_INGEST}
 
