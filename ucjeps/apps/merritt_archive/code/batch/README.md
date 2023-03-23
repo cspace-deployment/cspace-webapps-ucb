@@ -105,6 +105,11 @@ COPY merrit_archive (accession_number, image_filename, status, job, transaction_
 # find the accession number / image name mismatches
 perl -ne '@x = split("\t"); $x[4] =~ s/.JPG//i; $x[4] =~ s/_\d+//; $x[4] =~ s/[acb]$// ; next if ($x[1] eq ""); next if / deleted/ ; if ($x[1] ne $x[4]) {print $_ }' 4solr.ucjeps.allmedia.csv > number_image_mismatch.csv
 
+# how to make a list of the current duplicate accession numbers
+# nb: since number uniqueness is now enforced in the database
+# these are the numbers that are marked "dup" in some way...
+cut -f3 4solr.ucjeps.public.csv | sort -u > unique.accessions.txt
+cut -f1 -d" " unique.accessions.txt | sort | uniq -c | sort -rn | grep -v ' 1 ' | perl -pe 's/^ +\d //' > unique.dedup.txt
 
 ```
 
