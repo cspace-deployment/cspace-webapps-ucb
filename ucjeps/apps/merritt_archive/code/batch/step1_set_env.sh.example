@@ -14,7 +14,8 @@ export COLLECTION_PASSWORD="<getfrommerritt>"
 # our s3 bucket for transitory images
 export S3BUCKET="https://cspace-merritt-in-transit-qa.s3.us-west-2.amazonaws.com"
 export SUBMITTER="jblowe"
+export MERRIT_INGEST="https://merritt.cdlib.org/object/update"
 
 export JOB_DIRECTORY="/cspace/merritt/jobs"
 
-export SQLITE3_DB="mxrritt_archive.sqlite3"
+export SQLITE3_DB="/var/www/ucjeps/db.sqlite3"

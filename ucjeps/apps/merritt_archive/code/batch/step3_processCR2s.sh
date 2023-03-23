@@ -76,7 +76,7 @@ while IFS=$'\t' read -r CR2 DATE
       IMG="/thumbs/placeholder.thumbnail.jpg"
       echo -e "${CR2_FILENAME}\t${RUN_DATE}" >> ${QUEUE_ERRORS}
     fi
-    echo "<a target=\"_blank\" href=\"${IMG}\"><img width=\"300px\" src=\"${IMG}\"></a>" >> ${HTML}
+    echo "<a target=\"_blank\" href=\"${IMG}\"><img width=\"260px\" src=\"${IMG}\"></a>" >> ${HTML}
     echo "<br/><a target=\"_blank\" href=\"${F}.convert.txt\">${F}</a>" >> ${HTML}
     echo "<pre>" >> ${HTML}
     cat ${OUTPUTPATH}/${F}.stats.txt >> ${HTML}

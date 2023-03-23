@@ -54,5 +54,5 @@ curl --verbose -u ${collection_username}:${collection_password} \
 -F "submitter=${SUBMITTER}" \
 -F "responseForm=xml" \
 -F "profile=ucjeps_img_archive_content" \
-https://merritt-stage.cdlib.org/object/update
+${MERRIT_INGEST}
 
