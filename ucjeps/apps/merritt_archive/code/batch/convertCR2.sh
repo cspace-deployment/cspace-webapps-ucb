@@ -11,10 +11,9 @@ JOB=`basename -- "$2"`
 SOURCE="$3"
 WEBDIR=/var/www/static/thumbs
 
-fileinfo ${CR2}
 echo "=============== exiftool info ================="
 exiftool ${CR2}
-echo 
+echo
 
 F=$(echo "$CR2" | sed "s/\.CR2//i")
 # make a jpg and a tif for each cr2
@@ -29,9 +28,6 @@ convert -verbose "${CR2}" -auto-orient -depth 8 -compress zip "${F}.TIF" 2>&1
 #for FORMAT in JPG TIF
 for FORMAT in TIF
 do
-  echo "========= after initial conversion ============"
-  fileinfo "${F}.${FORMAT}"
-  echo
   # if the image (TIF or JPG) is still landscape, rotate it as needed
   if [[ "1" == `convert "${F}.${FORMAT}" -format "%[fx:(w/h>1)?1:0]" info:` ]]
   then
@@ -49,9 +45,6 @@ do
      echo "${F}.${FORMAT}" is Landscape, rotating ${ROTATION}
      echo convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
      convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
-     echo "============= after rotation =================="
-     fileinfo "${F}.${FORMAT}"
-     echo
   else
      echo "${F}.${FORMAT} is Portrait, no further rotation necessary"
   fi
@@ -61,7 +54,6 @@ do
      echo Desperately rotating +180: convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
      convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
   fi
-  fileinfo "${F}.${FORMAT}"
   echo
 done
 # make a thumbnail in the right place
