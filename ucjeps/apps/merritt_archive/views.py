@@ -208,7 +208,7 @@ def checkFile(filename):
     return len(lines)
 
 def createJobs(num_jobs, job_size):
-    images = Transaction.objects.filter(status="new")
+    images = Transaction.objects.filter(status="new").using('merritt_archive')
     #images = Transaction.objects.filter()
     jobnumber = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
     for n in range(num_jobs):
@@ -269,12 +269,11 @@ def find_transactions(request, context):
     accession_number = request.POST['accession_number']
     elapsedtime = 0.0
     try:
-        transactions = Transaction.objects.filter(accession_number=accession_number)
+        transactions = Transaction.objects.filter(accession_number=accession_number).using('merritt_archive').order_by('-transaction_date')[:100]
+        n = len(transactions)
+        context['transactions'] = transactions
     except:
-        context['error'] = f'{accession_number} not found'
-    n = len(transactions)
-    context['transactions'] = transactions
+        context['error'] = f'{accession_number} generated an error'
     context['elapsedtime'] = time.time() - elapsedtime
 
     return
-
