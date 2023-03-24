@@ -36,7 +36,7 @@ if [[ "${DIRECTION}" == "to" ]] ; then
   fi
   for i in {1..2}; do
     echo "/usr/bin/aws s3 cp --quiet '/tmp/${FILENAME}' 's3://${MERRITT_TRANSIT}/${FILENAME}'"
-    /usr/bin/aws s3 cp --quiet "/tmp/${FILENAME}" "s3://${MERRITT_TRANSIT}/${FILENAME}" && s=0 && break || s=$?
+    time /usr/bin/aws s3 cp --quiet "/tmp/${FILENAME}" "s3://${MERRITT_TRANSIT}/${FILENAME}" && s=0 && break || s=$?
     echo "failed with exit code $s. retrying. attempt $i"
     sleep 1
   done
@@ -45,7 +45,7 @@ if [[ "${DIRECTION}" == "to" ]] ; then
 elif [[ "${DIRECTION}" == "from" ]] ; then
   for i in {1..2}; do
     echo "curl -s -S -L 'https://<redacted>@${MERRITT_BUCKET}/${FILEPATH}' > /tmp/${FILENAME}"
-    curl -s -S -L "${SOURCE_BUCKET}/${FILEPATH}" > /tmp/${FILENAME}
+    time curl -s -S -L "${SOURCE_BUCKET}/${FILEPATH}" > /tmp/${FILENAME}
     s=$?
     [ -e "/tmp/${FILENAME}" ] && exit 0
     echo "failed with exit code $s. retrying. attempt $i"
