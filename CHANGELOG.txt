@@ -3,10 +3,23 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.3
-Wed Mar 22 16:44:06 PDT 2023
+This is version 6.4.4-rc1
+Fri Mar 24 09:27:46 PDT 2023
 
-d710972 (HEAD -> main, origin/main, origin/HEAD) CSW-817: add update date for titles to transactions db for ucjeps archiving
+648afbf (HEAD -> main, origin/main, origin/HEAD) CSW-817: metadata updater should update thumbnails as well
+6b2beae CSW-817: add timing of imagemagick conversion to log for ucjeps archiving
+74cee02 CSW-817: provide a 'back' link in thumbnail viewer
+c90fbbd CSW-817: quiet convertCR2.sh: was generating too much output
+edaf609 CSW-817: status script should use configured database, not hardcoded one
+2905ca7 CSW-817: use correct database to save merritt callback info
+c11caf7 CSW-817: minor refactor of ucjeps helper script for skeletal records
+c6e2ee0 CSW-817: correct another typo in env. vars in ucjeps archiving pipeline
+4ede150 CSW-817: correct typo in env. var in ucjeps archiving pipeline
+05ed6fa CSW-817: helper script for making ucjeps skeletal records
+1d9a14f CSW-817: update README.md
+38f3584 CSW-817: minor refactoring and bulletproofing of ucjeps archiving scripts
+99026c4 (tag: 6.4.3) revise CHANGELOG.txt and bump version to 6.4.3
+d710972 CSW-817: add update date for titles to transactions db for ucjeps archiving
 2f3ae15 CSW-817: further refactoring of image search functionality in ucjeps archiving webapp
 6ffebf0 CSW-817: improve image search functionality in ucjeps archiving webapp
 62beaca CSW-817: add 'blocked' images to transaction db
