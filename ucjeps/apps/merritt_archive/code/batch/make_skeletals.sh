@@ -12,7 +12,12 @@ CONTENT_TYPE="Content-Type: application/xml"
 
 
 if [ $# -ne 3 ]; then
+    echo
     echo "Usage: $0 <credentials> <server> <file_of_accession_numbers>"
+    echo
+    echo "e.g. nohup time ./make_skeletals.sh \"cspaceuser:cspacepassword\" \"https://ucjeps.collectionspace.org\" fungi-skeletals.csv > skeletals.log &"
+    echo
+    echo "nb: the collectionobject.xml template must be present in the same directory"
     echo
     exit 1
 fi
@@ -34,4 +39,5 @@ do
   echo curl -s -S -L -X POST $SERVER/$SERVICE -i -u "$CREDENTIALS" -H "$CONTENT_TYPE" -T tempreportpayload.xml
   curl -s -S -L -X POST $SERVER/$SERVICE -i -u "$CREDENTIALS" -H "$CONTENT_TYPE" -T tempreportpayload.xml
 done
+rm tempreportpayload.xml
 
