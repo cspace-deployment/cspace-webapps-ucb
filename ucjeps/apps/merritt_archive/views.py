@@ -1,4 +1,5 @@
 from collections import defaultdict
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django import forms
 from django.http import HttpResponse
@@ -55,10 +56,12 @@ def callback(request, rest):
             if '.checkm' in packageName:
                 job_name = packageName.replace('.checkm', '')
             else:
+                # for now, we use 'today' as the job_name, until merritt updates the package name
+                # to use the manifest file name
                 job_name = time.strftime("%Y-%m-%d", time.localtime())
-            # for now, we use 'today' as the job_name, until merritt updates the package name
-            # to use the manifest file name
-            job_file = open(path.join(JOB_DIR, f'{job_name}.completed.csv'), 'a+')
+
+            # TODO: not sure why we have to specify the encoding here, but we do
+            job_file = open(path.join(JOB_DIR, f'{job_name}.completed.csv'), 'a+', encoding='utf-8')
             job_writer = csv.writer(job_file, delimiter="\t")
             job_writer.writerow([localID, primaryID, objectTitle, completionDate])
             job_file.close()
@@ -89,6 +92,7 @@ def archive_detail(request, pk):
     return appList
 
 
+@login_required()
 def index(request):
     context = {}
     context['version'] = appconfig.getversion()
@@ -202,7 +206,7 @@ def determine_status(jobdict):
     return job_status
 
 def checkFile(filename):
-    file_handle = open(filename)
+    file_handle = open(filename, encoding='utf-8')
     # eliminate rows for which an object was not found...
     lines = [l for l in file_handle.read().splitlines() if "not found" not in l]
     return len(lines)
@@ -213,7 +217,7 @@ def createJobs(num_jobs, job_size):
     jobnumber = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
     for n in range(num_jobs):
         job_name = f"{jobnumber}_{n:02d}.input.csv"
-        jf = open(path.join(JOB_DIR, job_name), 'w')
+        jf = open(path.join(JOB_DIR, job_name), 'w', encoding='utf-8')
         n = 0
         for s in images:
             # skip images that are already queued
@@ -250,7 +254,7 @@ def show_archive_results(request, context):
         status = 'showfile'
     context['filename'] = request.GET['filename']
     context['jobstatus'] = status
-    f = open(jobfile, 'r')
+    f = open(jobfile, 'r', encoding='utf-8')
     filecontent = f.read()
     if status == 'showmedia':
         context['derivativegrid'] = 'Medium'

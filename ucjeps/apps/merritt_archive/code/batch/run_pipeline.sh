@@ -13,10 +13,12 @@ fi
 INPUT_PREFIX="${INPUT_FILE/.input.csv}"
 
 time ./step2_filter.sh ${INPUT_PREFIX}.input.csv
-RUN_DATE=`date +%Y-%m-%dT%H-%M`
-time ./step3_processCR2s.sh ${INPUT_PREFIX}.cr2s.csv ${RUN_DATE}
+time ./step3_processCR2s.sh ${INPUT_PREFIX}.cr2s.csv
 time ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv
 
 # count the number of lines in the various files involved
 ls -tr ${INPUT_PREFIX}.*.csv | xargs wc -l
 
+# update thumbnail viewer
+cd ../web
+./construct.sh > index.html

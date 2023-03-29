@@ -40,13 +40,16 @@ if [[ "${DIRECTION}" == "to" ]] ; then
     echo "failed with exit code $s. retrying. attempt $i"
     sleep 1
   done
-  #rm -f "/tmp/${FILENAME}"
+  rm -f "/tmp/${FILENAME}"
   exit $s
 elif [[ "${DIRECTION}" == "from" ]] ; then
   for i in {1..2}; do
     echo "curl -s -S -L 'https://<redacted>@${MERRITT_BUCKET}/${FILEPATH}' > /tmp/${FILENAME}"
     time curl -s -S -L "${SOURCE_BUCKET}/${FILEPATH}" > /tmp/${FILENAME}
-    s=$?
+    if [[ $(head -1 /tmp/${FILENAME} | grep 'not found in S3 bucket') ]] ; then
+      echo "/tmp/${FILENAME} not found in S3 bucket ${MERRITT_BUCKET}"
+      exit 1
+    fi
     [ -e "/tmp/${FILENAME}" ] && exit 0
     echo "failed with exit code $s. retrying. attempt $i"
     sleep 1
