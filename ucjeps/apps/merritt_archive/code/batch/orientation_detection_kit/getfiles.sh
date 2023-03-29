@@ -1,0 +1,10 @@
+aws s3 cp s3://blacklight-prod/bmu/ucjeps/UC181414.JPG .
+aws s3 cp s3://blacklight-prod/bmu/ucjeps/UC280222.JPG .
+aws s3 cp s3://blacklight-prod/bmu/ucjeps/UC368473.JPG .
+aws s3 cp s3://blacklight-prod/bmu/ucjeps/UC417851.JPG .
+aws s3 cp s3://blacklight-prod/bmu/ucjeps/UC419657.JPG .
+aws s3 cp s3://blacklight-prod/bmu/ucjeps/UC443213.JPG .
+aws s3 cp s3://blacklight-prod/bmu/ucjeps/UC443214.JPG .
+aws s3 cp s3://blacklight-prod/bmu/ucjeps/UC443215.JPG .
+aws s3 cp s3://blacklight-prod/bmu/ucjeps/UC476433.JPG .
+aws s3 cp s3://blacklight-prod/bmu/ucjeps/UC477596.JPG .

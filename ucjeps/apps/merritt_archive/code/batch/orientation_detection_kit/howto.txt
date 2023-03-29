@@ -1,0 +1,21 @@
+mkdir random
+cd random
+# get code
+cp kit/* random
+cp batch/check_orientation.sh .
+# make needed baseline slices (images)
+...
+# comment out 'rm' so the slices are saved
+vi check_orientation.sh
+# make a list of desired bmu *.check.csv files (get from blacklight-prod)
+cat > r10.sh
+vi r10.sh
+chmod +x r10.sh
+nohup ./r10.sh &
+# make a list of files in those jobs
+cat *.check.csv | cut -f2 -d"|" | grep -v filename > getfiles.sh
+# make into a script to get files from s3
+vi getfiles.sh
+chmod +x getfiles.sh
+nohup time ./getfiles.sh > get.log &
+nohup ./make_html.sh JPG color &

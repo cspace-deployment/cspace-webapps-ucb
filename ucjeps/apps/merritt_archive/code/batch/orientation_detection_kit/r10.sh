@@ -1,0 +1,16 @@
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-14-11-38-28.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-14-11-50-13.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-14-11-54-20.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-14-12-01-26.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-15-09-19-47.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-15-10-45-08.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-15-10-55-08.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-15-11-03-09.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-15-11-25-57.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-15-14-53-39.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-16-08-44-39.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-16-10-00-19.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-16-13-11-18.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-16-14-35-22.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-16-14-36-28.check.csv
+wget https://webapps.cspace.berkeley.edu/ucjeps_bmu/2023-03-16-14-43-29.check.csv
