@@ -56,6 +56,6 @@ fi
 F2=`basename ${F}.TIF`
 F2="${F2%.*}"
 echo "creating thumbnail..."
-echo "convert \"${F}.TIF\" -quality 60 -thumbnail 20% ${OUTPUTPATH}/${F2}.thumbnail.jpg"
+echo "convert \"${F}.TIF\" -quality 60 -thumbnail 20% \"${OUTPUTPATH}/${F2}.thumbnail.jpg\""
 time convert "${F}.TIF" -quality 60 -thumbnail 20% "${OUTPUTPATH}/${F2}.thumbnail.jpg" &
 echo
