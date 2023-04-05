@@ -22,9 +22,7 @@ OUTPUTDIR="${JOB/.cr2s.csv/}"
 WEBDIR=$(mktemp -d /tmp/ucjeps-archiving.XXXXXX)
 SOURCE="archive"
 OUTPUTPATH=${WEBDIR}/${SOURCE}/${OUTPUTDIR}
-if [[ -d ${OUTPUTPATH} ]] ; then
-  rm -rf ${OUTPUTPATH}
-fi
+rm -rf ${OUTPUTPATH}
 echo "creating ${OUTPUTPATH}..."
 mkdir -p ${OUTPUTPATH}
 SIDEBAR=${OUTPUTPATH}/sidebar.html
