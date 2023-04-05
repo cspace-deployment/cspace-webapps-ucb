@@ -27,7 +27,7 @@ echo "extracting blocked images..."
 echo "first, the accession number / filename mismatches..."
 perl -ne '@x = split("\t"); $x[4] =~ s/.JPG//i; $x[4] =~ s/_\d+//; $x[4] =~ s/[acb]$// ; next if ($x[1] eq ""); next if / deleted/ ; if ($x[1] ne $x[4]) {print $_ }' 4solr.ucjeps.allmedia.csv > m1.csv
 cut -f2,5 m1.csv| perl -pe 's/.JPG/.CR2/i' > m2.csv
-perl -ne 'chomp;print "$_\tblocked\t\t$ENV{'RUN_DATE'}\taccession number / filename mismatch\n"' m2.csv > mismatch.csv
+perl -ne 'chomp;print "$_\tblocked\t\t$ENV{'RUN_DATE'}\taccession number / filename mismatch\n"' m2.csv > mismatch1.csv
 rm m1.csv m2.csv
 
 echo "next the 'live' duplicates..."
@@ -35,9 +35,13 @@ cut -f3 4solr.ucjeps.public.csv | sort -u > unique.accessions.txt
 cut -f1 -d" " unique.accessions.txt | sort | uniq -c | sort -rn | grep -v ' 1 ' | perl -pe 's/^ +\d //' > unique.dedup.txt
 perl -ne 'chomp;print "$_\t\tblocked\t\t$ENV{'RUN_DATE'}\tduplicate accession number in live database\n"' unique.dedup.txt> unique.dedup.csv
 
+echo "finally, jason alexanders ad hoc list of snowcone1 problems..."
+perl -ne 'chomp;print "$_\tblocked\t\t$ENV{'RUN_DATE'}\tjason alexanders ad hoc list of snowcone1 problems\n"' blocked_images_ja.csv > mismatch2.csv
+
 rm 4solr.ucjeps.allmedia.csv
 rm 4solr.ucjeps.public.csv
 
+echo "making backup of sqlite3 database"
 ./make_backup.sh
 
 echo
@@ -64,7 +68,8 @@ CREATE TABLE IF NOT EXISTS "merritt_temp" (
 
 .import metadata.csv merritt_temp
 .import media.csv merritt_temp
-.import mismatch.csv merritt_temp
+.import mismatch1.csv merritt_temp
+.import mismatch2.csv merritt_temp
 .import unique.dedup.csv merritt_temp
 
 insert into merritt_archive_transaction
@@ -79,7 +84,7 @@ DROP TABLE IF EXISTS merritt_temp;
 VACUUM;
 HERE
 
-rm metadata.csv media.csv mismatch.csv unique.dedup.* unique.accessions.txt
+rm metadata.csv media.csv mismatch*.csv unique.dedup.* unique.accessions.txt
 
 echo "updating thumbnails..."
 cd ../web
