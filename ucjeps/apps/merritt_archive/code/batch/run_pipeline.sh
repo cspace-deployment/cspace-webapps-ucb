@@ -9,7 +9,7 @@ if [[ ! -e "${INPUT_FILE}" ]]; then
   echo "${INPUT_FILE} does not exist; exiting."
   exit 1
 fi
-# remove 'suffix' from input filename if one was provided
+# remove 'suffix' from input filename
 INPUT_PREFIX="${INPUT_FILE/.input.csv}"
 
 time ./step2_filter.sh ${INPUT_PREFIX}.input.csv
@@ -20,5 +20,4 @@ time ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv
 ls -tr ${INPUT_PREFIX}.*.csv | xargs wc -l
 
 # update thumbnail viewer
-cd ../web
-./construct.sh > index.html
+./update_website.sh

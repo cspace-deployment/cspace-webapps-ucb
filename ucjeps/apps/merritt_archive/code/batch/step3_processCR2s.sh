@@ -19,12 +19,14 @@ rm -f ${QUEUE_ERRORS} ; touch ${QUEUE_ERRORS}
 # make thumbnails in the right place
 JOB=$(basename -- "${IMAGE_FILE}")
 OUTPUTDIR="${JOB/.cr2s.csv/}"
-WEBDIR=/var/www/static/thumbs
+WEBDIR=$(mktemp -d /tmp/ucjeps-archiving.XXXXXX)
 SOURCE="archive"
 OUTPUTPATH=${WEBDIR}/${SOURCE}/${OUTPUTDIR}
-rm -rf ${OUTPUTPATH}
+if [[ -d ${OUTPUTPATH} ]] ; then
+  rm -rf ${OUTPUTPATH}
+fi
 echo "creating ${OUTPUTPATH}..."
-mkdir ${OUTPUTPATH}
+mkdir -p ${OUTPUTPATH}
 SIDEBAR=${OUTPUTPATH}/sidebar.html
 PAGE=1
 COUNTER=0
@@ -32,7 +34,7 @@ ITEMSPERPAGE=100
 CSS='<head><link rel="stylesheet" href="/thumbs/specimen.css" type="text/css"></head>'
 
 # make index.html, wrapper for sidebar and image pages
-cp ${WEBDIR}/index.template.html ${OUTPUTPATH}/index.html
+cp ../web/index.template.html ${OUTPUTPATH}/index.html
 
 echo "<html>${CSS}" > ${OUTPUTPATH}/page${PAGE}.html
 echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page${PAGE}.html
@@ -65,7 +67,7 @@ while IFS=$'\t' read -r CR2 DATE
     if [[ $ERRORS -eq 0 ]] ; then
       # make a jpg and a tif for each cr2
       echo "fetch from s3 ok, converting /tmp/${CR2_FILENAME}..."
-      ./convertCR2.sh "/tmp/${CR2_FILENAME}" "${OUTPUTPATH}" "${SOURCE}"> ${OUTPUTPATH}/${F}.convert.txt 2>&1
+      ./convertCR2.sh "/tmp/${CR2_FILENAME}" "${OUTPUTPATH}" > ${OUTPUTPATH}/${F}.convert.txt 2>&1
       [[ $? -ne 0 ]] && ERRORS=1
       ./stats.sh "/tmp/${CR2_FILENAME}" "${CR2_FILENAME}" > ${OUTPUTPATH}/${F}.stats.txt &
       wait
@@ -93,3 +95,7 @@ while IFS=$'\t' read -r CR2 DATE
 done < ${IMAGE_FILE}
 echo "</html>" >> ${HTML}
 echo "</ul></html>" >> ${SIDEBAR}
+
+# WEBSITE_BUCKET is set as an env var in the pipeline
+aws s3 sync ${WEBDIR} ${WEBSITE_BUCKET}
+#rm -rf ${WEBDIR}

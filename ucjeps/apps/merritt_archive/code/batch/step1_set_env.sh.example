@@ -16,6 +16,11 @@ export S3BUCKET="https://cspace-merritt-in-transit-qa.s3.us-west-2.amazonaws.com
 export SUBMITTER="jblowe"
 export MERRITT_INGEST="https://merritt.cdlib.org/object/update"
 
+# s3 'website bucket'
+WEBSITE_BUCKET="s3://ucjeps-archiving-thumbnails/qa/thumbs"
+
+# the jobs files used by the pipeline go here (many small files)
 export JOB_DIRECTORY="/cspace/merritt/jobs"
 
-export SQLITE3_DB="/var/www/ucjeps/db.sqlite3"
+# transaction database
+export SQLITE3_DB="/cspace/merritt_archive/merritt_archive.sqlite3"
