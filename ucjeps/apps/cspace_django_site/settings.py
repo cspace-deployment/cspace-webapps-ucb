@@ -79,7 +79,7 @@ DATABASES = {
     },
     'merritt_archive': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'merritt_archive.sqlite3'),
+        'NAME': '/cspace/merritt/merritt_archive.sqlite3',
     }
 }
 
