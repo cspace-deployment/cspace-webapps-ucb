@@ -8,8 +8,7 @@ source ${HOME}/venv/bin/activate
 
 CR2="$1"
 JOB=`basename -- "$2"`
-SOURCE="$3"
-WEBDIR=/var/www/static/thumbs
+OUTPUTPATH="$3"
 
 echo "=============== exiftool info ================="
 exiftool ${CR2} || exit 1
@@ -54,14 +53,9 @@ then
   echo convert -rotate +180 "${F}.${FORMAT}" "${F}.${FORMAT}"
   time convert -rotate +180 "${F}.${FORMAT}" "${F}.${FORMAT}"
 fi
-# make a thumbnail in the right place
-if [ ! -d ${WEBDIR}/${SOURCE}/${JOB} ]
-then
-  mkdir ${WEBDIR}/${SOURCE}/${JOB}
-fi
 F2=`basename ${F}.TIF`
 F2="${F2%.*}"
 echo "creating thumbnail..."
-echo "convert \"${F}.TIF\" -quality 60 -thumbnail 20% ${WEBDIR}/${SOURCE}/${JOB}/${F2}.thumbnail.jpg"
-time convert "${F}.TIF" -quality 60 -thumbnail 20% ${WEBDIR}/${SOURCE}/${JOB}/${F2}.thumbnail.jpg &
+echo "convert \"${F}.TIF\" -quality 60 -thumbnail 20% ${OUTPUTPATH}/${F2}.thumbnail.jpg"
+time convert "${F}.TIF" -quality 60 -thumbnail 20% "${OUTPUTPATH}/${F2}.thumbnail.jpg" &
 echo
