@@ -125,7 +125,6 @@ def index(request):
                     raise
                     context['error'] = 'Please enter number of jobs and job size'
                     # raise
-
             showqueue(request, context)
             return render(request, 'merritt_index.html', context)
         else:
