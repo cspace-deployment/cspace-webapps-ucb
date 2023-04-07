@@ -36,7 +36,7 @@ cut -f1 -d" " unique.accessions.txt | sort | uniq -c | sort -rn | grep -v ' 1 ' 
 perl -ne 'chomp;print "$_\t\tblocked\t\t$ENV{'RUN_DATE'}\tduplicate accession number in live database\n"' unique.dedup.txt> unique.dedup.csv
 
 echo "finally, jason alexanders ad hoc list of snowcone1 problems..."
-perl -ne 'chomp;print "$_\tblocked\t\t$ENV{'RUN_DATE'}\tjason alexanders ad hoc list of snowcone1 problems\n"' blocked_images_ja.csv > mismatch2.csv
+perl -ne 'chomp;print "$_\t\tblocked\t\t$ENV{'RUN_DATE'}\tjason alexanders ad hoc list of snowcone1 problems\n"' blocked_images_ja.csv > mismatch2.csv
 
 rm 4solr.ucjeps.allmedia.csv
 rm 4solr.ucjeps.public.csv
@@ -86,9 +86,8 @@ HERE
 
 rm metadata.csv media.csv mismatch*.csv unique.dedup.* unique.accessions.txt
 
-echo "updating thumbnails..."
-cd ../web
-./construct.sh > index.html
+echo "updating website..."
+./update_website.sh
 
 echo "sending notification email..."
 cd ../batch

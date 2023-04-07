@@ -19,7 +19,7 @@ rm -f ${QUEUE_ERRORS} ; touch ${QUEUE_ERRORS}
 # make thumbnails in the right place
 JOB=$(basename -- "${IMAGE_FILE}")
 OUTPUTDIR="${JOB/.cr2s.csv/}"
-WEBDIR=$(mktemp -d /tmp/ucjeps-archiving.XXXXXX)
+WEBDIR="$2"
 SOURCE="archive"
 OUTPUTPATH=${WEBDIR}/${SOURCE}/${OUTPUTDIR}
 rm -rf ${OUTPUTPATH}
@@ -93,7 +93,3 @@ while IFS=$'\t' read -r CR2 DATE
 done < ${IMAGE_FILE}
 echo "</html>" >> ${HTML}
 echo "</ul></html>" >> ${SIDEBAR}
-
-# WEBSITE_BUCKET is set as an env var in the pipeline
-aws s3 sync ${WEBDIR} ${WEBSITE_BUCKET}
-#rm -rf ${WEBDIR}

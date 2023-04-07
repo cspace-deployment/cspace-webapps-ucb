@@ -2,29 +2,21 @@
 
 set -o errexit
 
-# these better be here!
-source ~/.profile
-source ${HOME}/venv/bin/activate
-
 CR2="$1"
 JOB=`basename -- "$2"`
 OUTPUTPATH="$3"
 
-echo "=============== exiftool info ================="
-exiftool ${CR2} || exit 1
-echo
-
+FORMAT="TIF"
 F=$(echo "$CR2" | sed "s/\.CR2//i")
 # make a jpg and a tif for each cr2
-echo "converting ${CR2} to TIF..."
-#/usr/bin/dcraw -w -c -auto-orient -compress zip "${CR2}" > "${F}.TIF" 2>&1 &
-echo "convert -verbose \"${CR2}\" -auto-orient -depth 8 -compress zip \"${F}.TIF\""
-time convert -verbose "${CR2}" -auto-orient -depth 8 -compress zip "${F}.TIF" || exit 1
+echo "converting ${CR2} to ${FORMAT}..."
+#/usr/bin/dcraw -w -c -auto-orient -compress zip "${CR2}" > "${F}.${FORMAT}" 2>&1 &
+echo "convert -verbose \"${CR2}\" -auto-orient -depth 8 -compress zip \"${F}.${FORMAT}\""
+time convert -verbose "${CR2}" -auto-orient -depth 8 -compress zip "${F}.${FORMAT}" || exit 1
 # convert -verbose "${CR2}" -auto-orient "${F}.JPG" 2>&1 &
 # wait
 
-FORMAT="TIF"
-# if the image (TIF or JPG) is still landscape, rotate it as needed
+# if the image is still landscape, rotate it as needed
 if [[ "1" == `convert "${F}.${FORMAT}" -format "%[fx:(w/h>1)?1:0]" info:` ]]
 then
   # try to figure out which way to rotate the landscape image

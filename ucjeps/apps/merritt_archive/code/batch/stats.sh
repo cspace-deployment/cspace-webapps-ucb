@@ -5,7 +5,7 @@ then
     echo $2
 fi
 
-tmpfile=$(mktemp /tmp/ucjeps-archiving.XXXXXX)
+tmpfile=$(mktemp /tmp/ucjeps-archiving-temp.XXXXXX)
 
 exiftool $1 > ${tmpfile}
 grep Orient ${tmpfile} | perl -pe 's/             //' | head -1

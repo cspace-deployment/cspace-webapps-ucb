@@ -13,4 +13,4 @@ else
   orientation="UpsideDown"
 fi
 echo "$orientation $top $bot"
-rm "${IMAGE}.top.jpg" "${IMAGE}.bottom.jpg" temp.jpg
+rm -f "${IMAGE}.top.jpg" "${IMAGE}.bottom.jpg" temp.jpg
