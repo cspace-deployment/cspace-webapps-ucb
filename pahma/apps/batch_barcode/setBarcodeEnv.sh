@@ -6,7 +6,7 @@ export USER="xxxxx@pahma.cspace.berkeley.edu:xxxxx"
 export CONTENT_TYPE="Content-Type: application/xml"
 
 # password comes from .pgpass
-export CONNECTSTRING="host=localhost port=54321 sslmode=prefer dbname=pahma_domain_pahma user=reporter_pahma"
+export CONNECTSTRING="host=localhost port=54321 sslmode=prefer dbname=pahma_domain_pahma user=pahma"
 
 # setup for email
 export SUBJECT="Tricoder Upload Results  `date`"
