@@ -16,77 +16,78 @@ field	1	id	id	id			id									x
 field	2	csid	CSID	csid_s			csid									x
 field	3	accessionnumber	Accession Number	accessionnumber_s		ob	objectno,accession,string,sortkey	8,3		1		1	1		1	x
 field	4	determination	Determination	determination_s			keyword,mainentry			2		2			2	x
-field	4.1	previousdeterminations	Previously Applied Names	previousdeterminations_ss			keyword				23				30	x
-field	4.2	alldeterminations	Scientific Name	alldeterminations_ss		ta	keyword	1,1								x
-field	5	collector	Collector	collector_s		pe	keyword	4,2	1		5	6	2		10	x
-field	6	collectornumber	Collector Number	collectornumber_s			keyword	5,2	2		1	7	3		11	x
-field	7	collectiondate	Collection Date	collectiondate_s			keyword	6,2			3				12	x
-field	8	earlycollectiondate	Early Collection Date	earlycollectiondate_s			keyword				4					x
-field	9	latecollectiondate	Late Collection Date	latecollectiondate_s			keyword									x
-field	10	fcpverbatim	Field Collection Place	fcpverbatim_s			keyword	6,1			6					x
-field	11	collcounty	County	collcounty_ss			dropdown	7,1	3		8				6	x
-field	12	collstate	State	collstate_ss			dropdown	8,1	4		9				7	x
-field	13	collcountry	Country	collcountry_ss			dropdown	9,1	5		10		4		8	x
-field	14	elevation	Elevation	elevation_s			keyword	9,2			12				9	x
-field	15	minelevation	Min elevation	minelevation_s			keyword									x
-field	16	maxelevation	Max elevation	maxelevation_s			keyword									x
-field	17	elevationunit	Elevation unit	elevationunit_s			keyword									x
-field	18	habitat	Habitat	habitat_s			keyword	10,2			13				14	x
-field	18.1	habit	Habit	habit_s			dropdown	9,3			11				28	x
-field	18.2	materialtype	Material received as	materialtype_s			keyword	8,2			50				50	x
-field	18.3	sex	Sex	sex_s			dropdown	10,3			51				4	x
-field	19	latlong	LatLong	latlong_p			location								15	x
-field	20	trscoordinates	TRS coordinates	trscoordinates_s			keyword							1		x
-field	21	datum	Datum	datum_s			dropdown							2		x
-field	22	coordinatesource	Coordinate source	coordinatesource_s			keyword							3		x
-field	23	coordinateuncertainty	Coordinate uncertainty	coordinateuncertainty_s			keyword							4		x
-field	24	coordinateuncertaintyunit	Coordinate uncertainty unit	coordinateuncertaintyunit_s			keyword							5		x
-field	25	family	Family	family_s			dropdown	3,1	6		14	3	5		16	x
-field	25.1	division	Division	division_s			dropdown	4,1	7		15	3	5		17	x
-field	26	gardenlocation	Garden Location	gardenlocation_s			keyword	1,2	8		16	4	6		5	x
-field	27	dataquality	Data Quality	dataquality_s			keyword				17					x
-field	28	locality	Geographic Place Name	locality_s		pl	keyword	11,2			18	5			18	x
-field	29	rare	Rare?	rare_s			dropdown	14,1	9		19	8	7		19	x
-field	30	deadflag	Dead?	deadflag_s			dropdown,default=no	13,1	10		20		8		20	x
-field	30.1	deaddate	Dead Date	deaddate_s			string	16,2			21	9			21	x
-field	31	flowercolor	Flower Color	flowercolor_s			keyword	10,1	11		22	10	9		22	x
-field	32	determinationnoauth	Determination	determinationnoauth_s			keyword				24					x
-field	33	reasonformove	Reason for Move	reasonformove_s			keyword				25					x
-field	34	conservationinfo	Conservation Information	conservationinfo_ss			keyword				29				23	x
-field	35	conserveorg	Conservation Organization	conserveorg_ss			dropdown	12,2	12		52					x
-field	36	conservecat	Conservation Category	conservecat_ss			dropdown	13,2			53					x
-field	37	voucherlist	Voucher Institution	voucherlist_ss			keyword	3,2			27				24	x
-field	38	vouchers	Has Vouchers?	vouchers_s			dropdown	2,2			26	11			25	x
-field	39	vouchercount	Voucher Count	vouchercount_s			keyword				54					x
-field	40	fruitingverbatim	Fruiting months (orange = fruiting)	fruitingverbatim_ss			"colors= {""f"":""lightgray"",""t"":""orange""}"				31				27	x
-field	41	keyword	Keyword	text			keyword	13,3								x
-field	42	floweringverbatim	Flowering months (pink = some, red = many)	floweringverbatim_ss			"colors= {""x"":""lightgray"",""No"":""lightgray"",""Some"":""pink"",""Many"":""red""}"				30				26	x
-field	43	provenancetype	Provenance Type	provenancetype_s			dropdown	15,1			28					x
-field	44	fruiting	Fruiting (months)	fruiting_ss			keyword	12,1								x
-field	45	flowering	Flowering (months)	flowering_ss			keyword	11,1								x
-field	46	authorsParsed	Authors (parsed)	authorsParsed_s			keyword				32				29	x
-field	47	authorship	Authorship	authorship_s			keyword	2,3			33				31	x
-field	48	bracketAuthorship	Bracket Authorship	bracketAuthorship_s			keyword	1,3			34				32	x
-field	49	canonicalName	Canonical Name	canonicalName_s			keyword				36				33	x
-field	50	canonicalNameComplete	Canonical Name Complete	canonicalNameComplete_s			keyword				37				34	x
-field	51	canonicalNameWithMarker	Scientific Name	canonicalNameWithMarker_s			keyword				38				34	x
-field	52	genusOrAbove	Genus or above	genusOrAbove_s			keyword	5,1			39				35	x
-field	53	infraSpecificEpithet	Infraspecific Epithet	infraSpecificEpithet_s			keyword	3,3			40				38	x
-field	54	rankMarker	Rank Marker	rankMarker_s			keyword	4,3			41				39	x
-field	55	scientificNameGBIF	Scientific Name (GBIF)	scientificName_s			keyword				42				40	x
-field	56	specificEpithet	Specific Epithet	specificEpithet_s			keyword	5,3			43				36	x
-field	57	cultivarEpithet	Cultivar Epithet	cultivarEpithet_s			keyword	6,3			44				37	x
-field	58	type	Type	type_s			dropdown				45				41	x
-field	59	accessrestrictions	Access Restrictions	accessrestrictions_s			dropdown	7,3			46				42	x
-field	60	commonname	Common Name	commonname_s			keyword	2,1			2				43	x
-field	61	accessionnotes	Accession Notes	accessionnotes_s			keyword				47				13	x
-field	62	blobs	Images	blob_ss			blob								44	x
-field	63	hasimage	Has image(s)?	blob_ss			present	11,3				12				x
-field	64	hascoords	Has coordinates?	latlong_p			present	12,3								x
-field	65	source	Source	source_s			keyword	7,2			7				45	x
-field	66	group	Group	grouptitle_ss			keyword	14,2			48				46	x
-field	67	researcher	Researcher Name	researcher_s			keyword	15,2			49				47	x
-field	68	latitude	Latitude	latitude_f			keyword								48	x
-field	69	longitude	Longitude	longitude_f			keyword								49	x
-field	70	hybridflag	Named hybrid?	hybridflag_s			dropdown	16,1			35					x
-field	71	provenancetypeshort	Provenance Type (short)	provenancetype_short_s			dropdown								3	x
+field	5	previousdeterminations	Previously Applied Names	previousdeterminations_ss			keyword				25				32	x
+field	6	alldeterminations	Scientific Name	alldeterminations_ss		ta	keyword	1,1								x
+field	7	collector	Collector	collector_s		pe	keyword	4,2	1		5	7	2		10	x
+field	8	collectornumber	Collector Number	collectornumber_s			keyword	5,2	2		1	8	3		11	x
+field	9	collectiondate	Collection Date	collectiondate_s			keyword	6,2			3				12	x
+field	10	earlycollectiondate	Early Collection Date	earlycollectiondate_s			keyword				4					x
+field	11	latecollectiondate	Late Collection Date	latecollectiondate_s			keyword									x
+field	12	fcpverbatim	Field Collection Place	fcpverbatim_s			keyword	7,1			6					x
+field	13	collcounty	County	collcounty_ss			dropdown	8,1	3		8				6	x
+field	14	collstate	State	collstate_ss			dropdown	9,1	4		9				7	x
+field	15	collcountry	Country	collcountry_ss			dropdown	10,1	5		10		4		8	x
+field	16	elevation	Elevation	elevation_s			keyword	9,2			12				9	x
+field	17	minelevation	Min elevation	minelevation_s			keyword									x
+field	18	maxelevation	Max elevation	maxelevation_s			keyword									x
+field	19	elevationunit	Elevation unit	elevationunit_s			keyword									x
+field	20	habitat	Habitat	habitat_s			keyword	10,2			13				14	x
+field	21	habit	Habit	habit_s			dropdown	9,3			11				30	x
+field	22	materialtype	Material received as	materialtype_s			keyword	8,2			51				52	x
+field	23	sex	Sex	sex_s			dropdown	10,3			52				4	x
+field	24	latlong	LatLong	latlong_p			location								15	x
+field	25	trscoordinates	TRS coordinates	trscoordinates_s			keyword							1		x
+field	26	datum	Datum	datum_s			dropdown							2		x
+field	27	coordinatesource	Coordinate source	coordinatesource_s			keyword							3		x
+field	28	coordinateuncertainty	Coordinate uncertainty	coordinateuncertainty_s			keyword							4		x
+field	29	coordinateuncertaintyunit	Coordinate uncertainty unit	coordinateuncertaintyunit_s			keyword							5		x
+field	30	genusOrAbove	Genus or above	genusOrAbove_s			keyword	3,1			14				16	x
+field	31	family	Family	family_s			dropdown	4,1	11		15	3	5		17	x
+field	32	order	Order	order_s			dropdown	5,1	12		16	4			18	x
+field	33	division	Division	division_s			dropdown	6,1	13		17		6		19	x
+field	34	gardenlocation	Garden Location	gardenlocation_s			keyword	1,2	6		18	5	7		5	x
+field	35	dataquality	Data Quality	dataquality_s			keyword				19					x
+field	36	locality	Geographic Place Name	locality_s		pl	keyword	11,2			20	6			20	x
+field	37	rare	Rare?	rare_s			dropdown	15,1	7		21	9	8		21	x
+field	38	deadflag	Dead?	deadflag_s			dropdown,default=no	14,1	8		22		9		22	x
+field	39	deaddate	Dead Date	deaddate_s			string	16,2			23	10			23	x
+field	40	flowercolor	Flower Color	flowercolor_s			keyword	11,1	9		24	11			24	x
+field	41	determinationnoauth	Determination	determinationnoauth_s			keyword				26					x
+field	42	reasonformove	Reason for Move	reasonformove_s			keyword				27					x
+field	43	conservationinfo	Conservation Information	conservationinfo_ss			keyword				31				25	x
+field	44	conserveorg	Conservation Organization	conserveorg_ss			dropdown	12,2	10		53					x
+field	45	conservecat	Conservation Category	conservecat_ss			dropdown	13,2			54					x
+field	46	voucherlist	Voucher Institution	voucherlist_ss			keyword	3,2			29				26	x
+field	47	vouchers	Has Vouchers?	vouchers_s			dropdown	2,2			28	12			27	x
+field	48	vouchercount	Voucher Count	vouchercount_s			keyword				55					x
+field	49	fruitingverbatim	Fruiting months (orange = fruiting)	fruitingverbatim_ss			"colors= {""f"":""lightgray"",""t"":""orange""}"				33				29	x
+field	50	keyword	Keyword	text			keyword	13,3								x
+field	51	floweringverbatim	Flowering months (pink = some, red = many)	floweringverbatim_ss			"colors= {""x"":""lightgray"",""No"":""lightgray"",""Some"":""pink"",""Many"":""red""}"				32				28	x
+field	52	provenancetype	Provenance Type	provenancetype_s			dropdown	16,1			30					x
+field	53	fruiting	Fruiting (months)	fruiting_ss			keyword	13,1								x
+field	54	flowering	Flowering (months)	flowering_ss			keyword	12,1								x
+field	55	authorsParsed	Authors (parsed)	authorsParsed_s			keyword				34				31	x
+field	56	authorship	Authorship	authorship_s			keyword	2,3			35				33	x
+field	57	bracketAuthorship	Bracket Authorship	bracketAuthorship_s			keyword	1,3			36				34	x
+field	58	canonicalName	Canonical Name	canonicalName_s			keyword				38				35	x
+field	59	canonicalNameComplete	Canonical Name Complete	canonicalNameComplete_s			keyword				39				36	x
+field	60	canonicalNameWithMarker	Scientific Name	canonicalNameWithMarker_s			keyword				40				37	x
+field	61	infraSpecificEpithet	Infraspecific Epithet	infraSpecificEpithet_s			keyword	3,3			41				40	x
+field	62	rankMarker	Rank Marker	rankMarker_s			keyword	4,3			42				41	x
+field	63	scientificNameGBIF	Scientific Name (GBIF)	scientificName_s			keyword				43				42	x
+field	64	specificEpithet	Specific Epithet	specificEpithet_s			keyword	5,3			44				38	x
+field	65	cultivarEpithet	Cultivar Epithet	cultivarEpithet_s			keyword	6,3			45				39	x
+field	66	type	Type	type_s			dropdown				46				43	x
+field	67	accessrestrictions	Access Restrictions	accessrestrictions_s			dropdown	7,3			47				44	x
+field	68	commonname	Common Name	commonname_s			keyword	2,1			2				45	x
+field	69	accessionnotes	Accession Notes	accessionnotes_s			keyword				48				13	x
+field	70	blobs	Images	blob_ss			blob								46	x
+field	71	hasimage	Has image(s)?	blob_ss			present	11,3				13				x
+field	72	hascoords	Has coordinates?	latlong_p			present	12,3								x
+field	73	source	Source	source_s			keyword	7,2			7				47	x
+field	74	group	Group	grouptitle_ss			keyword	14,2			49				48	x
+field	75	researcher	Researcher Name	researcher_s			keyword	15,2			50				49	x
+field	76	latitude	Latitude	latitude_f			keyword								50	x
+field	77	longitude	Longitude	longitude_f			keyword								51	x
+field	78	hybridflag	Named hybrid?	hybridflag_s			dropdown	14,3			37					x
+field	79	provenancetypeshort	Provenance Type (short)	provenancetype_short_s			dropdown								3	x
