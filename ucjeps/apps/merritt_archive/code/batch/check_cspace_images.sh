@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# nohup time ./make_html_from_cspace.sh ../checko/tocheck2 /home/app_cspace/testimages/imgdiff/checko > checko.log 2>&1 &
+# nohup time ./check_cspace_images.sh ../check/tocheck2 /home/app_cspace/testimages/imgdiff/check > check.log 2>&1 &
 
 JOB_FILE="$1"
 BMU_DIR="/cspace/bmu/ucjeps"
