@@ -1,73 +1,58 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# these better be here!
-source ~/.profile
-source ${HOME}/venv/bin/activate
+set -o errexit
 
 CR2="$1"
-JOB=`basename -- "$2"`
-SOURCE="$3"
-WEBDIR=/var/www/static/thumbs
-
-fileinfo ${CR2}
-echo "=============== exiftool info ================="
-exiftool ${CR2}
-echo
 
 F=$(echo "$CR2" | sed "s/\.CR2//i")
 # make a jpg and a tif for each cr2
-echo "converting ${CR2} to TIF AND JPG"
+echo "converting ${CR2} to TIF AND JPG, and making a thumbnail"
 #echo "/usr/bin/dcraw -w -c -compress zip \"${CR2}\" > \"${F}.TIF\""
 #/usr/bin/dcraw -w -c -auto-orient -compress zip "${CR2}" > "${F}.TIF" 2>&1 &
-echo "convert -verbose \"${CR2}\" -auto-orient -depth 8 -compress zip \"${F}.TIF\"" 2>&1 &
+echo convert -verbose "${CR2}" -auto-orient -depth 8 -compress zip "${F}.TIF"
+echo "convert \"${F}.JPG\" -quality 60 -thumbnail 20% ${F}.JPG.thumbnail.jpg"
 convert -verbose "${CR2}" -auto-orient -depth 8 -compress zip "${F}.TIF" 2>&1 &
 convert -verbose "${CR2}" -auto-orient "${F}.JPG" 2>&1 &
+TMPFILE=$(mktemp /tmp/ucjeps-archiving-temp.XXXXXX)
+exiftool "${CR2}" > ${TMPFILE} &
 wait
+# now make the thumbnail from the JPG we just converted
+convert "${F}.JPG" -quality 60 -thumbnail 20% ${F}.JPG.thumbnail.jpg &
 for FORMAT in JPG TIF
 do
-  echo "========= after initial conversion ============"
-  fileinfo "${F}.${FORMAT}"
-  echo
   # if the image (TIF or JPG) is still landscape, rotate it as needed
   if [[ "1" == `convert "${F}.${FORMAT}" -format "%[fx:(w/h>1)?1:0]" info:` ]]
   then
-    # try to figure out which way to rotate the landscape image
-     if [[ `exiftool "${CR2}" | grep "Rotate 90 CCW"` ]] ; then
-        ROTATION="-90"
-     elif [[ `exiftool "${CR2}" | grep "Rotate 270 CW"` ]] ; then
+     echo "${F}.${FORMAT}" is still Landscape. Checking EXIF data...
+     grep Orientation ${TMPFILE}
+     if $(perl -ne 'print if /^Orientation/' ${TMPFILE} | grep "Horizontal") ; then
         ROTATION="+270"
-     elif [[ `exiftool "${CR2}" | grep "Rotate 90 CW"` ]] ; then
-        ROTATION="+90"
      else
         # default is +90, based on sampling
         ROTATION="+90"
      fi
-     echo "${F}.${FORMAT}" is Landscape, rotating ${ROTATION}
      echo convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
      convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
-     echo "============= after rotation =================="
-     fileinfo "${F}.${FORMAT}"
-     echo
   else
-     echo "${F}.${FORMAT} is Portrait, no further rotation necessary"
+     echo "${F}.${FORMAT}" is Portrait.
+     if $(perl -ne 'print if /^Orientation/' ${TMPFILE} | grep "Rotate 270 CW") ; then
+       echo "... but exif data say we still have to flip it."
+       ROTATION="+180"
+       echo convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
+       convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
+     fi
   fi
-  # desperate hack
-  if [[ `exiftool "${CR2}" | grep "Rotate 90 CW"` && `exiftool "${CR2}" | grep "Rotate 270 CW"` ]] ; then
-     ROTATION="+180"
-     echo Desperatly rotating +180: convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
-     convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
+
+  ORIENTATION=`/cspace/merritt/batch/check_orientation_multi.sh "${F}.${FORMAT}"`
+  if [[ ${ORIENTATION} =~ UpsideDown ]]
+  then
+    echo "looks like it is still upside down. rotating +180."
+    echo "orientation: ${ORIENTATION}"
+    echo convert -rotate +180 "${F}.${FORMAT}" "${F}.${FORMAT}"
+    time convert -rotate +180 "${F}.${FORMAT}" "${F}.${FORMAT}"
   fi
-  fileinfo "${F}.${FORMAT}"
   echo
 done
-# make a thumbnail in the right place
-if [ ! -d ${WEBDIR}/${SOURCE}/${JOB} ]
-then
-  mkdir ${WEBDIR}/${SOURCE}/${JOB}
-fi
-F2=`basename ${F}.TIF`
-F2="${F2%.*}"
-echo "creating thumbnail..."
-echo "convert \"${F}.TIF\" -quality 60 -thumbnail 20% ${WEBDIR}/${SOURCE}/${JOB}/${F2}.thumbnail.jpg"
-convert "${F}.TIF" -quality 60 -thumbnail 20% ${WEBDIR}/${SOURCE}/${JOB}/${F2}.thumbnail.jpg &
+rm ${TMPFILE}
+wait
 echo

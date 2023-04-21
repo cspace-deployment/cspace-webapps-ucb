@@ -31,7 +31,10 @@ CURLLOG="$LOGDIR/curl.log"
 CURLOUT="$LOGDIR/curl.out"
 TRACELOG="$JOB.trace.log"
 
+MERRITT_ARCHIVE_QUEUE=/cspace/merritt/jobs
+
 rm -f $OUTPUTFILE
+rm -f $JOB.archive.csv
 
 TRACE=2
 
@@ -73,12 +76,15 @@ for CR2 in `cat CR2file`
       echo "${RUNDIR}/cps3.sh \"${F}.${FORMAT}\" ucjeps to" >> $TRACELOG
       ${RUNDIR}/cps3.sh "${F}.${FORMAT}" ucjeps to >> $TRACELOG 2>&1
     done
+  echo "$CR2" >> $JOB.archive.csv
   rm "/tmp/${CR2}"
 done
 # change the file names in the bmu job file so that it will upload the JPGs
 perl -i -pe 's/\.CR2/.JPG/i' $INPUTFILE
-# make a copy of the input file suitable for input to the merritt archiving system
-perl -pe 's/\.CR2/.TIF/i' $INPUTFILE > $JOB.archive.csv
+# copy the 'archive file' to the input queue for the merritt archiving system
+MERRITT_ARCHIVE_FILENAME=`basename $JOB.archive.csv`
+MERRITT_ARCHIVE_FILENAME=${MERRITT_ARCHIVE_FILENAME/archive/input}
+cp $JOB.archive.csv ${MERRITT_ARCHIVE_QUEUE}/bmu-${MERRITT_ARCHIVE_FILENAME}
 
 trace "python $UPLOADSCRIPT $INPUTFILE $MEDIACONFIG >> $TRACELOG"
 python $UPLOADSCRIPT $INPUTFILE $MEDIACONFIG >> $TRACELOG 2>&1

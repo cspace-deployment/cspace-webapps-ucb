@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # s3 image transfer script for ucjeps archiving project. goes both ways.
+TIME_CMD="/usr/bin/time --format=\"%C\t%E\t%U\t%S\""
 
 if [[ $# -ne 5 ]] ; then
   echo "five arguments required: filepath museum direction (from/to) username:password merritbucket"
