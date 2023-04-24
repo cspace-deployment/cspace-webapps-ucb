@@ -58,7 +58,7 @@ def callback(request, rest):
             else:
                 # for now, we use 'today' as the job_name, until merritt updates the package name
                 # to use the manifest file name
-                job_name = time.strftime("%Y-%m-%d", time.localtime())
+                job_name = 'mrt-' + time.strftime("%Y-%m-%d", time.localtime())
 
             # TODO: not sure why we have to specify the encoding here, but we do
             job_file = open(path.join(JOB_DIR, f'{job_name}.completed.csv'), 'a+', encoding='utf-8')
@@ -71,7 +71,7 @@ def callback(request, rest):
                                       transaction_detail=primaryID,
                                       image_filename=localID)
             save_db(transaction)
-            loginfo('merritt_archive', f'object archived: {packageName} / {primaryID} / {localID} / {objectTitle} / {completionDate}', {}, {})
+            loginfo('merritt_archive', f'object archived: {job_name} / {primaryID} / {localID} / {objectTitle} / {completionDate}', {}, {})
         except:
             loginfo('merritt_archive', f'callback could not be processed {body_unicode}', {}, {})
     else:
