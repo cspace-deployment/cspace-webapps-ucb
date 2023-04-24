@@ -15,6 +15,7 @@ export COLLECTION_PASSWORD="<getfrommerritt>"
 export S3BUCKET="https://cspace-merritt-in-transit-qa.s3.us-west-2.amazonaws.com"
 export SUBMITTER="jblowe"
 export MERRITT_INGEST="https://merritt.cdlib.org/object/update"
+export PROFILE="ucjeps_img_archive_content"
 
 # s3 'website bucket'
 WEBSITE_BUCKET="s3://ucjeps-archiving-thumbnails/qa/thumbs"

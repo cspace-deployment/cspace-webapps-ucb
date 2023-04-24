@@ -9,7 +9,7 @@ export RUN_DATE=`date +%Y-%m-%dT%H:%M`
 echo "extracting metadata from 4solr file..."
 cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
 gunzip -f 4solr.ucjeps.public.csv.gz
-cut -f3,4,8,9,10,52 4solr.ucjeps.public.csv | perl -pe 's#\t# / #g;s# / #\t\tmetadata\t\t$ENV{'RUN_DATE'}\t#;s/\|/, /g' > metadata.csv
+cut -f3,4,8,9,10,52 4solr.ucjeps.public.csv | perl -pe 's#\t# / #g;s# / #\t\tmetadata\t\t$ENV{'RUN_DATE'}\t#;s/\|/, /g;s/, $//' > metadata.csv
 
 echo "extracting media info from 4solr file..."
 cp /cspace/solr_cache/4solr.ucjeps.allmedia.csv.gz .
@@ -90,5 +90,4 @@ echo "updating website..."
 ./update_website.sh
 
 echo "sending notification email..."
-cd ../batch
 ./status.sh  | mail -r "cspace-support@lists.berkeley.edu" -s "UCJEPS archiving progress" jblowe@berkeley.edu

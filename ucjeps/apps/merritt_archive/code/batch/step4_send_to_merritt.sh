@@ -17,6 +17,7 @@ rm -f ${MANIFEST} ; touch ${MANIFEST}
 # as environment variables
 S3BUCKET="${S3BUCKET}"
 SUBMITTER="${SUBMITTER}"
+PROFILE="${PROFILE}"
 MERRITT_INGEST=${MERRITT_INGEST}
 collection_username="${COLLECTION_USERNAME}"
 collection_password="${COLLECTION_PASSWORD}"
@@ -30,9 +31,19 @@ for TIFF in `cut -f1 ${TIFFS}`
       echo -e "${TIFF}\t${RUN_DATE}" >> ${TIFFS_ERRORS}
     fi
     #%fields | nfo:fileUrl | nfo:hashAlgorithm | nfo:hashValue | nfo:fileSize | nfo:fileLastModified | nfo:fileName | mrt:primaryIdentifier | mrt:localIdentifier | mrt:creator | mrt:title | mrt:date
-    ACCESSION_NUMBER="${TIFF/_*/}"
-    echo "${ACCESSION_NUMBER}"
-    TITLE=`./check_db.sh "${ACCESSION_NUMBER}" metadata`
+    TITLE=`./check_db.sh "${TIFF}" metadata`
+
+    BLOCKED=`./check_db.sh "${TIFF}" blocked`
+    if [[ ! ${BLOCKED} == "" ]]; then
+      echo -e "${TIFF}\taccession number blocked: ${BLOCKED}\t${RUN_DATE}" >> ${TIFFS_ERRORS}
+      continue
+    fi
+
+    ALREADY_ARCHIVED=`./check_db.sh "${TIFF}" archived`
+    if [[ ! ${ALREADY_ARCHIVED} == "" ]]; then
+      echo -e "${TIFF}\t$already archived as: ${ALREADY_ARCHIVED}\t${RUN_DATE}" >> ${TIFFS_ERRORS}
+      continue
+    fi
     # get rid of all vertical bars in the data
     TITLE=${TITLE/|/, }
     echo "${TITLE}"
@@ -44,17 +55,23 @@ echo "#%eof" >> ${MANIFEST}
 wc -l ${TIFFS}
 wc -l ${TIFFS_QUEUED}
 wc -l ${TIFFS_ERRORS}
-wc -l ${MANIFEST}
-echo "submitting to merritt, `date`"
 
-# -F "profile=ucjeps_img_archive" \
-# -F "profile=merritt_demo_content" \
-#curl --verbose -u jblowe:2t0L59PRB472 \
+echo "submitting to merritt, `date`"
+cat << HERE
+curl --verbose -u username:password
+-F "file=@${MANIFEST}"
+-F "type=container-batch-manifest"
+-F "submitter=${SUBMITTER}"
+-F "responseForm=xml"
+-F "profile=${PROFILE}"
+${MERRITT_INGEST}
+HERE
+
 curl --verbose -u ${collection_username}:${collection_password} \
 -F "file=@${MANIFEST}" \
 -F "type=container-batch-manifest" \
 -F "submitter=${SUBMITTER}" \
 -F "responseForm=xml" \
--F "profile=ucjeps_img_archive_content" \
+-F "profile=${PROFILE}" \
 ${MERRITT_INGEST}
 
