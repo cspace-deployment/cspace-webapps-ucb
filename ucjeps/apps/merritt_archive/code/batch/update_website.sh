@@ -10,18 +10,19 @@ cat << H1
 <style>
 div { float: left; }
 </style>
+<link rel="stylesheet" href="/specimen.css" type="text/css">
 </head>
 <div style="width: 100%">
 <div id="archive" style="width: 400px">
 <h3>Archive Images</h3>
 H1
 
-aws s3 ls --recursive s3://ucjeps-archiving-thumbnails/qa/thumbs/archive > temp1
+aws s3 ls --recursive ${WEBSITE_BUCKET}/archive | grep .jpg > temp1
 perl -pe 's#.*archive/##;s#/.*##' temp1 | sort -r | uniq -c > temp2
 echo "<ul>"
 while read -r COUNT JOB
   do
-    echo "<li><a href=\"archive/${JOB}\">${JOB}</a> [${COUNT}]"
+    echo "<li><a href=\"archive/${JOB}/index.html\">${JOB}</a> [${COUNT}]"
   done < temp2
 echo "</ul>"
 
@@ -31,15 +32,14 @@ cat << H2
 <h3>BMU Images</h3>
 H2
 
-aws s3 ls --recursive s3://ucjeps-archiving-thumbnails/qa/thumbs/bmu > temp1
-perl -pe 's#.*archive/##;s#/.*##' temp1 | sort -r | uniq -c > temp2
+aws s3 ls --recursive ${WEBSITE_BUCKET}/bmu | grep .jpg > temp1
+perl -pe 's#.*?bmu/##;s#/.*##' temp1 | sort -r | uniq -c > temp2
 echo "<ul>"
 while read -r COUNT JOB
   do
-    echo "<li><a href=\"bmu/${JOB}\">${JOB}</a> [${COUNT}]"
+    echo "<li><a href=\"bmu/${JOB}/index.html\">${JOB}</a> [${COUNT}]"
   done < temp2
 echo "</ul>"
-# <iframe src="bmu/index.html" width="250px" height="100%" style="border:none;">
 
 cat << H3
 </div>

@@ -18,10 +18,13 @@ export MERRITT_INGEST="https://merritt.cdlib.org/object/update"
 export PROFILE="ucjeps_img_archive_content"
 
 # s3 'website bucket'
-WEBSITE_BUCKET="s3://ucjeps-archiving-thumbnails/qa/thumbs"
+WEBSITE_BUCKET="s3://ucjeps-archiving-thumbnails/qa"
 
 # the jobs files used by the pipeline go here (many small files)
 export JOB_DIRECTORY="/cspace/merritt/jobs"
 
 # transaction database
 export SQLITE3_DB="/cspace/merritt_archive/merritt_archive.sqlite3"
+
+# os-specific command to format output of 'time'
+TIME_CMD="/usr/bin/time --format=\"%C\t%E\t%U\t%S\""

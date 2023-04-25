@@ -13,6 +13,7 @@ fi
 # remove 'suffix' from input filename, extract filename itself
 INPUT_PREFIX="${INPUT_FILE/.input.csv}"
 FILE_NAME=`basename "${INPUT_FILE}"`
+JOB_NAME="${FILE_NAME/.input.csv}"
 JOB_TYPE=${FILE_NAME:0:3}
 if [[ ! (${JOB_TYPE} == 'bmu' || ${JOB+TYPE} == 'arc') ]]; then
   echo "\"${JOB_TYPE}\" is not either bmu or arc; exiting."
@@ -20,6 +21,8 @@ if [[ ! (${JOB_TYPE} == 'bmu' || ${JOB+TYPE} == 'arc') ]]; then
 fi
 
 WEBDIR=$(mktemp -d /tmp/ucjeps-archiving.XXXXXX)
+
+echo "WEBDIR $WEBDIR, FILE_NAME $FILE_NAME, JOB_TYPE $JOB_TYPE"
 
 if [[ ${JOB_TYPE} == 'arc' ]]; then
   time ./step2_filter.sh ${INPUT_PREFIX}.input.csv
@@ -38,9 +41,10 @@ ls -tr ${INPUT_PREFIX}.*.csv | xargs wc -l
 
 # WEBSITE_BUCKET is set as an env var in the pipeline
 # update thumbnail viewer index.html
+./make_job_index.sh "${WEBDIR}/${JOB_TYPE}/${JOB_NAME}" ${JOB_NAME} > "${WEBDIR}/${JOB_TYPE}/${JOB_NAME}/index.html"
 ./update_website.sh > "${WEBDIR}/index.html"
 # now sync job content to s3 website
-echo aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}/${JOB_TYPE}/${INPUT_PREFIX}
-aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}/${JOB_TYPE}/${INPUT_PREFIX}
+echo aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
+aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
 #rm -rf ${WEBDIR}
 
