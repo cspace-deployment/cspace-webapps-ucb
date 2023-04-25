@@ -12,7 +12,8 @@ echo "converting ${CR2} to TIF AND JPG, and making a thumbnail"
 echo convert -verbose "${CR2}" -auto-orient -depth 8 -compress zip "${F}.TIF"
 convert -verbose "${CR2}" -auto-orient -depth 8 -compress zip "${F}.TIF" 2>&1 &
 convert -verbose "${CR2}" -auto-orient "${F}.JPG" 2>&1 &
-TMPFILE=$(mktemp /tmp/ucjeps-archiving-temp.XXXXXX)
+TMPFILE="/tmp/${F}.convert.txt"
+# TMPFILE=$(mktemp /tmp/ucjeps-archiving-temp.XXXXXX)
 exiftool "${CR2}" > ${TMPFILE} &
 wait
 for FORMAT in JPG TIF
@@ -22,7 +23,7 @@ do
   then
      echo "${F}.${FORMAT}" is still Landscape. Checking EXIF data...
      grep Orientation "${TMPFILE}"
-     if [[ $(grep -e "^Orientation" ${TMPFILE}) =~ Horizontal ]]; then
+     if [[ $(grep -e "^Orientation" "${TMPFILE}") =~ Horizontal ]]; then
         ROTATION="+270"
      else
         # default is +90, based on sampling
