@@ -86,8 +86,5 @@ HERE
 
 rm metadata.csv media.csv mismatch*.csv unique.dedup.* unique.accessions.txt
 
-echo "updating website..."
-./update_website.sh
-
 echo "sending notification email..."
 ./status.sh  | mail -r "cspace-support@lists.berkeley.edu" -s "UCJEPS archiving progress" jblowe@berkeley.edu
