@@ -152,6 +152,7 @@ APPS = {
     'grouper': 'Grouper',
     'internal': 'Internal Portal',
     'search': 'Public Portal',
+    'merritt_archive': 'Merritt Archiving',
     'osteology': 'Osteology Portal',
     'publicsearch': '"legacy" Public Portal',
     'ireports': 'iReports',
