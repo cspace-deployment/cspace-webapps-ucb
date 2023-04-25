@@ -1,2 +1,19 @@
-div { float: left; }
-.specimen { font-size: 9pt; float: left; padding: 2px; width: 280px; }
+div {
+  // float: left;
+  // display: inline-block;
+  vertical-align: top;
+}
+#nav {
+    float: left;
+    width: 220px;
+}
+
+#content {
+}
+
+.specimen {
+    font-size: 9pt;
+    float: left;
+    padding: 2px;
+    width: 280px;
+}

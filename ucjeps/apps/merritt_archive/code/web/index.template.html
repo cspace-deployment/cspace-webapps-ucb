@@ -1,18 +1,23 @@
 <html>
+<h1>UCJEPS Image Archiving 2023</h1>
 <head>
-<link rel="stylesheet" href="/thumbs/specimen.css" type="text/css">
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $(".link").on("click", function (e) {
+                var page = this.href;
+                $("#content").load(page);
+                return false;
+            });
+        });
+    </script>
+    <link rel="stylesheet" href="/thumbs/specimen.css" type="text/css">
 </head>
-<div>
-<a href="/thumbs">back</a>
+<div id="nav">
+    <ul>
+        <!-- li><a class="link" href="page1.html">Page 1</a></li -->
+        LINKS
+    </ul>
 </div>
-<div style="width: 100%">
-<div id="sidebar" style="width: 140px">
-<iframe src="sidebar.html" width="140px" height="100%" style="border:none;">
-</iframe>
-</div>
-<div style="width: 90%">
-<iframe name="main" src="page1.html" width="100%" height="100%" style="border:none;">
-</iframe>
-</div>
-</div>
+<div id="content">Click links at left to load a page of images</div>
 </html>
