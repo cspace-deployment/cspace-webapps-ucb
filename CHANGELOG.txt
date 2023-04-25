@@ -3,10 +3,44 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.4-rc1
-Fri Mar 24 09:27:46 PDT 2023
+This is version 6.4.4-rc2
+Tue Apr 25 14:28:25 PDT 2023
 
-648afbf (HEAD -> main, origin/main, origin/HEAD) CSW-817: metadata updater should update thumbnails as well
+b609c03 (HEAD -> main) CSW-817: use the same convertCR2 function in ucjeps bmu and archiving
+4082a94 CSW-817: tidy up ucjeps bmu batch job after archiving updates
+d784bce CSW-817: refactor handling of syncing of ucjeps archive review static website
+ca56397 CSW-817: remove superfluous file from ucjeps archiving pipeline
+08db597 CSW-817: capture ucjeps archive function convertCR2 output to proper file
+188286b CSW-817: bug fixes and improvements to ucjeps archive review static website
+da15802 (origin/main, origin/HEAD) CSW-817: rename ucjeps archiving callback results file
+018e293 CSW-835: revise classifier 'standard' images for ucjeps archiving
+cd9e789 CSW-817: incremental refactoring and enhancements to ucjeps archiving pipeline
+8cebd2a CSW-817: additional integration of bmu cr2 handling with merritt archving
+47205af CSW-817: further revisions to ucjep image orientation checking code
+6542bd8 CSW-824: revisions, mainly cleanup, to ucjeps image orientation dectection
+c7bef3d CSW-838: further updating of 'example' pahma tricoder config file
+ea9e358 CSW-838: minor updating of 'example' pahma tricoder config file
+a4f6258 CSW-820: update botgarden portal configs for 'order'
+a865ff8 CSW-817: add j. alexander's initial list of 'blocked images'
+bf3fd06 CSW-817: initial commit of orientation classification apparatus for ucjeps bmu and archiving
+2f221e4 CSW-817: show a link for log in ucjeps archiving webapp
+012b994 CSW-817: ongoing image conversion refactoring for ucjeps archiving pipeline
+161b877 CSW-817: minor reduction of superfluous code in ucjeps archiving step3_processCR2s.sh
+4b3b31b CSW-817: compress the ucjeps archiving transaction db backup
+1b0af54 CSW-817: update comment only, no code change
+53e2870 CSW-817: record location of sqlite3 transaction db in ucjeps settings.py
+4c32574 CSW-817: quiet convertCR2.sh output in ucjeps archiving pipeline
+4ad569b CSW-817: add ucjeps list of 'mismatches' to blocked images in db
+2dc6906 CSW-817: refactor ucjeps archiving pipeline to use s3 website
+094621a CSW-817: ucjeps archiving sqlite3 database location revision
+90d2ad3 CSW-821: initial version of ucjeps 'image orientation detection kit'
+d47d4b9 CSW-817: revise merritt_archive webapp handling of callbacks, fix encoding prop
+0f920ce CSW-817: improvements to step3 of UCJEPS archiving pipeline
+3016a03 CSW-817: substantial refactoring of convertCR2.sh to improve diagnostics and readability
+f12c0b6 CSW-817: next version of 'orientation detection script
+18ffa13 CSW-817: initial version of 'orientation detection script
+d1ef51f (tag: 6.4.4-rc1) revise CHANGELOG.txt and bump version to 6.4.4-rc1
+648afbf CSW-817: metadata updater should update thumbnails as well
 6b2beae CSW-817: add timing of imagemagick conversion to log for ucjeps archiving
 74cee02 CSW-817: provide a 'back' link in thumbnail viewer
 c90fbbd CSW-817: quiet convertCR2.sh: was generating too much output
