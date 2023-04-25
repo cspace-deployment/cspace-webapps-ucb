@@ -31,9 +31,6 @@ COUNTER=0
 ITEMSPERPAGE=100
 CSS='<head><link rel="stylesheet" href="/thumbs/specimen.css" type="text/css"></head>'
 
-# make index.html, wrapper for sidebar and image pages
-cp ../web/index.template.html ${OUTPUTPATH}/index.html
-
 echo "<html>${CSS}" > ${OUTPUTPATH}/page${PAGE}.html
 echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page${PAGE}.html
 echo "<html><ul>" > ${SIDEBAR}
