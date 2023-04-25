@@ -27,8 +27,6 @@ mv $JOB.step1.csv $JOB.inprogress.csv
 INPUTFILE=$JOB.inprogress.csv
 OUTPUTFILE=$JOB.step3.csv
 LOGDIR=$IMGDIR
-CURLLOG="$LOGDIR/curl.log"
-CURLOUT="$LOGDIR/curl.out"
 TRACELOG="$JOB.trace.log"
 
 MERRITT_ARCHIVE_QUEUE=/cspace/merritt/jobs
@@ -60,10 +58,12 @@ trace ">>>>>>>>>>>>>>> Starting Blob, Media, and Relation record creation proces
 # handle .CR2 files: convert them to TIFs and JPGs, and upload then upload the JPGs 'as usual'
 # save the TIFs back into s3 for ingestion into Merritt
 # first, get a list of all the CR2s in the job
-grep -i '\.CR2' $INPUTFILE | cut -f1 -d"|" > CR2file
+grep -i '\.CR2' $INPUTFILE | cut -f1 -d"|" > /tmp/CR2file
 # convert them all
-for CR2 in `cat CR2file`
+for CR2 in `cat /tmp/CR2file`
   do
+    trace ""
+    trace ">>>> starting: ${CR2}"
     F=$(echo "$CR2" | sed "s/\.CR2//i")
     # fetch the CR2 from S3
     echo "${RUNDIR}/cps3.sh \"$CR2\" ucjeps from" >> $TRACELOG
@@ -76,7 +76,7 @@ for CR2 in `cat CR2file`
       echo "${RUNDIR}/cps3.sh \"${F}.${FORMAT}\" ucjeps to" >> $TRACELOG
       ${RUNDIR}/cps3.sh "${F}.${FORMAT}" ucjeps to >> $TRACELOG 2>&1
     done
-  echo "$CR2" >> $JOB.archive.csv
+  echo "${CR2/CR2/TIF}" >> $JOB.archive.csv
   rm "/tmp/${CR2}"
 done
 # change the file names in the bmu job file so that it will upload the JPGs
@@ -93,6 +93,6 @@ trace "Media record and relations created."
 mv $INPUTFILE $JOB.original.csv
 mv $JOB.step3.csv $JOB.processed.csv
 
-rm CR2file
+rm /tmp/CR2file
 
 trace "**** END OF RUN ******************** `date` **************************"
