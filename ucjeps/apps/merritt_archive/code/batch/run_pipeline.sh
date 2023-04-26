@@ -15,7 +15,7 @@ INPUT_PREFIX="${INPUT_FILE/.input.csv}"
 FILE_NAME=`basename "${INPUT_FILE}"`
 JOB_NAME="${FILE_NAME/.input.csv}"
 JOB_TYPE=${FILE_NAME:0:3}
-if [[ ! (${JOB_TYPE} == 'bmu' || ${JOB+TYPE} == 'arc') ]]; then
+if [[ ! (${JOB_TYPE} == 'bmu' || ${JOB_TYPE} == 'arc') ]]; then
   echo "\"${JOB_TYPE}\" is not either bmu or arc; exiting."
   exit 1
 fi
@@ -47,4 +47,3 @@ ls -tr ${INPUT_PREFIX}.*.csv | xargs wc -l
 echo aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
 aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
 #rm -rf ${WEBDIR}
-

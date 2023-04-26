@@ -20,7 +20,7 @@ rm -f ${QUEUE_ERRORS} ; touch ${QUEUE_ERRORS}
 JOB=$(basename -- "${IMAGE_FILE}")
 OUTPUTDIR="${JOB/.cr2s.csv/}"
 WEBDIR="$2"
-SOURCE="archive"
+SOURCE="arc"
 OUTPUTPATH=${WEBDIR}/${SOURCE}/${OUTPUTDIR}
 rm -rf ${WEBDIR}
 echo "creating ${OUTPUTPATH}..."
@@ -74,9 +74,10 @@ while IFS=$'\t' read -r CR2 DATE
     fi
     if [[ $ERRORS -eq 0 ]] ; then
       IMG="${F}.thumbnail.jpg"
+      cp "/tmp/${IMG}" "${OUTPUTPATH}/${IMG}"
       echo -e "${F}.TIF\t${RUN_DATE}" >> ${QUEUE_FILE}
     else
-      IMG="/thumbs/placeholder.thumbnail.jpg"
+      IMG="/placeholder.thumbnail.jpg"
       echo -e "${CR2_FILENAME}\t${RUN_DATE}" >> ${QUEUE_ERRORS}
       echo "Errors found in S3 transfers or Imagemagick conversion"
     fi
@@ -87,7 +88,7 @@ while IFS=$'\t' read -r CR2 DATE
     rm ${OUTPUTPATH}/${F}.stats.txt
     echo "</pre>" >> ${HTML}
     echo "</div>" >> ${HTML}
-  rm "/tmp/${CR2_FILENAME}"
+    rm "/tmp/${F}.*"
 done < ${IMAGE_FILE}
 echo "</html>" >> ${HTML}
 echo "</ul></html>" >> ${SIDEBAR}

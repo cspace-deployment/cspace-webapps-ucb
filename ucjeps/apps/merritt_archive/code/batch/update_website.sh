@@ -17,12 +17,12 @@ div { float: left; }
 <h3>Archive Images</h3>
 H1
 
-aws s3 ls --recursive ${WEBSITE_BUCKET}/archive | grep .jpg > temp1
-perl -pe 's#.*archive/##;s#/.*##' temp1 | sort -r | uniq -c > temp2
+aws s3 ls --recursive ${WEBSITE_BUCKET}/arc | grep .jpg > temp1
+perl -pe 's#.*arc/##;s#/.*##' temp1 | sort -r | uniq -c > temp2
 echo "<ul>"
 while read -r COUNT JOB
   do
-    echo "<li><a href=\"archive/${JOB}/index.html\">${JOB}</a> [${COUNT}]"
+    echo "<li><a href=\"arc/${JOB}/index.html\">${JOB}</a> [${COUNT}]"
   done < temp2
 echo "</ul>"
 
@@ -46,3 +46,4 @@ cat << H3
 </div>
 </html>
 H3
+rm temp1 temp2

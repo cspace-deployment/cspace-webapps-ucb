@@ -40,7 +40,6 @@ do
     WINNING_TYPE=$TYPE
   fi
 done < ${RUN_DIR}/standards.csv
-#wait
 
 if [[ $WINNING_TYPE =~ compare ]] ; then
   orientation="Not detected"

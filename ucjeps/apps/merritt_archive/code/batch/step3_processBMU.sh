@@ -76,7 +76,7 @@ while IFS=$'\t' read -r TIF DATE
       IMG="${F}.thumbnail.jpg"
       echo -e "${TIF}\t${RUN_DATE}" >> ${QUEUE_FILE}
     else
-      IMG="/thumbs/placeholder.thumbnail.jpg"
+      IMG="/placeholder.thumbnail.jpg"
       echo -e "${TIF}\t${RUN_DATE}" >> ${QUEUE_ERRORS}
       echo "Errors found in S3 transfers or Imagemagick conversion"
     fi

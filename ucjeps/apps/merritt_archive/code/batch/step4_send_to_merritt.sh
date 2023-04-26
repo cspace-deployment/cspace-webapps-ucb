@@ -33,7 +33,7 @@ for TIFF in `cut -f1 ${TIFFS}`
     #%fields | nfo:fileUrl | nfo:hashAlgorithm | nfo:hashValue | nfo:fileSize | nfo:fileLastModified | nfo:fileName | mrt:primaryIdentifier | mrt:localIdentifier | mrt:creator | mrt:title | mrt:date
     TITLE=`./check_db.sh "${TIFF}" metadata`
 
-    BLOCKED=`./check_db.sh "${TIFF}" blocked`
+    BLOCKED=`./check_db.sh "${TIFF}" blocked | head -1`
     if [[ ! ${BLOCKED} == "" ]]; then
       echo -e "${TIFF}\taccession number blocked: ${BLOCKED}\t${RUN_DATE}" >> ${TIFFS_ERRORS}
       continue
