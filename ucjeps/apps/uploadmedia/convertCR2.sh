@@ -12,7 +12,7 @@ echo "converting ${CR2} to TIF AND JPG, and making a thumbnail"
 echo convert -verbose "${CR2}" -auto-orient -depth 8 -compress zip "${F}.TIF"
 convert -verbose "${CR2}" -auto-orient -depth 8 -compress zip "${F}.TIF" 2>&1 &
 convert -verbose "${CR2}" -auto-orient "${F}.JPG" 2>&1 &
-TMPFILE="/tmp/${F}.convert.txt"
+TMPFILE="${F}.convert.txt"
 # TMPFILE=$(mktemp /tmp/ucjeps-archiving-temp.XXXXXX)
 exiftool "${CR2}" > ${TMPFILE} &
 wait
