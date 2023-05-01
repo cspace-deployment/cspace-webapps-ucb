@@ -3,16 +3,23 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.4-rc2
-Tue Apr 25 14:28:25 PDT 2023
+This is version 6.4.4-rc3
+Mon May  1 10:18:19 PDT 2023
 
-b609c03 (HEAD -> main) CSW-817: use the same convertCR2 function in ucjeps bmu and archiving
+6bce911 (HEAD -> main, origin/main, origin/HEAD) CSW-817: assorted refactoring of scripts for ucjeps archiving website
+5b8cf1e CSW-817: use correct filename for ucjeps archiving pipeline exif data
+8c08579 CSW-817: this ucjeps archiving scripts need to be +x
+b3b08c5 CSW-817: these two ucjeps archiving scripts need to be +x
+04074a1 CSW-817: add 'merrit archiving' webapp to list of ucjeps webapps
+a4942d5 CSW-817: we don't have to update the ucjeps archiving review website when the transaction db is updated
+0a77860 (tag: 6.4.4-rc2) revise CHANGELOG.txt and bump version to 6.4.4-rc2
+b609c03 CSW-817: use the same convertCR2 function in ucjeps bmu and archiving
 4082a94 CSW-817: tidy up ucjeps bmu batch job after archiving updates
 d784bce CSW-817: refactor handling of syncing of ucjeps archive review static website
 ca56397 CSW-817: remove superfluous file from ucjeps archiving pipeline
 08db597 CSW-817: capture ucjeps archive function convertCR2 output to proper file
 188286b CSW-817: bug fixes and improvements to ucjeps archive review static website
-da15802 (origin/main, origin/HEAD) CSW-817: rename ucjeps archiving callback results file
+da15802 CSW-817: rename ucjeps archiving callback results file
 018e293 CSW-835: revise classifier 'standard' images for ucjeps archiving
 cd9e789 CSW-817: incremental refactoring and enhancements to ucjeps archiving pipeline
 8cebd2a CSW-817: additional integration of bmu cr2 handling with merritt archving
