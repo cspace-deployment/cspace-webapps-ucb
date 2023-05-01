@@ -1,0 +1,14 @@
+[
+    {
+        "fields": {
+            "content": "This is the CineFiles Django search app.",
+            "contentType": "HTML",
+            "live": true,
+            "name": "About",
+            "order": 0,
+            "slug": "about"
+        },
+        "model": "search.additionalinfo",
+        "pk": 1
+    }
+]
