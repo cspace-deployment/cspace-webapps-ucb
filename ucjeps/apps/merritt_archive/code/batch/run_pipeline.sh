@@ -42,8 +42,13 @@ ls -tr ${INPUT_PREFIX}.*.csv | xargs wc -l
 # WEBSITE_BUCKET is set as an env var in the pipeline
 # update thumbnail viewer index.html
 ./make_job_index.sh "${WEBDIR}/${JOB_TYPE}/${JOB_NAME}" ${JOB_NAME} > "${WEBDIR}/${JOB_TYPE}/${JOB_NAME}/index.html"
-./update_website.sh > "${WEBDIR}/index.html"
 # now sync job content to s3 website
 echo aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
+aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
+# TODO: the top-level index.html page is rebuilt from s3 bucket content
+# TODO: so we need to sync the new content to that bucket and then
+# TODO: rebuild and resync the top-level index page
+echo updating index.html and re-syncing website
+./update_website.sh > "${WEBDIR}/index.html"
 aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
 #rm -rf ${WEBDIR}
