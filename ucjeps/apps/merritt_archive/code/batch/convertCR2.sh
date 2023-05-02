@@ -19,7 +19,8 @@ wait
 for FORMAT in JPG TIF
 do
   # if the image (TIF or JPG) is still landscape, rotate it as needed
-  if [[ "1" == `convert "${F}.${FORMAT}" -format "%[fx:(w/h>1)?1:0]" info:` ]]
+  LANDSCAPE=`convert "${F}.${FORMAT}" -format "%[fx:(w/h>1)?1:0]" info:`
+  if [[ "1" == "${LANDSCAPE}" ]]
   then
      echo "${F}.${FORMAT}" is still Landscape. Checking EXIF data...
      grep Orientation "${TMPFILE}"
@@ -36,12 +37,15 @@ do
   fi
 
   ORIENTATION=`/cspace/merritt/batch/check_orientation_multi.sh "${F}.${FORMAT}"`
-  if [[ ${ORIENTATION} =~ UpsideDown ]]
+  echo "orientation: ${ORIENTATION}"
+  # if we already rotated a landscape image, don't bother checking its orientation
+  if [[ ${ORIENTATION} =~ UpsideDown && "0" == "${LANDSCAPE}" ]]
   then
     echo "looks like it is still upside down. rotating +180."
-    echo "orientation: ${ORIENTATION}"
     echo convert -rotate +180 "${F}.${FORMAT}" "${F}.${FORMAT}"
     time convert -rotate +180 "${F}.${FORMAT}" "${F}.${FORMAT}"
+  else
+    echo "classifier says image is upright."
   fi
 done
 # now make the thumbnail from the JPG we just converted
