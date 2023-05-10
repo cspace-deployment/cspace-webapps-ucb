@@ -27,8 +27,9 @@ cp template.checkm ${MANIFEST}
 for TIFF in `cut -f1 ${TIFFS}`
   do
     if [[ ! "${TIFF}" =~ TIF ]]; then
-      echo "${TIFF} does not have TIF in it; diverting to error queue"
+      echo "${TIFF} does not have 'TIF' in it; diverting to error queue"
       echo -e "${TIFF}\t${RUN_DATE}" >> ${TIFFS_ERRORS}
+      continue
     fi
     #%fields | nfo:fileUrl | nfo:hashAlgorithm | nfo:hashValue | nfo:fileSize | nfo:fileLastModified | nfo:fileName | mrt:primaryIdentifier | mrt:localIdentifier | mrt:creator | mrt:title | mrt:date
     TITLE=`./check_db.sh "${TIFF}" metadata`

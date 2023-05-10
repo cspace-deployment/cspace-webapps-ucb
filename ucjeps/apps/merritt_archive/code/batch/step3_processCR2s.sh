@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -xv
 # copy cr2 file from merritt s3 bucket to local /tmp, convert to tiff, place in rtl 'in transit' bucket
 # along the way, make a thumbnail and place it where it can be viewed from the web
 
@@ -54,7 +55,7 @@ while IFS=$'\t' read -r CR2 DATE
     HTML=${OUTPUTPATH}/page${PAGE}.html
     echo '<div class="specimen">' >> ${HTML}
     CR2_FILENAME=`basename -- "${CR2}"`
-    F=$(echo "${CR2_FILENAME}" | sed "s/\.CR2//i")
+    FNAME_ONLY=$(echo "${CR2_FILENAME}" | sed "s/\.CR2//i")
     # fetch the CR2 from S3
     echo "./ucjeps_cps3.sh \"$CR2\" ucjeps from <USER> <PASSWORD> <BUCKET>"
     ./ucjeps_cps3.sh "${CR2}" ucjeps from "${MERRITT_USER}:${MERRITT_PASSWORD}" ${MERRITT_BUCKET} 2>&1
@@ -62,33 +63,43 @@ while IFS=$'\t' read -r CR2 DATE
     if [[ $ERRORS -eq 0 ]] ; then
       # make a jpg and a tif for each cr2
       echo "fetch from s3 ok, converting /tmp/${CR2_FILENAME}..."
-      ./convertCR2.sh "/tmp/${CR2_FILENAME}" "${OUTPUTPATH}" > ${OUTPUTPATH}/${F}.convert.txt 2>&1
+      ${TIME_COMMAND} ./convertCR2.sh "/tmp/${CR2_FILENAME}" "${OUTPUTPATH}"
+      # preserve the exifdata (put into a temp file by convertCR2.sh)
+      echo ">>>>  EXIFDATA <<<<"  >> ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt
+      cat "/tmp/${FNAME_ONLY}.exifdata.txt"  >> ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt
+      # dump the convert log into this message stream
+      cat ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt
       [[ $? -ne 0 ]] && ERRORS=1
-      ./stats.sh "/tmp/${CR2_FILENAME}" "${CR2_FILENAME}" > ${OUTPUTPATH}/${F}.stats.txt &
-      wait
-      echo >> ${OUTPUTPATH}/${F}.stats.txt
+      ./stats.sh "/tmp/${CR2_FILENAME}" "${CR2_FILENAME}" > ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
+      echo >> ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
       # put the converted file into S3 transient bucket
-      echo "./ucjeps_cps3.sh \"${F}.TIF\" ucjeps to"
-      ./ucjeps_cps3.sh "${F}.TIF" ucjeps to '' '' 2>&1
+      echo "./ucjeps_cps3.sh \"${FNAME_ONLY}.TIF\" ucjeps to"
+      ${TIME_COMMAND} ./ucjeps_cps3.sh "${FNAME_ONLY}.TIF" ucjeps to '' '' 2>&1
       [[ $? -ne 0 ]] && ERRORS=1
     fi
     if [[ $ERRORS -eq 0 ]] ; then
-      IMG="${F}.thumbnail.jpg"
+      IMG="${FNAME_ONLY}.thumbnail.jpg"
+      IMG2="${FNAME_ONLY}.original.thumbnail.jpg"
       cp "/tmp/${IMG}" "${OUTPUTPATH}/${IMG}"
-      echo -e "${F}.TIF\t${RUN_DATE}" >> ${QUEUE_FILE}
+      exiftool -ThumbnailImage -b "/tmp/${CR2_FILENAME}" > "/tmp/${IMG2}"
+      cp "/tmp/${IMG2}" "${OUTPUTPATH}/${IMG2}"
+      echo -e "${FNAME_ONLY}.TIF\t${RUN_DATE}" >> ${QUEUE_FILE}
     else
       IMG="/placeholder.thumbnail.jpg"
       echo -e "${CR2_FILENAME}\t${RUN_DATE}" >> ${QUEUE_ERRORS}
       echo "Errors found in S3 transfers or Imagemagick conversion"
     fi
     echo "<a target=\"_blank\" href=\"${IMG}\"><img width=\"260px\" src=\"${IMG}\"></a>" >> ${HTML}
-    echo "<br/><a target=\"_blank\" href=\"${F}.convert.txt\">${F}</a>" >> ${HTML}
+    echo "<a target=\"_blank\" href=\"${IMG2}\"><img src=\"${IMG2}\"></a>" >> ${HTML}
+    echo "<br/><a target=\"_blank\" href=\"${FNAME_ONLY}.convert.txt\">${FNAME_ONLY}</a>" >> ${HTML}
+    echo "<br/>l: ${LANDSCAPE} o: ${ORIENTATION}" >> ${HTML}
     echo "<pre>" >> ${HTML}
-    cat ${OUTPUTPATH}/${F}.stats.txt >> ${HTML}
-    rm ${OUTPUTPATH}/${F}.stats.txt
+    cat ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt >> ${HTML}
+    rm ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
     echo "</pre>" >> ${HTML}
     echo "</div>" >> ${HTML}
-    rm "/tmp/${F}.*"
+    echo rm /tmp/${FNAME_ONLY}.*
+    # rm /tmp/${FNAME_ONLY}.*
 done < ${IMAGE_FILE}
 echo "</html>" >> ${HTML}
 echo "</ul></html>" >> ${SIDEBAR}

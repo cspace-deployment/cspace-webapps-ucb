@@ -17,7 +17,7 @@ rm -f ${QUEUE_FILE} ; touch ${QUEUE_FILE}
 rm -f ${QUEUE_ERRORS} ; touch ${QUEUE_ERRORS}
 
 # make thumbnails in the right place
-JOB=$(basename -- "${IMAGE_FILE}")
+JOB=$(basename -- "${IMAGE_FILE}")f
 WEBDIR="$2"
 SOURCE="bmu"
 OUTPUTDIR="${JOB/.input.csv/}"
@@ -53,27 +53,25 @@ while IFS=$'\t' read -r TIF DATE
     echo ">>>> TIF ${TIF}, page ${PAGE}, ${COUNTER}"
     HTML=${OUTPUTPATH}/page${PAGE}.html
     echo '<div class="specimen">' >> ${HTML}
-    F=${TIF/.TIF/}
+    FNAME_ONLY=${TIF/.TIF/}
     # fetch the TIF from the BMU S3 bucket
     echo /var/www/ucjeps/uploadmedia/cps3.sh "${TIF}" ucjeps from
     /var/www/ucjeps/uploadmedia/cps3.sh "${TIF}" ucjeps from
     [[ $? -ne 0 ]] && ERRORS=1
     if [[ $ERRORS -eq 0 ]] ; then
-      # make a jpg and a tif for each TIF
+      # make a thumbnail jpg for each TIF
       echo "fetch from s3 ok, converting /tmp/${TIF}..."
-      ./stats.sh "/tmp/${TIF}" "${TIF}" > ${OUTPUTPATH}/${F}.stats.txt &
-      wait
-      echo >> ${OUTPUTPATH}/${F}.stats.txt
-      # now make the thumbnail from the TIF we just converted
-      echo "convert \"${TIF}\" -quality 60 -thumbnail 20% \"${OUTPUTPATH}/${F}.thumbnail.jpg\""
-      convert "/tmp/${TIF}" -quality 60 -thumbnail 20% "${OUTPUTPATH}/${F}.thumbnail.jpg"
-      # put the copied file into S3 transient bucket
+      ./stats.sh "/tmp/${TIF}" "${TIF}" > ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
+      echo >> ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
+      echo "convert \"${TIF}\" -quality 60 -thumbnail 20% \"${OUTPUTPATH}/${FNAME_ONLY}.thumbnail.jpg\""
+      ${TIME_COMMAND} convert "/tmp/${TIF}" -quality 60 -thumbnail 20% "${OUTPUTPATH}/${FNAME_ONLY}.thumbnail.jpg"
+      # put the TIF file from the BMU cache into S3 transient bucket
       echo "./ucjeps_cps3.sh \"${TIF}\" ucjeps to"
       ./ucjeps_cps3.sh "${TIF}" ucjeps to '' '' 2>&1
       [[ $? -ne 0 ]] && ERRORS=1
     fi
     if [[ $ERRORS -eq 0 ]] ; then
-      IMG="${F}.thumbnail.jpg"
+      IMG="${FNAME_ONLY}.thumbnail.jpg"
       echo -e "${TIF}\t${RUN_DATE}" >> ${QUEUE_FILE}
     else
       IMG="/placeholder.thumbnail.jpg"
@@ -81,10 +79,10 @@ while IFS=$'\t' read -r TIF DATE
       echo "Errors found in S3 transfers or Imagemagick conversion"
     fi
     echo "<a target=\"_blank\" href=\"${IMG}\"><img width=\"260px\" src=\"${IMG}\"></a>" >> ${HTML}
-    echo "<br/><a target=\"_blank\" href=\"${F}.convert.txt\">${F}</a>" >> ${HTML}
+    echo "<br/><a target=\"_blank\" href=\"${FNAME_ONLY}.convert.txt\">${FNAME_ONLY}</a>" >> ${HTML}
     echo "<pre>" >> ${HTML}
-    cat ${OUTPUTPATH}/${F}.stats.txt >> ${HTML}
-    rm ${OUTPUTPATH}/${F}.stats.txt
+    cat ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt >> ${HTML}
+    rm ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
     echo "</pre>" >> ${HTML}
     echo "</div>" >> ${HTML}
 done < ${IMAGE_FILE}

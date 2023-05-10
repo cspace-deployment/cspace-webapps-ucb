@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # s3 image transfer script for ucjeps archiving project. goes both ways.
-TIME_CMD="/usr/bin/time --format=\"%C\t%E\t%U\t%S\""
+
+source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 
 if [[ $# -ne 5 ]] ; then
   echo "five arguments required: filepath museum direction (from/to) username:password merritbucket"
@@ -37,7 +38,7 @@ if [[ "${DIRECTION}" == "to" ]] ; then
   fi
   for i in {1..2}; do
     echo "/usr/bin/aws s3 cp --quiet '/tmp/${FILENAME}' 's3://${MERRITT_TRANSIT}/${FILENAME}'"
-    time /usr/bin/aws s3 cp --quiet "/tmp/${FILENAME}" "s3://${MERRITT_TRANSIT}/${FILENAME}" && s=0 && break || s=$?
+    ${TIME_CMD} /usr/bin/aws s3 cp --quiet "/tmp/${FILENAME}" "s3://${MERRITT_TRANSIT}/${FILENAME}" && s=0 && break || s=$?
     echo "failed with exit code $s. retrying. attempt $i"
     sleep 1
   done
@@ -46,7 +47,7 @@ if [[ "${DIRECTION}" == "to" ]] ; then
 elif [[ "${DIRECTION}" == "from" ]] ; then
   for i in {1..2}; do
     echo "curl -s -S -L 'https://<redacted>@${MERRITT_BUCKET}/${FILEPATH}' > /tmp/${FILENAME}"
-    time curl -s -S -L "${SOURCE_BUCKET}/${FILEPATH}" > /tmp/${FILENAME}
+    ${TIME_CMD} curl -s -S -L "${SOURCE_BUCKET}/${FILEPATH}" > /tmp/${FILENAME}
     if [[ $(head -1 /tmp/${FILENAME} | grep 'not found in S3 bucket') ]] ; then
       echo "/tmp/${FILENAME} not found in S3 bucket ${MERRITT_BUCKET}"
       exit 1

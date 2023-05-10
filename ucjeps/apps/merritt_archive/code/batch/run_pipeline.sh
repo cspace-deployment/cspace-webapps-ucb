@@ -20,17 +20,18 @@ if [[ ! (${JOB_TYPE} == 'bmu' || ${JOB_TYPE} == 'arc') ]]; then
   exit 1
 fi
 
+echo "starting ${INPUT_FILE} at `date`"
 WEBDIR=$(mktemp -d /tmp/ucjeps-archiving.XXXXXX)
 
 echo "WEBDIR $WEBDIR, FILE_NAME $FILE_NAME, JOB_TYPE $JOB_TYPE"
 
 if [[ ${JOB_TYPE} == 'arc' ]]; then
-  time ./step2_filter.sh ${INPUT_PREFIX}.input.csv
-  time ./step3_processCR2s.sh ${INPUT_PREFIX}.cr2s.csv "${WEBDIR}"
-  time ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv
+ ./step2_filter.sh ${INPUT_PREFIX}.input.csv
+ ./step3_processCR2s.sh ${INPUT_PREFIX}.cr2s.csv "${WEBDIR}"
+ #./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv
 elif [[ ${JOB_TYPE} == 'bmu' ]]; then
-  time ./step3_processBMU.sh ${INPUT_PREFIX}.input.csv "${WEBDIR}"
-  time ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv
+ ./step3_processBMU.sh ${INPUT_PREFIX}.input.csv "${WEBDIR}"
+ ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv
 else
   echo "something bad happened to JOB_TYPE \"${JOB_TYPE}\""
   exit 1
@@ -52,3 +53,4 @@ echo updating index.html and re-syncing website
 ./update_website.sh > "${WEBDIR}/index.html"
 aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
 #rm -rf ${WEBDIR}
+echo "done with ${INPUT_FILE} at `date`"
