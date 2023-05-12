@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -xv
+# set -xv
 set -o errexit
 
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
@@ -10,9 +10,9 @@ CR2="$1"
 F=$(echo "$CR2" | sed "s/\.CR2//i")
 # make a jpg and a tif for each cr2
 echo "converting ${CR2} to TIF AND JPG, and making a thumbnail"
-echo /usr/bin/dcraw -v -w "${CR2}"
+echo /usr/bin/dcraw -v -a "${CR2}"
 # we first convert to ppm...
-${TIME_COMMAND} /usr/bin/dcraw -v -w "${CR2}"
+${TIME_COMMAND} /usr/bin/dcraw -v -a "${CR2}"
 # ...then to 8-bit tif
 # nb: we do the compressing later after we finish fussing with the tif
 echo convert -verbose ${F}.ppm -depth 8 "${F}.TIF"
@@ -32,6 +32,11 @@ do
      grep Orientation "${TMPFILE}"
      if [[ ! $(grep -e "^Orientation" "${TMPFILE}") =~ Horizontal ]]; then
         # default is +90, based on sampling
+        echo "EXIF orientation is 'Horizontal', rotating +90"
+        ROTATION="+90"
+      else
+        # rotate +90 anyway
+        echo rotate +90 anyway
         ROTATION="+90"
      fi
      echo convert -rotate ${ROTATION} "${F}.${FORMAT}" "${F}.${FORMAT}"
@@ -50,14 +55,14 @@ do
     echo convert -rotate +180 "${F}.${FORMAT}" "${F}.${FORMAT}"
     ${TIME_COMMAND} convert -rotate +180 "${F}.${FORMAT}" "${F}.${FORMAT}"
   else
-    echo "classifier says image is upright."
+    echo "classifier says image is upright (or we already tipped it from landscape)."
   fi
 done
 # compress the tif
 ${TIME_COMMAND} convert -verbose ${F}.TIF -compress zip "${F}.TIF"
 # make the JPG from the TIF we just converted
-echo convert -verbose "${F}.TIF" -auto-orient "${F}.JPG"
-convert -verbose "${F}.TIF" -auto-orient "${F}.JPG"
+echo convert -verbose "${F}.TIF" "${F}.JPG"
+convert -verbose "${F}.TIF" "${F}.JPG"
 # now make the thumbnail from the JPG
 echo "convert \"${F}.JPG\" -quality 60 -thumbnail 20% \"${F}.thumbnail.jpg\""
 ${TIME_COMMAND} convert "${F}.JPG" -quality 60 -thumbnail 20% "${F}.thumbnail.jpg"
