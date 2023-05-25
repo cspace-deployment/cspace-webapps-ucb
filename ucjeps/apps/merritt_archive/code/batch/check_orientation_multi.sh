@@ -52,5 +52,5 @@ else
 fi
 wrap_orientation $orientation ${WINNING_TYPE} ${WINNER} "$SCORES"
 convert "${IMAGE}.top.jpg" -quality 60 -thumbnail 20% "${IMAGE}.top.jpg"
-#rm "${IMAGE}.top.jpg" "${IMAGE}.bottom.jpg"
+rm -f "${IMAGE}.top.jpg" "${IMAGE}.bottom.jpg"
 rm -f temp.jpg
