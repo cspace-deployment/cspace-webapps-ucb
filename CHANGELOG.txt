@@ -3,10 +3,25 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.4-rc3
-Mon May  1 10:18:19 PDT 2023
+This is version 6.4.4-rc4
+Thu May 25 11:29:01 PDT 2023
 
-6bce911 (HEAD -> main, origin/main, origin/HEAD) CSW-817: assorted refactoring of scripts for ucjeps archiving website
+2472ce8 (HEAD -> main) CSW-817: latest improvements to convertCR2.sh
+28a76a4 CSW-817: use correct time format in ucjep image archiving pipeline
+083b69e CSW-817: make sure temp files used by 'check orientation' get deleted
+8d08c19 CSW-863: make room on splash page for 'imageadjuster' webapp
+a12ba89 (origin/main, origin/HEAD) CSW-817: additional helper script for ucjeps archiving pipeline
+27a2d89 CSW-817: refactor ucjeps bmu script a bit: temp files, var names
+33c9a3d CSW-817: update ucjeps archiving 'convertCR2.sh' with latest discoveries
+e6e87df CSW-817: latest revisions to ucjeps imaging pipeline scripts
+69f187a CSW-817: handle website update properly in ucjeps archiving pipeline script
+9181baf CSW-817: minor refactor of exif data checking script for ucjeps archving
+8c15e84 CSW-817: update orientation check and log output in ucjeps archiving convertCR2.sh
+95893ba NOJIRA: code reformat only django html templates
+52f1e21 CSW-845: add CSRF_TRUSTED_ORIGINS to ucjeps django settings.py (for waf, etc.)
+fab74ce NOJIRA: add a short fixture (for search) for cinefiles django search portal
+b55a40e (tag: 6.4.4-rc3) revise CHANGELOG.txt and bump version to 6.4.4-rc3
+6bce911 CSW-817: assorted refactoring of scripts for ucjeps archiving website
 5b8cf1e CSW-817: use correct filename for ucjeps archiving pipeline exif data
 8c08579 CSW-817: this ucjeps archiving scripts need to be +x
 b3b08c5 CSW-817: these two ucjeps archiving scripts need to be +x
