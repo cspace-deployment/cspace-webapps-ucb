@@ -27,4 +27,4 @@ export JOB_DIRECTORY="/cspace/merritt/jobs"
 export SQLITE3_DB="/cspace/merritt_archive/merritt_archive.sqlite3"
 
 # os-specific command to format output of 'time'
-export TIME_COMMAND="/usr/bin/time -f 'TIME %E,%U,%S,%C'"
+export TIME_COMMAND="/usr/bin/time -f TIME,%E,%U,%S,%C"
