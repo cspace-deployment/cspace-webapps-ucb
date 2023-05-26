@@ -38,7 +38,7 @@ function detect_orientation() {
 export TIME_COMMAND="/usr/bin/time -f TIME,%E,%U,%S,%C"
 
 CR2="$1"
-DCRAW_PARMS="-a"
+DCRAW_PARMS="-a -b 1.2"
 
 F=${CR2/.CR2/}
 # make a jpg and a tif for each cr2
