@@ -63,8 +63,6 @@ grep -i '\.CR2' $INPUTFILE | cut -f1 -d"|" > ${CR2FILE}
 # convert them all
 for CR2 in `cat ${CR2FILE}`
   do
-    trace ""
-    trace ">>>> starting: ${CR2}"
     FNAME_ONLY=$(echo "$CR2" | sed "s/\.CR2//i")
     # fetch the CR2 from S3
     echo "${RUNDIR}/cps3.sh \"$CR2\" ucjeps from" >> $TRACELOG
@@ -94,6 +92,7 @@ trace "python $UPLOADSCRIPT $INPUTFILE $MEDIACONFIG >> $TRACELOG"
 python $UPLOADSCRIPT $INPUTFILE $MEDIACONFIG >> $TRACELOG 2>&1
 trace "Media record and relations created."
 
+rm ${CR2FILE}
 mv $INPUTFILE $JOB.original.csv
 mv $JOB.step3.csv $JOB.processed.csv
 
