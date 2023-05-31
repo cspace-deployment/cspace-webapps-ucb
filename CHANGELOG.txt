@@ -3,14 +3,18 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.4-rc4
-Thu May 25 11:29:01 PDT 2023
+This is version 6.4.4-rc5
+Wed May 31 08:31:13 PDT 2023
 
-2472ce8 (HEAD -> main) CSW-817: latest improvements to convertCR2.sh
+72aa401 (HEAD -> main) CSW-817: quiet down ucjeps bmu pipeline script a little
+10424dc CSW-817: JPG creation in convertCR2.sh need to wait for TIF creation to finish
+a23eb69 (origin/main, origin/HEAD) CSW-864: update ucjeps archiving pipeline with latest 'dcraw' parameters
+e97e891 (tag: 6.4.4-rc4) revise CHANGELOG.txt and bump version to 6.4.4-rc4
+2472ce8 CSW-817: latest improvements to convertCR2.sh
 28a76a4 CSW-817: use correct time format in ucjep image archiving pipeline
 083b69e CSW-817: make sure temp files used by 'check orientation' get deleted
 8d08c19 CSW-863: make room on splash page for 'imageadjuster' webapp
-a12ba89 (origin/main, origin/HEAD) CSW-817: additional helper script for ucjeps archiving pipeline
+a12ba89 CSW-817: additional helper script for ucjeps archiving pipeline
 27a2d89 CSW-817: refactor ucjeps bmu script a bit: temp files, var names
 33c9a3d CSW-817: update ucjeps archiving 'convertCR2.sh' with latest discoveries
 e6e87df CSW-817: latest revisions to ucjeps imaging pipeline scripts
