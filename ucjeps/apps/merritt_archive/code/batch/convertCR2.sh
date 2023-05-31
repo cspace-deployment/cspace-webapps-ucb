@@ -85,11 +85,10 @@ do
     echo "classifier says image is upright."
   fi
 done
+# make the JPG from the TIF
+${TIME_COMMAND} convert -verbose "${F}.TIF" "${F}.JPG"
 # compress the tif
-${TIME_COMMAND} convert -verbose ${F}.TIF -compress zip "${F}.TIF" &
-# make the JPG from the TIF we just converted
-${TIME_COMMAND} convert -verbose "${F}.TIF" "${F}.JPG" &
-wait
+${TIME_COMMAND} convert -verbose ${F}.TIF -compress zip "${F}.TIF"
 # we keep the exifdata file for now; another process takes care of it
 # rm ${TMPFILE}
 rm ${TMPFILE_NUMERIC}
