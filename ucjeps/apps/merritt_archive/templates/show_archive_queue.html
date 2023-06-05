@@ -29,7 +29,7 @@
         {% for s in statuses %}
             <th>{{ s }}</th>
         {% endfor %}
-        <th>Logs</th>
+        <th/>
     </tr>
     </thead>
     <tbody>
@@ -49,13 +49,19 @@
                 <td>
                     {% for key, value in jobinfo.2.items %}
                         {% if s == key %}
-                            <a href="?filename={{ value.0 }}">{{ value.1 }}</a>
+                            {% if key == 'log' %}
+                                <a href="?filename={{ value.0 }}">log</a>
+                            {% else %}
+                                <a href="?filename={{ value.0 }}">{{ value.1 }}</a>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </td>
             {% endfor %}
             <td>
-                <a href="?filename={{ jobinfo.0 }}.log">log</a>
+                {% if jobinfo.1 == 'ready' %}
+                    <a href="?startjob={{ jobinfo.0 }}">start job</a>
+                {% endif %}
             </td>
         </tr>
     {% endfor %}

@@ -1,6 +1,7 @@
+import os.path
 from collections import defaultdict
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django import forms
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -13,7 +14,7 @@ import csv
 from .models import Transaction
 #from .models import STATUSES
 # JOB_STATUSES = 'new,ok,deferred,queued,archived,tidied'.split(',')
-JOB_STATUSES = 'input diverted cr2s queued not_queued tiffs not_tiffs completed'.split(' ')
+JOB_STATUSES = 'input diverted cr2s queued not_queued tiffs not_tiffs completed log'.split(' ')
 
 from cspace_django_site.main import cspace_django_site
 from common import cspace
@@ -111,9 +112,8 @@ def index(request):
                 find_transactions(request, context)
             elif 'checkjobs' in details.data:
                 context['display'] = 'checkjobs'
-            elif 'schedulejobs' in details.data:
-                context['display'] = 'schedulejobs'
-                startjobs(request, context)
+            elif 'startjob' in request.GET:
+                startjob(request, request.GET['startjob'])
             elif 'filename' in request.GET:
                 show_archive_results(request, context)
             elif 'createjobs' in details.data:
@@ -146,8 +146,20 @@ def showqueue(request, context):
     context['elapsedtime'] = time.time() - elapsedtime
     return context
 
-def startjobs(request, context):
+@login_required()
+def startjob(request, filename):
     elapsedtime = time.time()
+    try:
+        (jobnumber, step, csv ) = filename.split('.')
+        loginfo('merritt_archive', '%s :: %s' % ('merritt_archive online job submission requested', filename), {}, {})
+        #runjob(jobnumber, context, request)
+        # give the job a chance to start to ensure the queue listing is updated properly.
+        time.sleep(1)
+    except:
+        loginfo('merritt_archive', '%s :: %s' % ('ERROR: merritt_archive tried and failed to start job', filename), {}, {})
+    return redirect('..')
+
+
     jobs, stats, job_types, job_counts = getJoblist(request, 'ready')
     context['jobs'] = jobs
     context['stats'] = stats
@@ -160,7 +172,7 @@ def getJoblist(request, job_filter=None):
     if 'num2display' in request.GET:
         num2display = int(request.GET['num2display'])
     else:
-        num2display = 50
+        num2display = 2000
 
     filelist = [f for f in listdir(JOB_DIR) if isfile(path.join(JOB_DIR, f)) and ('.csv' in f)]
     jobdict = {}
@@ -176,6 +188,9 @@ def getJoblist(request, job_filter=None):
         jobkey = parts[0]
         if not jobkey in jobdict: jobdict[jobkey] = {}
         jobdict[jobkey][status] = (f, linecount)
+        # check if there is a log file for this job
+        if os.path.isfile(f'{JOB_DIR}/{jobkey}.log'):
+            jobdict[jobkey]['log'] = (f'{jobkey}.log', 0)
     stats = {'ready': 0, 'in progress': 0, 'done': 0, 'total images': 0, 'jobs': 0}
     joblist = [(jobkey, determine_status(jobdict[jobkey]), jobdict[jobkey]) for jobkey in sorted(jobdict.keys(), reverse = True)]
     # filter unwanted jobs if asked
@@ -246,7 +261,7 @@ def show_archive_results(request, context):
     context['display'] = 'jobinfo'
     job = request.GET['filename']
     jobfile = path.join(JOB_DIR, job)
-    elapsedtime = 0.0
+    elapsedtime = time.time()
     try:
         status = request.GET['status']
     except:
@@ -270,7 +285,7 @@ def show_archive_results(request, context):
 
 def find_transactions(request, context):
     accession_number = request.POST['accession_number']
-    elapsedtime = 0.0
+    elapsedtime = time.time()
     try:
         transactions = Transaction.objects.filter(accession_number=accession_number).using('merritt_archive').order_by('-transaction_date')[:100]
         n = len(transactions)
