@@ -43,9 +43,9 @@ DCRAW_PARMS="-a -b 1.2"
 F=${CR2/.CR2/}
 # make a jpg and a tif for each cr2
 echo "converting ${CR2} to TIF AND JPG, and making a thumbnail"
-# we first convert to ppm...
+# we first convert to ppm ...
 ${TIME_COMMAND} /usr/bin/dcraw -v "${DCRAW_PARMS}" "${CR2}"
-# ...then to 8-bit tif
+#  ...then to 8-bit tif
 # nb: we do the compressing later after we finish fussing with the tif
 ${TIME_COMMAND} convert -verbose ${F}.ppm -depth 8 "${F}.TIF"
 rm ${F}.ppm
@@ -62,7 +62,7 @@ do
   LANDSCAPE=`convert "${F}.${FORMAT}" -format "%[fx:(w/h>1)?1:0]" info:`
   if [[ "1" == "${LANDSCAPE}" ]]
   then
-     echo "${F}.${FORMAT}" is still Landscape. Checking EXIF data...
+     echo "${F}.${FORMAT}" is still Landscape. Checking EXIF data ...
      EXIF_ORIENTATION=$(grep -e "^Orientation" ${TMPFILE})
      echo "EXIF_ORIENTATION: ${EXIF_ORIENTATION}"
      ORIENTATION_NUMERIC=$(grep -e "^Orientation" ${TMPFILE_NUMERIC} | head -1 | perl -pe 's/.*(\d+).*/\1/')

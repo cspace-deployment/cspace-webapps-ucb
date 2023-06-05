@@ -15,11 +15,11 @@ fi
 
 ./make_backup.sh
 
-echo "munging archived info to load into database..."
+echo "munging archived info to load into database ..."
 
 perl -ne 'chomp;print "archived\t$ENV{'ARCHIVED'}\t$ENV{'RUN_DATE'}\n"' ${ARCHIVED} > archived.csv
 
-echo "updating sqlite3 database..."
+echo "updating sqlite3 database ..."
 sqlite3 ${SQLITE3_DB}  << HERE
 .mode tabs
 .import archived.csv merritt_archive_transaction

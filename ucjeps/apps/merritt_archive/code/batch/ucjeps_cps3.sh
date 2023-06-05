@@ -22,14 +22,14 @@ DIRECTION="$3"
 MERRITT_TRANSIT="cspace-merritt-in-transit-${BL_ENVIRONMENT}"
 # NB: UCJEPS_BUCKET must be set as environment variable
 
-echo "copying ${FILENAME} ${DIRECTION} S3 ..."
+echo "copying ${FILENAME} ${DIRECTION} S3  ..."
 
 #exit 0
 
 s=0
 if [[ "${DIRECTION}" == "to" ]] ; then
   if [[ ! -e  "/tmp/${FILENAME}" ]] ; then
-    echo "/tmp/${FILENAME} not found. Exiting..."
+    echo "/tmp/${FILENAME} not found. Exiting ..."
     exit 1
   fi
   for i in {1..1}; do

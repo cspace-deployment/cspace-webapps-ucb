@@ -11,7 +11,7 @@ source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_
 RUN_DATE=`date +%Y-%m-%dT%H:%M`
 IMAGE_FILE="$1"
 
-echo "converting CR2s in ${IMAGE_FILE}..."
+echo "converting CR2s in ${IMAGE_FILE} ..."
 
 # name output files for next step
 QUEUE_FILE="${IMAGE_FILE/cr2s/tiffs}"
@@ -26,7 +26,7 @@ WEBDIR="$2"
 SOURCE="arc"
 OUTPUTPATH=${WEBDIR}/${SOURCE}/${OUTPUTDIR}
 rm -rf ${WEBDIR}
-echo "creating ${OUTPUTPATH}..."
+echo "creating ${OUTPUTPATH}  ..."
 mkdir -p ${OUTPUTPATH}
 SIDEBAR=${OUTPUTPATH}/sidebar.html
 PAGE=1
@@ -64,7 +64,7 @@ while IFS=$'\t' read -r CR2 DATE
     [[ $? -ne 0 ]] && ERRORS=1
     if [[ $ERRORS -eq 0 ]] ; then
       # make a jpg and a tif for each cr2
-      echo "fetch from s3 ok, converting /tmp/${CR2_FILENAME}..."
+      echo "fetch from s3 ok, converting /tmp/${CR2_FILENAME} ..."
       ${TIME_COMMAND} ./convertCR2.sh "/tmp/${CR2_FILENAME}" "${OUTPUTPATH}"
       # preserve the exifdata (put into a temp file by convertCR2.sh)
       echo ">>>>  EXIFDATA <<<<"  >> ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt

@@ -11,7 +11,7 @@ source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_
 RUN_DATE=`date +%Y-%m-%dT%H:%M`
 IMAGE_FILE="$1"
 
-echo "getting BMU TIFs from ${IMAGE_FILE}..."
+echo "getting BMU TIFs from ${IMAGE_FILE} ..."
 
 # name output files for next step
 QUEUE_FILE="${IMAGE_FILE/input/tiffs}"
@@ -20,13 +20,13 @@ rm -f ${QUEUE_FILE} ; touch ${QUEUE_FILE}
 rm -f ${QUEUE_ERRORS} ; touch ${QUEUE_ERRORS}
 
 # make thumbnails in the right place
-JOB=$(basename -- "${IMAGE_FILE}")f
+JOB=$(basename -- "${IMAGE_FILE}")
 WEBDIR="$2"
 SOURCE="bmu"
 OUTPUTDIR="${JOB/.input.csv/}"
 OUTPUTPATH=${WEBDIR}/${SOURCE}/${OUTPUTDIR}
 rm -rf ${WEBDIR}
-echo "creating ${OUTPUTPATH}..."
+echo "creating ${OUTPUTPATH}  ..."
 mkdir -p ${OUTPUTPATH}
 SIDEBAR=${OUTPUTPATH}/sidebar.html
 PAGE=1
@@ -63,7 +63,7 @@ while IFS=$'\t' read -r TIF DATE
     [[ $? -ne 0 ]] && ERRORS=1
     if [[ $ERRORS -eq 0 ]] ; then
       # make a thumbnail jpg for each TIF
-      echo "fetch from s3 ok, converting /tmp/${TIF}..."
+      echo "fetch from s3 ok, converting /tmp/${TIF} ..."
       ./stats.sh "/tmp/${TIF}" "${TIF}" > ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
       echo >> ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
       echo "convert \"${TIF}\" -quality 60 -thumbnail 20% \"${OUTPUTPATH}/${FNAME_ONLY}.thumbnail.jpg\""

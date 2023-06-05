@@ -15,27 +15,27 @@ fi
 echo "making a backup of the database"
 ./make_backup.sh
 
-echo "extracting metadata from 4solr file..."
+echo "extracting metadata from 4solr file ..."
 cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
 gunzip -f 4solr.ucjeps.public.csv.gz
 
-echo "extracting media info from 4solr file..."
+echo "extracting media info from 4solr file ..."
 cp /cspace/solr_cache/4solr.ucjeps.allmedia.csv.gz .
 gunzip -f 4solr.ucjeps.allmedia.csv.gz
 # remove the last line, for now
 sed '$d' 4solr.ucjeps.allmedia.csv > temp.txt ; mv temp.txt 4solr.ucjeps.allmedia.csv
 
-echo "extracting archived images from database..."
+echo "extracting archived images from database ..."
 ./extract_archived_images.sh | cut -f3 | perl -pe 's/.TIF/.CR2/'  > archived.csv
 
 echo "running evaluation script to find archivable images"
 python3 checkUCJEPSmedia.py ${SNOWCONE}.txt 4solr.ucjeps.allmedia.csv 4solr.ucjeps.public.csv archived.csv ${SNOWCONE}.checked.csv ${SNOWCONE}.input.csv > ${SNOWCONE}.report.txt
 
-echo "munging ${SNOWCONE} filenames to load into database..."
+echo "munging ${SNOWCONE} filenames to load into database ..."
 
 cut -f1,3,4-7 ${SNOWCONE}.checked.csv | perl -ne 'chomp;@x=split /\t/;print "$x[0]\t$x[1]\tsnowcone\t'${SNOWCONE}'\t\t".join(",",@x[2..5])."\n"' > ${SNOWCONE}.transactions.csv
 
-echo "updating sqlite3 database..."
+echo "updating sqlite3 database ..."
 sqlite3 ${SQLITE3_DB}  << HERE
 -- refresh temp table
 DROP TABLE IF EXISTS merritt_temp;
