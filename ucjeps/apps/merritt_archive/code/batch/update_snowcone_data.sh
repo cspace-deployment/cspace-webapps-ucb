@@ -13,7 +13,7 @@ if [[ ! -e "${SNOWCONE}.txt" ]]; then
 fi
 
 echo "making a backup of the database"
-#./make_backup.sh
+./make_backup.sh
 
 echo "extracting metadata from 4solr file..."
 cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .

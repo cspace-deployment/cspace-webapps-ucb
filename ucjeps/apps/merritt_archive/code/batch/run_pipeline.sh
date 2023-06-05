@@ -52,5 +52,5 @@ aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
 echo updating index.html and re-syncing website
 ./update_website.sh > "${WEBDIR}/index.html"
 aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
-#rm -rf ${WEBDIR}
+rm -rf ${WEBDIR}
 echo "done with ${INPUT_FILE} at `date`"
