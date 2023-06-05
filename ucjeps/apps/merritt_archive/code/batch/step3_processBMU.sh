@@ -3,6 +3,9 @@
 # get TIF from bmu queue, place in rtl 'in transit' bucket
 # along the way, make a thumbnail and place it where it can be viewed from the web
 
+set -o errexit
+echo "STEP: starting step3_processBMU.sh"
+
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 
 RUN_DATE=`date +%Y-%m-%dT%H:%M`
@@ -67,7 +70,7 @@ while IFS=$'\t' read -r TIF DATE
       ${TIME_COMMAND} convert "/tmp/${TIF}" -quality 60 -thumbnail 20% "${OUTPUTPATH}/${FNAME_ONLY}.thumbnail.jpg"
       # put the TIF file from the BMU cache into S3 transient bucket
       echo "./ucjeps_cps3.sh \"${TIF}\" ucjeps to"
-      ./ucjeps_cps3.sh "${TIF}" ucjeps to '' '' 2>&1
+      ./ucjeps_cps3.sh "${TIF}" ucjeps to 2>&1
       [[ $? -ne 0 ]] && ERRORS=1
     fi
     if [[ $ERRORS -eq 0 ]] ; then

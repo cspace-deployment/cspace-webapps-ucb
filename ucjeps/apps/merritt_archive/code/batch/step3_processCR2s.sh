@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-set -xv
 # copy cr2 file from merritt s3 bucket to local /tmp, convert to tiff, place in rtl 'in transit' bucket
 # along the way, make a thumbnail and place it where it can be viewed from the web
+
+set -o errexit
+echo "STEP: starting step3_processCR2s.sh"
 
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 
@@ -57,8 +59,8 @@ while IFS=$'\t' read -r CR2 DATE
     CR2_FILENAME=`basename -- "${CR2}"`
     FNAME_ONLY=$(echo "${CR2_FILENAME}" | sed "s/\.CR2//i")
     # fetch the CR2 from S3
-    echo "./ucjeps_cps3.sh \"$CR2\" ucjeps from <USER> <PASSWORD> <BUCKET>"
-    ./ucjeps_cps3.sh "${CR2}" ucjeps from "${MERRITT_USER}:${MERRITT_PASSWORD}" ${MERRITT_BUCKET} 2>&1
+    echo "./ucjeps_cps3.sh \"$CR2\" ucjeps from"
+    ./ucjeps_cps3.sh "${CR2}" ucjeps from 2>&1
     [[ $? -ne 0 ]] && ERRORS=1
     if [[ $ERRORS -eq 0 ]] ; then
       # make a jpg and a tif for each cr2
@@ -74,7 +76,7 @@ while IFS=$'\t' read -r CR2 DATE
       echo >> ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
       # put the converted file into S3 transient bucket
       echo "./ucjeps_cps3.sh \"${FNAME_ONLY}.TIF\" ucjeps to"
-      ${TIME_COMMAND} ./ucjeps_cps3.sh "${FNAME_ONLY}.TIF" ucjeps to '' '' 2>&1
+      ${TIME_COMMAND} ./ucjeps_cps3.sh "${FNAME_ONLY}.TIF" ucjeps to 2>&1
       [[ $? -ne 0 ]] && ERRORS=1
     fi
     if [[ $ERRORS -eq 0 ]] ; then

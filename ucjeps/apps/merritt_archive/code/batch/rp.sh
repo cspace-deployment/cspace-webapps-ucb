@@ -13,5 +13,5 @@ if [[ ! -f "/cspace/merritt/jobs/${JOB}.input.csv" ]]; then
   exit 1
 fi
 
- ./run_pipeline.sh /cspace/merritt/jobs/${JOB}.input.csv | /usr/bin/ts '[%Y-%m-%d %H:%M:%S]' > /cspace/merritt/jobs/${JOB}.log 2>&1
+nohup ./run_pipeline.sh /cspace/merritt/jobs/${JOB}.input.csv | /usr/bin/ts '[%Y-%m-%d %H:%M:%S]' > /cspace/merritt/jobs/${JOB}.log
 

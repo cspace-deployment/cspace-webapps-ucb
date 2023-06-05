@@ -19,12 +19,8 @@ FILEPATH="$1"
 FILENAME=`basename -- "${FILEPATH}"`
 MUSEUM="$2"
 DIRECTION="$3"
-CREDENTIALS="$4"
-MERRITT_BUCKET="$5"
 MERRITT_TRANSIT="cspace-merritt-in-transit-${BL_ENVIRONMENT}"
-# CREDENTIALS and MERRITT_BUCKET must be set as environment variables
-SOURCE_BUCKET="https://${CREDENTIALS}@${MERRITT_BUCKET}"
-#example: curl -S -L "https://user:pwd@jepson-snowcone.uc3dev.cdlib.org/UC99999.TIF > /tmp/UC99999.TIF"
+# NB: UCJEPS_BUCKET must be set as environment variable
 
 echo "copying ${FILENAME} ${DIRECTION} S3 ..."
 
@@ -36,25 +32,23 @@ if [[ "${DIRECTION}" == "to" ]] ; then
     echo "/tmp/${FILENAME} not found. Exiting..."
     exit 1
   fi
-  for i in {1..2}; do
+  for i in {1..1}; do
     echo "/usr/bin/aws s3 cp --quiet '/tmp/${FILENAME}' 's3://${MERRITT_TRANSIT}/${FILENAME}'"
     ${TIME_CMD} /usr/bin/aws s3 cp --quiet "/tmp/${FILENAME}" "s3://${MERRITT_TRANSIT}/${FILENAME}" && s=0 && break || s=$?
     echo "failed with exit code $s. retrying. attempt $i"
-    sleep 1
   done
   rm -f "/tmp/${FILENAME}"
   exit $s
 elif [[ "${DIRECTION}" == "from" ]] ; then
-  for i in {1..2}; do
-    echo "curl -s -S -L 'https://<redacted>@${MERRITT_BUCKET}/${FILEPATH}' > /tmp/${FILENAME}"
-    ${TIME_CMD} curl -s -S -L "${SOURCE_BUCKET}/${FILEPATH}" > /tmp/${FILENAME}
+  for i in {1..1}; do
+    echo "/usr/bin/aws s3 cp --quiet '${UCJEPS_BUCKET}/${FILEPATH}' > /tmp/${FILENAME}"
+    ${TIME_CMD} /usr/bin/aws s3 cp --quiet "${UCJEPS_BUCKET}/${FILEPATH}" > /tmp/${FILENAME}
     if [[ $(head -1 /tmp/${FILENAME} | grep 'not found in S3 bucket') ]] ; then
-      echo "/tmp/${FILENAME} not found in S3 bucket ${MERRITT_BUCKET}"
+      echo "${FILENAME} not found in S3 bucket ${UCJEPS_BUCKET}"
       exit 1
     fi
     [ -e "/tmp/${FILENAME}" ] && exit 0
     echo "failed with exit code $s. retrying. attempt $i"
-    sleep 1
   done
   # did not work
   echo "copy 'from' failed. giving up."

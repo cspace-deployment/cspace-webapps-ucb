@@ -34,7 +34,6 @@ python3 checkUCJEPSmedia.py ${SNOWCONE}.txt 4solr.ucjeps.allmedia.csv 4solr.ucje
 echo "munging ${SNOWCONE} filenames to load into database..."
 
 cut -f1,3,4-7 ${SNOWCONE}.checked.csv | perl -ne 'chomp;@x=split /\t/;print "$x[0]\t$x[1]\tsnowcone\t'${SNOWCONE}'\t\t".join(",",@x[2..5])."\n"' > ${SNOWCONE}.transactions.csv
-cut -f1,3,4-7 ${SNOWCONE}.checked.csv | perl -ne 'chomp;@x=split /\t/;print "$x[0]\t$x[1]\tsnowcone\t'${SNOWCONE}'\t\t".join(",",@x[2..5])."\n"' > ${SNOWCONE}.transactions.csv
 
 echo "updating sqlite3 database..."
 sqlite3 ${SQLITE3_DB}  << HERE

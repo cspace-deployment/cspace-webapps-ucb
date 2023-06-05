@@ -2,6 +2,9 @@
 
 # create a merritt manifest file and POST it to merrit ingest
 
+set -o errexit
+echo "STEP: starting step4_send_to_merritt.sh"
+
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 
 RUN_DATE=`date +%Y%m%d%H%M`

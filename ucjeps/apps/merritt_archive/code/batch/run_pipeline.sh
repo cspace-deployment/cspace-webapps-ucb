@@ -28,7 +28,7 @@ echo "WEBDIR $WEBDIR, FILE_NAME $FILE_NAME, JOB_TYPE $JOB_TYPE"
 if [[ ${JOB_TYPE} == 'arc' ]]; then
  ./step2_filter.sh ${INPUT_PREFIX}.input.csv
  ./step3_processCR2s.sh ${INPUT_PREFIX}.cr2s.csv "${WEBDIR}"
- #./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv
+ ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv
 elif [[ ${JOB_TYPE} == 'bmu' ]]; then
  ./step3_processBMU.sh ${INPUT_PREFIX}.input.csv "${WEBDIR}"
  ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv

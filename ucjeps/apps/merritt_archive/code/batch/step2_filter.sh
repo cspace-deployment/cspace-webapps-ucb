@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "STEP: starting step2_filter.sh"
+
 # extract only CR2s from input list of image files
 IMAGE_FILE="$1"
 

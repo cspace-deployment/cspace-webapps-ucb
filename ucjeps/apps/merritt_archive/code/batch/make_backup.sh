@@ -7,6 +7,6 @@ DB_NAME=`basename ${SQLITE3_DB}`
 # make a gzipped backup
 cp ${SQLITE3_DB} /tmp/${DB_NAME}.backup.${RUN_DATE}
 gzip /tmp/${DB_NAME}.backup.${RUN_DATE}
-echo aws s3 cp /tmp/${DB_NAME}.backup.${RUN_DATE}.gz ${S3URI}/${DB_NAME}.backup.${RUN_DATE}.gz
-aws s3 cp /tmp/${DB_NAME}.backup.${RUN_DATE}.gz ${S3URI}/${DB_NAME}.backup.${RUN_DATE}.gz
+echo aws s3 cp --quiet /tmp/${DB_NAME}.backup.${RUN_DATE}.gz ${S3URI}/${DB_NAME}.backup.${RUN_DATE}.gz
+aws s3 cp --quiet /tmp/${DB_NAME}.backup.${RUN_DATE}.gz ${S3URI}/${DB_NAME}.backup.${RUN_DATE}.gz
 rm /tmp/${DB_NAME}.backup.${RUN_DATE}.gz
