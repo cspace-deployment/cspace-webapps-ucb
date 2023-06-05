@@ -2,10 +2,8 @@
 
 # credentials, etc. required to make the ucjeps merritt archiving pipeline work
 
-# used to retrieve signed urls for the images in merritt's s3 bucket
-export MERRITT_USER="<getfrommerritt>"
-export MERRITT_PASSWORD="<getfrommerritt>"
-export MERRITT_BUCKET=jepson-snowcone.uc3dev.cdlib.org
+# used to retrieve CR2s and TIFs from the UCJEPS Snowcone s3 bucket
+export UCJEPS_BUCKET=s3://ucjeps-snowcone1
 
 # used to submit "batches" of "jobs" to merritt ingest
 export COLLECTION_USERNAME="<getfrommerritt>"
