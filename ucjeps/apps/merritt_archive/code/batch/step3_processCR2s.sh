@@ -3,7 +3,7 @@
 # copy cr2 file from merritt s3 bucket to local /tmp, convert to tiff, place in rtl 'in transit' bucket
 # along the way, make a thumbnail and place it where it can be viewed from the web
 
-set -o errexit
+# set -o errexit
 echo "STEP: starting step3_processCR2s.sh"
 
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }

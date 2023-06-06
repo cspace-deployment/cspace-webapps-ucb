@@ -3,7 +3,7 @@
 # get TIF from bmu queue, place in rtl 'in transit' bucket
 # along the way, make a thumbnail and place it where it can be viewed from the web
 
-set -o errexit
+# set -o errexit
 echo "STEP: starting step3_processBMU.sh"
 
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
@@ -39,7 +39,8 @@ echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page${PAGE}.html
 echo "<html><ul>" > ${SIDEBAR}
 echo "<li><a href="page${PAGE}.html" target="main">page ${PAGE}</a></li>" >> ${SIDEBAR}
 
-while IFS=$'\t' read -r TIF DATE
+echo "starting reading ${IMAGE_FILE}"
+while IFS=$'\t' read -r TIF
   do
     ERRORS=0
     ((COUNTER++))
@@ -64,8 +65,7 @@ while IFS=$'\t' read -r TIF DATE
     if [[ $ERRORS -eq 0 ]] ; then
       # make a thumbnail jpg for each TIF
       echo "fetch from s3 ok, converting /tmp/${TIF} ..."
-      ./stats.sh "/tmp/${TIF}" "${TIF}" > ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
-      echo >> ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
+      ./stats.sh "/tmp/${TIF}" "${TIF}" > "${OUTPUTPATH}/${FNAME_ONLY}.stats.txt"
       echo "convert \"${TIF}\" -quality 60 -thumbnail 20% \"${OUTPUTPATH}/${FNAME_ONLY}.thumbnail.jpg\""
       ${TIME_COMMAND} convert "/tmp/${TIF}" -quality 60 -thumbnail 20% "${OUTPUTPATH}/${FNAME_ONLY}.thumbnail.jpg"
       # put the TIF file from the BMU cache into S3 transient bucket
@@ -84,8 +84,8 @@ while IFS=$'\t' read -r TIF DATE
     echo "<a target=\"_blank\" href=\"${IMG}\"><img width=\"260px\" src=\"${IMG}\"></a>" >> ${HTML}
     echo "<br/><a target=\"_blank\" href=\"${FNAME_ONLY}.convert.txt\">${FNAME_ONLY}</a>" >> ${HTML}
     echo "<pre>" >> ${HTML}
-    cat ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt >> ${HTML}
-    rm ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
+    cat "${OUTPUTPATH}/${FNAME_ONLY}.stats.txt" >> ${HTML}
+    rm "${OUTPUTPATH}/${FNAME_ONLY}.stats.txt"
     echo "</pre>" >> ${HTML}
     echo "</div>" >> ${HTML}
 done < ${IMAGE_FILE}

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-set -o errexit
-
+# set -o errexit
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 
 JOB="$1"
