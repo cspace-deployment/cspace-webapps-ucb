@@ -41,8 +41,8 @@ if [[ "${DIRECTION}" == "to" ]] ; then
   exit $s
 elif [[ "${DIRECTION}" == "from" ]] ; then
   for i in {1..1}; do
-    echo "/usr/bin/aws s3 cp --quiet '${UCJEPS_BUCKET}/${FILEPATH}' > /tmp/${FILENAME}"
-    ${TIME_CMD} /usr/bin/aws s3 cp --quiet "${UCJEPS_BUCKET}/${FILEPATH}" > /tmp/${FILENAME}
+    echo "/usr/bin/aws s3 cp --quiet '${UCJEPS_BUCKET}/${FILEPATH}' /tmp/${FILENAME}"
+    ${TIME_CMD} /usr/bin/aws s3 cp --quiet "${UCJEPS_BUCKET}/${FILEPATH}" /tmp/${FILENAME}
     if [[ $(head -1 /tmp/${FILENAME} | grep 'not found in S3 bucket') ]] ; then
       echo "${FILENAME} not found in S3 bucket ${UCJEPS_BUCKET}"
       exit 1
