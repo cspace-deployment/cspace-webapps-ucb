@@ -75,7 +75,7 @@ do
   fi
 
   ORIENTATION=`/cspace/merritt/batch/check_orientation_multi.sh "${F}.${FORMAT}"`
-  echo "detected orientation: ${ORIENTATION}"
+  echo "detected orientation: ${F}.${FORMAT} = ${ORIENTATION}"
   echo "landscape: ${LANDSCAPE}"
   if [[ ${ORIENTATION} =~ UpsideDown ]]
   then
