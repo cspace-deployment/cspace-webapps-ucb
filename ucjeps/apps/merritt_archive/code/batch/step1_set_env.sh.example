@@ -9,8 +9,8 @@ export UCJEPS_BUCKET=s3://ucjeps-snowcone1
 export COLLECTION_USERNAME="<getfrommerritt>"
 export COLLECTION_PASSWORD="<getfrommerritt>"
 
-# our s3 bucket for transitory images
 export S3BUCKET="https://cspace-merritt-in-transit-qa.s3.us-west-2.amazonaws.com"
+export S3URI="s3://cspace-merritt-in-transit-qa"
 export SUBMITTER="jblowe"
 export MERRITT_INGEST="https://merritt.cdlib.org/object/update"
 export PROFILE="ucjeps_img_archive_content"
@@ -22,7 +22,8 @@ WEBSITE_BUCKET="s3://ucjeps-archiving-thumbnails/qa"
 export JOB_DIRECTORY="/cspace/merritt/jobs"
 
 # transaction database
-export SQLITE3_DB="/cspace/merritt_archive/merritt_archive.sqlite3"
+export SQLITE3_DB="/cspace/merritt/merritt_archive.sqlite3"
 
 # os-specific command to format output of 'time'
 export TIME_COMMAND="/usr/bin/time -f TIME,%E,%U,%S,%C"
+
