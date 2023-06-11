@@ -50,7 +50,7 @@ for TIFF in `cut -f1 ${TIFFS}`
     fi
     # get rid of all vertical bars in the data
     TITLE=${TITLE/|/, }
-    echo "${TITLE}"
+    echo "title ${TITLE}"
     echo "${S3BUCKET}/${TIFF} | | | | | | | ${TIFF} | UC/JEPS Herbaria | ${TITLE} |" >> ${MANIFEST}
     echo -e "${TIFF}\t${RUN_DATE}" >> ${TIFFS_QUEUED}
 done

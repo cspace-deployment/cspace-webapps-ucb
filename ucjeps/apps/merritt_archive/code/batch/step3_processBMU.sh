@@ -28,16 +28,13 @@ OUTPUTPATH=${WEBDIR}/${SOURCE}/${OUTPUTDIR}
 rm -rf ${WEBDIR}
 echo "creating ${OUTPUTPATH}  ..."
 mkdir -p ${OUTPUTPATH}
-SIDEBAR=${OUTPUTPATH}/sidebar.html
 PAGE=1
-COUNTER=0
+COUNTER=1
 ITEMSPERPAGE=100
-CSS='<head><link rel="stylesheet" href="/thumbs/specimen.css" type="text/css"></head>'
+CSS='<head><link rel="stylesheet" href="/specimen.css" type="text/css"></head>'
 
-echo "<html>${CSS}" > ${OUTPUTPATH}/page${PAGE}.html
-echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page${PAGE}.html
-echo "<html><ul>" > ${SIDEBAR}
-echo "<li><a href="page${PAGE}.html" target="main">page ${PAGE}</a></li>" >> ${SIDEBAR}
+echo "<html>${CSS}" > ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
+echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
 
 echo "starting reading ${IMAGE_FILE}"
 while IFS=$'\t' read -r TIF
@@ -47,15 +44,14 @@ while IFS=$'\t' read -r TIF
     if [[ ${COUNTER} -eq ${ITEMSPERPAGE} ]]
     then
       ITEMS="${COUNTER}"
-      COUNTER=0
-      echo "</html>" >> ${OUTPUTPATH}/page${PAGE}.html
+      COUNTER=1
+      echo "</html>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
       ((PAGE++))
-      echo "<li><a href="page${PAGE}.html" target="main">page ${PAGE}</a> [${ITEMS}]</li>" >> ${SIDEBAR}
-      echo "<html>${CSS}" > ${OUTPUTPATH}/page${PAGE}.html
-      echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page${PAGE}.html
+      echo "<html>${CSS}" > ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
+      echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
     fi
     echo ">>>> TIF ${TIF}, page ${PAGE}, ${COUNTER}"
-    HTML=${OUTPUTPATH}/page${PAGE}.html
+    HTML=${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
     echo '<div class="specimen">' >> ${HTML}
     FNAME_ONLY=${TIF/.TIF/}
     # fetch the TIF from the BMU S3 bucket
@@ -90,4 +86,3 @@ while IFS=$'\t' read -r TIF
     echo "</div>" >> ${HTML}
 done < ${IMAGE_FILE}
 echo "</html>" >> ${HTML}
-echo "</ul></html>" >> ${SIDEBAR}

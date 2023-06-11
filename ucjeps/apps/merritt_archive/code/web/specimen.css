@@ -1,19 +1,34 @@
 div {
-  // float: left;
-  // display: inline-block;
-  vertical-align: top;
+    vertical-align: top;
+    font-family: sans-serif;
 }
+
+.row {
+    display: flex;
+}
+
 #nav {
-    float: left;
-    width: 220px;
+    background-color: lightgray;
+    flex: 10%;
 }
 
 #content {
+    flex: 90%;
+    padding-left: 5px;
+}
+
+#back {
+    flex: 10%;
+    text-align: right;
+}
+
+#job {
+    flex: 90%;
 }
 
 .specimen {
-    font-size: 9pt;
+    font-size: 8pt;
     float: left;
     padding: 2px;
-    width: 280px;
+    width: 270px;
 }

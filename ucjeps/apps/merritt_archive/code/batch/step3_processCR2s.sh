@@ -28,16 +28,16 @@ OUTPUTPATH=${WEBDIR}/${SOURCE}/${OUTPUTDIR}
 rm -rf ${WEBDIR}
 echo "creating ${OUTPUTPATH}  ..."
 mkdir -p ${OUTPUTPATH}
-SIDEBAR=${OUTPUTPATH}/sidebar.html
 PAGE=1
-COUNTER=0
+COUNTER=1
 ITEMSPERPAGE=100
-CSS='<head><link rel="stylesheet" href="/thumbs/specimen.css" type="text/css"></head>'
+CSS='<head><link rel="stylesheet" href="/specimen.css" type="text/css"></head>'
 
-echo "<html>${CSS}" > ${OUTPUTPATH}/page${PAGE}.html
-echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page${PAGE}.html
-echo "<html><ul>" > ${SIDEBAR}
-echo "<li><a href="page${PAGE}.html" target="main">page ${PAGE}</a></li>" >> ${SIDEBAR}
+echo "<html>${CSS}" > ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
+echo "<div class="row">"
+echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
+echo "</div>"
+echo "<div class="row">"
 
 while IFS=$'\t' read -r CR2 DATE
   do
@@ -46,15 +46,14 @@ while IFS=$'\t' read -r CR2 DATE
     if [[ ${COUNTER} -eq ${ITEMSPERPAGE} ]]
     then
       ITEMS="${COUNTER}"
-      COUNTER=0
-      echo "</html>" >> ${OUTPUTPATH}/page${PAGE}.html
+      COUNTER=1
+      echo "</html>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
       ((PAGE++))
-      echo "<li><a href="page${PAGE}.html" target="main">page ${PAGE}</a> [${ITEMS}]</li>" >> ${SIDEBAR}
-      echo "<html>${CSS}" > ${OUTPUTPATH}/page${PAGE}.html
-      echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page${PAGE}.html
+      echo "<html>${CSS}" > ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
+      echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
     fi
     echo ">>>> CR2_FILENAME ${CR2_FILENAME}, page ${PAGE}, ${COUNTER}"
-    HTML=${OUTPUTPATH}/page${PAGE}.html
+    HTML=${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
     echo '<div class="specimen">' >> ${HTML}
     CR2_FILENAME=`basename -- "${CR2}"`
     FNAME_ONLY=$(echo "${CR2_FILENAME}" | sed "s/\.CR2//i")
@@ -67,7 +66,6 @@ while IFS=$'\t' read -r CR2 DATE
       echo "fetch from s3 ok, converting /tmp/${CR2_FILENAME} ..."
       ${TIME_COMMAND} ./convertCR2.sh "/tmp/${CR2_FILENAME}"
       # preserve the exifdata (put into a temp file by convertCR2.sh)
-      echo ">>>>  EXIFDATA <<<<"  >> ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt
       cat "/tmp/${FNAME_ONLY}.exifdata.txt"  >> ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt
       # dump the convert log into this message stream
       # cat ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt
@@ -83,12 +81,12 @@ while IFS=$'\t' read -r CR2 DATE
     if [[ $ERRORS -eq 0 ]] ; then
       IMG="${FNAME_ONLY}.thumbnail.jpg"
       IMG2="${FNAME_ONLY}.original.thumbnail.jpg"
-      cp "/tmp/${IMG}" "${OUTPUTPATH}/${IMG}"
       exiftool -ThumbnailImage -b "/tmp/${CR2_FILENAME}" > "/tmp/${IMG2}"
       cp "/tmp/${IMG2}" "${OUTPUTPATH}/${IMG2}"
       echo -e "${FNAME_ONLY}.TIF\t${RUN_DATE}" >> ${QUEUE_FILE}
     else
       IMG="/placeholder.thumbnail.jpg"
+      IMG2="/placeholder.thumbnail.jpg"
       echo -e "${CR2_FILENAME}\t${RUN_DATE}" >> ${QUEUE_ERRORS}
       echo "Errors found in S3 transfers or Imagemagick conversion"
     fi
@@ -104,4 +102,3 @@ while IFS=$'\t' read -r CR2 DATE
     # rm /tmp/${FNAME_ONLY}.*
 done < ${IMAGE_FILE}
 echo "</html>" >> ${HTML}
-echo "</ul></html>" >> ${SIDEBAR}
