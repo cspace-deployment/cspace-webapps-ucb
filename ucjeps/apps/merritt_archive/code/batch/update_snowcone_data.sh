@@ -6,14 +6,15 @@ source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_
 
 export RUN_DATE=`date +%Y-%m-%dT%H:%M`
 export SNOWCONE="$1"
+export SNOWCONE_DIR="/cspace/merritt/snowcones"
+export SNOWCONE_PATH="${SNOWCONE_DIR}/${SNOWCONE}"
 
-if [[ ! -e "${SNOWCONE}.txt" ]]; then
-  echo "file '${SNOWCONE}.txt' does not exist"
+if [[ -e "${SNOWCONE_PATH}.txt" ]]; then
+  echo "file '${SNOWCONE_PATH}.txt' exist; remove it in order to rerun"
   exit 1
 fi
 
-echo "making a backup of the database"
-./make_backup.sh
+aws s3 ls --recursive s3://${SNOWCONE} > ${SNOWCONE_PATH}.txt || { echo "problem listing contents of s3://${SNOWCONE}"; exit 1; }
 
 echo "extracting metadata from 4solr file ..."
 cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
@@ -28,12 +29,25 @@ sed '$d' 4solr.ucjeps.allmedia.csv > temp.txt ; mv temp.txt 4solr.ucjeps.allmedi
 echo "extracting archived images from database ..."
 ./extract_archived_images.sh | cut -f3 | perl -pe 's/.TIF/.CR2/'  > archived.csv
 
+echo "making a backup of the database"
+./make_backup.sh
+
 echo "running evaluation script to find archivable images"
-python3 checkUCJEPSmedia.py ${SNOWCONE}.txt 4solr.ucjeps.allmedia.csv 4solr.ucjeps.public.csv archived.csv ${SNOWCONE}.checked.csv ${SNOWCONE}.input.csv > ${SNOWCONE}.report.txt
+python3 \
+   checkUCJEPSmedia.py \
+   ${SNOWCONE_PATH}.txt \
+   4solr.ucjeps.allmedia.csv \
+   4solr.ucjeps.public.csv \
+   archived.csv \
+   ${SNOWCONE_PATH}.checked.csv \
+   ${SNOWCONE_PATH}.input.csv \
+   > ${SNOWCONE_PATH}.report.txt
 
 echo "munging ${SNOWCONE} filenames to load into database ..."
 
-cut -f1,3,4-7 ${SNOWCONE}.checked.csv | perl -ne 'chomp;@x=split /\t/;print "$x[0]\t$x[1]\tsnowcone\t'${SNOWCONE}'\t\t".join(",",@x[2..5])."\n"' > ${SNOWCONE}.transactions.csv
+# make sure all the files have the correct line endings :-(
+perl -i -pe 's/\r//g' ${SNOWCONE_PATH}.*.csv
+cut -f1,3,4-7 ${SNOWCONE_PATH}.checked.csv | perl -ne 'chomp;@x=split /\t/;print "$x[0]\t$x[1]\tsnowcone\t'${SNOWCONE_PATH}'\t\t".join(",",@x[2..5])."\n"' > ${SNOWCONE_PATH}.transactions.csv
 
 echo "updating sqlite3 database ..."
 sqlite3 ${SQLITE3_DB}  << HERE
@@ -52,7 +66,7 @@ DELETE FROM merritt_archive_transaction WHERE status = 'snowcone' AND job = '${S
 
 -- import new rows
 .mode tabs
-.import ${SNOWCONE}.transactions.csv merritt_temp
+.import ${SNOWCONE_PATH}.transactions.csv merritt_temp
 
 update merritt_temp set transaction_date = datetime();
 
@@ -69,8 +83,12 @@ DROP TABLE IF EXISTS merritt_temp;
 VACUUM;
 HERE
 
-# rm ${SNOWCONE}.transactions.csv
+echo "creating archive input files ..."
+split --additional-suffix=.input.csv -a 3 -l 1000 -d ${SNOWCONE_PATH}.input.csv arc-${SNOWCONE}-
+wc -l arc-*.input.csv
+mv arc-*.input.csv /cspace/merritt/jobs
+
+# tidy up
 rm archived.csv
 rm 4solr.ucjeps.allmedia.csv
 rm 4solr.ucjeps.public.csv
-
