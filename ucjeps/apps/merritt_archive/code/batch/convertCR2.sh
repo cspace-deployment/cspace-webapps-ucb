@@ -92,4 +92,4 @@ ${TIME_COMMAND} convert -verbose ${F}.TIF -compress zip "${F}.TIF"
 # we keep the exifdata file for now; another process takes care of it
 # rm ${TMPFILE}
 rm ${TMPFILE_NUMERIC}
-echo
+

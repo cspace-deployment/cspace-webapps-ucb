@@ -65,15 +65,16 @@ while IFS=$'\t' read -r CR2 DATE
     if [[ $ERRORS -eq 0 ]] ; then
       # make a jpg and a tif for each cr2
       echo "fetch from s3 ok, converting /tmp/${CR2_FILENAME} ..."
-      ${TIME_COMMAND} ./convertCR2.sh "/tmp/${CR2_FILENAME}" "${OUTPUTPATH}"
+      ${TIME_COMMAND} ./convertCR2.sh "/tmp/${CR2_FILENAME}"
       # preserve the exifdata (put into a temp file by convertCR2.sh)
       echo ">>>>  EXIFDATA <<<<"  >> ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt
       cat "/tmp/${FNAME_ONLY}.exifdata.txt"  >> ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt
       # dump the convert log into this message stream
-      cat ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt
+      # cat ${OUTPUTPATH}/${FNAME_ONLY}.convert.txt
       [[ $? -ne 0 ]] && ERRORS=1
       ./stats.sh "/tmp/${CR2_FILENAME}" "${CR2_FILENAME}" > ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
       echo >> ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
+      ${TIME_COMMAND} convert "/tmp/${FNAME_ONLY}.JPG" -quality 60 -thumbnail 20% "${OUTPUTPATH}/${FNAME_ONLY}.thumbnail.jpg"
       # put the converted file into S3 transient bucket
       echo "./ucjeps_cps3.sh \"${FNAME_ONLY}.TIF\" ucjeps to"
       ${TIME_COMMAND} ./ucjeps_cps3.sh "${FNAME_ONLY}.TIF" ucjeps to 2>&1
@@ -94,7 +95,6 @@ while IFS=$'\t' read -r CR2 DATE
     echo "<a target=\"_blank\" href=\"${IMG}\"><img width=\"260px\" src=\"${IMG}\"></a>" >> ${HTML}
     echo "<a target=\"_blank\" href=\"${IMG2}\"><img src=\"${IMG2}\"></a>" >> ${HTML}
     echo "<br/><a target=\"_blank\" href=\"${FNAME_ONLY}.convert.txt\">${FNAME_ONLY}</a>" >> ${HTML}
-    echo "<br/>l: ${LANDSCAPE} o: ${ORIENTATION}" >> ${HTML}
     echo "<pre>" >> ${HTML}
     cat ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt >> ${HTML}
     rm ${OUTPUTPATH}/${FNAME_ONLY}.stats.txt
