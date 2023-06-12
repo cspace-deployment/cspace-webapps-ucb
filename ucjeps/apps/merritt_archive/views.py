@@ -191,7 +191,7 @@ def getJoblist(request, job_filter=None):
         # check if there is a log file for this job
         if os.path.isfile(f'{JOB_DIR}/{jobkey}.log'):
             jobdict[jobkey]['log'] = (f'{jobkey}.log', 0)
-    stats = {'ready': 0, 'in progress': 0, 'done': 0, 'total images': 0, 'jobs': 0}
+    stats = {'ready': 0, 'in progress': 0, 'running': 0, 'done': 0, 'total images': 0, 'jobs': 0}
     joblist = [(jobkey, determine_status(jobdict[jobkey]), jobdict[jobkey]) for jobkey in sorted(jobdict.keys(), reverse = True)]
     # filter unwanted jobs if asked
     if job_filter:
@@ -210,10 +210,13 @@ def getJoblist(request, job_filter=None):
     return joblist, stats, job_file_types, job_file_counts
 
 def determine_status(jobdict):
-    job_status = 'in progress'
+    job_status = 'done'
     for j in jobdict:
         if j == 'completed':
             job_status = 'done'
+            break
+        elif j == 'inprogress':
+            job_status = 'running'
             break
     if j == 'input' and len(jobdict) == 1:
             job_status = 'ready'

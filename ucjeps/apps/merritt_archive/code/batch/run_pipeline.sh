@@ -20,6 +20,7 @@ if [[ ! (${JOB_TYPE} == 'bmu' || ${JOB_TYPE} == 'arc') ]]; then
 fi
 
 echo "starting ${INPUT_FILE} at `date`"
+touch ${INPUT_PREFIX}.inprogress.csv
 WEBDIR=$(mktemp -d /tmp/ucjeps-archiving.XXXXXX)
 
 echo "WEBDIR $WEBDIR, FILE_NAME $FILE_NAME, JOB_TYPE $JOB_TYPE"
@@ -52,4 +53,5 @@ echo updating index.html and re-syncing website
 ./update_website.sh > "${WEBDIR}/index.html" 2>&1
 aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET} 2>&1
 rm -rf ${WEBDIR}
+rm -f ${INPUT_PREFIX}.inprogress.csv
 echo "done with ${INPUT_FILE} at `date`"
