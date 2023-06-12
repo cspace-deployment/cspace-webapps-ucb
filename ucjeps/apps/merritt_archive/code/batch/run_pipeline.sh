@@ -25,12 +25,12 @@ WEBDIR=$(mktemp -d /tmp/ucjeps-archiving.XXXXXX)
 echo "WEBDIR $WEBDIR, FILE_NAME $FILE_NAME, JOB_TYPE $JOB_TYPE"
 
 if [[ ${JOB_TYPE} == 'arc' ]]; then
- ./step2_filter.sh ${INPUT_PREFIX}.input.csv
- ./step3_processCR2s.sh ${INPUT_PREFIX}.cr2s.csv "${WEBDIR}"
- ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv
+ ./step2_filter.sh ${INPUT_PREFIX}.input.csv 2>&1
+ ./step3_processCR2s.sh ${INPUT_PREFIX}.cr2s.csv "${WEBDIR}" 2>&1
+ ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv 2>&1
 elif [[ ${JOB_TYPE} == 'bmu' ]]; then
- ./step3_processBMU.sh ${INPUT_PREFIX}.input.csv "${WEBDIR}"
- ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv
+ ./step3_processBMU.sh ${INPUT_PREFIX}.input.csv "${WEBDIR}" 2>&1
+ ./step4_send_to_merritt.sh ${INPUT_PREFIX}.tiffs.csv 2>&1
 else
   echo "something bad happened to JOB_TYPE \"${JOB_TYPE}\""
   exit 1
@@ -41,15 +41,15 @@ ls -tr ${INPUT_PREFIX}.*.csv | xargs wc -l
 
 # WEBSITE_BUCKET is set as an env var in the pipeline
 # update thumbnail viewer index.html
-./make_job_index.sh "${WEBDIR}/${JOB_TYPE}/${JOB_NAME}" ${JOB_NAME} > "${WEBDIR}/${JOB_TYPE}/${JOB_NAME}/index.html"
+./make_job_index.sh "${WEBDIR}/${JOB_TYPE}/${JOB_NAME}" ${JOB_NAME} > "${WEBDIR}/${JOB_TYPE}/${JOB_NAME}/index.html" 2>&1
 # now sync job content to s3 website
-echo aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
-aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
+echo aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET} 2>&1
+aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET} 2>&1
 # TODO: the top-level index.html page is rebuilt from s3 bucket content
 # TODO: so we need to sync the new content to that bucket and then
 # TODO: rebuild and resync the top-level index page
 echo updating index.html and re-syncing website
-./update_website.sh > "${WEBDIR}/index.html"
-aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET}
+./update_website.sh > "${WEBDIR}/index.html" 2>&1
+aws s3 sync --quiet ${WEBDIR} ${WEBSITE_BUCKET} 2>&1
 rm -rf ${WEBDIR}
 echo "done with ${INPUT_FILE} at `date`"

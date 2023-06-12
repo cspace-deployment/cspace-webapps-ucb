@@ -14,7 +14,6 @@ TIFFS_QUEUED="${TIFFS/tiffs/queued}"
 MANIFEST="${TIFFS/tiffs.csv/checkm}"
 rm -f ${TIFFS_ERRORS} ; touch ${TIFFS_ERRORS}
 rm -f ${TIFFS_QUEUED} ; touch ${TIFFS_QUEUED}
-rm -f ${MANIFEST} ; touch ${MANIFEST}
 
 # these are set outside the script (i.e. by step1_set_env.sh)
 # as environment variables
