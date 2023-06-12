@@ -16,7 +16,7 @@ cd /cspace/merritt/batch
 
 i=0
 shopt -s nullglob
-for JOB in $JOB_DIR/{JOB_TYPE}-*.input.csv
+for JOB in $JOB_DIR/${JOB_TYPE}-*.input.csv
   do
     JOB=$(basename $JOB)
     JOB=${JOB/.input.csv/}
