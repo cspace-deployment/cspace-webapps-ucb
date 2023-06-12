@@ -5,6 +5,7 @@
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 
 export RUN_DATE=`date +%Y-%m-%dT%H:%M`
+export NOTIFY="jblowe@berkeley.edu,jason.alexander@berkeley.edu"
 
 echo "extracting metadata from 4solr file ..."
 cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
@@ -87,4 +88,4 @@ HERE
 rm metadata.csv media.csv mismatch*.csv unique.dedup.* unique.accessions.txt
 
 echo "sending notification email ..."
-./status.sh  | mail -r "cspace-support@lists.berkeley.edu" -s "UCJEPS archiving progress" jblowe@berkeley.edu,jason.alexander@berkeley.edu
+./status.sh  | mail -r "cspace-support@lists.berkeley.edu" -s "UCJEPS archiving progress" ${NOTIFY}

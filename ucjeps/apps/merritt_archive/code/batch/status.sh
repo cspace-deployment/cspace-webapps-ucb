@@ -14,6 +14,11 @@ echo
 sqlite3 ${SQLITE3_DB} "select job,count(*) from merritt_archive_transaction where status = 'snowcone' group by job;" | perl -pe 's/\|/\t/g' | expand -12
 echo
 
+echo 'archivable'
+echo
+sqlite3 ${SQLITE3_DB} "select job,count(*) from merritt_archive_transaction where status = 'archivable' group by job;" | perl -pe 's/\|/\t/g' | expand -12
+echo
+
 echo "jobs completed as of today `date`"
 echo
 wc -l /cspace/merritt/jobs/*.completed.csv

@@ -14,6 +14,7 @@ if [[ -e "${SNOWCONE_PATH}.txt" ]]; then
   exit 1
 fi
 
+echo "make a list of files on s3://${SNOWCONE} ..."
 aws s3 ls --recursive s3://${SNOWCONE} > ${SNOWCONE_PATH}.txt || { echo "problem listing contents of s3://${SNOWCONE}"; exit 1; }
 
 echo "extracting metadata from 4solr file ..."
@@ -30,7 +31,7 @@ echo "extracting archived images from database ..."
 ./extract_archived_images.sh | cut -f3 | perl -pe 's/.TIF/.CR2/'  > archived.csv
 
 echo "making a backup of the database"
-./make_backup.sh
+#./make_backup.sh
 
 echo "running evaluation script to find archivable images"
 python3 \
@@ -47,7 +48,9 @@ echo "munging ${SNOWCONE} filenames to load into database ..."
 
 # make sure all the files have the correct line endings :-(
 perl -i -pe 's/\r//g' ${SNOWCONE_PATH}.*.csv
-cut -f1,3,4-7 ${SNOWCONE_PATH}.checked.csv | perl -ne 'chomp;@x=split /\t/;print "$x[0]\t$x[1]\tsnowcone\t'${SNOWCONE_PATH}'\t\t".join(",",@x[2..5])."\n"' > ${SNOWCONE_PATH}.transactions.csv
+cut -f1,3,4-7 ${SNOWCONE_PATH}.checked.csv | perl -ne 'chomp;@x=split /\t/;print "$x[0]\t$x[1]\tsnowcone\t'${SNOWCONE}'\t\t".join(",",@x[2..5])."\n"' > ${SNOWCONE_PATH}.transactions.csv
+
+cut -c32- ${SNOWCONE_PATH}.input.csv | perl -ne 'chomp; $a = $_ ; s#.*/##; $i=$_; s/[_\.].*//; print "$_\t$i\tarchivable\t'${SNOWCONE}'\t\t$a\n"' > ${SNOWCONE_PATH}.archivable.csv
 
 echo "updating sqlite3 database ..."
 sqlite3 ${SQLITE3_DB}  << HERE
@@ -67,6 +70,7 @@ DELETE FROM merritt_archive_transaction WHERE status = 'snowcone' AND job = '${S
 -- import new rows
 .mode tabs
 .import ${SNOWCONE_PATH}.transactions.csv merritt_temp
+.import ${SNOWCONE_PATH}.archivable.csv merritt_temp
 
 update merritt_temp set transaction_date = datetime();
 
@@ -77,6 +81,7 @@ insert into merritt_archive_transaction
 -- check database contents
 select status,count(*) from merritt_archive_transaction group by status;
 select status,job,count(*) from merritt_archive_transaction where status = 'snowcone' group by status, job;
+select status,job,count(*) from merritt_archive_transaction where status = 'archivable' group by status, job;
 
 -- tidy up
 DROP TABLE IF EXISTS merritt_temp;
@@ -85,8 +90,8 @@ HERE
 
 echo "creating archive input files ..."
 split --additional-suffix=.input.csv -a 3 -l 1000 -d ${SNOWCONE_PATH}.input.csv arc-${SNOWCONE}-
-wc -l arc-*.input.csv
-mv arc-*.input.csv /cspace/merritt/jobs
+echo "$(ls ../jobs/arc-${SNOWCONE}-*.input.csv | wc -l) job files created"
+mv arc-${SNOWCONE}-*.input.csv /cspace/merritt/jobs
 
 # tidy up
 rm archived.csv
