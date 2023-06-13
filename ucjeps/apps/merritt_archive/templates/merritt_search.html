@@ -24,12 +24,12 @@
             <tbody>
             {% for t in transactions %}
                 <tr>
-                    <td>{{ t.accession_number }}</td>
-                    <td>{{ t.image_filename }}</td>
-                    <td>{{ t.status }}</td>
-                    <td>{{ t.job }}</td>
-                    <td>{{ t.transaction_date }}</td>
-                    <td>{{ t.transaction_detail }}</td>
+                    <td>{{ t.accession_number_s }}</td>
+                    <td>{{ t.image_filename_s }}</td>
+                    <td>{{ t.status_s }}</td>
+                    <td>{{ t.job_s }}</td>
+                    <td>{{ t.transaction_date_s }}</td>
+                    <td>{{ t.transaction_detail_s }}</td>
                 </tr>
             {% endfor %}
             </tbody>

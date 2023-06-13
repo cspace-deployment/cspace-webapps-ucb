@@ -71,7 +71,8 @@ def callback(request, rest):
                            'transaction_date_dt': completionDate,
                            'transaction_detail_s': primaryID,
                            'image_filename_s': localID}
-            solr_connection.add(transaction, commit=True)
+            solr_connection.add_many([ transaction ])
+            solr_connection.commit()
 
             # write the callback to the 'completed' file
             # TODO: not sure why we have to specify the encoding here, but we do
@@ -253,7 +254,8 @@ def createJobs(num_jobs, job_size):
 def add_transaction(s, new_status):
     try:
         s['status_s'] = new_status
-        solr_connection.add(s, commit=True)
+        solr_connection.add_many([s])
+        solr_connection.commit()
     except:
         raise
 
@@ -289,7 +291,7 @@ def find_transactions(request, context):
     try:
         transactions = solr_connection.query(f'accession_number_s: {accession_number}')
         n = len(transactions)
-        context['transactions'] = transactions
+        context['transactions'] = transactions.results
     except:
         context['error'] = f'{accession_number} generated an error'
     context['elapsedtime'] = time.time() - elapsedtime
