@@ -3,14 +3,43 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.4.4
-Wed May 31 14:20:35 PDT 2023
+This is version 6.5.0-rc1
+Tue Jun 13 16:24:06 PDT 2023
 
-db81acc (HEAD -> main, tag: 6.4.4-rc5, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.4.4-rc5
+a55eee4 (HEAD -> main, origin/main, origin/HEAD) CSW-817: ucjeps archiving webapp needs to get results from solr
+16ac13d CSW-817: refactor ucjeps imaging pipeline to use solr for callbacks, etc.
+0912367 CSW-817: improve statistic kept on ucjeps archiving pipeline
+7d82a10 CSW-817: capture stderr to logs in pipeline helper script for ucjeps archiving
+70ec7a7 CSW-817: detect and display 'in progress' ucjeps archiving jobs in webapp
+f099bf4 CSW-817: fix typo in run3jobs.sh
+e3a7665 CSW-817: capture stderr to logs in ucjeps archiving jobs; also add 'run3jobs.sh'
+cb4c483 CSW-817: assorted refinements to rendering of ucjeps archived thumbnails
+464266f CSW-817: correct typo in ucjeps archiving pipeline wrapper scripts
+36ca34f CSW-817: minor improvements to ucjeps archiving pipeline wrapper and status script
+9f45a6f CSW-817: incremental improvements step3_processCR2s.sh ucjeps archiving script
+0c7cf30 CSW_817: update env. vars used by ucjeps archiving pipeline
+b9ac72a CSW-817: minor refactoring of update_snowcone_data.sh for ucjeps archiving
+3078af9 CSW-835: standards.csv is a sensitive parameter file, it seems.
+e1182e3 CSW-835: oops standards.csv needs all tabs
+f338fc2 CSW-835: oops standards.csv needs all tabs
+571a8ef CSW-835: add another feature to classifier 'standard' for ucjeps archiving
+7de59bb CSW-817: minor update bmu's version to convertCR2.sh for ucjeps archiving
+6d7797d CSW-817: tweaks to orientation detection and s3 copying for ucjeps archiving
+5c3ac3f CSW-817: further revisions to error handling and logging in ucjeps archiving pipeline
+897a564 CSW-817: update some puntuation, etc. in log output
+223a2ce CSW-817: now include correct versions of ucjep image archiving config file
+9e098dc CSW-817: refactoring of ucjeps image archiving pipeline to use new bucket location(s)
+a136c21 CSW-817: incremental improvements to ucjeps archiving webapp
+a0be55f CSW-817: extract archivable cr2s from s3 inventory
+97eb5bd CSW-817: generate archive input file from S3 snowcone inventory
+fdba7e3 CSW-817: claim  checkUCJEPSmedia.py as an archvingin tool (in batch/)
+f8b9e41 HMP-170: for now, hide a webapp unit test from django tests
+0c13034 (tag: 6.4.4) revise CHANGELOG.txt and bump version to 6.4.4
+db81acc revise CHANGELOG.txt and bump version to 6.4.4-rc5
 72aa401 CSW-817: quiet down ucjeps bmu pipeline script a little
 10424dc CSW-817: JPG creation in convertCR2.sh need to wait for TIF creation to finish
 a23eb69 CSW-864: update ucjeps archiving pipeline with latest 'dcraw' parameters
-e97e891 (tag: 6.4.4-rc4) revise CHANGELOG.txt and bump version to 6.4.4-rc4
+e97e891 revise CHANGELOG.txt and bump version to 6.4.4-rc4
 2472ce8 CSW-817: latest improvements to convertCR2.sh
 28a76a4 CSW-817: use correct time format in ucjep image archiving pipeline
 083b69e CSW-817: make sure temp files used by 'check orientation' get deleted
@@ -25,14 +54,14 @@ e6e87df CSW-817: latest revisions to ucjeps imaging pipeline scripts
 95893ba NOJIRA: code reformat only django html templates
 52f1e21 CSW-845: add CSRF_TRUSTED_ORIGINS to ucjeps django settings.py (for waf, etc.)
 fab74ce NOJIRA: add a short fixture (for search) for cinefiles django search portal
-b55a40e (tag: 6.4.4-rc3) revise CHANGELOG.txt and bump version to 6.4.4-rc3
+b55a40e revise CHANGELOG.txt and bump version to 6.4.4-rc3
 6bce911 CSW-817: assorted refactoring of scripts for ucjeps archiving website
 5b8cf1e CSW-817: use correct filename for ucjeps archiving pipeline exif data
 8c08579 CSW-817: this ucjeps archiving scripts need to be +x
 b3b08c5 CSW-817: these two ucjeps archiving scripts need to be +x
 04074a1 CSW-817: add 'merrit archiving' webapp to list of ucjeps webapps
 a4942d5 CSW-817: we don't have to update the ucjeps archiving review website when the transaction db is updated
-0a77860 (tag: 6.4.4-rc2) revise CHANGELOG.txt and bump version to 6.4.4-rc2
+0a77860 revise CHANGELOG.txt and bump version to 6.4.4-rc2
 b609c03 CSW-817: use the same convertCR2 function in ucjeps bmu and archiving
 4082a94 CSW-817: tidy up ucjeps bmu batch job after archiving updates
 d784bce CSW-817: refactor handling of syncing of ucjeps archive review static website
@@ -66,7 +95,7 @@ d47d4b9 CSW-817: revise merritt_archive webapp handling of callbacks, fix encodi
 3016a03 CSW-817: substantial refactoring of convertCR2.sh to improve diagnostics and readability
 f12c0b6 CSW-817: next version of 'orientation detection script
 18ffa13 CSW-817: initial version of 'orientation detection script
-d1ef51f (tag: 6.4.4-rc1) revise CHANGELOG.txt and bump version to 6.4.4-rc1
+d1ef51f revise CHANGELOG.txt and bump version to 6.4.4-rc1
 648afbf CSW-817: metadata updater should update thumbnails as well
 6b2beae CSW-817: add timing of imagemagick conversion to log for ucjeps archiving
 74cee02 CSW-817: provide a 'back' link in thumbnail viewer
@@ -125,12 +154,12 @@ fd169e3 CSW-815: intial commit of webapp side of ucjeps archiving system
 8aef86b CSW-811: display accessions in order by scientific name in ucbg power move webapp
 83874e7 CSW-810: update ucbg toolbox config for power move
 fc2ceca (tag: 6.4.2) revise CHANGELOG.txt and bump version to 6.4.2
-a807187 (tag: 6.4.2-rc3) revise CHANGELOG.txt and bump version to 6.4.2-rc3
+a807187 revise CHANGELOG.txt and bump version to 6.4.2-rc3
 a2299bf CSW-800: minor reordering of 3rd column of fields in PAHMA internal portal
 e2d911e CSW-806: taxon editor should not fail when COL records without names are returned
-a382af5 (tag: 6.4.2-rc2) revise CHANGELOG.txt and bump version to 6.4.2-rc2
+a382af5 revise CHANGELOG.txt and bump version to 6.4.2-rc2
 2a52eb4 CSW-800: pahma portal configuration changes adding nagpra filter fields
-17fbf1d (tag: 6.4.2-rc1) revise CHANGELOG.txt and bump version to 6.4.2-rc1
+17fbf1d revise CHANGELOG.txt and bump version to 6.4.2-rc1
 e37a9b9 CSW-774: incremental improvements to UCJEPS CR2 handling
 bc53a35 NOJIRA: remove config file for defunct webapp 'cinestats'
 eecec90 CSW-712: refactor orientation handling for UCJEPS CR2s
