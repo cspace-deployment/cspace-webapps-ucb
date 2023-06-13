@@ -11,7 +11,6 @@ from os import path, listdir
 from os.path import isfile, isdir
 import time
 import csv
-from .models import Transaction
 #from .models import STATUSES
 # JOB_STATUSES = 'new,ok,deferred,queued,archived,tidied'.split(',')
 JOB_STATUSES = 'input diverted cr2s queued not_queued tiffs not_tiffs completed log'.split(' ')
@@ -24,6 +23,11 @@ from uploadmedia.getNumber import getNumber
 from common.utils import loginfo
 # read common config file, just for the version info
 from common.appconfig import loadConfiguration
+
+import solr
+# create a connection to the ucjeps solr core, created for this purpose
+solr_connection = solr.SolrConnection('http://localhost:8983/solr/ucjeps-merritt')
+
 prmz = loadConfiguration('common')
 
 config = cspace_django_site.getConfig()
@@ -61,28 +65,28 @@ def callback(request, rest):
                 # to use the manifest file name
                 job_name = 'mrt-' + time.strftime("%Y-%m-%d", time.localtime())
 
+            # write the callback to solr
+            transaction = {'status_s': 'archived',
+                           'accession_number_s': getNumber(localID, 'ucjeps')[1],
+                           'transaction_date_dt': completionDate,
+                           'transaction_detail_s': primaryID,
+                           'image_filename_s': localID}
+            solr_connection.add(transaction, commit=True)
+
+            # write the callback to the 'completed' file
             # TODO: not sure why we have to specify the encoding here, but we do
             job_file = open(path.join(JOB_DIR, f'{job_name}.completed.csv'), 'a+', encoding='utf-8')
             job_writer = csv.writer(job_file, delimiter="\t")
             job_writer.writerow([localID, primaryID, objectTitle, completionDate])
             job_file.close()
-            transaction = Transaction(status='archived',
-                                      accession_number=getNumber(localID,'ucjeps')[1],
-                                      transaction_date=completionDate,
-                                      transaction_detail=primaryID,
-                                      image_filename=localID)
-            save_db(transaction)
+
             loginfo('merritt_archive', f'object archived: {job_name} / {primaryID} / {localID} / {objectTitle} / {completionDate}', {}, {})
         except:
-            loginfo('merritt_archive', f'callback could not be processed {body_unicode}', {}, {})
+            loginfo('merritt_archive', f'callback could not be processed {request.body}', {}, {})
     else:
-        loginfo('merritt_archive', f'callback received, but was not a POST', {}, {})
+        loginfo('merritt_archive', f'callback received, but was not a POST {request}', {}, {})
 
     return HttpResponse()
-
-
-def save_db(transaction):
-    transaction.save(using = 'merritt_archive')
 
 
 def archive_detail(request, pk):
@@ -229,8 +233,7 @@ def checkFile(filename):
     return len(lines)
 
 def createJobs(num_jobs, job_size):
-    images = Transaction.objects.filter(status="new").using('merritt_archive')
-    #images = Transaction.objects.filter()
+    images = solr_connection.query({'status_s: new'})
     jobnumber = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
     for n in range(num_jobs):
         job_name = f"{jobnumber}_{n:02d}.input.csv"
@@ -238,25 +241,19 @@ def createJobs(num_jobs, job_size):
         n = 0
         for s in images:
             # skip images that are already queued
-            check_queued = Transaction.objects.filter(status="queued", image_filename=s.image_filename)
+            check_queued = solr_connection.query(f'status_s: queued AND image_filename_s: {s.image_filename}')
             if check_queued: continue
             n += 1
             if n > job_size: break
-            image = f'{s.transaction_detail}\n'
+            image = s['transaction_detail_s']
             jf.writelines(image)
             add_transaction(s,'queued')
         jf.close
 
 def add_transaction(s, new_status):
     try:
-        # job
-        # transaction_date
-        transaction = Transaction(status=new_status,
-                        accession_number = s.accession_number,
-                        transaction_date = s.transaction_date,
-                        transaction_detail = s.transaction_detail,
-                        image_filename = s.image_filename)
-        save_db(transaction)
+        s['status_s'] = new_status
+        solr_connection.add(s, commit=True)
     except:
         raise
 
@@ -290,7 +287,7 @@ def find_transactions(request, context):
     accession_number = request.POST['accession_number']
     elapsedtime = time.time()
     try:
-        transactions = Transaction.objects.filter(accession_number=accession_number).using('merritt_archive').order_by('-transaction_date')[:100]
+        transactions = solr_connection.query(f'accession_number_s: {accession_number}')
         n = len(transactions)
         context['transactions'] = transactions
     except:
