@@ -6,17 +6,20 @@ echo
 
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 
-sqlite3 ${SQLITE3_DB} "select CURRENT_DATE,status,count(*) from merritt_archive_transaction group by status;" | perl -pe 's/\|/\t/g' | expand -12
+curl -S -s "http://localhost:8983/solr/ucjeps-merritt/select?facet.field=status_s&facet=true&indent=true&q.op=OR&q=*%3A*&rows=0" | \
+jq -r '.facet_counts.facet_fields.status_s'
 
 echo
 echo 'snowcones'
 echo
-sqlite3 ${SQLITE3_DB} "select job,count(*) from merritt_archive_transaction where status = 'snowcone' group by job;" | perl -pe 's/\|/\t/g' | expand -12
+curl -S -s "http://localhost:8983/solr/ucjeps-merritt/select?facet.field=job_s&facet=true&indent=true&q.op=OR&q=status_s:snowcone&rows=0" | \
+jq -r '.facet_counts.facet_fields.job_s'
 echo
 
 echo 'archivable'
 echo
-sqlite3 ${SQLITE3_DB} "select job,count(*) from merritt_archive_transaction where status = 'archivable' group by job;" | perl -pe 's/\|/\t/g' | expand -12
+curl -S -s "http://localhost:8983/solr/ucjeps-merritt/select?facet.field=job_s&facet=true&indent=true&q.op=OR&q=status_s:archivable&rows=0" | \
+jq -r '.facet_counts.facet_fields.job_s'
 echo
 
 echo "jobs completed as of today `date`"

@@ -5,7 +5,7 @@
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 
 if [[ $# -ne 3 ]] ; then
-  echo "five arguments required: filepath museum direction (from/to)"
+  echo "three arguments required: filepath museum (from/to)"
   exit 1
 fi
 

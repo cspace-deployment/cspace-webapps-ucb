@@ -78,7 +78,7 @@ while IFS=$'\t' read -r TIF
       echo "Errors found in S3 transfers or Imagemagick conversion"
     fi
     echo "<a target=\"_blank\" href=\"${IMG}\"><img width=\"260px\" src=\"${IMG}\"></a>" >> ${HTML}
-    echo "<br/><a target=\"_blank\" href=\"${FNAME_ONLY}.convert.txt\">${FNAME_ONLY}</a>" >> ${HTML}
+    # echo "<br/><a target=\"_blank\" href=\"${FNAME_ONLY}.convert.txt\">${FNAME_ONLY}</a>" >> ${HTML}
     echo "<pre>" >> ${HTML}
     cat "${OUTPUTPATH}/${FNAME_ONLY}.stats.txt" >> ${HTML}
     rm "${OUTPUTPATH}/${FNAME_ONLY}.stats.txt"

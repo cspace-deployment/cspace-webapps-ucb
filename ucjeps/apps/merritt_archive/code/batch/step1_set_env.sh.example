@@ -21,9 +21,8 @@ WEBSITE_BUCKET="s3://ucjeps-archiving-thumbnails/qa"
 # the jobs files used by the pipeline go here (many small files)
 export JOB_DIRECTORY="/cspace/merritt/jobs"
 
-# transaction database
-export SQLITE3_DB="/cspace/merritt/merritt_archive.sqlite3"
-
 # os-specific command to format output of 'time'
 export TIME_COMMAND="/usr/bin/time -f TIME,%E,%U,%S,%C"
 
+# notify
+NOTIFY=jblowe@berkeley.edu,jason_alexander@berkeley.edu

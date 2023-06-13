@@ -5,7 +5,6 @@
 source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_env.sh available?'; exit 1; }
 
 export RUN_DATE=`date +%Y-%m-%dT%H:%M`
-export NOTIFY="jblowe@berkeley.edu,jason.alexander@berkeley.edu"
 
 echo "extracting metadata from 4solr file ..."
 cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
@@ -42,50 +41,16 @@ perl -ne 'chomp;print "$_\t\tblocked\t\t$ENV{'RUN_DATE'}\tjason alexanders ad ho
 rm 4solr.ucjeps.allmedia.csv
 rm 4solr.ucjeps.public.csv
 
-echo "making backup of sqlite3 database"
-./make_backup.sh
-
 echo
-echo "updating sqlite3 database ..."
-sqlite3 ${SQLITE3_DB} << HERE
--- clear out old rows
-DELETE FROM merritt_archive_transaction WHERE status = 'metadata';
-DELETE FROM merritt_archive_transaction WHERE status = 'media';
-DELETE FROM merritt_archive_transaction WHERE status = 'blocked';
-
--- refresh temp table
-DROP TABLE IF EXISTS merritt_temp;
-CREATE TABLE IF NOT EXISTS "merritt_temp" (
-  "accession_number" text NOT NULL,
-  "image_filename" text NOT NULL,
-  "status" text NOT NULL,
-  "job" text NOT NULL,
-  "transaction_date" datetime NOT NULL,
-  "transaction_detail" text
-  );
-
--- import new rows
-.mode tabs
-
-.import metadata.csv merritt_temp
-.import media.csv merritt_temp
-.import mismatch1.csv merritt_temp
-.import mismatch2.csv merritt_temp
-.import unique.dedup.csv merritt_temp
-
-insert into merritt_archive_transaction
-  (accession_number, image_filename, status, job, transaction_date, transaction_detail)
-  select * from merritt_temp;
-
--- check database contents
-select status,count(*) from merritt_archive_transaction group by status;
-
--- tidy up
-DROP TABLE IF EXISTS merritt_temp;
-VACUUM;
-HERE
+echo "updating solr core ..."
+./post_to_ucjeps_merritt.sh metadata.csv  metadata refresh
+./post_to_ucjeps_merritt.sh media.csv  media refresh
+./post_to_ucjeps_merritt.sh mismatch1.csv  blocked refresh
+./post_to_ucjeps_merritt.sh mismatch2.csv  blocked donotrefresh
+./post_to_ucjeps_merritt.sh unique.dedup.csv blocked donotrefresh
 
 rm metadata.csv media.csv mismatch*.csv unique.dedup.* unique.accessions.txt
 
 echo "sending notification email ..."
 ./status.sh  | mail -r "cspace-support@lists.berkeley.edu" -s "UCJEPS archiving progress" ${NOTIFY}
+

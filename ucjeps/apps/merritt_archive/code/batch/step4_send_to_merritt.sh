@@ -49,7 +49,7 @@ for TIFF in `cut -f1 ${TIFFS}`
     fi
     # get rid of all vertical bars in the data
     TITLE=${TITLE/|/, }
-    echo "title ${TITLE}"
+    echo "title ${TIFF}: ${TITLE}"
     echo "${S3BUCKET}/${TIFF} | | | | | | | ${TIFF} | UC/JEPS Herbaria | ${TITLE} |" >> ${MANIFEST}
     echo -e "${TIFF}\t${RUN_DATE}" >> ${TIFFS_QUEUED}
 done
@@ -73,4 +73,3 @@ curl --verbose -u ${collection_username}:${collection_password} \
 -F "responseForm=xml" \
 -F "profile=${PROFILE}" \
 ${MERRITT_INGEST}
-
