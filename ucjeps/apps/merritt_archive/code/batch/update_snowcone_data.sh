@@ -27,8 +27,9 @@ gunzip -f 4solr.ucjeps.allmedia.csv.gz
 # remove the last line, for now
 sed '$d' 4solr.ucjeps.allmedia.csv > temp.txt ; mv temp.txt 4solr.ucjeps.allmedia.csv
 
-echo "extracting archived images from database ..."
-./extract_archived_images.sh | cut -f3 | perl -pe 's/.TIF/.CR2/'  > archived.csv
+# TODO: update this script so it works properly
+#echo "extracting archived images from database ..."
+#./extract_archived_images.sh | cut -f3 | perl -pe 's/.TIF/.CR2/'  > archived.csv
 
 echo "running evaluation script to find archivable images"
 python3 \
