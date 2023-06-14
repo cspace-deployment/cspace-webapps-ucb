@@ -39,6 +39,7 @@ for TIFF in `cut -f1 ${TIFFS}`
     BLOCKED=`./check_db.sh "${TIFF}" blocked | head -1`
     if [[ ! ${BLOCKED} == "" ]]; then
       echo -e "${TIFF}\taccession number blocked: ${BLOCKED}\t${RUN_DATE}" >> ${TIFFS_ERRORS}
+      echo -e "${TIFF}\taccession number blocked: ${BLOCKED}\t${RUN_DATE}"
       continue
     fi
 

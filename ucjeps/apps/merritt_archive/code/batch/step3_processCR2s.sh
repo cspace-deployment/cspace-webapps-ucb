@@ -34,10 +34,10 @@ ITEMSPERPAGE=100
 CSS='<head><link rel="stylesheet" href="/specimen.css" type="text/css"></head>'
 
 echo "<html>${CSS}" > ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
-echo "<div class="row">"
+echo "<div class="row">" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
 echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
-echo "</div>"
-echo "<div class="row">"
+echo "</div>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
+echo "<div class="row">" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
 
 while IFS=$'\t' read -r CR2 DATE
   do
@@ -58,8 +58,8 @@ while IFS=$'\t' read -r CR2 DATE
     CR2_FILENAME=`basename -- "${CR2}"`
     FNAME_ONLY=$(echo "${CR2_FILENAME}" | sed "s/\.CR2//i")
     # fetch the CR2 from S3
-    echo "./ucjeps_cps3.sh \"$CR2\" ucjeps from"
-    ./ucjeps_cps3.sh "${CR2}" ucjeps from 2>&1
+    echo "./ucjeps_cps3.sh \"${CR2_FILENAME}\" ucjeps from"
+    ./ucjeps_cps3.sh "${CR2_FILENAME}" ucjeps from 2>&1
     [[ $? -ne 0 ]] && ERRORS=1
     if [[ $ERRORS -eq 0 ]] ; then
       # make a jpg and a tif for each cr2
@@ -99,6 +99,6 @@ while IFS=$'\t' read -r CR2 DATE
     echo "</pre>" >> ${HTML}
     echo "</div>" >> ${HTML}
     echo rm /tmp/${FNAME_ONLY}.*
-    # rm /tmp/${FNAME_ONLY}.*
+    rm /tmp/${FNAME_ONLY}.*
 done < ${IMAGE_FILE}
 echo "</html>" >> ${HTML}
