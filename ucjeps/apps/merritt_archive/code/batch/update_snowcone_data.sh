@@ -16,6 +16,11 @@ fi
 
 echo "make a list of files on s3://${SNOWCONE} ..."
 aws s3 ls --recursive s3://${SNOWCONE} > ${SNOWCONE_PATH}.txt || { echo "problem listing contents of s3://${SNOWCONE}"; exit 1; }
+echo $(wc -l ) ${SNOWCONE_PATH}.txt found
+
+# sort the files in order by path. just so that there is a reproducible order
+sort ${SNOWCONE_PATH}.txt > ${SNOWCONE_PATH}.temp
+mv ${SNOWCONE_PATH}.temp ${SNOWCONE_PATH}.txt
 
 echo "extracting metadata from 4solr file ..."
 cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
