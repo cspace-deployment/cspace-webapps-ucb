@@ -67,6 +67,10 @@ do
      echo "EXIF_ORIENTATION: ${EXIF_ORIENTATION}"
      ORIENTATION_NUMERIC=$(grep -e "^Orientation" ${TMPFILE_NUMERIC} | head -1 | perl -pe 's/.*(\d+).*/\1/')
      ROTATION=$(detect_orientation ${ORIENTATION_NUMERIC})
+     if [[ "${ORIENTATION_NUMERIC}" == '1' ]]
+     then
+       ROTATION='-rotate 90'
+     fi
      echo "${ORIENTATION_NUMERIC} => ${ROTATION}"
      echo convert "${F}.${FORMAT}" ${ROTATION} "${F}.${FORMAT}"
      ${TIME_COMMAND} convert "${F}.${FORMAT}" ${ROTATION} "${F}.${FORMAT}"
@@ -77,7 +81,8 @@ do
   ORIENTATION=`/cspace/merritt/batch/check_orientation_multi.sh "${F}.${FORMAT}"`
   echo "detected orientation: ${F}.${FORMAT} = ${ORIENTATION}"
   echo "landscape: ${LANDSCAPE}"
-  if [[ ${ORIENTATION} =~ UpsideDown ]]
+  # nb: if the converted image was landscape, leave it alone
+  if [[ ${ORIENTATION} =~ UpsideDown && ${LANDSCAPE} == "0" ]]
   then
     echo "looks like it is still upside down. rotating +180."
     ${TIME_COMMAND} convert -rotate +180 "${F}.${FORMAT}" "${F}.${FORMAT}"
@@ -92,4 +97,3 @@ ${TIME_COMMAND} convert -verbose ${F}.TIF -compress zip "${F}.TIF"
 # we keep the exifdata file for now; another process takes care of it
 # rm ${TMPFILE}
 rm ${TMPFILE_NUMERIC}
-
