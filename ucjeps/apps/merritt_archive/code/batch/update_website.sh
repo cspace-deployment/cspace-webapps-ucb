@@ -35,7 +35,7 @@ cat << H2
 H2
 
 aws s3 ls --recursive ${WEBSITE_BUCKET}/bmu | grep .jpg > $TEMP1
-perl -pe 's#.*?bmu/##;s#/.*##' $TEMP2 | sort -r | uniq -c > $TEMP2
+perl -pe 's#.*?bmu/##;s#/.*##' $TEMP1 | sort -r | uniq -c > $TEMP2
 echo "<ul>"
 while read -r COUNT JOB
   do
