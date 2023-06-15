@@ -65,21 +65,29 @@ def callback(request, rest):
                 # to use the manifest file name
                 job_name = 'mrt-' + time.strftime("%Y-%m-%d", time.localtime())
 
-            # write the callback to solr
-            transaction = {'status_s': 'archived',
-                           'accession_number_s': getNumber(localID, 'ucjeps')[1],
-                           'transaction_date_dt': completionDate,
-                           'transaction_detail_s': primaryID,
-                           'image_filename_s': localID}
-            solr_connection.add_many([ transaction ])
-            solr_connection.commit()
+            # we save the callback info in both solr and in a file, and we write the essence to the log
+            # belt and suspenders!
+            try:
+                # write the callback to solr
+                transaction = {'status_s': 'archived',
+                               'accession_number_s': getNumber(localID, 'ucjeps')[1],
+                               'transaction_date_dt': completionDate,
+                               'transaction_detail_s': primaryID,
+                               'image_filename_s': localID}
+                solr_connection.add_many([ transaction ])
+                solr_connection.commit()
+            except:
+                loginfo('merritt_archive', f'callback could not be posted to solr {transaction}', {}, {})
 
-            # write the callback to the 'completed' file
-            # TODO: not sure why we have to specify the encoding here, but we do
-            job_file = open(path.join(JOB_DIR, f'{job_name}.completed.csv'), 'a+', encoding='utf-8')
-            job_writer = csv.writer(job_file, delimiter="\t")
-            job_writer.writerow([localID, primaryID, objectTitle, completionDate])
-            job_file.close()
+            try:
+                # write the callback to the 'completed' file
+                # TODO: not sure why we have to specify the encoding here, but we do
+                job_file = open(path.join(JOB_DIR, f'{job_name}.completed.csv'), 'a+', encoding='utf-8')
+                job_writer = csv.writer(job_file, delimiter="\t")
+                job_writer.writerow([localID, primaryID, objectTitle, completionDate])
+                job_file.close()
+            except:
+                loginfo('merritt_archive', f'callback could not be written to file {job_name}.completed.csv data = {job_name} / {primaryID} / {localID} / {objectTitle} / {completionDate}', {}, {})
 
             loginfo('merritt_archive', f'object archived: {job_name} / {primaryID} / {localID} / {objectTitle} / {completionDate}', {}, {})
         except:
