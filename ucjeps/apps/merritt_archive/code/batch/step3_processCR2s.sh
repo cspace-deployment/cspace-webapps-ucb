@@ -29,7 +29,7 @@ rm -rf ${WEBDIR}
 echo "creating ${OUTPUTPATH}  ..."
 mkdir -p ${OUTPUTPATH}
 PAGE=1
-COUNTER=1
+COUNTER=0
 ITEMSPERPAGE=100
 CSS='<head><link rel="stylesheet" href="/specimen.css" type="text/css"></head>'
 
@@ -42,16 +42,16 @@ echo "<div class="row">" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
 while IFS=$'\t' read -r CR2 DATE
   do
     ERRORS=0
-    ((COUNTER++))
     if [[ ${COUNTER} -eq ${ITEMSPERPAGE} ]]
     then
       ITEMS="${COUNTER}"
-      COUNTER=1
+      COUNTER=0
       echo "</html>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
       ((PAGE++))
       echo "<html>${CSS}" > ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
       echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
     fi
+    ((COUNTER++))
     echo ">>>> CR2_FILENAME ${CR2_FILENAME}, page ${PAGE}, ${COUNTER}"
     HTML=${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
     echo '<div class="specimen">' >> ${HTML}
