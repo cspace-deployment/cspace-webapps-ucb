@@ -21,6 +21,11 @@ WEBSITE_BUCKET="s3://ucjeps-archiving-thumbnails/qa"
 # the jobs files used by the pipeline go here (many small files)
 export JOB_DIRECTORY="/cspace/merritt/jobs"
 
+# if solr is running on the same server and current, use localhost
+export SOLR_SERVER="http://localhost:8983"
+# otherwise, if the proxy is in place, use the remote solr server
+#export SOLR_SERVER="https://webapps.cspace.berkeley.edu"
+
 # os-specific command to format output of 'time'
 export TIME_COMMAND="/usr/bin/time -f TIME,%E,%U,%S,%C"
 
