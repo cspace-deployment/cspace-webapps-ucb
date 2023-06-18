@@ -77,8 +77,8 @@ def callback(request, rest):
                 solr_connection.add_many([ transaction ])
                 solr_connection.commit()
             except:
-                loginfo('merritt_archive', f'callback could not be posted to solr {transaction}', {}, {})
-
+                loginfo('merritt_archive', f'solr error: callback could not be posted to solr {transaction}', {}, {})
+                loginfo('merritt_archive', f'solr error: request.body {request.body}', {}, {})
             try:
                 # write the callback to the 'completed' file
                 # TODO: not sure why we have to specify the encoding here, but we do
