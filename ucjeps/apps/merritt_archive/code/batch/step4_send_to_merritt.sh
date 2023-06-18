@@ -37,14 +37,14 @@ for TIFF in `cut -f1 ${TIFFS}`
     TITLE=`./check_db.sh "${TIFF}" metadata`
 
     BLOCKED=`./check_db.sh "${TIFF}" blocked | head -1`
-    if [[ ! ${BLOCKED} == "" ]]; then
+    if [[ ! "${BLOCKED}" == "" ]]; then
       echo -e "${TIFF}\taccession number blocked: ${BLOCKED}\t${RUN_DATE}" >> ${TIFFS_ERRORS}
       echo -e "${TIFF}\taccession number blocked: ${BLOCKED}\t${RUN_DATE}"
       continue
     fi
 
     ALREADY_ARCHIVED=`./check_db.sh "${TIFF}" archived`
-    if [[ ! ${ALREADY_ARCHIVED} == "" ]]; then
+    if [[ ! "${ALREADY_ARCHIVED}" == "" ]]; then
       echo -e "${TIFF}\t$already archived as: ${ALREADY_ARCHIVED}\t${RUN_DATE}" >> ${TIFFS_ERRORS}
       continue
     fi
