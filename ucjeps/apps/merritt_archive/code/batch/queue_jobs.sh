@@ -9,6 +9,7 @@
 job() {
   i=$1
   work=$2
+  echo starting $work at $(date --rfc-3339=seconds)
   echo time ./run_pipeline.sh $work.input.csv ... /usr/bin/ts '[%Y-%m-%d %H:%M:%S]' ... $work.log
   time ./run_pipeline.sh $work.input.csv | /usr/bin/ts '[%Y-%m-%d %H:%M:%S]' &> $work.log
   ## run the work ....
@@ -76,7 +77,7 @@ work() {
 }
 
 ## Start the workers.
-WORKERS=3
+WORKERS=7
 for ((i=1;i<=$WORKERS;i++)); do
   echo will start $i
   work $i &
