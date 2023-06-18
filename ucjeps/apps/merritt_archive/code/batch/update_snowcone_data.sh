@@ -23,11 +23,13 @@ sort ${SNOWCONE_PATH}.txt > ${SNOWCONE_PATH}.temp
 mv ${SNOWCONE_PATH}.temp ${SNOWCONE_PATH}.txt
 
 echo "extracting metadata from 4solr file ..."
-cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
+# cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
+wget https://webapps.cspace.berkeley.edu/4solr.ucjeps.public.csv.gz .
 gunzip -f 4solr.ucjeps.public.csv.gz
 
 echo "extracting media info from 4solr file ..."
-cp /cspace/solr_cache/4solr.ucjeps.allmedia.csv.gz .
+# cp /cspace/solr_cache/4solr.ucjeps.allmedia.csv.gz .
+wget https://webapps.cspace.berkeley.edu/4solr.ucjeps.allmedia.csv.gz .
 gunzip -f 4solr.ucjeps.allmedia.csv.gz
 # remove the last line, for now
 sed '$d' 4solr.ucjeps.allmedia.csv > temp.txt ; mv temp.txt 4solr.ucjeps.allmedia.csv
