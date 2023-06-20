@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 IMAGE="$1"
+TEMP_IMAGE=/tmp/temp-$RANDOM.jpg
 
 function wrap_orientation() {
   echo "$1 $2 $3 : $4"
@@ -32,7 +33,7 @@ TYPE=''
 while IFS=$'\t' read -r TYPE STANDARD
 do
   #echo compare -channel red -metric MAE ${STANDARD} "${IMAGE}.top.jpg" z.jpg
-  TOP=`compare -channel red -metric MAE ${RUN_DIR}/${STANDARD} "${IMAGE}.top.jpg" temp.jpg 2>&1 | perl -ne 'chomp; s/[\. ].*// ; print $_;'`
+  TOP=`compare -channel red -metric MAE ${RUN_DIR}/${STANDARD} "${IMAGE}.top.jpg" $TEMP_IMAGE 2>&1 | perl -ne 'chomp; s/[\. ].*// ; print $_;'`
   # echo $TYPE $STANDARD $TOP
   SCORES="${SCORES} ${TOP}"
   if [[ $TOP -le $WINNER ]]; then
@@ -53,4 +54,4 @@ fi
 wrap_orientation $orientation ${WINNING_TYPE} ${WINNER} "$SCORES"
 convert "${IMAGE}.top.jpg" -quality 60 -thumbnail 20% "${IMAGE}.top.jpg"
 rm -f "${IMAGE}.top.jpg" "${IMAGE}.bottom.jpg"
-rm -f temp.jpg
+rm -f $TEMP_IMAGE
