@@ -8,6 +8,6 @@ aws s3 cp s3://cspace-merritt-in-transit-prod/jobs.tgz .
 tar xzf jobs.tgz
 rm -rf ~/jobs.bkp
 cp -r /cspace/merritt/jobs/ ~/jobs.bkp
-rsync -av jobs2sync /cspace/merritt/jobs
+rsync -av jobs2sync/ /cspace/merritt/jobs
 rm -rf jobs2sync
 
