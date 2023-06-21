@@ -14,29 +14,28 @@ if [[ -e "${SNOWCONE_PATH}.txt" ]]; then
   exit 1
 fi
 
-echo "make a list of files on s3://${SNOWCONE} ..."
+echo "making a list of files on s3://${SNOWCONE} ..."
 aws s3 ls --recursive s3://${SNOWCONE} > ${SNOWCONE_PATH}.txt || { echo "problem listing contents of s3://${SNOWCONE}"; exit 1; }
-echo $(wc -l ) ${SNOWCONE_PATH}.txt found
+echo $(wc -l  ${SNOWCONE_PATH}.txt)
 
 # sort the files in order by path. just so that there is a reproducible order
 sort ${SNOWCONE_PATH}.txt > ${SNOWCONE_PATH}.temp
 mv ${SNOWCONE_PATH}.temp ${SNOWCONE_PATH}.txt
 
 echo "extracting metadata from 4solr file ..."
-# cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
-wget https://webapps.cspace.berkeley.edu/4solr.ucjeps.public.csv.gz .
+cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
+# wget -q https://webapps.cspace.berkeley.edu/4solr.ucjeps.public.csv.gz .
 gunzip -f 4solr.ucjeps.public.csv.gz
 
 echo "extracting media info from 4solr file ..."
-# cp /cspace/solr_cache/4solr.ucjeps.allmedia.csv.gz .
-wget https://webapps.cspace.berkeley.edu/4solr.ucjeps.allmedia.csv.gz .
+cp /cspace/solr_cache/4solr.ucjeps.allmedia.csv.gz .
+# wget -q https://webapps.cspace.berkeley.edu/4solr.ucjeps.allmedia.csv.gz .
 gunzip -f 4solr.ucjeps.allmedia.csv.gz
 # remove the last line, for now
 sed '$d' 4solr.ucjeps.allmedia.csv > temp.txt ; mv temp.txt 4solr.ucjeps.allmedia.csv
 
-# TODO: update this script so it works properly
-#echo "extracting archived images from database ..."
-#./extract_archived_images.sh | cut -f3 | perl -pe 's/.TIF/.CR2/'  > archived.csv
+echo "extracting archived images from database ..."
+./extract_archived_images.sh | perl -pe 's/.TIF/.CR2/'  > archived.csv
 
 echo "running evaluation script to find archivable images"
 python3 \
@@ -66,9 +65,11 @@ echo "updating solr core ..."
 
 echo "creating archive input files ..."
 split --additional-suffix=.input.csv -a 3 -l 1000 -d ${SNOWCONE_PATH}.input.csv arc-${SNOWCONE}-
-echo "$(ls ../jobs/arc-${SNOWCONE}-*.input.csv | wc -l) job files created"
 mv arc-${SNOWCONE}-*.input.csv /cspace/merritt/jobs
+echo "$(ls /cspace/merritt/jobs/arc-${SNOWCONE}-*.input.csv | wc -l) job files created"
 
+# put a copy of the list of files on snowcones into the in transit bucket
+aws s3 sync /cspace/merritt/snowcones s3://cspace-merritt-in-transit-prod/
 # tidy up
 rm archived.csv
 rm 4solr.ucjeps.allmedia.csv
