@@ -3,10 +3,37 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.5.0-rc1
-Tue Jun 13 16:24:06 PDT 2023
+This is version 6.5.0-rc2
+Wed Jun 21 08:27:16 PDT 2023
 
-a55eee4 (HEAD -> main, origin/main, origin/HEAD) CSW-817: ucjeps archiving webapp needs to get results from solr
+77550df (HEAD -> main) CSW-817: update_snowcone_data.sh expects 4solr files locally now
+4262048 CSW-817: number of workers now 6 for ucjeps imaging pipeline
+c806169 CSW-817: tweaks to ucjeps imaging pipeline helper scripts
+31fe8d8 CSW-817: ucjeps imaging pipeline needs to be able to handle different snowcone buckets
+5475ae9 CSW-817: ucjeps imaging pipeline needs to be able to handle different snowcone buckets
+436cd15 CSW-817: this script needs to access the ucjeps merritt archive solr core
+2fbad1a CSW-817: two helper scripts for distributed workers in ucjeps imaging pipeline
+c5c1ba2 CSW-817: use a proper temp file in the ucjeps archiving orientation checking process
+10ecb1b (origin/main, origin/HEAD) CSW-817: use solr location set in env. vars in all cases
+86b4684 CSW-817: more bulletproofing for 'send to merritt' step in ucjeps archiving pipeline
+e4b2f75 CSW-817: source bucket location is now always the 'in transit' bucket, set in env. vars
+ad5dc47 CSW-817: increase number of workers in the ucjeps image archiving pipeline
+bd5ed20 CSW-817: obtain all 4solr files for ucjeps archving pipeline from same location
+0893067 CSW-817: improve log messages if there is a problem with solr transaction
+d4d0e0e CSW-817: allow the pipeline to pick its own SOLR_SERVER
+54ed401 CSW-817: correct number of items per page on archive image review website
+3a7738e CSW-817: more bulletproofing for merritt callback handling in ucjeps archiving pipeline
+1ceb537 CSW-817: correct typo in update_website.sh
+f8005a4 CSW-817: put snowcone files into a reproducible order, just in case
+fa574ce CSW-817: queue component for ucjeps image archiving pipeline jobs
+5e6d40d CSW-817: speculative changes to CR2 conversion orientation handling
+9174707 CSW-817: minor refactoring of ucjeps image archiving pipeline scripts: log msg, cleanup, etc.
+99ec5b8 CSW-817: add 'queue_jobs.sh'; minor revisions to 2 other ucjeps archiving scripts
+5e0ad83 CSW-817: add -v option to ucjeps archiving script 'check_db.sh'
+89c6fe0 CSW-817: tidy up ucjeps archiving batch directory
+d55cf5c CSW-817: now use the correct versions of these files for the ucjeps archving webapp 'merritt_archive'
+1f0fd4d (tag: 6.5.0-rc1) revise CHANGELOG.txt and bump version to 6.5.0-rc1
+a55eee4 CSW-817: ucjeps archiving webapp needs to get results from solr
 16ac13d CSW-817: refactor ucjeps imaging pipeline to use solr for callbacks, etc.
 0912367 CSW-817: improve statistic kept on ucjeps archiving pipeline
 7d82a10 CSW-817: capture stderr to logs in pipeline helper script for ucjeps archiving
