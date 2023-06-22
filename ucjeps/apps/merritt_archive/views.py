@@ -11,6 +11,7 @@ from os import path, listdir
 from os.path import isfile, isdir
 import time
 import csv
+import codecs
 #from .models import STATUSES
 # JOB_STATUSES = 'new,ok,deferred,queued,archived,tidied'.split(',')
 JOB_STATUSES = 'input diverted cr2s queued not_queued tiffs not_tiffs completed log'.split(' ')
@@ -49,13 +50,17 @@ def callback(request, rest):
     if request.method == 'POST':
         loginfo('merritt_archive', f'merrit jobid: {rest}', {}, {})
         try:
-            body_unicode = request.body.decode('utf-8')
+            body_unicode = request.body.decode('unicode-escape')
             body = json.loads(body_unicode)
             loginfo('merritt_archive', f'merrit body: {body_unicode}', {}, {})
             primaryID = body['job:jobState']['job:primaryID']
             completionDate = body['job:jobState']['job:completionDate']
             localID = body['job:jobState']['job:localID']
-            objectTitle = body['job:jobState']['job:objectTitle']
+            try:
+                objectTitle = body['job:jobState']['job:objectTitle']
+            except:
+                loginfo('merritt_archive', 'job:objectTitle not found', {}, {})
+                objectTitle = ''
             packageName = body['job:jobState']['job:packageName']
             # if the package name is the name of the manifest, use it as the 'completed' file name
             if '.checkm' in packageName:
