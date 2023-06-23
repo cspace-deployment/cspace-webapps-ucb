@@ -69,7 +69,7 @@ mv arc-${SNOWCONE}-*.input.csv /cspace/merritt/jobs
 echo "$(ls /cspace/merritt/jobs/arc-${SNOWCONE}-*.input.csv | wc -l) job files created"
 
 # put a copy of the list of files on snowcones into the in transit bucket
-aws s3 sync /cspace/merritt/snowcones s3://cspace-merritt-in-transit-prod/
+aws s3 sync --quiet /cspace/merritt/snowcones/ ${S3URI}/snowcones/
 # tidy up
 rm archived.csv
 rm 4solr.ucjeps.allmedia.csv

@@ -4,7 +4,6 @@ source step1_set_env.sh || { echo 'could not set environment vars. is step1_set_
 
 TENANT=ucjeps
 CORE=merritt
-CONTACT=jblowe@berkeley.edu
 CSVFILE="$1"
 RECORD_TYPE="$2"
 COLUMNS=$(echo -e 'accession_number_s\timage_filename_s\tstatus_s\tjob_s\ttransaction_date_dt\ttransaction_detail_s')
@@ -15,7 +14,6 @@ cat hdr ${CSVFILE} > temp.csv
 if [ "$3" == "refresh" ]; then
   echo "we zap the ${RECORD_TYPE} records in solr/${TENANT}-${CORE} first..."
   curl -S -s "${SOLR_SERVER}/solr/${TENANT}-${CORE}/update" --data '<delete><query>status_s:'${RECORD_TYPE}'</query></delete>' -H 'Content-type:text/xml; charset=utf-8'
-  curl -S -s "${SOLR_SERVER}/solr/${TENANT}-${CORE}/update" --data '<commit/>' -H 'Content-type:text/xml; charset=utf-8'
 else
   echo "POSTing ${CSVFILE}, i.e. adding documents to existing solr/${TENANT}-${CORE} ..."
 fi
@@ -27,8 +25,13 @@ echo "time curl -X POST -S -s "${SOLRCMD}" -H 'Content-type:text/plain; charset=
 time curl -X POST -S -s "${SOLRCMD}" -H 'Content-type:text/plain; charset=utf-8' -T temp.csv
 rm temp.csv hdr
 if [ $? != 0 ]; then
-  MSG="Solr POST failed for ${TENANT}-${CORE}, file ${CSVFILE} ; retrying using previous successful upload"
-  #echo "${MSG}" | mail -r "cspace-support@lists.berkeley.edu" -s "PROBLEM ${TENANT}-${CORE} nightly solr refresh failed" -- ${CONTACT}
+  MSG="Solr POST failed for ${TENANT}-${CORE}, file ${CSVFILE}"
+  echo $MSG
+  echo "${MSG}" | mail -r "cspace-support@lists.berkeley.edu" -s "PROBLEM ${TENANT}-${CORE} solr refresh failed" -- ${NOTIFY}
 else
-  echo "refresh of ${TENANT}-${CORE} succeeded."
+  MSG="refresh of ${TENANT}-${CORE} succeeded."
+  echo $MSG
+  echo "${MSG}" | mail -r "cspace-support@lists.berkeley.edu" -s "PROBLEM ${TENANT}-${CORE} solr refresh failed" -- ${NOTIFY}
 fi
+# commit the updates: only needed if we deleted stuff but we can just do it anyway
+curl -S -s "${SOLR_SERVER}/solr/${TENANT}-${CORE}/update" --data '<commit/>' -H 'Content-type:text/xml; charset=utf-8'

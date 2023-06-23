@@ -3,10 +3,16 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.5.0-rc2
-Wed Jun 21 08:27:16 PDT 2023
+This is version 6.5.0
+Fri Jun 23 08:38:30 PDT 2023
 
-77550df (HEAD -> main) CSW-817: update_snowcone_data.sh expects 4solr files locally now
+696d925 (HEAD -> main) CSW-873: get rid of obsolete toolbox webapp script
+8b19246 (origin/main, origin/HEAD) CSW-817: ucjeps pipeline syncs jobs files to s3 for posterity; tweaks to snowcone copy process
+ddd69b2 CSW-817: remove ucjeps image pipeline obsolete file
+62d04b0 CSW-817: handle some problem cases in ucjeps merritt callbacks
+42da530 CSW-817: fix typo in ucjeps image archiving helper script
+90ccf20 (tag: 6.5.0-rc2) revise CHANGELOG.txt and bump version to 6.5.0-rc2
+77550df CSW-817: update_snowcone_data.sh expects 4solr files locally now
 4262048 CSW-817: number of workers now 6 for ucjeps imaging pipeline
 c806169 CSW-817: tweaks to ucjeps imaging pipeline helper scripts
 31fe8d8 CSW-817: ucjeps imaging pipeline needs to be able to handle different snowcone buckets
@@ -14,7 +20,7 @@ c806169 CSW-817: tweaks to ucjeps imaging pipeline helper scripts
 436cd15 CSW-817: this script needs to access the ucjeps merritt archive solr core
 2fbad1a CSW-817: two helper scripts for distributed workers in ucjeps imaging pipeline
 c5c1ba2 CSW-817: use a proper temp file in the ucjeps archiving orientation checking process
-10ecb1b (origin/main, origin/HEAD) CSW-817: use solr location set in env. vars in all cases
+10ecb1b CSW-817: use solr location set in env. vars in all cases
 86b4684 CSW-817: more bulletproofing for 'send to merritt' step in ucjeps archiving pipeline
 e4b2f75 CSW-817: source bucket location is now always the 'in transit' bucket, set in env. vars
 ad5dc47 CSW-817: increase number of workers in the ucjeps image archiving pipeline
