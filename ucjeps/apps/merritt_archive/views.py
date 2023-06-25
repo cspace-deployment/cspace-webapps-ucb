@@ -11,7 +11,7 @@ from os import path, listdir
 from os.path import isfile, isdir
 import time
 import csv
-import codecs
+import traceback
 #from .models import STATUSES
 # JOB_STATUSES = 'new,ok,deferred,queued,archived,tidied'.split(',')
 JOB_STATUSES = 'input diverted cr2s queued not_queued tiffs not_tiffs completed log'.split(' ')
@@ -82,6 +82,7 @@ def callback(request, rest):
                 solr_connection.add_many([ transaction ])
                 solr_connection.commit()
             except:
+                loginfo('merritt_archive', 'solr error: traceback %s' % traceback.format_exc(), {}, {})
                 loginfo('merritt_archive', f'solr error: callback could not be posted to solr {transaction}', {}, {})
                 loginfo('merritt_archive', f'solr error: request.body {request.body}', {}, {})
             try:
@@ -89,9 +90,10 @@ def callback(request, rest):
                 # TODO: not sure why we have to specify the encoding here, but we do
                 job_file = open(path.join(JOB_DIR, f'{job_name}.completed.csv'), 'a+', encoding='utf-8')
                 job_writer = csv.writer(job_file, delimiter="\t")
-                job_writer.writerow([localID, primaryID, objectTitle, completionDate])
+                job_writer.writerow([localID, completionDate, primaryID, objectTitle])
                 job_file.close()
             except:
+                loginfo('merritt_archive', 'file write error: traceback %s' % traceback.format_exc(), {}, {})
                 loginfo('merritt_archive', f'callback could not be written to file {job_name}.completed.csv data = {job_name} / {primaryID} / {localID} / {objectTitle} / {completionDate}', {}, {})
 
             loginfo('merritt_archive', f'object archived: {job_name} / {primaryID} / {localID} / {objectTitle} / {completionDate}', {}, {})
