@@ -45,7 +45,7 @@ for TIFF in `cut -f1 ${TIFFS}`
 
     ALREADY_ARCHIVED=`./check_db.sh "${TIFF}" archived`
     if [[ ! "${ALREADY_ARCHIVED}" == "" ]]; then
-      echo -e "${TIFF}\t$already archived as: ${ALREADY_ARCHIVED}\t${RUN_DATE}" >> ${TIFFS_ERRORS}
+      echo -e "${TIFF}\talready archived as: ${ALREADY_ARCHIVED}\t${RUN_DATE}" >> ${TIFFS_ERRORS}
       continue
     fi
     # get rid of all vertical bars in the data
