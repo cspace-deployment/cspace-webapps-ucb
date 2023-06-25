@@ -13,6 +13,7 @@ cat hdr ${CSVFILE} > temp.csv
 # zap some records in the existing core, if we are instructed to refresh
 if [ "$3" == "refresh" ]; then
   echo "we zap the ${RECORD_TYPE} records in solr/${TENANT}-${CORE} first..."
+  echo curl -S -s "${SOLR_SERVER}/solr/${TENANT}-${CORE}/update" --data '<delete><query>status_s:'${RECORD_TYPE}'</query></delete>' -H 'Content-type:text/xml; charset=utf-8'
   curl -S -s "${SOLR_SERVER}/solr/${TENANT}-${CORE}/update" --data '<delete><query>status_s:'${RECORD_TYPE}'</query></delete>' -H 'Content-type:text/xml; charset=utf-8'
 else
   echo "POSTing ${CSVFILE}, i.e. adding documents to existing solr/${TENANT}-${CORE} ..."
@@ -31,7 +32,8 @@ if [ $? != 0 ]; then
 else
   MSG="refresh of ${TENANT}-${CORE} succeeded."
   echo $MSG
-  echo "${MSG}" | mail -r "cspace-support@lists.berkeley.edu" -s "PROBLEM ${TENANT}-${CORE} solr refresh failed" -- ${NOTIFY}
+  echo "${MSG}" | mail -r "cspace-support@lists.berkeley.edu" -s "${MSG}" -- ${NOTIFY}
 fi
 # commit the updates: only needed if we deleted stuff but we can just do it anyway
+echo curl -S -s "${SOLR_SERVER}/solr/${TENANT}-${CORE}/update" --data '<commit/>' -H 'Content-type:text/xml; charset=utf-8'
 curl -S -s "${SOLR_SERVER}/solr/${TENANT}-${CORE}/update" --data '<commit/>' -H 'Content-type:text/xml; charset=utf-8'
