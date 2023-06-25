@@ -26,16 +26,16 @@ if [[ "${DIRECTION}" == "to" ]] ; then
     exit 1
   fi
   for i in {1..1}; do
-    echo "/usr/bin/aws s3 cp --quiet '/tmp/${FILENAME}' '${MERRITT_TRANSIT}/${FILENAME}'"
-    ${TIME_CMD} /usr/bin/aws s3 cp --quiet "/tmp/${FILENAME}" "${MERRITT_TRANSIT}/${FILENAME}" && s=0 && break || s=$?
+    echo "/usr/bin/aws s3 cp --no-progress '/tmp/${FILENAME}' '${MERRITT_TRANSIT}/${FILENAME}'"
+    ${TIME_CMD} /usr/bin/aws s3 cp --no-progress "/tmp/${FILENAME}" "${MERRITT_TRANSIT}/${FILENAME}" && s=0 && break || s=$?
     echo "failed with exit code $s. retrying. attempt $i"
   done
   rm -f "/tmp/${FILENAME}"
   exit $s
 elif [[ "${DIRECTION}" == "from" ]] ; then
   for i in {1..1}; do
-    echo "/usr/bin/aws s3 cp --quiet '${MERRITT_TRANSIT}/${FILEPATH}' /tmp/${FILENAME}"
-    ${TIME_CMD} /usr/bin/aws s3 cp --quiet "${MERRITT_TRANSIT}/${FILEPATH}" /tmp/${FILENAME}
+    echo "/usr/bin/aws s3 cp --no-progress '${MERRITT_TRANSIT}/${FILEPATH}' /tmp/${FILENAME}"
+    ${TIME_CMD} /usr/bin/aws s3 cp --no-progress "${MERRITT_TRANSIT}/${FILEPATH}" /tmp/${FILENAME}
     if [[ $(head -1 /tmp/${FILENAME} | grep 'not found in S3 bucket') ]] ; then
       echo "${FILENAME} not found in S3 bucket ${MERRITT_TRANSIT}"
       exit 1

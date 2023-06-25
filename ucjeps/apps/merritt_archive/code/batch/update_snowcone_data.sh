@@ -35,7 +35,7 @@ gunzip -f 4solr.ucjeps.allmedia.csv.gz
 sed '$d' 4solr.ucjeps.allmedia.csv > temp.txt ; mv temp.txt 4solr.ucjeps.allmedia.csv
 
 echo "extracting archived images from database ..."
-./extract_archived_images.sh | perl -pe 's/.TIF/.CR2/'  > archived.csv
+./extract_archived_images.sh | perl -pe 's/.TIF/.CR2/'  | cut -f1 > archived.csv
 
 echo "running evaluation script to find archivable images"
 python3 \
@@ -69,7 +69,7 @@ mv arc-${SNOWCONE}-*.input.csv /cspace/merritt/jobs
 echo "$(ls /cspace/merritt/jobs/arc-${SNOWCONE}-*.input.csv | wc -l) job files created"
 
 # put a copy of the list of files on snowcones into the in transit bucket
-aws s3 sync --quiet /cspace/merritt/snowcones/ ${S3URI}/snowcones/
+aws s3 sync --no-progress /cspace/merritt/snowcones/ ${S3URI}/snowcones/
 # tidy up
 rm archived.csv
 rm 4solr.ucjeps.allmedia.csv

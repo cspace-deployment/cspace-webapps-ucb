@@ -18,7 +18,7 @@ while IFS=$'\t' read -r CR2
     # cut just the chunk we need from input
     CR2=$(cut -c32- <<< $CR2)
     CR2_FILENAME=`basename -- "${CR2}"`
-    echo aws s3 cp --quiet \"s3://${SNOWCONE}/${CR2}\" \"${S3URI}/${CR2_FILENAME}\"
-    aws s3 cp --quiet "s3://${SNOWCONE}/${CR2}" "${S3URI}/${CR2_FILENAME}"
+    echo aws s3 cp --no-progress \"s3://${SNOWCONE}/${CR2}\" \"${S3URI}/${CR2_FILENAME}\"
+    aws s3 cp --no-progress "s3://${SNOWCONE}/${CR2}" "${S3URI}/${CR2_FILENAME}"
   done < ${INPUTFILE}
 
