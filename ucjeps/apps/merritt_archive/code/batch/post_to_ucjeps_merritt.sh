@@ -32,8 +32,8 @@ if [ $? != 0 ]; then
 else
   MSG="refresh of ${TENANT}-${CORE} succeeded."
   echo $MSG
-  echo "${MSG}" | mail -r "cspace-support@lists.berkeley.edu" -s "${MSG}" -- ${NOTIFY}
+  # echo "${MSG}" | mail -r "cspace-support@lists.berkeley.edu" -s "${MSG}" -- ${NOTIFY}
 fi
-# commit the updates: only needed if we deleted stuff but we can just do it anyway
+# commit the updates: strictly needed only if we deleted stuff but we can just do it anyway
 echo curl -S -s "${SOLR_SERVER}/solr/${TENANT}-${CORE}/update" --data '<commit/>' -H 'Content-type:text/xml; charset=utf-8'
 curl -S -s "${SOLR_SERVER}/solr/${TENANT}-${CORE}/update" --data '<commit/>' -H 'Content-type:text/xml; charset=utf-8'
