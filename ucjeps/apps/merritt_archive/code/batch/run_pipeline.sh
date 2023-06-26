@@ -54,4 +54,6 @@ echo updating index.html and re-syncing website
 aws s3 sync --no-progress ${WEBDIR} ${WEBSITE_BUCKET} 2>&1
 rm -rf ${WEBDIR}
 rm -f ${INPUT_PREFIX}.inprogress.csv
+# copy the jobs files to s3 for future reference
+aws s3 cp --exclude "*" --include "${JOB_NAME}.*" --recursive ../jobs/ s3://cspace-merritt-in-transit-prod/jobs/
 echo "done with ${INPUT_FILE} at `date`"
