@@ -1,9 +1,6 @@
 from common.utils import deURN, loginfo
-import xml.etree.ElementTree as ET
-# import sys, csv, re, os
-from xml.sax.saxutils import escape
 from taxoneditor.lookupMajorGroup import lookupMajorGroup
-
+from os import path
 from xml.etree.ElementTree import fromstring
 
 TITLE = 'Taxon Editor'
@@ -73,7 +70,8 @@ formfields = [{'name': f[0], 'label': f[1], 'fieldtype': f[2], 'value': '', 'typ
 # this file should be in the same directory as this module
 xmlfile = 'taxon.xml'
 try:
-    template = open(xmlfile).read()
+    BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
+    template = open(f'{BASE_DIR}/taxoneditor/{xmlfile}').read()
     templateXML = fromstring(template)
     items = templateXML.findall('.//list-item')
 except:
@@ -101,4 +99,3 @@ def extractTag(xml, tag):
     except:
         element_text = ''
     return element_text
-
