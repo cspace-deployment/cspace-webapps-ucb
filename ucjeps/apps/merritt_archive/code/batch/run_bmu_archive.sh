@@ -2,7 +2,7 @@
 
 # archive bmu images from day before yesterday
 
-JOBS="bmu-$(date -d "2 days ago" +%Y-%m-%d)"
+JOBS="bmu-$(date -d "3 days ago" +%Y-%m-%d)"
 cd /cspace/merritt/jobs
 JOBFILES=$(ls $JOBS*.input.csv)
 cd /cspace/merritt/batch
