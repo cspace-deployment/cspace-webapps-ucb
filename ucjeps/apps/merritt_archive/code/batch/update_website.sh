@@ -19,6 +19,10 @@ H1
 
 TEMP1=$(mktemp /tmp/ucjeps-archiving-temp.XXXXXX)
 TEMP2=$(mktemp /tmp/ucjeps-archiving-temp.XXXXXX)
+
+# TODO: this is too slow! it enumerates ALL the files in the static website bucket
+# TODO: (there are hundreds of thousands) and then picks a few out to count and
+# TODO: build the top page. mebbe the counts can be sacrificed? cached somehow?
 aws s3 ls --recursive ${WEBSITE_BUCKET}/arc | grep .jpg > $TEMP1
 grep -v 'original' $TEMP1 | perl -pe 's#.*arc/##;s#/.*##' | sort -r | uniq -c > $TEMP2
 echo "<ul>"
