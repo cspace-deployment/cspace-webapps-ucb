@@ -82,7 +82,7 @@ def callback(request, rest):
                 solr_connection.add_many([ transaction ])
                 solr_connection.commit()
             except:
-                loginfo('merritt_archive', 'solr error: traceback %s' % traceback.format_exc(), {}, {})
+                loginfo('merritt_archive', 'solr error: %s' % traceback.format_exc(), {}, {})
                 loginfo('merritt_archive', f'solr error: callback could not be posted to solr {transaction}', {}, {})
                 loginfo('merritt_archive', f'solr error: request.body {request.body}', {}, {})
             try:
