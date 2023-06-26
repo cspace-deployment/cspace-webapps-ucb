@@ -34,7 +34,10 @@ ITEMSPERPAGE=100
 CSS='<head><link rel="stylesheet" href="/specimen.css" type="text/css"></head>'
 
 echo "<html>${CSS}" > ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
+echo "<div class="row">" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
 echo "<h3>Page ${PAGE}</h3>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
+echo "</div>" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
+echo "<div class="row">" >> ${OUTPUTPATH}/page$(printf "%02d" ${PAGE}).html
 
 echo "starting reading ${IMAGE_FILE}"
 while IFS=$'\t' read -r TIF
