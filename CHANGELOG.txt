@@ -3,15 +3,30 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.5.0
-Fri Jun 23 08:38:30 PDT 2023
+This is version 6.6.0-rc1
+Mon Jun 26 09:04:03 PDT 2023
 
-696d925 (HEAD -> main) CSW-873: get rid of obsolete toolbox webapp script
-8b19246 (origin/main, origin/HEAD) CSW-817: ucjeps pipeline syncs jobs files to s3 for posterity; tweaks to snowcone copy process
+4661224 (HEAD -> main) NOJIRA: repair unnoticed bug in ucjeps taxon editor; django paths have changed
+d5149e5 CSW-817: improve traceback message logging in ucjeps image archiving webapp
+537dd86 CSW-817: add some comments to the static website update script for ucjeps image archiving pipeline
+40925be CSW-817: static html produced for archiving bmu images should match that produced for the legacy images
+ed33a82 CSW-817: quiet down messaging of the ucjeps imaging pipeline solr maintenance script
+d848234 CSW-817: scripts to run ucjeps image archiving pipeline for bmu cr2 uploads
+cd8b1c8 (origin/main, origin/HEAD) CSW-817: run 'tidy up' script via cron for ucjeps image archiving pipeline
+8a9e685 CSW-817: add 'tidy up' script and test for same
+de58425 CSW-817: refactor output of two ucjeps image archiving helper scripts
+8ceb60b CSW-817: correct logs messages in ucjeps archiving pipeline post_to_ucjeps_merritt.sh
+d8e8018 CSW-817: correct typo in log msg for ucjeps archiving pipeline step4_send_to_merritt.sh
+39da8e4 CSW-817: use --no-progress rather than --quiet in aws cli calls in ucjeps image archiving pipeline
+12790f2 CSW-817: 'check_db' needs to handle differnt requests differently
+63ebe29 CSW-817: log traceback when/if callback processing fails in ucjeps image archiving pipeline
+d039d72 (tag: 6.5.0) revise CHANGELOG.txt and bump version to 6.5.0
+696d925 CSW-873: get rid of obsolete toolbox webapp script
+8b19246 CSW-817: ucjeps pipeline syncs jobs files to s3 for posterity; tweaks to snowcone copy process
 ddd69b2 CSW-817: remove ucjeps image pipeline obsolete file
 62d04b0 CSW-817: handle some problem cases in ucjeps merritt callbacks
 42da530 CSW-817: fix typo in ucjeps image archiving helper script
-90ccf20 (tag: 6.5.0-rc2) revise CHANGELOG.txt and bump version to 6.5.0-rc2
+90ccf20 revise CHANGELOG.txt and bump version to 6.5.0-rc2
 77550df CSW-817: update_snowcone_data.sh expects 4solr files locally now
 4262048 CSW-817: number of workers now 6 for ucjeps imaging pipeline
 c806169 CSW-817: tweaks to ucjeps imaging pipeline helper scripts
@@ -38,7 +53,7 @@ fa574ce CSW-817: queue component for ucjeps image archiving pipeline jobs
 5e0ad83 CSW-817: add -v option to ucjeps archiving script 'check_db.sh'
 89c6fe0 CSW-817: tidy up ucjeps archiving batch directory
 d55cf5c CSW-817: now use the correct versions of these files for the ucjeps archving webapp 'merritt_archive'
-1f0fd4d (tag: 6.5.0-rc1) revise CHANGELOG.txt and bump version to 6.5.0-rc1
+1f0fd4d revise CHANGELOG.txt and bump version to 6.5.0-rc1
 a55eee4 CSW-817: ucjeps archiving webapp needs to get results from solr
 16ac13d CSW-817: refactor ucjeps imaging pipeline to use solr for callbacks, etc.
 0912367 CSW-817: improve statistic kept on ucjeps archiving pipeline
