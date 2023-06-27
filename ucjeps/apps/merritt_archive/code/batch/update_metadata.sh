@@ -8,13 +8,13 @@ export RUN_DATE=`date +%Y-%m-%dT%H:%M`
 
 echo "extracting metadata from 4solr file ..."
 # cp /cspace/solr_cache/4solr.ucjeps.public.csv.gz .
-wget https://webapps.cspace.berkeley.edu/4solr.ucjeps.public.csv.gz .
+wget https://webapps.cspace.berkeley.edu/4solr.ucjeps.public.csv.gz
 gunzip -f 4solr.ucjeps.public.csv.gz
 cut -f3,4,8,9,10,52 4solr.ucjeps.public.csv | perl -pe 's#\t# / #g;s# / #\t\tmetadata\t\t$ENV{'RUN_DATE'}\t#;s/\|/, /g;s/, $//' > metadata.csv
 
 echo "extracting media info from 4solr file ..."
 # cp /cspace/solr_cache/4solr.ucjeps.allmedia.csv.gz .
-wget https://webapps.cspace.berkeley.edu/4solr.ucjeps.allmedia.csv.gz .
+wget https://webapps.cspace.berkeley.edu/4solr.ucjeps.allmedia.csv.gz
 gunzip -f 4solr.ucjeps.allmedia.csv.gz
 # remove the last line, for now
 sed '$d' 4solr.ucjeps.allmedia.csv > temp.txt ; mv temp.txt 4solr.ucjeps.allmedia.csv
