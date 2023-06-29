@@ -3,16 +3,21 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.6.0-rc1
-Mon Jun 26 09:04:03 PDT 2023
+This is version 6.6.0-rc2
+Thu Jun 29 08:12:04 PDT 2023
 
-4661224 (HEAD -> main) NOJIRA: repair unnoticed bug in ucjeps taxon editor; django paths have changed
+289d1f3 (HEAD -> main) CSW-817: two ucjeps image archivng helper scripts
+97a9209 (origin/main, origin/HEAD) CSW-882: replace (refactored) cp_only_s3.sh where it belongs so tricoder will work
+aac9de2 CSW-817: use correct location for ucjeps metadata in ucjeps archiving script
+209da21 CSW-817: adjust schedule of various ucjeps imaging pipeline bits
+5f8f00e (tag: 6.6.0-rc1) revise CHANGELOG.txt and bump version to 6.6.0-rc1
+4661224 NOJIRA: repair unnoticed bug in ucjeps taxon editor; django paths have changed
 d5149e5 CSW-817: improve traceback message logging in ucjeps image archiving webapp
 537dd86 CSW-817: add some comments to the static website update script for ucjeps image archiving pipeline
 40925be CSW-817: static html produced for archiving bmu images should match that produced for the legacy images
 ed33a82 CSW-817: quiet down messaging of the ucjeps imaging pipeline solr maintenance script
 d848234 CSW-817: scripts to run ucjeps image archiving pipeline for bmu cr2 uploads
-cd8b1c8 (origin/main, origin/HEAD) CSW-817: run 'tidy up' script via cron for ucjeps image archiving pipeline
+cd8b1c8 CSW-817: run 'tidy up' script via cron for ucjeps image archiving pipeline
 8a9e685 CSW-817: add 'tidy up' script and test for same
 de58425 CSW-817: refactor output of two ucjeps image archiving helper scripts
 8ceb60b CSW-817: correct logs messages in ucjeps archiving pipeline post_to_ucjeps_merritt.sh
