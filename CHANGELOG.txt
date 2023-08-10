@@ -3,11 +3,17 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.6.0-rc2
-Thu Jun 29 08:12:04 PDT 2023
+This is version 6.6.1-rc1
+Wed Aug  9 17:52:55 PDT 2023
 
-289d1f3 (HEAD -> main) CSW-817: two ucjeps image archivng helper scripts
-97a9209 (origin/main, origin/HEAD) CSW-882: replace (refactored) cp_only_s3.sh where it belongs so tricoder will work
+3cd6c53 (HEAD -> main, origin/main, origin/HEAD) Merge pull request #2 from lkvoong/CSW-890
+2d0d329 CSW-890: Update BMU Creator values; rm Williams, add Black, LaFortune
+f9e1855 (tag: 6.6.0) Merge pull request #1 from lkvoong/CSW-887
+5b87375 CSW-887: Update for N. Johnson, Add M. LaFortune to Handler list
+0cca103 CSW-817: ucjeps image archiving pipeline helper script to monitor merritt callbacks
+16e9033 (tag: 6.6.0-rc2) revise CHANGELOG.txt and bump version to 6.6.0-rc2
+289d1f3 CSW-817: two ucjeps image archivng helper scripts
+97a9209 CSW-882: replace (refactored) cp_only_s3.sh where it belongs so tricoder will work
 aac9de2 CSW-817: use correct location for ucjeps metadata in ucjeps archiving script
 209da21 CSW-817: adjust schedule of various ucjeps imaging pipeline bits
 5f8f00e (tag: 6.6.0-rc1) revise CHANGELOG.txt and bump version to 6.6.0-rc1
