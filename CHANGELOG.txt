@@ -3,10 +3,13 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.6.1-rc1
-Wed Aug  9 17:52:55 PDT 2023
+This is version 6.6.1-rc2
+Wed Oct  4 17:40:15 PDT 2023
 
-3cd6c53 (HEAD -> main, origin/main, origin/HEAD) Merge pull request #2 from lkvoong/CSW-890
+8d92710 (HEAD -> main, origin/main, origin/HEAD) Merge pull request #3 from lkvoong/CSW-902
+07165f4 CSW-902: Update UCBG BMU creators; new additions are QA refnames
+037e934 (tag: 6.6.1-rc1) revise CHANGELOG.txt and bump version to 6.6.1-rc1
+3cd6c53 Merge pull request #2 from lkvoong/CSW-890
 2d0d329 CSW-890: Update BMU Creator values; rm Williams, add Black, LaFortune
 f9e1855 (tag: 6.6.0) Merge pull request #1 from lkvoong/CSW-887
 5b87375 CSW-887: Update for N. Johnson, Add M. LaFortune to Handler list
