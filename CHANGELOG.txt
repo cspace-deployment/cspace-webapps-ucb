@@ -3,10 +3,11 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.6.1-rc3
-Wed Oct 11 10:24:00 PDT 2023
+This is version 6.6.1
+Wed Oct 11 10:28:35 PDT 2023
 
-32c5683 (HEAD -> main, origin/main, origin/HEAD) Merge pull request #4 from lkvoong/CSW-902
+4b170c8 (HEAD -> main, tag: 6.6.1-rc3, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.6.1-rc3
+32c5683 Merge pull request #4 from lkvoong/CSW-902
 995ce5b CSW-902: Update new BotGarden BMU Creators to Prod RefNames
 399de44 (tag: 6.6.1-rc2) revise CHANGELOG.txt and bump version to 6.6.1-rc2
 8d92710 Merge pull request #3 from lkvoong/CSW-902
