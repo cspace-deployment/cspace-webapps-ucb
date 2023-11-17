@@ -3,10 +3,11 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.6.2-rc1
-Fri Nov 17 13:31:16 PST 2023
+This is version 6.6.2-rc2
+Fri Nov 17 13:31:28 PST 2023
 
-cb57fea (HEAD -> main, origin/main, origin/HEAD) Merge pull request #7 from lkvoong/CSW-910
+0f71262 (HEAD -> main, tag: 6.6.2-rc1, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.6.2-rc1
+cb57fea Merge pull request #7 from lkvoong/CSW-910
 45addbe CSW-910: Update LocHandlers.txt to add Z Williams, O Rovelli for Tricoder
 d731f5f Merge pull request #6 from lkvoong/CSW-911
 0368760 CSW-911: Update refnames for new creators to prod refnames; add missing commas
