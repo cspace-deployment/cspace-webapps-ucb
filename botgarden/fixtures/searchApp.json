@@ -1,7 +1,7 @@
 [
     {
         "fields": {
-            "content": "<a href="https://botanicalgarden.berkeley.edu">UC Botanical Garden website</a>",
+            "content": "<a href=\"https://botanicalgarden.berkeley.edu\">UC Botanical Garden website</a>",
             "contentType": "HTML",
             "live": true,
             "name": "UCBG Website",
