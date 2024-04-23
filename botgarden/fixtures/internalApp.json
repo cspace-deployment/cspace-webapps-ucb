@@ -8,7 +8,7 @@
             "order": 0,
             "slug": "website"
         },
-        "model": "search.additionalinfo",
+        "model": "internal.additionalinfo",
         "pk": 1
     },
     {
