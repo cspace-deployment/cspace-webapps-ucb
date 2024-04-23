@@ -1,15 +1,27 @@
 [
     {
         "fields": {
+            "content": "<a href=\"https://botanicalgarden.berkeley.edu\">UC Botanical Garden website</a>",
+            "contentType": "HTML",
+            "live": true,
+            "name": "UCBG Website",
+            "order": 0,
+            "slug": "website"
+        },
+        "model": "search.additionalinfo",
+        "pk": 1
+    },
+    {
+        "fields": {
             "content": "    <h3>Welcome!</h3>\r\n    <p>This is a gateway to publicly-accessible data and some images for all plants held at the University of California Botanical Garden at Berkeley. We invite you to explore and discover our collections.<br><br>\r\nPlease note that the information provided herein comes from a variety of sources and represents our best effort to provide accurate information.<br><br>\r\nDetailed botanical information about the more than 17,000 living accessions (and historical records of 30,000 specimens that are no longer alive) are contained here.\r\n</p>\r\n",
             "contentType": "HTML",
             "live": true,
             "name": "About",
-            "order": 0,
+            "order": 1,
             "slug": "about"
         },
         "model": "search.additionalinfo",
-        "pk": 1
+        "pk": 2
     },
     {
         "fields": {
@@ -17,11 +29,11 @@
             "contentType": "HTML",
             "live": true,
             "name": "Help",
-            "order": 1,
+            "order": 2,
             "slug": "help"
         },
         "model": "search.additionalinfo",
-        "pk": 2
+        "pk": 3
     },
     {
         "fields": {
@@ -29,11 +41,11 @@
             "contentType": "HTML",
             "live": true,
             "name": "Terms",
-            "order": 2,
+            "order": 3,
             "slug": "terms"
         },
         "model": "search.additionalinfo",
-        "pk": 3
+        "pk": 4
     },
     {
         "fields": {
@@ -41,10 +53,10 @@
             "contentType": "HTML",
             "live": true,
             "name": "Credits",
-            "order": 3,
+            "order": 4,
             "slug": "credits"
         },
         "model": "search.additionalinfo",
-        "pk": 4
+        "pk": 5
     }
 ]
