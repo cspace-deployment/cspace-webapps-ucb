@@ -3,10 +3,23 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.6.3
-Mon Jan 29 11:05:52 PST 2024
+This is version 6.7.0-rc1
+Wed May 15 15:14:26 PDT 2024
 
-9ddf7e8 (HEAD -> main, tag: 6.6.3-rc1, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.6.3-rc1
+f316ca0 (HEAD -> main, origin/main, origin/HEAD) Merge pull request #12 from lkvoong/CSW-899
+13c401c CSW-899: fix commas in internalApp.json
+ab70a64 CSW-899: escape double quotes in href for UCBG Website
+0a3d828 CSW-899: add missing comma after content
+d143c5d CSW-899: fix typo to reference internalApp for UCBG Website
+f16abf6 CSW-899: Add UCBG Website link to additionalInfo nav menu
+618f2fe Merge pull request #11 from felder/felder_nice_cr2
+881b160 lower priority of cr2 conversion
+7b21acd Merge pull request #10 from lkvoong/CSW-921
+8cb2121 CSW-921: Added Linda Waterfield to BMU Creator list
+89fb1ec Merge pull request #9 from lkvoong/CSW-906
+9948f28 (tag: 6.6.3) revise CHANGELOG.txt and bump version to 6.6.3
+f4105b5 CSW-906: Revert usebmuoptions flag to deploy 6.6.3 without CSW-906 changes
+9ddf7e8 (tag: 6.6.3-rc1) revise CHANGELOG.txt and bump version to 6.6.3-rc1
 8b296c3 Merge pull request #8 from lkvoong/CSW-906
 aa1943a CSW-906: set usebmuoptions to True for PAHMA
 c3e906b (tag: 6.6.2) revise CHANGELOG.txt and bump version to 6.6.2
