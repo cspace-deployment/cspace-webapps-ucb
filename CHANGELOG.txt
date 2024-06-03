@@ -3,10 +3,15 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.7.0-rc1
-Wed May 15 15:14:26 PDT 2024
+This is version 6.7.0-rc2
+Mon Jun  3 11:52:09 PDT 2024
 
-f316ca0 (HEAD -> main, origin/main, origin/HEAD) Merge pull request #12 from lkvoong/CSW-899
+0c92e8d (HEAD -> main, origin/main, origin/HEAD) Merge pull request #13 from lkvoong/CSW-906
+cdb5b5e CSW-906: revert serverlabel to production
+cfdd76a CSW-906: revert serverlabel and color to prod/red
+7e8f8ec CSW-906: add PAHMA bmu creator L. Waterfield
+1403618 (tag: 6.7.0-rc1) revise CHANGELOG.txt and bump version to 6.7.0-rc1
+f316ca0 Merge pull request #12 from lkvoong/CSW-899
 13c401c CSW-899: fix commas in internalApp.json
 ab70a64 CSW-899: escape double quotes in href for UCBG Website
 0a3d828 CSW-899: add missing comma after content
@@ -16,6 +21,8 @@ f16abf6 CSW-899: Add UCBG Website link to additionalInfo nav menu
 881b160 lower priority of cr2 conversion
 7b21acd Merge pull request #10 from lkvoong/CSW-921
 8cb2121 CSW-921: Added Linda Waterfield to BMU Creator list
+d33328c CSC-906: update PAHMA bmuoptions and bmuconstants
+7945d9a CSW-906: Add BMU options for PAHMA
 89fb1ec Merge pull request #9 from lkvoong/CSW-906
 9948f28 (tag: 6.6.3) revise CHANGELOG.txt and bump version to 6.6.3
 f4105b5 CSW-906: Revert usebmuoptions flag to deploy 6.6.3 without CSW-906 changes
