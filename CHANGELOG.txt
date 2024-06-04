@@ -3,10 +3,11 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.7.0-rc3
-Mon Jun  3 16:26:16 PDT 2024
+This is version 6.7.0
+Tue Jun  4 10:24:46 PDT 2024
 
-f4e9807 (HEAD -> main, tag: 6.7.0-rc2, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.7.0-rc2
+d1fb0dc (HEAD -> main, tag: 6.7.0-rc3, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.7.0-rc3
+f4e9807 (tag: 6.7.0-rc2) revise CHANGELOG.txt and bump version to 6.7.0-rc2
 0c92e8d Merge pull request #13 from lkvoong/CSW-906
 cdb5b5e CSW-906: revert serverlabel to production
 cfdd76a CSW-906: revert serverlabel and color to prod/red
