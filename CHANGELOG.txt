@@ -3,10 +3,16 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.7.0
-Tue Jun  4 10:24:46 PDT 2024
+This is version 6.7.1-rc1
+Fri Jul  5 12:19:16 PDT 2024
 
-d1fb0dc (HEAD -> main, tag: 6.7.0-rc3, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.7.0-rc3
+7a7ad69 (HEAD -> main, origin/main, origin/HEAD) Merge pull request #14 from lkvoong/CSW-908
+0c9893f CSW-908: Remove osteology path from urlpatterns
+09eeafe CSW-908: comment out osteology app from INSTALLED_APPS
+5e99b49 CSW-908: remove osteology from publicApps list
+4e69499 CSW-908: Comment out reference to osteology app
+fafee85 (tag: 6.7.0) revise CHANGELOG.txt and bump version to 6.7.0
+d1fb0dc (tag: 6.7.0-rc3) revise CHANGELOG.txt and bump version to 6.7.0-rc3
 f4e9807 (tag: 6.7.0-rc2) revise CHANGELOG.txt and bump version to 6.7.0-rc2
 0c92e8d Merge pull request #13 from lkvoong/CSW-906
 cdb5b5e CSW-906: revert serverlabel to production
