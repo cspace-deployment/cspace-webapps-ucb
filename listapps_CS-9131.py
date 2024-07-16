@@ -157,7 +157,7 @@ APPS = {
     'search': 'Public Portal',
     'imageadjuster': 'Image Adjuster',
     'merritt_archive': 'Merritt Archiving',
-    'osteology': 'Osteology Portal',
+    # 'osteology': 'Osteology Portal',
     'publicsearch': '"legacy" Public Portal',
     'ireports': 'iReports',
     'uploadmedia': 'Bulk Media Upload',
