@@ -131,6 +131,9 @@ PAGE="""<html lang="en-us">
   ga('create', 'UA-54952024-5', 'auto');
   ga('send', 'pageview');
 </script>
+
+<!-- HMP-380 -->
+<script async src=”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”></script>
 </body>
 </html>"""
 

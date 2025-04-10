@@ -14,6 +14,9 @@ PAGE="""<html lang="en-us">
       gtag('config', 'G-CTHEJY2DP7');
     </script>
 
+    <!-- HMP-380 -->
+    <script async src=”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="robots" content="NONE,NOARCHIVE">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
