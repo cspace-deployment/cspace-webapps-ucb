@@ -15,7 +15,7 @@ PAGE="""<html lang="en-us">
     </script>
 
     <!-- HMP-380 -->
-    <script async src=”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”></script>
+    <script async src='https://siteimproveanalytics.com/js/siteanalyze_6294756.js'></script>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="robots" content="NONE,NOARCHIVE">
