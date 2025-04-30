@@ -133,7 +133,7 @@ PAGE="""<html lang="en-us">
 </script>
 
 <!-- HMP-380 -->
-<script async src=”https://siteimproveanalytics.com/js/siteanalyze_6294756.js”></script>
+<script async src='https://siteimproveanalytics.com/js/siteanalyze_6294756.js'></script>
 </body>
 </html>"""
 
