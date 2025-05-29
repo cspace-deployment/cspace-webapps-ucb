@@ -3,10 +3,16 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 6.7.2-rc1
-Mon Feb  3 12:02:37 PST 2025
+This is version 7.0.0-rc1
+Thu May 29 10:24:54 PDT 2025
 
-ee7103c (HEAD -> main, tag: 6.7.1, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 6.7.1
+1552a04 (HEAD -> main, origin/main, origin/HEAD) Merge pull request #18 from felder/felder_HMP-380
+f5b1d00 [HMP-380] switch double quote to single quote
+dbb5a9d Merge pull request #17 from felder/felder_HMP-380
+2924620 [HMP-380] probably want the script here too
+0444787 [HMP-380] add siteimprove script
+a6b73dc (tag: 6.7.2-rc1) revise CHANGELOG.txt and bump version to 6.7.2-rc1
+ee7103c (tag: 6.7.1) revise CHANGELOG.txt and bump version to 6.7.1
 6629847 Merge pull request #16 from lkvoong/CSW-937
 a33798d CSW-937/CS-9131: synch changes from CSW-908 to listapps_CS-9131.py
 c97d206 Merge pull request #15 from lkvoong/CSW-937
