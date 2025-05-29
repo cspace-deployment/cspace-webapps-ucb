@@ -3,10 +3,11 @@ CHANGELOG for cspace-webapps-ucb
 OK, it is not a *real* change log, but a list of changes resulting from git log
 sometimes with some human annotation after the fact.
 
-This is version 7.0.0-rc1
-Thu May 29 10:24:54 PDT 2025
+This is version 7.0.0
+Thu May 29 12:20:08 PDT 2025
 
-1552a04 (HEAD -> main, origin/main, origin/HEAD) Merge pull request #18 from felder/felder_HMP-380
+afc4e4e (HEAD -> main, tag: 7.0.0-rc1, origin/main, origin/HEAD) revise CHANGELOG.txt and bump version to 7.0.0-rc1
+1552a04 Merge pull request #18 from felder/felder_HMP-380
 f5b1d00 [HMP-380] switch double quote to single quote
 dbb5a9d Merge pull request #17 from felder/felder_HMP-380
 2924620 [HMP-380] probably want the script here too
