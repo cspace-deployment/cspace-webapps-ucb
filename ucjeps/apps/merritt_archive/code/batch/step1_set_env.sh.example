@@ -27,4 +27,4 @@ export SOLR_SERVER="http://localhost:8983"
 export TIME_COMMAND="/usr/bin/time -f TIME,%E,%U,%S,%C"
 
 # notify
-NOTIFY=jblowe@berkeley.edu,jason_alexander@berkeley.edu
+NOTIFY=jason_alexander@berkeley.edu
