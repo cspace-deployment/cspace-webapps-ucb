@@ -5,6 +5,9 @@ This Directory contains _sample_ configuration files for the various UCB tenants
 
 It also contains the code for custom apps for UCB tenants (i.e. apps that are not contributed to the core set, or were written specifically for a tenant).
 
+For developers and ops: the [CollectionSpace hosting inventory](https://drive.google.com/file/d/1l4In1IwlmcXnb_7g05Sk5YJgMP3r6OQR/view) (PDF; UC Berkeley sign-in
+required) lists what runs today on the hosts these configurations are deployed to, and on Glimmer's hosts.
+
 Most of the config files will work with _production_ UCB deployments unmodified, but for use on Dev (or other) deployments
 hostname, port, and other changes need to be made.
 
